@@ -15,7 +15,7 @@ The folders & files :
 - tsconfig : Typescript config.
 - webpack.[dev|prod].config.js : Webpack configuration depending what you want to do.
 
-## Automated tasks
+## Setup.
 
 We supply in bash a set of commands to make your life easier.
 
@@ -48,4 +48,10 @@ When the configuration & the database are set, just start the developpement serv
 ```bash
 source venv/bin/activate
 python2 main.py
+```
+
+Then compile the client :
+
+```bash
+node_modules/webpack/bin/webpack.js --watch --config webpack.dev.config.js
 ```
