@@ -58,6 +58,11 @@ def send_index(e):
     """
     return send_file(INDEX_FILE)
 
+@DB_API_BLUEPRINT.before_request
+@FLASK_USER_API.is_connected
+def is_connected():
+    pass
+
 # Finally register the Db API blueprint
 APP.register_blueprint(DB_API_BLUEPRINT, url_prefix=u"/api/db")
 APP.register_blueprint(USER_API_BLUEPRINT, url_prefix=u"/api/user")
