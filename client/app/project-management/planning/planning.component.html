@@ -1,0 +1,26 @@
+<p>Hello planning</p>
+
+
+<div #container (scroll)="onScroll($event)" class="table-wrapper">
+    <table #content id="planning-table">
+        <thead>
+            <tr>
+                <th class="fix-month" colspan="2">Month :</th>
+                <th class="header" *ngFor="let day of days">{{getMonth(day)}}<th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th class="fix-user">User</th>
+                <th class="fix-task">Task</th>
+                <th class="header" *ngFor="let day of days">{{day.getDate()}}<th>
+            </tr>
+            <tr  *ngFor="let assignement of assignations">
+                <td class="fix-user" >{{assignement.user.name}}</td>
+                <td class="fix-task" >{{assignement.task.name}}</td>
+                <td class="cell" *ngFor="let cell of assignement.task.days">{{cell.display}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

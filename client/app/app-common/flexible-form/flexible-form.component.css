@@ -1,0 +1,43 @@
+label
+{
+  display:block;
+}
+
+.button-container
+{
+  margin-top:5px;
+}
+
+
+.button-right
+{
+  text-align:center;
+  float:right;
+}
+
+
+md-select
+{
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+md-input-container
+{
+  width:100%;
+}
+
+input[disabled] {
+    cursor: default;
+    color: gray;
+}
+
+.ng-invalid:not(form)  {
+  color: #F44336;
+}
+
+.cancel-icon
+{
+  color: #F44336;
+}

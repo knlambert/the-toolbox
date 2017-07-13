@@ -1,0 +1,111 @@
+
+
+#report-container
+{
+    display:block;
+    width:98%;
+    min-height:500px;
+    background-color: white;
+    padding:1%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+#loader-container
+{
+    height:5px;
+    width:100%;
+    overflow: auto;
+}
+
+#report-container
+{
+    
+    font-size:12px;
+    overflow: auto;
+}
+
+#pager
+{
+    min-width:150px;
+}
+
+table
+{
+    border-collapse: collapse;
+    border: none;
+    width:98%;
+    border-bottom: 1px solid white;
+}
+
+
+.line-selector-cell
+{
+    width: 20px;
+}
+td, th 
+{
+     max-width: 150px;
+    padding: 10px;
+    text-align:left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+tr
+{
+    border-bottom: 1px solid #EEEEEE;
+}
+
+th
+{
+    font-style: normal;
+    color:#9E9E9E;
+}
+
+#delete-icon
+{
+    color: #F44336;
+}
+
+.card {
+  background: #fff;
+  border-radius: 2px;
+}
+
+tr:hover {
+  background-color:#EEEEEE;
+}
+
+#page-num
+{
+    display:inline-block;
+    min-width:30px;
+    text-align:center;
+}
+
+md-icon-button:disabled > md-icon
+{
+    color:red;
+}
+
+#pager
+{
+    margin-top:5px;
+}
+
+.sort-icon
+{
+    color:#9E9E9E;
+    float: right;
+    position:relative;
+    bottom:4.5px;
+    width:12px;
+    height:12px;
+    font-size: 24px;
+}
+
+#more-button
+{
+    float:right;
+}

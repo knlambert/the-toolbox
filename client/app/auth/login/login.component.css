@@ -1,0 +1,44 @@
+
+label
+{
+  display:block;
+}
+
+button
+{
+  margin-top:20px;
+  margin-right:0px;
+}
+
+#login-card
+{
+  width:320px;
+  background-color:#F5F5F5;
+  /*padding:20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+  margin: 0 auto;
+}
+
+
+#id_login, #id_password
+{
+  width: 100%;
+}
+
+#id_button_sign_in
+{
+  float:right;
+}
+
+md-input-container
+{
+
+  width:100%;
+}
+
+
+md-spinner
+{
+  margin-left: auto;
+    margin-right: auto;
+}

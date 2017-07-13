@@ -1,0 +1,48 @@
+
+
+<div class="pure-g">
+    <div class="pure-u-sm-1 pure-u-md-1 pure-u-lg-1-2 pure-u-1 card">
+        <form  #searchForm="ngForm" class="pure-g" (ngSubmit)="submitForm(searchForm.value)">
+
+            <div class="pure-u-md-1-2 pure-u-sm-1 pure-u-1 ">
+                <db-autocomplete name="client" ngModel [db]="'client'"  labelField="name" (selected)="updateProjectAutocompleteQuery($event.selected)"></db-autocomplete>
+            </div>
+
+            <div class="pure-u-md-1-2 pure-u-sm-1 pure-u-1 ">
+                <db-autocomplete name="project" ngModel [db]="'project'" [query]="projectPattern"  (ngModelChange)="addProject($event)" labelField="name"></db-autocomplete>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="calendars-container" class="card">
+    <div class="pure-g ">
+        <div class="pure-u-1">  
+            <md-slide-toggle labelPosition="before" id="display-mode-slide"(change)="changeMode()">{{displayMode}}</md-slide-toggle>
+        </div>
+        <div class="form-group pure-u-1-2">    
+            <button (click)="previousCursor()" md-icon-button type="button">
+                <md-icon>navigate_before</md-icon>
+            </button>
+        </div>
+
+        <div class="form-group pure-u-1-2">    
+            <button (click)="nextCursor()" id="id-button-advance-calendar" md-icon-button type="button">
+                <md-icon>navigate_next</md-icon>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="pure-g">
+        <div class="pure-u-1" *ngFor="let load of displayedLoads">
+            <hc-project-load-calendar 
+            [displayMode]="displayMode" 
+            [daysHeaders]="daysHeaders" 
+            [load]="load" 
+            [data]="dataLoads[load.project.id]"
+            (deleted)="deleteProject($event.deletedProjectId)"
+            ></hc-project-load-calendar>
+        </div>
+    <div>
+</div>

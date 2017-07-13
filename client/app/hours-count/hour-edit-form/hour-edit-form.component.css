@@ -1,0 +1,57 @@
+.button-container
+{
+  margin-top:5px;
+}
+
+
+.button-right
+{
+  text-align:center;
+  float:right;
+}
+
+
+
+.ng-invalid:not(form)  {
+  color:red;
+}
+
+.form-group .pure-u-1
+{
+  display:inline-block;
+}
+label
+{
+  display:block;
+}
+
+
+md-select
+{
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+md-input-container
+{
+  width:100%;
+}
+
+#icon-cancel
+{
+  color: #F44336;
+}
+
+#input-container-minutes
+{
+  display:inline-block;
+  width:75%;
+}
+
+#button-timer
+{
+  display:inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}

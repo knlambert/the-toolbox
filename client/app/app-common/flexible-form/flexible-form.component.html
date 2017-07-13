@@ -1,0 +1,63 @@
+
+
+<div *ngIf="loaded== true" >
+  <form class="pure-g" [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+     
+    <div class="pure-u-1" *ngFor="let field of description.fields; ">
+      <div *ngIf="['text', 'number', 'timestamp'].indexOf(field.type) !== -1 
+      && field.nestedDescription == null && field.editable !== false && field.extra != 'auto_increment'">
+        
+        <md-input-container *ngIf="field.type == 'text'">
+          <input 
+            mdInput class="form-control"
+            [required]="field.required"
+            type="text"
+            [placeholder]="field.name" 
+            [formControl]="formGroup.controls[field.name]" >
+        </md-input-container>
+        <md-input-container *ngIf="field.type == 'number'">
+          <input 
+            class="form-control"
+            mdInput
+            type="number"
+            [required]="field.required"
+            [placeholder]="field.name" 
+            [formControl]="formGroup.controls[field.name]" >
+        </md-input-container>
+          
+        <md-input-container *ngIf="field.type == 'timestamp'" >
+          <input mdInput 
+            
+            class="form-control"
+            [required]="field.required"
+            type="text"
+            [placeholder]="field.name + ' (MM/DD/YYYY)'" 
+            [formControl]="formGroup.controls[field.name]" >
+          </md-input-container>
+        
+      </div>
+
+      
+      <div *ngIf="field.nestedDescription != null && field.editable !== false">
+        <db-autocomplete [db]="field.nestedDescription.source"  labelField="name" [formControl]="formGroup.controls[field.name]" ></db-autocomplete>
+      </div>
+
+
+
+    </div>
+
+    <div *ngIf="isEditable" class="form-group pure-u-1-2 button-container">
+      <button  md-icon-button class="pure-button pure-button-transparent" type="button" (click)="cancelForm()" >
+        <md-icon class="cancel-icon">cancel</md-icon>
+      </button>
+    </div>
+    <div *ngIf="isEditable" class="form-group pure-u-1-2 button-container">
+      <button md-icon-button (click)="submitForm(formGroup.value);" type="button" class="pure-button pure-button-transparent button-right" [hidden]="!formGroup.valid">
+        <md-icon>save</md-icon>
+      </button>
+    </div>
+    
+  </form>
+</div>
+<!--<pre style="letter-spacing: 0.01em;">{{ formGroup.value | json }}</pre>
+<pre style="letter-spacing: 0.01em;">{{ formGroup.valid | json }}</pre>-->

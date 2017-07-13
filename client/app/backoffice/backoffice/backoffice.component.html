@@ -1,0 +1,47 @@
+
+
+
+
+<div class="pure-g">
+  <!--<pre style="letter-spacing: 0.01em;">{{ editingItems | json }}</pre>-->
+
+  <div class="pure-u-1 pure-u-xl-1-6 pure-u-lg-1-4 pure-u-md-1-2">
+    <md-select (ngModelChange)="reset($event)" [(ngModel)]="referential" placeholder="Referential">
+      <md-option *ngFor="let ref of referentials" [value]="ref"  >{{ref}}</md-option>
+    </md-select>
+  </div>
+  
+</div>
+
+<div class="pure-g">
+
+  
+
+    <div *ngFor="let item of editingItems" class="pure-u-1 pure-u-md-1-2  pure-u-lg-1-4 pure-u-xl-1-6">
+      <div class="card">
+        <flexible-form 
+          (submited)="create($event)"
+          (edited)="edit($event)"
+          (canceled)="cancel($event)"
+          [isEditable]="true"
+          [uuid]="item.uuid"
+          [description]="description"
+          [isCreated]="item.isCreated"
+          [value]="item.object">
+        </flexible-form>
+      </div>
+    </div>
+
+</div>
+
+<report  #Report 
+  (refreshed)="refresh(referential, $event.filters, $event.page, $event.pageSize, $event.orderBy)"
+  (deleted)="delete($event.selectedObjects)" 
+  (edited)="openEdition($event.selectedObjects)"
+  (added)="openEdition([$event])"
+  (exported)="export(referential, $event.filters, $event.page, $event.pageSize, $event.orderBy)"
+  ></report>
+
+
+
+

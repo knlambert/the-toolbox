@@ -1,0 +1,31 @@
+<div class="main-menu-container">
+  <button md-icon-button *ngIf="userInformations != null" class="main-menu-slider-button" (click)="toggle();" >
+    <md-icon id="menu-icon">menu</md-icon>
+  </button>
+  <div *ngIf="userInformations" class="main-menu-login" >
+ 
+    <div class="main-menu-login-text">{{userInformations.name}}</div>
+
+    <button class="main-menu-settings-button" md-icon-button (click)="settings();">
+      <md-icon id="settings-icon">settings</md-icon>
+    </button>
+    
+
+    <button md-icon-button class="main-menu-logout-button" (click)="logout();" >
+      <md-icon id="logout-icon">cancel</md-icon>
+    </button>
+
+
+  </div>
+  <div *ngIf="!userInformations" class="main-menu-login" >You are not connected</div>
+
+
+</div>
+
+<div class="main-menu-slider" [hidden]="!isOpen">
+  <ul *ngFor="let link of config.links;">
+    <li>
+      <a routerLink="{{link.url}}" routerLinkActive="active" (click)="route()">{{link.label}}</a>
+    </li>
+  </ul>
+</div>
