@@ -2,19 +2,27 @@
 
 # Structure
 
-Note we have two distinct branch. Please use develop for any of your modifications which are not production ready.
+The repository uses npm & bash for automation.
 
-The repository use grunt & npm.
+The folders & files :
+- client : Frontend code (Angular2).
+- database : Script & workbench schema for the database.
+- assets : Various resources for the front end.
+- requirements : The requirements of the App (Python pip).
+- tasks : Automated bash tasks.
+- config.py : App configuration. Only a dummy example.
+- main.py : Entry point.
+- tsconfig : Typescript config.
+- webpack.[dev|prod].config.js : Webpack configuration depending what you want to do.
 
-# Setting-up
+## Automated tasks
 
-## Grunt automated tasks
+We supply in bash a set of commands to make your life easier.
 
-We supply in grunt a set of commands to make the deployement easier. Please update it if you add something that requires to be automated.
-
-- **setup** : Init the virtual environment.
-- **build** : Build docker image
-
+- Setup the project.
+```bash
+./task/setup.sh
+```
 
 ## The database
 
@@ -33,29 +41,11 @@ sudo apt-get install mysql-client
 mysql -h 127.0.0.1 -u root -p
 ```
 
-# Deploy
+## Dev mode
 
-## On Heroku
+When the configuration & the database are set, just start the developpement server :
 
-Push your current build to a deploy branch.
 ```bash
-git checkout -b deploy
-git push origin deploy
+source venv/bin/activate
+python2 main.py
 ```
-
-Log to heroku.
-```bash
-heroku login
-```
-
-Identify App to deploy in Heroku.
-```bash
-heroku git:remote -a APPNAME
-```
-
-And then deploy from deploy to master in Heroku
-```bash
-git push heroku deploy:master   
-```
-
-
