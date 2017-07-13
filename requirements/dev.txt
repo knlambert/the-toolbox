@@ -1,6 +1,6 @@
 
-git+https://switchON@gitlab.com/switchON/db-api.git@master
-git+https://switchON@gitlab.com/switchON/user-api-pbkdf2.git@master
+git+https://github.com/duckswitch/py-duck-db-api.git@master
+git+https://github.com/duckswitch/py-duck-user-api.git@master
 Flask==0.11.1
 Jinja2==2.8
 MarkupSafe==0.23
