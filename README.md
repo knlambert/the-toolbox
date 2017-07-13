@@ -15,7 +15,7 @@ The folders & files :
 - tsconfig : Typescript config.
 - webpack.[dev|prod].config.js : Webpack configuration depending what you want to do.
 
-## Setup.
+## Setup
 
 We supply in bash a set of commands to make your life easier.
 
