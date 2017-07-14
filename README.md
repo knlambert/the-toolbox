@@ -26,7 +26,7 @@ We supply in bash a set of commands to make your life easier.
 
 ## The database
 
-This application use MySQL on Google Cloud Platform. To develop in localy, you need to install docker and [a Mysql image](https://hub.docker.com/_/mysql/).
+This application uses MySQL. To develop localy, you need to install docker and [a Mysql image](https://hub.docker.com/_/mysql/).
 
 ```bash
 # Install docker
