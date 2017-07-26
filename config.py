@@ -14,7 +14,7 @@ CONFIG = {
     u"db-api": {
         u"db_host": u"127.0.0.1",
         u"db_user": u"root",
-        u"db_passwd": u"localroot1234",
+        u"db_password": u"localroot1234",
         u"db_name": u"hours_count"
     }
 }

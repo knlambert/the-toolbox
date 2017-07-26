@@ -8,9 +8,10 @@ import fnmatch
 import MySQLdb
 from config import CONFIG
 from urlparse import urlparse
-from user_api.user_api import UserApi 
-from user_api.flask_user_api import FlaskUserApi 
-from db_api.blueprint import construct_db_api_blueprint
+from user_api.user_api import UserApi
+from user_api.flask_user_api import FlaskUserApi
+from db_api.builder import build_db_api
+from db_api.flask_db_api import FlaskDBApi
 from flask import Flask, request, jsonify, send_from_directory, send_file, redirect
 
 # create flask server
@@ -21,15 +22,14 @@ USER_API = UserApi(**CONFIG[u"user-api"])
 FLASK_USER_API = FlaskUserApi(USER_API)
 USER_API_BLUEPRINT = FLASK_USER_API.construct_blueprint()
 
+
 # Init & register DB API
 DB_API_CONF = CONFIG[u"db-api"]
-DB_API_BLUEPRINT = construct_db_api_blueprint(
-    db_driver=MySQLdb,
-    db_host=DB_API_CONF[u"db_host"],
-    db_user=DB_API_CONF[u"db_user"],
-    db_passwd=DB_API_CONF[u"db_passwd"],
-    db_name=DB_API_CONF[u"db_name"]
-)
+DB_API_CONF[u"db_api_def"] = MySQLdb
+
+DB_API = build_db_api(**DB_API_CONF)
+FLASK_DB_API = FlaskDBApi(DB_API)
+DB_API_BLUEPRINT = FLASK_DB_API.construct_blueprint()
 
 # App routes.
 INDEX_FILE = None
