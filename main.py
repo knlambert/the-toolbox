@@ -1,18 +1,14 @@
 # coding: utf-8
 
-import re
 import os
-import json
-import base64
 import fnmatch
 import MySQLdb
 from config import CONFIG
-from urlparse import urlparse
 from user_api.user_api import UserApi
 from user_api.flask_user_api import FlaskUserApi
 from db_api.builder import build_db_api
 from db_api.flask_db_api import FlaskDBApi
-from flask import Flask, request, jsonify, send_from_directory, send_file, redirect
+from flask import Flask, send_from_directory, send_file
 
 # create flask server
 APP = Flask(__name__)
