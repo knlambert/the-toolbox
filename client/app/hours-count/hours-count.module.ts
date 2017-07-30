@@ -28,7 +28,7 @@ import { DBModule } from './../db/db.module';
     RouterModule.forChild(
       [
         {
-          path: 'my-hours',
+          path: 'mine/:date',
           component: HoursCountComponent
         },
         {

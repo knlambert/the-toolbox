@@ -84,7 +84,6 @@ export class ProjectLoadCalendarComponent implements OnInit{
       
       this.load['project']['consumedDays'] = Math.round(consumed * 10) / 10;
       this.load['project']['provisionedDays'] = Math.round(provisionedHours * 10) / 10;
-      console.log(this.load['project'])
       
     }
 

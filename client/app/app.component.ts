@@ -24,7 +24,7 @@ export class AppComponent implements OnInit{
     "links": [
       {
         "label" : "My hours",
-        "url" : "hours/my-hours"
+        "url" : "hours/mine/now"
       },
       {
         "label" : "Projects Load",

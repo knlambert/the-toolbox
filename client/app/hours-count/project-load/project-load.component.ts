@@ -66,7 +66,6 @@ export class ProjectLoadComponent implements OnInit{
                 }
             })
         });
-        console.log(client);
         if(client != null && typeof(client) === 'object'){
             
             this.projectPattern = {
@@ -102,7 +101,6 @@ export class ProjectLoadComponent implements OnInit{
         for(var i = 0; i < this.displayedLoads.length; i++){
             if(this.displayedLoads[i]['project']['id'] === projectId){
                 this.displayedLoads.splice(i, 1);
-                console.log(this.displayedLoads['project'])
                 this.updateProjectAutocompleteQuery();
                 return;
             }

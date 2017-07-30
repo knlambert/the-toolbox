@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild} from '@angular/core';
 import { NgClass} from '@angular/common';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { UrlResolver} from '@angular/compiler';
 import { CollectionComponent } from '../collection/collection.component';
 import { DBService } from './../../db/db.service';
@@ -17,15 +18,26 @@ export class CalendarComponent implements OnInit{
   @Input() userInformations:Object;
   @ViewChild(CollectionComponent) collection:CollectionComponent;
 
-  constructor(private dbService: DBService){}
+  constructor(private dbService: DBService,  private route: ActivatedRoute, private router: Router){}
 
   private currentDate: Date;
   public ngOnInit(){
-    var _this = this;
-    this.currentDate = new Date();
-    this.currentDate.setHours(0);
-    this.currentDate.setMinutes(0);
-    this.currentDate.setSeconds(0);
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      // (+) before `params.get()` turns the string into a number
+      let strDate = params.get('date');
+      if (strDate === "now"){
+        this.currentDate = new Date();
+        this.currentDate.setHours(0);
+        this.currentDate.setMinutes(0);
+        this.currentDate.setSeconds(0);
+      }
+      else{
+        this.currentDate = new Date(strDate);
+      }
+      this.refresh();
+    });
+
+
 
   };
 
@@ -84,15 +96,22 @@ export class CalendarComponent implements OnInit{
     return this.getDayString(this.currentDate.getDay()) + " ("+ this.currentDate.toLocaleDateString() + ")";
   };
 
+  public updateUri(days:number){
+
+    let newdate = new Date(this.currentDate.getTime() + (3600 * 24 * 1000 * days));
+    let newDateStr = newdate.getFullYear() + "-" + (newdate.getMonth()+1) + "-" + newdate.getDate();
+    console.log(newDateStr);
+
+    this.router.navigate(['hours/mine/', newDateStr]);
+  };
+
   public next(){
-    var _this = this;
-    this.currentDate = new Date(this.currentDate.getTime() + 3600 * 24 * 1000);
-    this.refresh();
+    this.router.navigate(['hours/mine/', '2017-09-24']);
+    this.updateUri(+1);
   };
 
   public previous(){
-    this.currentDate = new Date(this.currentDate.getTime() - 3600 * 24 * 1000);
-    this.refresh();
+    this.updateUri(-1);
   };
 
 }

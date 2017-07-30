@@ -189,23 +189,6 @@ export class HourEditFormComponent implements OnInit{
     return date;
   }
 
-  private topTime(){
-    var currentDate = new Date();
-    if(!this.timer){
-      this.timer = currentDate;
-      this.form.controls['minutes'].setValue(0);
-      this.form.controls['started_at'].setValue(this.getFormatedHourMinute(this.timer));
-    }
-    else{
-      let timer = this.getDateFromFormatedHourMinute(new Date());
-      let elapsedTime = Math.floor((currentDate.getTime() - timer.getTime()) / 1000 / 60);
-      this.form.controls['minutes'].setValue(elapsedTime);
-      this.timer = null;
-    }
-  }
-
-  
-
   private filterProjects(val: string) {
     var filter = {
       "project.name": {
@@ -238,7 +221,7 @@ export class HourEditFormComponent implements OnInit{
 
   private getName(obj: any): string {
     return obj ? obj.name : "";
-  };
+  }
 
   submitForm(value: any){
     this.locked = true;

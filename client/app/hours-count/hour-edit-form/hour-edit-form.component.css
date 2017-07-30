@@ -42,16 +42,3 @@ md-input-container
 {
   color: #F44336;
 }
-
-#input-container-minutes
-{
-  display:inline-block;
-  width:75%;
-}
-
-#button-timer
-{
-  display:inline-block;
-  margin-left: auto;
-  margin-right: auto;
-}
