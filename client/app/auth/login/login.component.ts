@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit{
     ).subscribe(
       (credentials) => {
         _this.tokenService.set(credentials);
-        _this.router.navigate(["hours/my-hours"]);
+        _this.router.navigate(["hours/mine/now"]);
         _this.connected.emit();
         _this.loading = false;
       },
