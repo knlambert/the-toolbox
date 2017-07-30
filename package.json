@@ -21,13 +21,14 @@
   "license": "MIT",
   "dependencies": {
     "@angular/animations": "^4.2.4",
+    "@angular/cdk": "^2.0.0-beta.8",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",
     "@angular/compiler-cli": "^4.2.4",
     "@angular/core": "^4.2.4",
     "@angular/forms": "^4.2.4",
     "@angular/http": "^4.2.4",
-    "@angular/material": "2.0.0-beta.7",
+    "@angular/material": "2.0.0-beta.8",
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/platform-server": "^4.2.4",
@@ -55,7 +56,7 @@
     "to-string-loader": "^1.1.5",
     "typescript": "^2.4.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
-    "webpack":  "^2.5.1"
+    "webpack": "^2.5.1"
   },
   "repository": {}
 }
