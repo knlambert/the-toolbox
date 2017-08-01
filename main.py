@@ -18,7 +18,6 @@ USER_API = UserApi(**CONFIG[u"user-api"])
 FLASK_USER_API = FlaskUserApi(USER_API)
 USER_API_BLUEPRINT = FLASK_USER_API.construct_blueprint()
 
-
 # Init & register DB API
 DB_API_CONF = CONFIG[u"db-api"]
 DB_API_CONF[u"db_api_def"] = MySQLdb

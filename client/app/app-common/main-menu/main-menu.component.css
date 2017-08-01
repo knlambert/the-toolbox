@@ -32,6 +32,7 @@
   display:block;
   height:55px;
   background-color:#3F51B5;
+  
 }
 
 .main-menu-slider-button
@@ -52,6 +53,7 @@
   height:100%;
   background-color:#5C6BC0;
   z-index: 999;
+  position:fixed;
 }
 
 .main-menu-container, .main-menu-slider

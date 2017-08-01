@@ -8,7 +8,7 @@ md-spinner
 
 .app
 {
-  margin: 1%;
+  margin-top:60px;
   padding: 2%;
   width:94%;
 }
@@ -18,5 +18,12 @@ md-spinner
   margin-top:10%;
 }
 
+main-menu
+{
+  position:fixed;
+  z-index: 999;
+  width:100%;
+  top:0px;
+}
 
 
