@@ -32,7 +32,10 @@ export class MainMenuComponent implements OnInit
   public refresh(){
     var _this = this;
     this.userInformations = this.tokenService.get();
-
+    let relUrl = window.location.pathname;
+    if (relUrl === "/login" || relUrl === "/"){
+      this.router.navigate(["/hours/mine/now"]);
+    }
   }
 
   private logout(){

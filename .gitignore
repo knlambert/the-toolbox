@@ -7,3 +7,4 @@ typings
 __pycache__
 build/
 dist/dev-*
+.DS_Store
