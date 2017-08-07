@@ -6,5 +6,6 @@ typings
 .cache
 __pycache__
 build/
-dist/dev-*
 .DS_Store
+.vscode/
+dist/
