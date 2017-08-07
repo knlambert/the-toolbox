@@ -25,7 +25,7 @@ export class TokenService {
   };
 
   public get(){
-    var tab = document.cookie.match(/credentials\=(\S+)/);
+    var tab = document.cookie.match(/credentials\="*([^"]+)"*/);
     if (tab != null && tab.length > 0){
       return JSON.parse(atob(tab[1]));
     }
