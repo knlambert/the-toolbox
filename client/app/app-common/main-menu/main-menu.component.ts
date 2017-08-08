@@ -33,7 +33,7 @@ export class MainMenuComponent implements OnInit
     var _this = this;
     this.userInformations = this.tokenService.get();
     let relUrl = window.location.pathname;
-    if (relUrl === "/login" || relUrl === "/"){
+    if (this.userInformations != null && (relUrl === "/login" || relUrl === "/")){
       this.router.navigate(["/hours/mine/now"]);
     }
   }
