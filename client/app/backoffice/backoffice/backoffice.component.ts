@@ -33,10 +33,10 @@ export class BackofficeComponent implements OnInit{
     });
 
     this.referentials = [
-      "project",
-      "hour",
-      "client",
-      "user",
+      "projects",
+      "hours",
+      "clients",
+      "users",
       "project_assignements"
     ]
   };

@@ -16,19 +16,7 @@ export class ProjectAssignementService {
    */
   listProjectAffectedTo(userEmail: String, filter={}){
     filter['user.email'] = userEmail;
-
-    return this.dbService.aggregate("project_assignements", [
-      {
-        "$match": filter
-      },{
-        "$project": {
-          "id": "$project.id",
-          "name": "$project.name",
-          "client.id": "$project.client.id",
-          "client.name": "$project.client.name"
-        }
-      }
-    ])
+    return this.dbService.list("project_assignements", filter);
   }
 
   /**

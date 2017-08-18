@@ -42,7 +42,7 @@ export class HourEditFormComponent implements OnInit{
     private projectAssignementService: ProjectAssignementService
   ) {
     this.userAuth = this.tokenService.get();
-    this.dbService.list("user", {
+    this.dbService.list("users", {
       "email": this.userAuth['email']
     }).subscribe((users) => {
       if(users.length == 1){

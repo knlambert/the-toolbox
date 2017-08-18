@@ -12,7 +12,7 @@ export class DBService {
   constructor (private http: Http) {}
 
   getDescription (source): Observable<Object> {
-    let uri = this.url + source + "/description";
+    let uri = this.url + source + "/description?auto_lookup=3";
 
     return this.http.get(
       uri //, { headers: {} }
@@ -81,14 +81,26 @@ export class DBService {
   list(source, filters?, orderBy?, first?: Number, nb?: Number){
     var filters = filters || {};
     var orderBy = orderBy || {};
+    var order = [];
+    var order_by = [];
+    for (var key in orderBy){
+      order.push(key);
+      order_by.push(orderBy[key]);
+    }
+    var args = {
+      "filters": JSON.stringify(filters),
+      "offset": first,
+      "limit": nb,
+      "auto_lookup": 3
+    }
+    if (order.length > 0){
+      args["order"] = order.join(",");
+      args["order_by"] = order_by.join(",");
+    }
+      
     let uri = this.addParamsToUri(
       (this.url + source), 
-      {
-        "filters": JSON.stringify(filters),
-        "order_by": JSON.stringify(orderBy),
-        "first": first,
-        "nb": nb
-      }
+      args
     )
 
     return this.http.get(uri, {

@@ -42,7 +42,7 @@ export class ProjectLoadComponent implements OnInit{
         var _that = this;
         var today = new Date();
         this.cursorDate = new Date(today.getFullYear(), today.getMonth(), 0);;
-        _that.dbService.list('project',  {}, {"name": 1}).subscribe((projects) => {
+        _that.dbService.list('projects',  {}, {"name": 1}).subscribe((projects) => {
             _that.projects = projects;
         });
     };

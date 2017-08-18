@@ -48,7 +48,7 @@ export class CollectionComponent implements OnInit{
     this.loading = true;
     var _this = this;
     this.filters = filters;
-    this.dbService.list("hour", this.filters).subscribe((hours) => {
+    this.dbService.list("hours", this.filters).subscribe((hours) => {
       _this.items = [];
       for(var i = 0; i < hours.length; i++){
         _this.items.push(new CollectionItem(
@@ -108,7 +108,7 @@ export class CollectionComponent implements OnInit{
 
     if(item.object.id != null){
       this.setItemLoading(item.uuid, true);
-      this.dbService.delete("hour", {
+      this.dbService.delete("hours", {
           id: item.object['id']
         }).subscribe((result) => {
         that.items.splice(that.getItemIndex(uuid), 1);
@@ -133,7 +133,7 @@ export class CollectionComponent implements OnInit{
     var item = this.getItem(event.uuid).object;
     this.setItemLoading(event.uuid, true);
 
-    this.dbService.save("hour", event.hour).subscribe((savedItem) => {
+    this.dbService.save("hours", event.hour).subscribe((savedItem) => {
 
       that.setItemNewId(event.uuid, savedItem.id);
       that.setItemStatus(event.uuid, "saved");
@@ -149,7 +149,7 @@ export class CollectionComponent implements OnInit{
   public onItemEdited = function(event){
     var that = this;
     that.setItemLoading(event.uuid, true);
-    this.dbService.update('hour', {id: event.hour['id']}, event.hour).subscribe((updatedItem) => {
+    this.dbService.update('hours', {id: event.hour['id']}, event.hour).subscribe((updatedItem) => {
       that.setItemStatus(event.uuid, "saved");
       that.setItemLoading(event.uuid, false);
     }, (error) => {

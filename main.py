@@ -2,13 +2,13 @@
 
 import os
 import fnmatch
-import MySQLdb
 from config import CONFIG
 from user_api.user_api import UserApi
 from user_api.flask_user_api import FlaskUserApi
-from db_api.builder import build_db_api
-from db_api.flask_db_api import FlaskDBApi
 from flask import Flask, send_from_directory, send_file
+from pyrestdbapi.api import Api
+from pyrestdbapi.db_api_blueprint import FlaskRestDBApi
+from pysqlcollection.client import Client
 
 # create flask server
 APP = Flask(__name__)
@@ -20,11 +20,23 @@ USER_API_BLUEPRINT = FLASK_USER_API.construct_blueprint()
 
 # Init & register DB API
 DB_API_CONF = CONFIG[u"db-api"]
-DB_API_CONF[u"db_api_def"] = MySQLdb
 
-DB_API = build_db_api(**DB_API_CONF)
-FLASK_DB_API = FlaskDBApi(DB_API)
-DB_API_BLUEPRINT = FLASK_DB_API.construct_blueprint()
+DB = Client(
+    host=DB_API_CONF[u"db_host"], 
+    user=DB_API_CONF[u"db_user"],
+    password=DB_API_CONF[u"db_password"]
+).hours_count
+
+DB_REST_API_CONFIG = {
+    u"projects": Api(DB, default_table_name=u"project"),
+    u"clients": Api(DB, default_table_name=u"client"),
+    u"hours": Api(DB, default_table_name=u"hour"),
+    u"project_assignements": Api(DB, default_table_name=u"project_assignements"),
+    u"users": Api(DB, default_table_name=u"user")
+}
+
+DB_FLASK_API = FlaskRestDBApi(DB_REST_API_CONFIG)
+DB_API_BLUEPRINT = DB_FLASK_API.construct_blueprint()
 
 # App routes.
 INDEX_FILE = None
