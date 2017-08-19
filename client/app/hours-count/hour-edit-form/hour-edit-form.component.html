@@ -33,7 +33,7 @@
 
   <div class="pure-u-1">
     <md-input-container>
-      <input dividerColor="red" mdInput [mdAutocomplete]="autoHour" required class="form-control" type="text" placeholder="HH:MM" [formControl]="form.controls['started_at']">
+      <input dividerColor="red" mdInput [mdAutocomplete]="autoHour" required class="form-control" type="text" placeholder="Started at (HH:MM)" [formControl]="form.controls['started_at']">
     </md-input-container>
 
     <md-autocomplete  #autoHour="mdAutocomplete">
@@ -46,7 +46,7 @@
 
   <div class="pure-u-1">
     <md-input-container id="input-container-minutes">
-      <input mdInput required [mdAutocomplete]="autoMinutes" class="form-control" type="number" placeholder="Minutes" [formControl]="form.controls['minutes']">
+      <input mdInput required [mdAutocomplete]="autoMinutes" class="form-control" type="number" placeholder="Spent (minutes)" [formControl]="form.controls['minutes']">
     </md-input-container>
 
     <md-autocomplete  #autoMinutes="mdAutocomplete">
