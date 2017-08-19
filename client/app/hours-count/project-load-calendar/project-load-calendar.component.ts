@@ -48,11 +48,11 @@ export class ProjectLoadCalendarComponent implements OnInit{
       var userId = null;
       var lastUserId = null;
       for(var i = 0; i < data.length; i++){
-        if(lastUserId != null && lastUserId !== data[i]['affected_to']['id']){
+        if(lastUserId != null && lastUserId !== data[i]['affected_to_id']){
           loadPerUser.push(loadForUser);
           loadForUser = [];
         };
-        lastUserId = data[i]['affected_to']['id'];
+        lastUserId = data[i]['affected_to_id'];
         loadForUser.push(data[i]);
       }
       loadPerUser.push(loadForUser);
@@ -79,6 +79,8 @@ export class ProjectLoadCalendarComponent implements OnInit{
     }
 
     ngOnInit(){
+
+      
       let consumed = this.load['project']['consumed'] / 8;
       let provisionedHours = this.load['project']['provisioned_hours'] / 8;
       

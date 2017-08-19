@@ -5,11 +5,11 @@
         <form  #searchForm="ngForm" class="pure-g" (ngSubmit)="submitForm(searchForm.value)">
 
             <div class="pure-u-md-1-2 pure-u-sm-1 pure-u-1 ">
-                <db-autocomplete name="client" ngModel [db]="'client'"  labelField="name" (selected)="updateProjectAutocompleteQuery($event.selected)"></db-autocomplete>
+                <db-autocomplete name="client" ngModel [db]="'clients'"  labelField="name" (selected)="updateProjectAutocompleteQuery($event.selected)"></db-autocomplete>
             </div>
 
             <div class="pure-u-md-1-2 pure-u-sm-1 pure-u-1 ">
-                <db-autocomplete name="project" ngModel [db]="'project'" [query]="projectPattern"  (ngModelChange)="addProject($event)" labelField="name"></db-autocomplete>
+                <db-autocomplete name="project" ngModel [db]="'projects'" [query]="projectPattern"  (ngModelChange)="addProject($event)" labelField="name"></db-autocomplete>
             </div>
         </form>
     </div>
@@ -40,7 +40,7 @@
             [displayMode]="displayMode" 
             [daysHeaders]="daysHeaders" 
             [load]="load" 
-            [data]="dataLoads[load.project.id]"
+            [data]="dataLoads[load.project_id]"
             (deleted)="deleteProject($event.deletedProjectId)"
             ></hc-project-load-calendar>
         </div>

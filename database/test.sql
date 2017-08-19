@@ -1,30 +1,29 @@
+-- [{
+--                 "$match": {
+--                     "project.id": project.id
+--                 }
+--             }, {
+--                 "$group": {
+--                     "_id": {
+--                         "project_id": "$project.id",
+--                         "project_name": "$project.name",
+--                         "provisioned": "$project.provisioned_hours"
+--                     },
+--                     "consumed": {
+--                         "$sum": "$minutes"
+--                     }
+--                 }
+--             }]
 
-CREATE VIEW project_load
-AS
-(
+CREATE VIEW project_consumptions
+AS (
     SELECT
-    TIMESTAMP(PL.day) AS 'timestamp',
-    DAY(PL.day) AS 'dayNumber',
-    P.id AS 'project.id',
-    P.name AS 'project.name',
-    U.id AS 'affected_to.id',
-    U.name AS 'affected_to.name',
-    PL.hour AS 'hour'
-    FROM
-    (
-        SELECT
-        DATE(H.started_at) AS 'day',
-        H.project,
-        H.affected_to,
-        ROUND(SUM(H.minutes) / 60) as 'hour'
-        FROM hour H
-        GROUP BY DATE(H.started_at), H.affected_to, H.project
-        ORDER BY H.project, H.affected_to, day
-    )
-    PL
-    JOIN project P 
-    ON PL.project = P.id 
-    JOIN user U 
-    ON PL.affected_to = U.id 
-)
-;
+    P.id AS 'project_id',
+    P.name AS 'project_name',
+    P.provisioned_hours AS 'provisioned',
+    SUM(H.minutes) AS 'consumed'
+    FROM hour H
+    JOIN project P
+    ON H.project = P.id
+    GROUP BY P.id, P.name, P.provisioned_hours
+);

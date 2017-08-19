@@ -66,7 +66,6 @@ export class HourEditFormComponent implements OnInit{
     var that = this;
     
 
-
     this.form.controls['client'].valueChanges
         .startWith(null)
         .subscribe(name => {
@@ -163,17 +162,15 @@ export class HourEditFormComponent implements OnInit{
   }
 
   private generateHours(){
+    let counter = new Date(1503214200*1000);
+    let minutes = counter.getMinutes();
+    counter.setMinutes(minutes - ( minutes % 15) , 0, 0);
     let hours = [];
-    let hour = 0;
-    let minute = 0;
-    while(hour < 24){
-      minute = 0;
-      while(minute < 60){
-        hours.push(("0" + hour).slice(-2) +":" + ("0" + minute).slice(-2));
-        minute += 15;
-      }
-      hour++;
+    for(var i = 0; i < (4*24); i++){
+      hours.push(("0" + counter.getHours()).slice(-2) +":" + ("0" + counter.getMinutes()).slice(-2));
+      counter.setMinutes(counter.getMinutes() + 15);
     }
+
     return hours;
   }
 
@@ -204,7 +201,7 @@ export class HourEditFormComponent implements OnInit{
 
   private filterClients(val: string) {
     return this.projectAssignementService.listClientAffectedTo(this.userAuth['email'], {
-      "project.client.name": {
+      "name": {
         $regex: (".*" + val + ".*")
       }
     });

@@ -16,7 +16,12 @@ export class ProjectAssignementService {
    */
   listProjectAffectedTo(userEmail: String, filter={}){
     filter['user.email'] = userEmail;
-    return this.dbService.list("project_assignements", filter);
+    return this.dbService.list("project_assignements", filter).map((items) => {
+      for(var i = 0; i < items.length; i++){
+        items[i] = items[i].project;
+      }
+      return items;
+    });
   }
 
   /**
@@ -24,24 +29,8 @@ export class ProjectAssignementService {
    * @param userEmail The user email we want the clients affected to.
    */
   listClientAffectedTo(userEmail: String, filter={}){
-    filter['user.email'] = userEmail;
+    filter['email'] = userEmail;
 
-    return this.dbService.aggregate("project_assignements", [
-      {
-        "$match": filter
-      },{
-        "$group": {
-            "_id": {
-              "client_id": "$project.client.id",
-              "client_name": "$project.client.name"
-            }
-          }
-      },{
-        "$project": {
-            "name": "$_id.client_name",
-            "id": "$_id.client_id"
-        }
-      }
-    ])
+    return this.dbService.list("clients_affected_to_users", filter);
   }
 }

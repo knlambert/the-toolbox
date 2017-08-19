@@ -100,7 +100,6 @@ export class CalendarComponent implements OnInit{
 
     let newdate = new Date(this.currentDate.getTime() + (3600 * 24 * 1000 * days));
     let newDateStr = newdate.getFullYear() + "-" + (newdate.getMonth()+1) + "-" + newdate.getDate();
-    console.log(newDateStr);
 
     this.router.navigate(['hours/mine/', newDateStr]);
   };

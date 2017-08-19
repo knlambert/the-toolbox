@@ -135,7 +135,7 @@ export class CollectionComponent implements OnInit{
 
     this.dbService.save("hours", event.hour).subscribe((savedItem) => {
 
-      that.setItemNewId(event.uuid, savedItem.id);
+      that.setItemNewId(event.uuid, savedItem.inserted_id);
       that.setItemStatus(event.uuid, "saved");
       that.setItemLoading(event.uuid, false);
     }, (error) => {

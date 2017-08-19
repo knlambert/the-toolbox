@@ -112,22 +112,9 @@ export class ProjectLoadComponent implements OnInit{
 
             var that = this;
 
-            that.dbService.aggregate("hour", [{
-                "$match": {
-                    "project.id": project.id
-                }
-            }, {
-                "$group": {
-                    "_id": {
-                        "project_id": "$project.id",
-                        "project_name": "$project.name",
-                        "provisioned": "$project.provisioned_hours"
-                    },
-                    "consumed": {
-                        "$sum": "$minutes"
-                    }
-                }
-            }]).subscribe((consumptions) => {
+            that.dbService.list("project_consumptions", {
+                "project_id": project.id
+            }).subscribe((consumptions) => {
                 if(consumptions.length > 0){
                     project['consumed'] = Math.floor(consumptions[0]["consumed"] / 60);
                     project['provisioned'] = Math.floor(consumptions[0]["provisioned"] / 60);
@@ -172,10 +159,10 @@ export class ProjectLoadComponent implements OnInit{
     private refreshData(){
         var that = this;
         this.displayedLoads.forEach((load) => {
-            that.dbService.list("project_load", {
-                "project.id": load['project']['id']
+            that.dbService.list("project_loads", {
+                "project_id": load['project']['id']
             }).subscribe((dataLoad) => {
-                that.dataLoads[load['project']['id']] = dataLoad;
+                that.dataLoads[load['project_id']] = dataLoad;
             });
         });
     };

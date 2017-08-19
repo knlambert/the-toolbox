@@ -25,7 +25,7 @@
         </tr>
         
         <tr *ngFor="let userLoad of loadPerUser">
-            <td  *ngIf="userLoad.length > 0">{{userLoad[0].affected_to.name}}</td>
+            <td  *ngIf="userLoad.length > 0">{{userLoad[0].affected_to_name}}</td>
             <td [ngClass]="{'month-separator': (dayHeader.dayNumber == 1)}"*ngFor="let dayHeader of daysHeaders">
                 <div>{{getLoad(userLoad, dayHeader.timestamp)}}</div>
             </td>
