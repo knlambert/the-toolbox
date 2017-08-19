@@ -56,19 +56,11 @@ export class CalendarComponent implements OnInit{
   
   private exportCra(){
     const month = this.currentDate.getMonth()+1;
-    let pipeline = [{
-      $match: {
-          email: this.userInformations['email'],
-          month: month
-        }
-      }, {
-          $orderby: {
-            started_at: 1
-          }
-      }
-    ];
 
-    this.dbService.export("cra", pipeline);
+    this.dbService.export("cras", {
+      email: this.userInformations['email'],
+      month: month
+    });
   }
 
   public generateFilters(){
