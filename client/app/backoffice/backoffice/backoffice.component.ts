@@ -57,7 +57,8 @@ export class BackofficeComponent implements OnInit{
       let field = description["fields"][i];
       if (field["nested_description"] != null){
         let nestedDescription = field["nested_description"];
-        fields = fields.concat(this.extractFieldsFromDescription(nestedDescription, field["name"]));
+        let updatedParent = (typeof(parent) === "undefined") ? field["name"] : parent + "." + field["name"];
+        fields = fields.concat(this.extractFieldsFromDescription(nestedDescription, updatedParent));
       }
       else if (field['key'] !== "mul"){
         fields.push({
@@ -144,13 +145,13 @@ export class BackofficeComponent implements OnInit{
   };
 
   private edit(obj: any){
-    let that = this;
+
     this.dbService.update(this.referential, {
       id: obj['value']['id']
     }, obj['value']).subscribe(
       (result) => {
-        that.report.refresh();
-        that.closeEdition([obj]);
+        this.report.refresh();
+        this.closeEdition([obj]);
       },
       (err) => this.dbServiceError());
   };

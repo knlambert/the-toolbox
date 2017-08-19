@@ -142,12 +142,7 @@ export class DBService {
     var itemToSave = JSON.parse(JSON.stringify(item));
     let uri = this.url + source;
     let options = new RequestOptions({  });
-    for(var key in itemToSave){
-      if(itemToSave[key] != null && typeof(itemToSave[key]) === "object"){
-        itemToSave[key + ".id"] = itemToSave[key]['id'];
-        delete itemToSave[key];
-      }
-    }
+   
     filters = JSON.stringify({
       "id" : itemToSave['id']
     });

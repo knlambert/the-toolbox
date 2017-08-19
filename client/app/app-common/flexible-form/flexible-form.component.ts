@@ -137,7 +137,6 @@ export class FlexibleFormComponent {
         value[key] = parseInt(''+(new Date(value[key])).getTime() / 1000);
       }
     }
-
     if(this.isCreated){
       value.id = this._originalValue['id'];
       this.edited.emit({
