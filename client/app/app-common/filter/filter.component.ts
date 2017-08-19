@@ -61,14 +61,15 @@ export class FilterComponent{
         ],
         "text": [
             {
+                "label": "contains",
+                "value": "$regex"
+            },
+            {
                 "label": "=",
                 "value": "$eq"
             },{
                 "label": "!=",
                 "value": "$ne"
-            },{
-                "label": "contains",
-                "value": "$regex"
             }
         ]
     };
@@ -186,6 +187,7 @@ export class FilterComponent{
         let operatorsList = this.getOperators(fieldDesc['type']);
         this.filters[index]['type'] = fieldDesc['type'];
         this.filters[index]['operatorsList'] = operatorsList;
+        this.filters[index]['operator'] = operatorsList[0]['value'];
     };
 
     /**
