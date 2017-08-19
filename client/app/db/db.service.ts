@@ -123,7 +123,7 @@ export class DBService {
     let options = new RequestOptions({  });
 
     if(filters != null){
-      uri += ("?filters=" + JSON.stringify(filters));
+      uri += ("?auto_lookup=3&filters=" + JSON.stringify(filters));
     }
     return this.http.delete(uri, options).map(this.extractDataDelete).catch(this.handleError);
 
@@ -132,14 +132,8 @@ export class DBService {
 
   save(source, item){
     var itemToSave = JSON.parse(JSON.stringify(item));
-    let uri = this.url + source;
+    let uri = this.url + source + "?auto_lookup=1";
     let options = new RequestOptions({  });
-    for(var key in itemToSave){
-      if(itemToSave[key] != null && typeof(itemToSave[key]) === "object"){
-        itemToSave[key + ".id"] = itemToSave[key]['id'];
-        delete itemToSave[key];
-      }
-    }
     return this.http.post(uri, itemToSave, options).map(this.extractDataSaved).catch(this.handleError);
   };
 
@@ -157,7 +151,7 @@ export class DBService {
     filters = JSON.stringify({
       "id" : itemToSave['id']
     });
-    return this.http.put((uri + "?filters="+filters), {
+    return this.http.put((uri + "?auto_lookup=3&filters="+filters), {
       "$set": itemToSave
     }, options).map(this.extractDataUpdated).catch(this.handleError);
   };

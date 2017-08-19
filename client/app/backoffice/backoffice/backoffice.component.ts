@@ -55,8 +55,8 @@ export class BackofficeComponent implements OnInit{
     var fields = [];
     for(let i = 0; i < description["fields"].length; i++){
       let field = description["fields"][i];
-      if (field["nestedDescription"] != null){
-        let nestedDescription = field["nestedDescription"];
+      if (field["nested_description"] != null){
+        let nestedDescription = field["nested_description"];
         fields = fields.concat(this.extractFieldsFromDescription(nestedDescription, field["name"]));
       }
       else if (field['key'] !== "mul"){

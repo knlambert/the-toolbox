@@ -5,7 +5,7 @@
      
     <div class="pure-u-1" *ngFor="let field of description.fields; ">
       <div *ngIf="['text', 'number', 'timestamp'].indexOf(field.type) !== -1 
-      && field.nestedDescription == null && field.editable !== false && field.extra != 'auto_increment'">
+      && field.nested_description == null && field.editable !== false && field.extra != 'auto_increment'">
         
         <md-input-container *ngIf="field.type == 'text'">
           <input 
@@ -38,8 +38,8 @@
       </div>
 
       
-      <div *ngIf="field.nestedDescription != null && field.editable !== false">
-        <db-autocomplete [db]="field.nestedDescription.source"  labelField="name" [formControl]="formGroup.controls[field.name]" ></db-autocomplete>
+      <div *ngIf="field.nested_description != null && field.editable !== false">
+        <db-autocomplete [db]="field.nested_description.service"  labelField="name" [formControl]="formGroup.controls[field.name]" ></db-autocomplete>
       </div>
 
 
