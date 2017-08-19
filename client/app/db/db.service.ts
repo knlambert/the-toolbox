@@ -39,31 +39,13 @@ export class DBService {
 
 
   public export(source, filters={}){
-    this.export_def(source, filters);
-  }
-
-  public export_aggregate(source, pipeline=[]){
-    this.export_def(source, null, pipeline);
-  }
-
-  private export_def(source, filters = {}, pipeline = null){
-    let reqPayloadField = "filters";
-    let reqPayload = filters;
-    let payload = {
-      options: JSON.stringify({type:"csv",delimiter:";"})
-    }
-
-    if(pipeline != null){
-      reqPayloadField = "pipeline";
-      reqPayload = pipeline;
-    }
-    payload[reqPayloadField] = JSON.stringify(reqPayload);
-
-    
 
     let uri = this.addParamsToUri(
-      (this.url + source + "/export"), 
-      payload
+      (this.url + source + "/export"),
+      {
+        "filters": JSON.stringify(filters),
+        "auto_lookup": 3
+      }
     )
     window.open(uri);
   }

@@ -68,7 +68,7 @@ export class CalendarComponent implements OnInit{
       }
     ];
 
-    this.dbService.export_aggregate("cra", pipeline);
+    this.dbService.export("cra", pipeline);
   }
 
   public generateFilters(){

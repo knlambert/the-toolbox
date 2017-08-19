@@ -162,7 +162,7 @@ export class HourEditFormComponent implements OnInit{
   }
 
   private generateHours(){
-    let counter = new Date(1503214200*1000);
+    let counter = new Date(this.hour["started_at"]*1000);
     let minutes = counter.getMinutes();
     counter.setMinutes(minutes - ( minutes % 15) , 0, 0);
     let hours = [];
