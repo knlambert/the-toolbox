@@ -21,11 +21,13 @@ USER_API_BLUEPRINT = FLASK_USER_API.construct_blueprint()
 # Init & register DB API
 DB_API_CONF = CONFIG[u"db-api"]
 
-DB = Client(
-    host=DB_API_CONF[u"db_host"], 
+CLIENT = Client( 
+    unix_socket=DB_API_CONF.get(u"db_unix_socket"),
+    host=DB_API_CONF.get(u"db_host"),
     user=DB_API_CONF[u"db_user"],
     password=DB_API_CONF[u"db_password"]
-).hours_count
+)
+DB = getattr(CLIENT, DB_API_CONF[u"db_name"])
 
 DB_REST_API_CONFIG = {
     u"projects": Api(DB, default_table_name=u"project"),
