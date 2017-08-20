@@ -12,7 +12,7 @@
             mdInput class="form-control"
             [required]="field.required"
             type="text"
-            [placeholder]="field.name" 
+            [placeholder]="formatPlaceHolder(field.name)" 
             [formControl]="formGroup.controls[field.name]" >
         </md-input-container>
         <md-input-container *ngIf="field.type == 'number'">
@@ -21,7 +21,7 @@
             mdInput
             type="number"
             [required]="field.required"
-            [placeholder]="field.name" 
+            [placeholder]="formatPlaceHolder(field.name)" 
             [formControl]="formGroup.controls[field.name]" >
         </md-input-container>
           
@@ -31,7 +31,7 @@
             class="form-control"
             [required]="field.required"
             type="text"
-            [placeholder]="field.name + ' (MM/DD/YYYY)'" 
+            [placeholder]="formatPlaceHolder(field.name) + ' (MM/DD/YYYY)'" 
             [formControl]="formGroup.controls[field.name]" >
           </md-input-container>
         
@@ -39,7 +39,7 @@
 
       
       <div *ngIf="field.nested_description != null && field.editable !== false">
-        <db-autocomplete [db]="field.nested_description.service"  labelField="name" [formControl]="formGroup.controls[field.name]" ></db-autocomplete>
+        <db-autocomplete [placeholder]="formatPlaceHolder(field.name)" [db]="field.nested_description.service"  labelField="name" [formControl]="formGroup.controls[field.name]" ></db-autocomplete>
       </div>
 
 

@@ -255,7 +255,7 @@ export class ReportComponent implements OnInit{
         else if (field['type'] === "timestamp"){
             let date = new Date(parseInt(cell) * 1000);
             if(date){
-                let day = date.getDate()+1 + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+                let day = (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear();
                 let hour = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2); 
                 return day + " " + hour;
             }

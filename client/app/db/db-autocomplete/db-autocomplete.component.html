@@ -1,5 +1,5 @@
 <md-input-container>
-  <input mdInput [(ngModel)]="selectedValue" placeholder="{{getName()}}" [mdAutocomplete]="auto" >
+  <input mdInput [(ngModel)]="selectedValue" [placeholder]="placeholder" [mdAutocomplete]="auto" >
 </md-input-container>
 
 <md-autocomplete [displayWith]="generateGetLabel(labelField)" #auto="mdAutocomplete">

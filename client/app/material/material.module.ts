@@ -24,7 +24,9 @@ import {
   MdSnackBarModule,
   MdTabsModule,
   MdToolbarModule,
-  MdTooltipModule
+  MdTooltipModule,
+  MdDatepickerModule,
+  MdNativeDateModule
 } from "@angular/material";
 
 let materialModules = [
@@ -51,7 +53,9 @@ let materialModules = [
   MdDialogModule,
   MdSnackBarModule,
   MdSelectModule,
-  MdAutocompleteModule
+  MdAutocompleteModule,
+  MdDatepickerModule,
+  MdNativeDateModule
 ];
 
 @NgModule({

@@ -81,7 +81,15 @@ export class FlexibleFormComponent {
     }
   };    
 
-  
+  /**
+     * Format the placeholder of the form.
+     * @param header 
+     */
+    private formatPlaceHolder(placeholder: string){
+      let ret = placeholder.charAt(0).toUpperCase() + placeholder.slice(1);
+      return ret.replace("_", " ").replace(".", " ");
+  };
+
   private initForm(){ 
     var that = this;
     this._originalValue = JSON.parse(JSON.stringify(this.value));
