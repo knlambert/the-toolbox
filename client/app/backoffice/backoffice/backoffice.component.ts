@@ -98,8 +98,23 @@ export class BackofficeComponent implements OnInit{
     });    
   };
 
-  private dbServiceError(){
-    this.snackBar.open("Impossible to perform this operation.", "Dismiss");
+  private dbServiceError(operation, err){
+    let errorCode = err['error_code'];
+    let errMsg = "Impossible to perform this operation.";
+    if (typeof(errorCode) != "undefined"){
+      if(errorCode === "INTEGRITY_ERROR"){
+        if(operation === "WRITE"){
+          errMsg = "This entry already exists.";
+        }
+        else if(operation === "DELETE"){
+          errMsg = "You can't delete this (another item depends on it)."
+        }
+      }
+      
+    }
+    
+    if (err['error_code'])
+    this.snackBar.open(errMsg, "Dismiss");
     this.report.refresh();
   };
 
@@ -114,7 +129,7 @@ export class BackofficeComponent implements OnInit{
       "$or": jIds
     }).subscribe(
       (result) => this.report.refresh(),
-      (err) => this.dbServiceError()
+      (err) => this.dbServiceError("DELETE", err)
     );
 
   };
@@ -141,7 +156,7 @@ export class BackofficeComponent implements OnInit{
         that.report.refresh();
         that.closeEdition([obj]);
       },
-      (err) => this.dbServiceError());
+      (err) => this.dbServiceError("WRITE", err));
   };
 
   private edit(obj: any){
@@ -153,7 +168,7 @@ export class BackofficeComponent implements OnInit{
         this.report.refresh();
         this.closeEdition([obj]);
       },
-      (err) => this.dbServiceError());
+      (err) => this.dbServiceError("WRITE", err));
   };
 
   private cancel(obj: any){

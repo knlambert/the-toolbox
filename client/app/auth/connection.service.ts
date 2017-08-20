@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response,  Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -10,45 +10,37 @@ export class ConnectionService {
 
 
   private url = 'api/user/';  // URL to web API
-  constructor (private http: Http) {}
+  constructor (private http: HttpClient) {}
 
 
   public authentify (login, password): Observable<Object> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+   
     var token;
     return this.http.post(
       this.url + "authentify", {
       	"email": login,
       	"password": password
-      },
-      options
-    ).map((res: Response) => {
-        let body = res.json();
-        token = body.token;
+      }
+    ).map((body: object) => {
+        token = body['token'];
         return token;
       }
     ).flatMap((token) => {
       return this.http.post(
         this.url + "token/check/", {
         	"token": token
-        },
-        options
-      ).map((res: Response) => {
-        let body = res.json();
-        body.token = token;
+        }
+      ).map((body: object) => {
+        body['token'] = token;
         return body;
       });
     }).catch(this.handleError);
   };
 
   public getUserInformationsFromToken(token): Observable<Object> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
     return this.http.post(this.url + "token/check/", {
     	"token": token
-    }, options).map((res: Response) => {
-      let body = res.json();
+    }).map((body: object) => {
       return body;
     }).catch(this.handleError);
   };
@@ -63,14 +55,11 @@ export class ConnectionService {
   };
 
   public modifyPassword(email: String, newPassword: String){
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
     return this.http.post(
       this.url + "reset_password", {
       	"email": email,
       	"password": newPassword
-      },
-      options
+      }
     ).map((res: Response) => {
       }
     ).catch(this.handleError);

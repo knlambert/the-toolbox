@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }       from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule }   from '@angular/router';
 import { DBService } from './db.service';
 import { DBAutocompleteComponent } from './db-autocomplete/db-autocomplete.component';
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   imports:      [
     CommonModule,
-    HttpModule,
+    HttpClientModule,
     MaterialModule,
     FormsModule
   ],

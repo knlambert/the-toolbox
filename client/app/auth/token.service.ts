@@ -6,8 +6,7 @@ export class TokenService {
 
   public tokenModified = new ReplaySubject(1);
 
-  constructor(){
-  }
+  constructor(){}
 
   public set(credentials){
 

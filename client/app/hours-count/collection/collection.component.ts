@@ -49,6 +49,7 @@ export class CollectionComponent implements OnInit{
     var _this = this;
     this.filters = filters;
     this.dbService.list("hours", this.filters).subscribe((hours) => {
+
       _this.items = [];
       for(var i = 0; i < hours.length; i++){
         _this.items.push(new CollectionItem(
