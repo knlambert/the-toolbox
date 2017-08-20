@@ -160,6 +160,7 @@ export class CollectionComponent implements OnInit{
 
   public new = function(){
     var defaultFrom = this.currentDate;
+    defaultFrom.setHours(9);
     var defaultHourSpent = 0;
     /* If items exists, take it as a basis for add next */
     if(this.items.length > 0){
