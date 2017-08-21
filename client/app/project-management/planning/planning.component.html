@@ -1,16 +1,31 @@
 <p>Hello planning</p>
 
 
-<table>
-    <thead>
+<div class="container" >
+    <table>
+            <tr>
+                <th class="th-task-name">Task</th>
+                <th class="th-user-name">In charge</th>
+                <th *ngFor="let day of dayHeaders">{{day.getDate()}}</th>
+            </tr>
+
+            <tr hc-planning-task-row *ngFor="let task of tasks" [task]="task" [fromDate]="fromDate" [availableUsers]="availableUsers"></tr>
+        
+    </table>
+</div>
+
+<div id="div-float-bar">
+    <table >
         <tr>
-            <th>Task</th>
-            <th>In charge</th>
+            <td class="td-float-button">
+                    <button md-mini-fab><md-icon>delete</md-icon></button>
+            </td>
         </tr>
-    </thead>
-
-    <tbody>
-        <tr hc-planning-task-row *ngFor="let task of tasks" [task]="task" ></tr>
-    </tbody>
-
-</table>
+        <tr>
+            <td class="td-float-button">
+                    <button md-fab (click)="addEmptyTask()"><md-icon>add</md-icon></button>
+            </td>
+        </tr>
+    </table>
+    
+</div>

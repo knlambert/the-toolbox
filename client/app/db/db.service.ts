@@ -129,10 +129,8 @@ export class DBService {
    
     let httpParams = this.jsonToParams({
       auto_lookup: 3,
-      filters: JSON.stringify({
-        "id" : itemToSave['id']
-      })
-    })
+      filters: JSON.stringify(filters)
+    });
 
     return this.http.put((uri), {
       "$set": itemToSave

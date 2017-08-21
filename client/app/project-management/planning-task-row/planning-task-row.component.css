@@ -1,0 +1,28 @@
+.td-day {
+    min-width:30px;
+}
+
+.td-day:hover {
+    background-color:#BBDEFB;
+}
+
+td {
+    text-align: center;
+    border: 1px solid #EEEEEE;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color:white;
+}
+
+#input-task-title {
+    width: 150px;
+}
+
+md-select {
+    margin-bottom: 5px;
+}
+
+.td-booked {
+    background-color:#2196F3;
+}
+

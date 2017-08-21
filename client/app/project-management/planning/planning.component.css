@@ -1,0 +1,37 @@
+
+
+.container
+{
+    width: 100%;
+    min-height:500px;
+    overflow-x: scroll;
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border: 1px solid #EEEEEE;
+}
+
+table {
+}
+
+
+th {
+    background-color:#3F51B5;
+    padding: 10px;
+    color:white;
+}
+
+#div-float-bar
+{
+    bottom: 0;
+    padding: 23px 12px;
+    position: fixed;
+    right: 15px;
+    z-index: 21;
+    text-align:center;
+}
+
+.td-float-button
+{
+    padding:5px;
+}

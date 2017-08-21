@@ -1,2 +1,14 @@
-<td>{{task.project.name}}</td>
-<td>{{task.user.name}}</td>
+<td class="td-task-name" >
+    <md-input-container>
+        <input #title id="input-task-title" [(ngModel)]="task.title"
+        (blur)="titleUpdated(title.value)" mdInput [value]="task.title">
+    </md-input-container>
+</td>
+<td class="td-user-name" >
+    <md-select (change)="userUpdated($event)" [(ngModel)]="task.user.id" >
+        <md-option *ngFor="let user of availableUsers" [value]="user.id">
+            {{ user.name }}
+        </md-option>
+    </md-select>
+</td>
+<td [ngClass]="{'td-booked': taskDay != null }" class="td-day" *ngFor="let taskDay of taskDays; let i = index" (click)="switchTaskDay(i)"></td>
