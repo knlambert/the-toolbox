@@ -4,8 +4,6 @@ import { CalendarComponent }   from './calendar/calendar.component';
 import { CollectionComponent }   from './collection/collection.component';
 import { HourEditFormComponent }   from './hour-edit-form/hour-edit-form.component';
 import { HoursCountComponent } from './hours-count/hours-count.component';
-import { ProjectLoadComponent } from './project-load/project-load.component';
-import { ProjectLoadCalendarComponent } from './project-load-calendar/project-load-calendar.component';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { RouterModule }   from '@angular/router';
 import { AppCommonModule } from "./../app-common/app-common.module";
@@ -18,9 +16,9 @@ import { DBModule } from './../db/db.module';
 @NgModule({
   imports:      [
     MaterialModule,
-    ReactiveFormsModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     AppCommonModule,
     DBModule,
     RouterModule.forChild(
@@ -28,16 +26,12 @@ import { DBModule } from './../db/db.module';
         {
           path: 'mine/:date',
           component: HoursCountComponent
-        },
-        {
-          path: 'project-load',
-          component: ProjectLoadComponent
         }
       ]
     )
   ],
-  declarations: [ ProjectLoadCalendarComponent, ProjectLoadComponent, CalendarComponent, CollectionComponent, HourEditFormComponent, HoursCountComponent],
-  exports: [ ProjectLoadComponent, HoursCountComponent, RouterModule ],
+  declarations: [ CalendarComponent, CollectionComponent, HourEditFormComponent, HoursCountComponent],
+  exports: [ HoursCountComponent, RouterModule ],
   providers: [ ProjectAssignementService, GoogleColorsService ]
 })
 export class HoursCountModule { }

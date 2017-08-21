@@ -5,11 +5,11 @@
         <form  #searchForm="ngForm" class="pure-g" (ngSubmit)="submitForm(searchForm.value)">
 
             <div class="pure-u-md-1-2 pure-u-sm-1 pure-u-1 ">
-                <db-autocomplete name="client" ngModel [db]="'clients'"  labelField="name" (selected)="updateProjectAutocompleteQuery($event.selected)"></db-autocomplete>
+                <db-autocomplete name="client" placeholder="Client" ngModel [db]="'clients'"  labelField="name" (selected)="updateProjectAutocompleteQuery($event.selected)"></db-autocomplete>
             </div>
 
             <div class="pure-u-md-1-2 pure-u-sm-1 pure-u-1 ">
-                <db-autocomplete name="project" ngModel [db]="'projects'" [query]="projectPattern"  (ngModelChange)="addProject($event)" labelField="name"></db-autocomplete>
+                <db-autocomplete name="project" placeholder="Project" ngModel [db]="'projects'" [query]="projectPattern"  (ngModelChange)="addProject($event)" labelField="name"></db-autocomplete>
             </div>
         </form>
     </div>

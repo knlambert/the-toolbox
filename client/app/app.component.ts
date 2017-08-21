@@ -28,7 +28,7 @@ export class AppComponent implements OnInit{
       },
       {
         "label" : "Projects Load",
-        "url" : "hours/project-load"
+        "url" : "project-management/project-load"
       },
       {
         "label" : "Backoffice",
