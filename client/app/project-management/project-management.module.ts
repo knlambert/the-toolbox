@@ -10,6 +10,7 @@ import { ProjectLoadCalendarComponent } from './project-load-calendar/project-lo
 import { ProjectSearchComponent } from './project-search/project-search.component';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { PlanningTaskRowComponent } from './planning-task-row/planning-task-row.component';
+import { GoogleColorsService } from './../app-common/google-colors.service';
 
 @NgModule({
   imports:      [
@@ -40,6 +41,6 @@ import { PlanningTaskRowComponent } from './planning-task-row/planning-task-row.
     PlanningTaskRowComponent
   ],
   exports: [ ],
-  providers: [ ]
+  providers: [ GoogleColorsService]
 })
 export class ProjectManagementModule { }

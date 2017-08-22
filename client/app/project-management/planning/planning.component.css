@@ -1,17 +1,41 @@
 
 
-.container
+
+.div-container {
+
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background-color:white;
+}
+
+
+#div-planning-controls
 {
-    width: 100%;
+    background-color: white;
+    height: 87px;
+}
+#div-planning-controls > div
+{
+    margin-top: 10px;
+}
+
+.l-box {
+    padding: 10px;
+}
+.div-container
+{
     min-height:500px;
     overflow-x: scroll;
     overflow-y: auto;
-    background: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     border: 1px solid #EEEEEE;
 }
 
 table {
+    width: 100%;
+}
+
+.th-current-day
+{
+    color: #EF5350;
 }
 
 
@@ -36,3 +60,27 @@ th {
     padding:5px;
 }
 
+#button-next-week
+{
+    float:right;
+}
+
+#icon-previous, #icon-next
+{
+  position:relative;
+  left:-10px;
+  font-size:48px;
+}
+
+#input-date-container {
+    width: 100%;
+}
+
+#button-delete-task, #button-add-task {
+    background-color:  #F44336;
+    color: white;
+}
+
+.icon-white {
+    color:white;
+}

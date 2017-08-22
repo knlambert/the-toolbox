@@ -1,6 +1,6 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
 import { DBService } from "./../../db/db.service";
-
+import { PlanningTaskRowComponent } from "./../planning-task-row/planning-task-row.component";
 
 
 @Component({
@@ -16,23 +16,40 @@ export class PlanningComponent implements OnInit {
   @Input()
   set project(project) {
     this._project = project;
-    this.loadProject();
   }
 
+  private currentDate = new Date();
   private _project: object;
   private tasks: Array<object> = [];
   private availableUsers: Array<object> = [];
   private dayHeaders: Array<Date> = [];
   private lineSize: number = 30;
+  private loading: boolean = false;
   private fromDate: Date;
   private selectedTaskIds: Array<number> = [];
-  
+  private monthBindings = {
+    1: "January",
+    2: "Fabruary",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December"
+  };
+  private dayLetters = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+
   constructor(private dbService: DBService){}
+  @ViewChildren('row') rows:QueryList<PlanningTaskRowComponent>;
 
   ngOnInit(){
-    this.fromDate = new Date("2017-08-10");
-    this.generateDays();
-    this.loadUsers();
+    this.fromDate = new Date();
+    this.generateDays(this.fromDate, this.lineSize);
   }
 
   private loadUsers(){
@@ -45,7 +62,9 @@ export class PlanningComponent implements OnInit {
     });
   }
 
-  private loadProject(){
+  private loadProject(project){
+    this._project = project;
+    this.loadUsers();
     this.dbService.list("tasks", {
       "project.id": this._project['id']
     }).subscribe((tasks) => {
@@ -53,14 +72,16 @@ export class PlanningComponent implements OnInit {
     });
   }
 
-  private generateDays(){
-      var dateCursor = new Date(this.fromDate);
+  private generateDays(fromDate: Date, count: number){
+
+      var dateCursor = new Date(fromDate);
       let days = [];
-      for(var i = 0; i < this.lineSize; i++){
+      for(var i = 0; i < count; i++){
         days.push(new Date(dateCursor));
         dateCursor.setDate(dateCursor.getDate()+1);
       }
-      this.dayHeaders = days;
+      console.log(this.fromDate)
+      this.dayHeaders = this.dayHeaders.concat(days)
   }
 
   private addEmptyTask(){
@@ -91,7 +112,6 @@ export class PlanningComponent implements OnInit {
     else {
       this.selectedTaskIds.push(taskId);
     }
-    console.log(this.selectedTaskIds)
   }
   private deleteTaskWithId(taskId){
     for(var i = 0; i < this.tasks.length; i++){
@@ -121,6 +141,46 @@ export class PlanningComponent implements OnInit {
           this.deleteTaskWithId(task['id']);
         })
       });
+    }
+  }
+
+  private updateFromDate(newDate: any){
+    var date;
+    
+    if(newDate instanceof Date){
+      date = new Date(newDate);
+    }
+    else{
+      date = newDate.split("/");
+      date = new Date(date[2] + "-" + date[1] + "-" + date[0]);
+    }
+    this.fromDate = date;
+    this.lineSize = 30;
+    this.dayHeaders = [];
+    this.loadProject(this._project);
+    this.generateDays(date, this.lineSize);
+  }
+
+  private onScroll(elemScrollLeft: number, elemOffsetWidth: number, innerOffsetWidth: any){
+    if(elemScrollLeft + elemOffsetWidth >= innerOffsetWidth){
+      var locked = false;
+      this.rows.forEach((row) => {
+        
+        locked = locked || row.locked;
+       
+      });
+      if(!locked){
+        let newCursor = new Date();
+        console.log(this.fromDate)
+        newCursor.setDate(this.fromDate.getDate() + this.lineSize);
+        this.lineSize += 7;
+        this.generateDays(newCursor, 7);
+        this.rows.forEach((row) => {
+          row.addDays(7);
+        });
+
+        
+      }
     }
   }
 }

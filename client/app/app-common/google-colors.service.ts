@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class GoogleColorsService {
-
   /**
    * Google friendly colors
    */
-  private colors = {
+  public colors = {
         "red": {
             "50": "#FFEBEE",
             "100": "#FFCDD2",
@@ -103,7 +102,7 @@ export class GoogleColorsService {
             "A400": "#2979FF",
             "A700": "#2962FF"
         },
-        "light Blue": {
+        "light blue": {
             "50": "#E1F5FE",
             "100": "#B3E5FC",
             "200": "#81D4FA",
@@ -167,7 +166,7 @@ export class GoogleColorsService {
             "A400": "#00E676",
             "A700": "#00C853"
         },
-        "light Green": {
+        "light green": {
             "50": "#F1F8E9",
             "100": "#DCEDC8",
             "200": "#C5E1A5",
@@ -306,7 +305,8 @@ export class GoogleColorsService {
      * @param hash 
      * @param level 
      */
-    public generate(hash: string, level: string = "100"){
+    public generate(hash: any, level: string = "100"){
+        hash = ""+hash;
         const colorKeys = Object.keys(this.colors);
         let code = 0;
         for(var i = 0; i < hash.length; i++){

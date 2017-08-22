@@ -10,13 +10,6 @@ export class PlanningMenuComponent {
 
   
 
-  /**
-   * Load the project selected in the searching bar.
-   * @param project The project to load.
-   */
-  private loadProject(project: object){
-
-  }
 
 
 
