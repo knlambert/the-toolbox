@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DBService } from "./../../db/db.service";
 
 
@@ -15,6 +15,7 @@ export class PlanningTaskRowComponent implements OnInit {
   @Input() task: object;
   @Input() fromDate: Date;
   @Input() availableUsers: Array<object> = [];
+  @Output() selected = new EventEmitter();
   
   private taskDays: Array<object> = [];
   private lineSize: number = 30;
@@ -122,4 +123,6 @@ export class PlanningTaskRowComponent implements OnInit {
       });
     }
   }
+
+  
 }

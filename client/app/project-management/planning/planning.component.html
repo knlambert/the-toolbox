@@ -4,21 +4,22 @@
 <div class="container" >
     <table>
             <tr>
+                <th class="th-task-name"></th>
                 <th class="th-task-name">Task</th>
                 <th class="th-user-name">In charge</th>
                 <th *ngFor="let day of dayHeaders">{{day.getDate()}}</th>
             </tr>
 
-            <tr hc-planning-task-row *ngFor="let task of tasks" [task]="task" [fromDate]="fromDate" [availableUsers]="availableUsers"></tr>
+            <tr hc-planning-task-row *ngFor="let task of tasks" [task]="task" [fromDate]="fromDate" (selected)="selectTask($event, task.id)" [availableUsers]="availableUsers"></tr>
         
     </table>
 </div>
 
 <div id="div-float-bar">
     <table >
-        <tr>
+        <tr *ngIf="selectedTaskIds.length > 0">
             <td class="td-float-button">
-                    <button md-mini-fab><md-icon>delete</md-icon></button>
+                    <button md-mini-fab (click)="deleteSelectedTasks()" ><md-icon>delete</md-icon></button>
             </td>
         </tr>
         <tr>

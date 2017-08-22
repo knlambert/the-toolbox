@@ -1,3 +1,6 @@
+<td>
+    <md-checkbox #selectBox (change)="selected.emit(selectBox.checked)"></md-checkbox>
+</td>
 <td class="td-task-name" >
     <md-input-container>
         <input #title id="input-task-title" [(ngModel)]="task.title"
