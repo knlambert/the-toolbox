@@ -101,7 +101,6 @@ export class PlanningTaskRowComponent implements OnInit {
     else{
       var startedAt = new Date(this.fromDate);
       startedAt.setDate(startedAt.getDate() + index);
-      console.log(startedAt)
       let toCreate = {
         minutes: 480,
         started_at: Math.ceil(startedAt.getTime() / 1000),
@@ -173,9 +172,16 @@ export class PlanningTaskRowComponent implements OnInit {
    */
   private getColor(index){
     if(this.taskDays[index] == null){
-      return "transparent"
+      return null;
     }
     return this.color;
   }
   
+  private isWeekend(index: number){
+    let day = new Date(this.fromDate);
+    day.setDate(day.getDate()+index);
+    let isWeekend = (day.getDay() === 0 || day.getDay() === 6);
+    console.log(isWeekend);
+    return isWeekend;
+  }
 }

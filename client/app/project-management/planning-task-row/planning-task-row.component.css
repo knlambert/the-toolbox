@@ -25,3 +25,7 @@ md-select {
     background-color:#2196F3;
 }
 
+.td-weekend-day {
+    background-color: #9E9E9E;
+    border: solid 1px #9E9E9E;
+}

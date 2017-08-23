@@ -14,4 +14,4 @@
         </md-option>
     </md-select>
 </td>
-<td [ngStyle]="{'background-color': getColor(i)}" class="td-day" *ngFor="let taskDay of taskDays; let i = index" (click)="switchTaskDay(i)"></td>
+<td [ngClass]="{'td-weekend-day': isWeekend(i) }" [ngStyle]="{'background-color': getColor(i)}" class="td-day" *ngFor="let taskDay of taskDays; let i = index" (click)="switchTaskDay(i)"></td>
