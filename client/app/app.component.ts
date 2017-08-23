@@ -31,6 +31,10 @@ export class AppComponent implements OnInit{
         "url" : "project-management/project-load"
       },
       {
+        "label" : "Planning",
+        "url" : "project-management/planning"
+      },
+      {
         "label" : "Backoffice",
         "url" : "backoffice/"
       }
