@@ -26,7 +26,7 @@
         </div>
     </div>
     
-    <div class="pure-u-1">
+    <div [hidden]="_project == null" class="pure-u-1">
         <div class="l-box">
             <div class="div-container" #elem (scroll)="onScroll(elem.scrollLeft, elem.offsetWidth, inner.offsetWidth)" >
                 <table #inner>
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div id="div-float-bar">
+    <div [hidden]="_project == null" id="div-float-bar">
         <table >
             <tr >
                 <td class="td-float-button">
