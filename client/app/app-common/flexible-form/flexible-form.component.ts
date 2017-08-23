@@ -138,11 +138,19 @@ export class FlexibleFormComponent {
   }
 
   private submitForm(value: any){
+    console.log(value)
     for(var key in value){
       let fieldConfig = this.getFieldConfig(key);
-     
-      if(fieldConfig['type'] === 'timestamp'){
-        value[key] = parseInt(''+(new Date(value[key])).getTime() / 1000);
+      
+      if(value[key] == null){
+        delete value[key];
+      }
+      else{
+
+        if(fieldConfig['type'] === 'timestamp'){
+          
+          value[key] = parseInt(''+(new Date(value[key])).getTime() / 1000);
+        }
       }
     }
     if(this.isCreated){

@@ -34,6 +34,7 @@ export class DBAutocompleteComponent implements ControlValueAccessor {
 
   @Input() db: string;
   @Input() placeholder: string;
+  @Input() required: boolean = false;
   @Input() labelField: string;
   @Input() query: object = null;
   @Output() selected = new EventEmitter();

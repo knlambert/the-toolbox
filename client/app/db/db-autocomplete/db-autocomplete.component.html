@@ -1,8 +1,9 @@
 <md-input-container>
-  <input mdInput [(ngModel)]="selectedValue" [placeholder]="placeholder" [mdAutocomplete]="auto" >
+  <input mdInput [required]="required" [(ngModel)]="selectedValue" [placeholder]="placeholder" [mdAutocomplete]="auto" >
 </md-input-container>
 
-<md-autocomplete [displayWith]="generateGetLabel(labelField)" #auto="mdAutocomplete">
+<md-autocomplete  [displayWith]="generateGetLabel(labelField)" #auto="mdAutocomplete">
   <md-option *ngFor="let value of values" [value]="value">
     {{ value[labelField] }}
   </md-option>
+</md-autocomplete>

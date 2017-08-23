@@ -63,7 +63,10 @@ export class PlanningComponent implements OnInit {
     });
   }
 
-  private loadProject(project){
+  private loadProject(project, fromDate ?: Date){
+
+    this.fromDate = fromDate || new Date(project['started_at'] * 1000);
+
     this.toDate = null;
     this.lineSize = 0;
     this._project = project;
@@ -71,7 +74,9 @@ export class PlanningComponent implements OnInit {
     this.dbService.list("tasks", {
       "project.id": this._project['id']
     }).subscribe((tasks) => {
-      this.loadUsers();
+      if(this.availableUsers.length === 0){
+        this.loadUsers();
+      }
       this.generateDays(30);
       this.tasks = tasks;
     });
@@ -166,13 +171,14 @@ export class PlanningComponent implements OnInit {
       date = new Date(date[2] + "-" + date[1] + "-" + date[0]);
     }
     if(!isNaN(date.getTime())){
-      this.fromDate = date;
       this.toDate = null;
       this.lineSize = 0;
       this.dayHeaders = [];
       this.tasks = [];
       this.rows.reset([]);
-      this.loadProject(this._project);
+      this.loadProject(this._project, date);
+
+    
     }
   }
 

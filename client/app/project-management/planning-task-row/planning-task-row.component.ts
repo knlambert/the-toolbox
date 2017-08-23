@@ -58,7 +58,7 @@ export class PlanningTaskRowComponent implements OnInit {
   }
 
   private updateColor(){
-    this.color = this.googleColorsService.generate(this.task['user']['id'], "200");
+    this.color = this.googleColorsService.generate(this.task['user']['id'], "400");
   }
   
    
@@ -181,7 +181,6 @@ export class PlanningTaskRowComponent implements OnInit {
     let day = new Date(this.fromDate);
     day.setDate(day.getDate()+index);
     let isWeekend = (day.getDay() === 0 || day.getDay() === 6);
-    console.log(isWeekend);
     return isWeekend;
   }
 }

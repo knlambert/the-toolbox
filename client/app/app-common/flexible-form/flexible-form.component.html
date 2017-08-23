@@ -39,7 +39,7 @@
 
       
       <div *ngIf="field.nested_description != null && field.editable !== false">
-        <db-autocomplete [placeholder]="formatPlaceHolder(field.name)" [db]="field.nested_description.service"  labelField="name" [formControl]="formGroup.controls[field.name]" ></db-autocomplete>
+        <db-autocomplete [required]="field.required" [placeholder]="formatPlaceHolder(field.name)" [db]="field.nested_description.service"  labelField="name" [formControl]="formGroup.controls[field.name]" ></db-autocomplete>
       </div>
 
 
