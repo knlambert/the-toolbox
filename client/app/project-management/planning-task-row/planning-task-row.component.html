@@ -8,7 +8,7 @@
     </md-input-container>
 </td>
 <td class="td-user-name" >
-    <md-select (change)="userUpdated($event)" [(ngModel)]="task.user.id" >
+    <md-select #select (change)="userUpdated(select.selected)" [(ngModel)]="task.user.id" >
         <md-option *ngFor="let user of availableUsers" [value]="user.id">
             {{ user.name }}
         </md-option>

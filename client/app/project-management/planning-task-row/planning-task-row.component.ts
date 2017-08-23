@@ -13,6 +13,7 @@ import { GoogleColorsService } from './../../app-common/google-colors.service';
 })
 export class PlanningTaskRowComponent implements OnInit {
   
+  @Input() baseSize: number;
   @Input() task: object;
   @Input() fromDate: Date;
   @Input() availableUsers: Array<object> = [];
@@ -28,7 +29,11 @@ export class PlanningTaskRowComponent implements OnInit {
   constructor(private dbService: DBService, private googleColorsService: GoogleColorsService){}
 
   ngOnInit(){
-    this.generateDays(30);
+    var sizeToGenerate = this.baseSize;
+    if(sizeToGenerate == null){
+      sizeToGenerate = 30;
+    }
+    this.generateDays(sizeToGenerate);
     this.updateColor();
   }
   
@@ -119,7 +124,7 @@ export class PlanningTaskRowComponent implements OnInit {
     if(this.toDate != null && this.lineSize != 0){
       dateCursor = new Date(this.toDate);
     }
-    
+
 
     this.dbService.list("task_days", {
       "task.id": this.task['id'],
@@ -152,13 +157,20 @@ export class PlanningTaskRowComponent implements OnInit {
     });
   }
 
-  
+  /**
+   * Add n days to the grid.
+   * @param count The day count to add to the grid.
+   */
   public addDays(count: number){
     if(!this.locked){
       this.generateDays(count);
     }
   }
 
+  /**
+   * 
+   * @param index 
+   */
   private getColor(index){
     if(this.taskDays[index] == null){
       return "transparent"

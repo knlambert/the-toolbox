@@ -47,7 +47,7 @@
                             </th>
                         </tr>
 
-                        <tr hc-planning-task-row *ngFor="let task of tasks" #row [task]="task" [fromDate]="fromDate" [toDate]="toDate" (selected)="selectTask($event, task.id)" [availableUsers]="availableUsers"></tr>
+                        <tr hc-planning-task-row *ngFor="let task of tasks" #row [task]="task" [fromDate]="fromDate" [baseSize]="lineSize" [toDate]="toDate" (selected)="selectTask($event, task.id)" [availableUsers]="availableUsers"></tr>
                     </thead>
                 </table>
             </div>

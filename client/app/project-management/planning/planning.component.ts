@@ -23,7 +23,7 @@ export class PlanningComponent implements OnInit {
   private tasks: Array<object> = [];
   private availableUsers: Array<object> = [];
   private dayHeaders: Array<Date> = [];
-  private lineSize: number = 0;
+  private lineSize: number = null;
   private loading: boolean = false;
   private fromDate: Date;
   private toDate: Date;
@@ -65,7 +65,7 @@ export class PlanningComponent implements OnInit {
 
   private loadProject(project){
     this.toDate = null;
-    this.lineSize = 30;
+    this.lineSize = 0;
     this._project = project;
     this.dayHeaders = [];
     this.dbService.list("tasks", {
