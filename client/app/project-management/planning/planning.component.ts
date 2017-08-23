@@ -54,6 +54,7 @@ export class PlanningComponent implements OnInit {
   }
 
   private loadUsers(){
+    this.availableUsers = [];
     this.dbService.list("project_assignements", {
       "project.id": this._project['id']
     }).subscribe((projectAssignements) => {
@@ -74,9 +75,7 @@ export class PlanningComponent implements OnInit {
     this.dbService.list("tasks", {
       "project.id": this._project['id']
     }).subscribe((tasks) => {
-      if(this.availableUsers.length === 0){
-        this.loadUsers();
-      }
+      this.loadUsers();
       this.generateDays(30);
       this.tasks = tasks;
     });
@@ -129,31 +128,40 @@ export class PlanningComponent implements OnInit {
       this.selectedTaskIds.push(taskId);
     }
   }
-  private deleteTaskWithId(taskId){
+  private deleteTaskWithId(taskId: number){
     for(var i = 0; i < this.tasks.length; i++){
       if(this.tasks[i]['id'] === taskId){
         this.tasks.splice(i, 1);
         break;
       }
     }
-  };
-  private deleteSelectedTasks(){
-    let toDelete = Array.from(this.selectedTaskIds);
-    this.selectedTaskIds = [];
+  }
 
-    
+
+  private getSelectionFilter(selectedTasks: Array<number>){
     let or = [];
-    toDelete.forEach((id) => {
+    selectedTasks.forEach((id) => {
       or.push({
         "id": id
       });
     });
-    /* delete if something selected */
     if(or.length > 0){
-      this.dbService.delete("tasks", {
+      return {
         "$or": or
-      }).subscribe((result) => {
-        or.forEach((task) => {
+      };
+    }
+    return null;
+  }
+
+  private deleteSelectedTasks(){
+    let toDelete = Array.from(this.selectedTaskIds);
+    let filters = this.getSelectionFilter(toDelete);
+    
+    
+    /* delete if something selected */
+    if(filters != null){
+      this.dbService.delete("tasks", filters).subscribe((result) => {
+        filters['$or'].forEach((task) => {
           this.deleteTaskWithId(task['id']);
         })
       });
@@ -200,4 +208,6 @@ export class PlanningComponent implements OnInit {
       }
     }
   }
+
+
 }

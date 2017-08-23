@@ -76,9 +76,14 @@ th {
     width: 100%;
 }
 
-#button-delete-task, #button-add-task {
+#button-delete-task, #button-add-task, #button-uncomplete-task {
     background-color:  #F44336;
     color: white;
+}
+
+#button-complete-task {
+    color:white;
+    background-color: #43A047
 }
 
 .icon-white {

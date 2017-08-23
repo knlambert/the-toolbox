@@ -55,6 +55,7 @@
     </div>
     <div [hidden]="_project == null" id="div-float-bar">
         <table >
+         
             <tr >
                 <td class="td-float-button">
                     <button mdTooltip="Remove selected task(s)" [mdTooltipPosition]="'left'" id="button-delete-task" [hidden]="selectedTaskIds.length == 0"   md-mini-fab (click)="deleteSelectedTasks()" >
