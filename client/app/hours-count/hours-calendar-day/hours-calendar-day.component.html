@@ -1,0 +1,37 @@
+<div class="pure-g">
+    <div class="pure-u-1" id="div-day">{{getDayString()}}</div>
+
+    <div class="div-item-card pure-u-1" *ngFor="let item of _items">
+        <div class="l-box" *ngIf="item.status == 'saved'">
+          <p *ngIf="item.hour.project"><b>Client</b> : {{item.hour.project.client.name}}</p>
+          <p *ngIf="item.hour.project"><b>Project</b> : {{item.hour.project.name}}</p>
+          <p><b>Time</b> : {{getFormatedDuration(item.hour.started_at, item.hour.minutes)}}
+        </div>
+    
+        <div class="l-box"  *ngIf="item.status == 'editing' || item.status == 'new'">
+          <hour-edit-form 
+            [uuid]="item.uuid"
+            [hour]="item.hour"
+            [status]="item.status"
+            (updated)="onItemEdited($event)"
+            (saved)="onItemSaved($event)"
+            (canceled)="onItemCanceled($event)"
+          ></hour-edit-form>
+        </div>
+    </div> 
+
+
+    <div class="pure-u-1">
+      <div class="div-new-container">
+        <button md-icon-button (click)="new()">
+          <md-icon>add</md-icon>
+        </button>
+      </div>
+    </div>
+
+
+ 
+
+</div>
+
+
