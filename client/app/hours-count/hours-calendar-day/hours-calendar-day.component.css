@@ -1,16 +1,14 @@
 .div-new-container
 {
-  margin:2%;
-  padding:5%;
   text-align:center;
   border:#E0E0E0 dashed 1px;
+  margin-bottom: 4%;
 }
 
 .div-item-card
 {
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  margin:2%;
   background-color:white;
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
@@ -19,4 +17,33 @@
 {
 
   padding:5%;
+}
+
+#div-day
+{
+  text-align:center;
+  font-weight: bold;
+}
+
+.div-current-day
+{
+  color: #D50000;
+}
+
+.div-hour-header
+{
+  color: #2196F3;
+  text-align:center;
+  font-weight: bold;
+}
+
+.p-project-name
+{
+  text-align:center; 
+  margin:10px;
+}
+
+.div-item-selected
+{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }

@@ -1,0 +1,34 @@
+#div-float-bar
+{
+    bottom: 0;
+    padding: 23px 12px;
+    position: fixed;
+    right: 15px;
+    z-index: 21;
+    text-align:center;
+}
+
+
+#button-delete-task {
+    background-color:  #F44336;
+}
+
+.icon-white {
+    color:white;
+}
+
+#calendar-day
+{
+  text-align:center;
+  font-weight: bold;
+}
+
+#button-next, #button-more, #slide-weeks
+{
+    float:right;
+}
+
+#slide-weeks
+{
+    margin-top:10px;
+}

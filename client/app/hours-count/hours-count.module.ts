@@ -12,6 +12,8 @@ import { AppCommonModule } from "./../app-common/app-common.module";
 import MaterialModule from './../material/material.module';
 import { ProjectAssignementService } from './project-assignement.service';
 import { GoogleColorsService } from './../app-common/google-colors.service';
+import { UUIDService } from './uuid.service';
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { DBModule } from './../db/db.module';
 
 
@@ -23,6 +25,7 @@ import { DBModule } from './../db/db.module';
     ReactiveFormsModule,
     AppCommonModule,
     DBModule,
+    FlexLayoutModule,
     RouterModule.forChild(
       [
         {
@@ -34,6 +37,6 @@ import { DBModule } from './../db/db.module';
   ],
   declarations: [ CalendarComponent, CollectionComponent, HourEditFormComponent, HoursCountComponent, HoursCalendarComponent, HoursCalendarDay],
   exports: [ HoursCountComponent, RouterModule ],
-  providers: [ ProjectAssignementService, GoogleColorsService ]
+  providers: [ ProjectAssignementService, GoogleColorsService, UUIDService ]
 })
 export class HoursCountModule { }

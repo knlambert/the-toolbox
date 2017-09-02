@@ -64,9 +64,10 @@
   </div>
 
   <div class="pure-u-1 button-container">
-    <button md-icon-button (click)="cancel(hour)" [hidden]="locked">
+    <button type="reset" md-icon-button (click)="cancel(hour)" [hidden]="locked">
         <md-icon id="icon-cancel">cancel</md-icon>
     </button>
+    
     <button class="button-right" md-icon-button required [hidden]="!form.valid || locked">
         <md-icon>save</md-icon>
     </button>

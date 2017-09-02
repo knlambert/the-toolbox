@@ -14,11 +14,12 @@
                 <div class="pure-g">
                    
                     <div  class="pure-u-1">
-                        <md-input-container  id="input-date-container" >
+                        <md-form-field  id="input-date-container" >
                             <input #dateInput (blur)="updateFromDate(dateInput.value)" mdInput [mdDatepicker]="picker" placeholder="Choose a date">
-                            <button mdSuffix [mdDatepickerToggle]="picker"></button>
-                        </md-input-container>
-                        <md-datepicker (selectedChanged)="updateFromDate($event)" touchUi="true" #picker></md-datepicker>
+                        
+                            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+                            <md-datepicker (selectedChanged)="updateFromDate($event)" touchUi="true" #picker></md-datepicker>
+                        </md-form-field>
                     </div>
 
                 </div>

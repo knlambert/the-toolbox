@@ -248,8 +248,7 @@ export class HourEditFormComponent implements OnInit{
 
   cancel(){
     var ret = {
-      uuid : this.uuid,
-      hour : this.hour
+      uuid : this.uuid
     };
     this.canceled.emit(ret);
   };

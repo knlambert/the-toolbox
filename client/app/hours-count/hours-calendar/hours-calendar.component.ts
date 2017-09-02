@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList} from '@angular/core';
+import { HoursCalendarDay } from './../hours-calendar-day/hours-calendar-day.component';
 import { Observable } from 'rxjs/Observable';
 import { NgClass} from '@angular/common';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -17,14 +18,43 @@ export class HoursCalendarComponent implements OnInit{
 
   @Input() userInformations:Object;
   @Input() daysPerPage = 7;
-  @Input() hideWeeks = true
+  @Input() hideWeekend = false;
+
   
-  ;
+
+  @ViewChildren('calendardayComponent') calendardayComponents:QueryList<HoursCalendarDay>;
+  
 
   constructor(private dbService: DBService,  private route: ActivatedRoute, private router: Router){}
 
   private currentDate: Date;
   private dayHoursList: Observable<Array<object>>;
+
+  public getFormatedWeek(){
+    return this.currentDate.getDate() + "/" + (this.currentDate.getMonth()+1) + "/" + this.currentDate.getFullYear() + " week"
+  }
+  public next(){
+    this.updateUri(+7);
+  };
+
+  public previous(){
+    this.updateUri(-7);
+  };
+
+  private exportCra(){
+    const month = this.currentDate.getMonth()+1;
+
+    this.dbService.export("cras", {
+      email: this.userInformations['email'],
+      month: month
+    });
+  }
+
+  public updateUri(days:number){
+      let newdate = new Date(this.currentDate.getTime() + (3600 * 24 * 1000 * days));
+      let newDateStr = newdate.getFullYear() + "-" + (newdate.getMonth()+1) + "-" + newdate.getDate();
+      this.router.navigate(['hours/mine/', newDateStr]);
+    };
 
   public ngOnInit(){
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -32,6 +62,7 @@ export class HoursCalendarComponent implements OnInit{
       let strDate = params.get('date');
       if (strDate === "now"){
         this.currentDate = new Date();
+        this.currentDate.setDate(this.currentDate.getDate() - this.currentDate.getDay()+1);
         this.currentDate.setHours(0);
         this.currentDate.setMinutes(0);
         this.currentDate.setSeconds(0);
@@ -44,23 +75,21 @@ export class HoursCalendarComponent implements OnInit{
         "started_at": {
           "$gte": currentTimestamp,
           "$lt": currentTimestamp + (this.daysPerPage * 24 * 3600)
-        }
+        },
+        "affected_to.id": this.userInformations['app_user_id']
       }).map((hours) => {
         let days = [];
         var cursorDay = new Date(this.currentDate);
         for(var i = 0; i < this.daysPerPage; i++){
-          if(!this.hideWeeks || (cursorDay.getDay() !== 0 && cursorDay.getDay() !== 6)){
-            let cursorTimestamp = Math.floor(cursorDay.getTime()/1000);
-            days.push({
-              "day": new Date(cursorDay),
-              "hours": hours.filter((hour) => {
-                return hour['started_at'] >= cursorTimestamp && hour['started_at'] < (cursorTimestamp + (3600 * 24));
-              })
-            });
-          }
+          let cursorTimestamp = Math.floor(cursorDay.getTime()/1000);
+          days.push({
+            "day": new Date(cursorDay),
+            "hours": hours.filter((hour) => {
+              return hour['started_at'] >= cursorTimestamp && hour['started_at'] < (cursorTimestamp + (3600 * 24));
+            })
+          });
           cursorDay.setDate(cursorDay.getDate()+1);
         }
-        console.log(days)
         return days;
       });
 
@@ -68,5 +97,57 @@ export class HoursCalendarComponent implements OnInit{
     });
   }
 
- 
+  private getSelectedItems(){
+    let selectedItems = [];
+    this.calendardayComponents.forEach(element => {
+      selectedItems = selectedItems.concat(element.getSelectedItems());
+    });
+    return selectedItems;
+  }
+
+  private applyToEachSelectedItem(callback: any){
+    let items = this.getSelectedItems();;
+    this.calendardayComponents.forEach(element => {
+      for(var i = items.length-1; i >= 0; i--){
+        if(callback(items[i], element) !== -1){
+          items.splice(i, 1);
+        }
+      }
+    });
+  }
+
+  private deleteSelectedTasks(){
+    let itemsToDelete = this.getSelectedItems();
+    let itemsToSetLoading = itemsToDelete.slice();
+    
+    this.applyToEachSelectedItem((item, element) => {
+      return element.setLoading(item['uuid'], true);
+    });
+
+    let orFilter = [];
+    itemsToDelete.forEach((item) => {
+      orFilter.push({
+        "id": item['hour']['id']
+      });
+    });
+    this.dbService.delete('hours', {
+      "$or": orFilter
+    }).subscribe((result) => {
+      this.applyToEachSelectedItem((item, element) => {
+        return element.deleteItem(item['uuid']);
+      });
+    });
+    
+  }
+
+  private isWeekend(date: Date){
+    return date.getDay() === 0 || date.getDay() === 6;
+  }
+  
+  private getSizePerDay(){
+    if(this.hideWeekend){
+      return "13%";
+    }
+    return "19%";
+  }
 }
