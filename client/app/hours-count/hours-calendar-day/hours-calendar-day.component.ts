@@ -120,7 +120,7 @@ export class HoursCalendarDay {
    */
   private selectItem(uuid: string, isSelected: boolean){
     let index = this.getItemIndex(uuid);
-    if(this._items[index]['status'] === "saved"){
+    if(index !== -1 && this._items[index]['status'] === "saved"){
       this._items[index]['isSelected'] = !isSelected;
     }
   }

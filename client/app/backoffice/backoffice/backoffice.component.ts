@@ -21,7 +21,7 @@ export class BackofficeComponent implements OnInit{
 
   @ViewChild('Report') report:ReportComponent;
   private userInformations: string;
-  private referentials: String[];
+  private referentials: object[];
   private referential: String;
   private editingItems: Array<Object>= [];
   private description: Object;  
@@ -33,17 +33,17 @@ export class BackofficeComponent implements OnInit{
     });
 
     this.referentials = [
-      "projects",
-      "hours",
-      "clients",
-      "users",
-      "project_assignements"
+      {"service": "projects", "label": "Projects"},
+      {"service": "hours", "label": "Hours"},
+      {"service": "clients", "label": "Clients"},
+      {"service": "users", "label": "Users"},
+      {"service": "project_assignements", "label": "Project affectations"}
     ]
   };
 
   ngAfterViewInit(): void {
     this.report.setLoading(true);
-    this.refresh(this.referentials[0]);
+    this.refresh(this.referentials[0]['service']);
   };
 
 

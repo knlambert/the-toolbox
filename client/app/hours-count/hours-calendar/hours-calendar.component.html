@@ -34,7 +34,12 @@
        
       </md-menu>
 
-      <md-slide-toggle [(ngModel)]="hideWeekend" (ngModelChange)="onHideWeekChange($event)" labelPosition="before" id="slide-weeks">Week-end</md-slide-toggle> 
+      <md-slide-toggle 
+      mdTooltip="Display / hide week-ends."
+      [(ngModel)]="hideWeekend" 
+      (ngModelChange)="onHideWeekChange($event)" 
+      labelPosition="before" 
+      id="slide-weeks">Week-end</md-slide-toggle> 
     </div>
 </div>
 
@@ -50,7 +55,7 @@
 </div>
 
 <div id="div-float-bar">
-    <button mdTooltip="Remove selected hour(s)" [mdTooltipPosition]="'left'" id="button-delete-task" md-mini-fab (click)="deleteSelectedTasks()" >
+    <button mdTooltip="Remove selected hour(s)." [mdTooltipPosition]="'left'" id="button-delete-task" md-mini-fab (click)="deleteSelectedTasks()" >
         <md-icon class="icon-white">delete</md-icon>
     </button>
 </div>

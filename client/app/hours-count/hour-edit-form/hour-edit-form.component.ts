@@ -54,7 +54,7 @@ export class HourEditFormComponent implements OnInit{
       'client': [null, Validators.compose([Validators.required, DBUtils.validDBAutocomplete()])],
       'project': [null, Validators.compose([Validators.required, DBUtils.validDBAutocomplete()])],
       'started_at':[null, Validators.compose([Validators.required, Validators.pattern('^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')])],
-      'minutes': [null, Validators.required],
+      'minutes': [null, Validators.compose([Validators.required, , Validators.min(1)])],
       'issue': [null]
     });
 
