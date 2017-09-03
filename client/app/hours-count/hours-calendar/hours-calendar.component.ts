@@ -1,9 +1,7 @@
 import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList} from '@angular/core';
 import { HoursCalendarDay } from './../hours-calendar-day/hours-calendar-day.component';
 import { Observable } from 'rxjs/Observable';
-import { NgClass} from '@angular/common';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { UrlResolver} from '@angular/compiler';
 import { DBService } from './../../db/db.service';
 
 
@@ -20,7 +18,7 @@ export class HoursCalendarComponent implements OnInit{
   @Input() daysPerPage = 7;
   @Input() hideWeekend = false;
 
-  
+  private sizePerDay: string = "19%";
 
   @ViewChildren('calendardayComponent') calendardayComponents:QueryList<HoursCalendarDay>;
   
@@ -77,6 +75,8 @@ export class HoursCalendarComponent implements OnInit{
           "$lt": currentTimestamp + (this.daysPerPage * 24 * 3600)
         },
         "affected_to.id": this.userInformations['app_user_id']
+      }, {
+        "started_at": 1
       }).map((hours) => {
         let days = [];
         var cursorDay = new Date(this.currentDate);
@@ -130,24 +130,34 @@ export class HoursCalendarComponent implements OnInit{
         "id": item['hour']['id']
       });
     });
-    this.dbService.delete('hours', {
-      "$or": orFilter
-    }).subscribe((result) => {
-      this.applyToEachSelectedItem((item, element) => {
-        return element.deleteItem(item['uuid']);
-      });
-    });
     
+    if(orFilter.length > 0){
+      this.dbService.delete('hours', {
+        "$and": [
+          {
+            "affected_to.id": this.userInformations['app_user_id']
+          },{
+            "$or": orFilter
+          }
+        ]
+      }).subscribe((result) => {
+        this.applyToEachSelectedItem((item, element) => {
+          return element.deleteItem(item['uuid']);
+        });
+      });
+    }
   }
 
   private isWeekend(date: Date){
     return date.getDay() === 0 || date.getDay() === 6;
   }
   
-  private getSizePerDay(){
-    if(this.hideWeekend){
-      return "13%";
+  private onHideWeekChange(hideWeekend: boolean){
+    if(hideWeekend){
+      this.sizePerDay = "13%";
     }
-    return "19%";
+    else{
+      this.sizePerDay = "19%";
+    }
   }
 }

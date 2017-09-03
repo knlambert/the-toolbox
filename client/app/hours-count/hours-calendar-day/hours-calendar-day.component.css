@@ -35,12 +35,18 @@
   color: #2196F3;
   text-align:center;
   font-weight: bold;
+  margin-top:1%;
 }
 
-.p-project-name
+.div-project-name-container
+{ 
+  height:100%;    
+  display: flex; 
+}
+.div-project-name
 {
-  text-align:center; 
-  margin:10px;
+  text-align:center;
+  margin: auto; 
 }
 
 .div-item-selected

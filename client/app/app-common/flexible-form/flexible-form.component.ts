@@ -138,7 +138,6 @@ export class FlexibleFormComponent {
   }
 
   private submitForm(value: any){
-    console.log(value)
     for(var key in value){
       let fieldConfig = this.getFieldConfig(key);
       

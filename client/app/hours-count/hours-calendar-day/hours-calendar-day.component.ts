@@ -155,6 +155,7 @@ export class HoursCalendarDay {
       id: hour['id']
     }, hour).subscribe((result) => {
       this.setLoading(uuid, false);
+      this.sortItems();
     });
   }
   
@@ -192,6 +193,15 @@ export class HoursCalendarDay {
   }
 
   /**
+   * Set the ID of the item (after saving).
+   * @param uuid Unique UUID generated for each item.
+   * @param id The ID to set.
+   */
+  private setId(uuid: string, id: number){
+    this._items[this.getItemIndex(uuid)]['hour']['id'] = id;
+  }
+
+  /**
    * Called when item edition form saved event is triggered.
    * @param item 
    */
@@ -202,7 +212,10 @@ export class HoursCalendarDay {
 
     this.dbService.save("hours", item['hour']).subscribe((result) => {
       this.setLoading(item['uuid'], false);
+      this.setId(uuid, result['inserted_id']);
+      this.sortItems();
     });
+
   }
  
   /**
@@ -233,4 +246,31 @@ export class HoursCalendarDay {
     return -1;
   }
 
+  /**
+   * Get the heigh of the item.
+   * @param item 
+   */
+  private getItemHeight(item){
+    let height = item['hour']['minutes'];
+    if(height < 30){
+      height = 30;
+    }
+    return height + "px";
+  }
+
+  private displayTopHour(uuid: string){
+    let index = this.getItemIndex(uuid);
+    if(index === 0){
+      return true;
+    }
+    let previousTimestamp = this._items[index-1]['hour']['started_at'] + this._items[index-1]['hour']['minutes'] * 60;
+    let currentTimestamp = this._items[index]['hour']['started_at'];
+    return !(this.getHourMinuteFromTimestamp(previousTimestamp) === this.getHourMinuteFromTimestamp(currentTimestamp))
+  }
+
+  private sortItems(){
+    this._items = this._items.sort((a, b) => {
+      return a['hour']['started_at'] - b['hour']['started_at']
+    });
+  }
 }

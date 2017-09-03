@@ -1,3 +1,6 @@
+
+
+
 <div fxLayoutGap="0%"  fxLayout.gt-xs="row"  fxLayoutWrap fxLayoutAlign="start start">
   
   <div fxFlex="33%">
@@ -6,11 +9,11 @@
     </button>
   </div>
 
-  
   <div fxFlex="33%">
      <p id="calendar-day">{{getFormatedWeek()}}</p>
   </div>
 
+  
   
   <div fxFlex="33%" >
     
@@ -31,16 +34,19 @@
        
       </md-menu>
 
-      <md-slide-toggle [(ngModel)]="hideWeekend" labelPosition="before" id="slide-weeks">Week-end</md-slide-toggle>
-
-  </div>
-
-  
-
+      <md-slide-toggle [(ngModel)]="hideWeekend" (ngModelChange)="onHideWeekChange($event)" labelPosition="before" id="slide-weeks">Week-end</md-slide-toggle> 
+    </div>
 </div>
 
+<!-- 
 <div fxLayoutGap="1%"  fxLayout.gt-xs="row"  fxLayoutWrap fxLayoutAlign="start start" >
-  <div  fxFlex.lt-sm="99%" [fxFlex.gt-xs]="getSizePerDay()"   *ngFor="let dayHours of dayHoursList | async"  >
+    <div  fxFlex.lt-sm="99%" [fxFlex.gt-xs]="sizePerDay"   *ngFor="let dayHours of dayHoursList | async" >
+      <div>DAY</div>
+    </div>
+  </div> -->
+
+<div fxLayoutGap="1%"  fxLayout.gt-xs="row"  fxLayoutWrap fxLayoutAlign="start start" >
+  <div  fxFlex.lt-sm="99%" [fxFlex.gt-xs]="sizePerDay"   *ngFor="let dayHours of dayHoursList | async"  >
     <hours-calendar-day 
     #calendardayComponent 
     [hidden]="!hideWeekend && isWeekend(dayHours.day)"

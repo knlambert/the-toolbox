@@ -1,34 +1,45 @@
-<div fxLayout="column" fxLayoutGap="4%" fxLayoutAlign="center left" >
+<div fxLayout="column" fxLayoutGap="1%" fxLayoutAlign="center left" >
   <div [ngClass]="{'div-current-day': isCurrentDay()}" id="div-day" class="div-item-card">{{getDayString()}}</div>
 
   <div 
-  (click)="selectItem(item.uuid, item.isSelected)" 
-  (dblclick)="setStatus(item.uuid, 'editing')"
-  [ngClass]="{'div-item-selected': item.isSelected}" 
-  class="div-item-card" 
   *ngFor="let item of _items">
+
+    <div class="div-hour-header" *ngIf="displayTopHour(item.uuid)" >{{getHourMinuteFromTimestamp(item.hour.started_at)}}</div>
+
+    <div 
+    class="div-item-card"
+    (click)="selectItem(item.uuid, item.isSelected)" 
+    (dblclick)="setStatus(item.uuid, 'editing')"
+    [ngClass]="{'div-item-selected': item.isSelected}">
 
       <div>
         <md-progress-bar  [hidden]="!item.isLoading" mode="indeterminate"></md-progress-bar>
       </div>
-      <div [ngStyle]="{'border-left': ('solid 3px ' + getProjectColor(item)) }" *ngIf="item.status == 'saved'">
 
-        <div class="div-hour-header" >{{getHourMinuteFromTimestamp(item.hour.started_at)}}</div>
-        <p class="p-project-name" *ngIf="item.hour.project"><b>{{item.hour.project.client.name}}</b>, {{item.hour.project.name}}</p>
-        <div class="div-hour-header" >{{getHourMinuteFromTimestamp(item.hour.started_at + item.hour.minutes*60)}}</div>
+      <div [ngStyle]="{'border-left': ('solid 3px ' + getProjectColor(item)), 'height': getItemHeight(item) }" 
+        *ngIf="item.status == 'saved'">
 
+        <div class="div-project-name-container" *ngIf="item.hour.project">
+          <div class="div-project-name"><b>{{item.hour.project.client.name}}</b>, {{item.hour.project.name}}</div>
+        </div>
+        
       </div>
   
-      <div   class="l-box"  *ngIf="item.status == 'editing' || item.status == 'new'">
+      <div class="l-box" *ngIf="item.status == 'editing' || item.status == 'new'">
         <hour-edit-form 
           [uuid]="item.uuid"
           [hour]="item.hour"
           [status]="item.status"
           (updated)="onItemEdited($event.uuid, $event.hour)"
           (saved)="onItemSaved($event)"
-          (canceled)="onItemCanceled($event.uuid)"
-        ></hour-edit-form>
+          (canceled)="onItemCanceled($event.uuid)">
+        </hour-edit-form>
+
       </div>
+    </div> 
+
+    <div class="div-hour-header" >{{getHourMinuteFromTimestamp(item.hour.started_at + item.hour.minutes*60)}}</div>
+  
   </div> 
 
 

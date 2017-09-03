@@ -88,7 +88,6 @@ export class PlanningComponent implements OnInit {
       }
       
       let days = [];
-      console.log("Generate " + count + " days from " + dateCursor)
       for(var i = 0; i < count; i++){
         days.push(new Date(dateCursor));
         
