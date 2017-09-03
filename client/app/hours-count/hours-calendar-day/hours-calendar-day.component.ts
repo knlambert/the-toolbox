@@ -78,6 +78,9 @@ export class HoursCalendarDay {
       var previousHour = this._items[this._items.length -1]['hour'];
       defaultFrom = new Date(previousHour.started_at * 1000 + (previousHour.minutes * 1000 * 60));
       defaultHourSpent = Math.floor(((new Date()).getTime() - defaultFrom.getTime()) / 1000 / 60);
+      if(defaultHourSpent < 0){
+        defaultHourSpent = 0;
+      }
     }
 
     this._items.push({
@@ -230,6 +233,7 @@ export class HoursCalendarDay {
     }
     else{
       this.setStatus(uuid, "saved");
+      this.selectItem(uuid, false);
     }
   }
 
@@ -252,8 +256,8 @@ export class HoursCalendarDay {
    */
   private getItemHeight(item){
     let height = item['hour']['minutes'];
-    if(height < 30){
-      height = 30;
+    if(height < 40){
+      height = 40;
     }
     return height + "px";
   }

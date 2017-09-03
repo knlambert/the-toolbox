@@ -2,7 +2,11 @@
   <div [ngClass]="{'div-current-day': isCurrentDay()}" id="div-day" class="div-item-card">{{getDayString()}}</div>
 
   <div 
-  *ngFor="let item of _items">
+  *ngFor="let item of _items; let i = index">
+
+    <div class="gap-icon-container" *ngIf="displayTopHour(item.uuid) && i !== 0">
+      <md-icon class="gap-icon">more_vert</md-icon>
+    </div>
 
     <div class="div-hour-header" *ngIf="displayTopHour(item.uuid)" >{{getHourMinuteFromTimestamp(item.hour.started_at)}}</div>
 
@@ -43,7 +47,7 @@
   </div> 
 
 
-  <div  class="div-new-container">
+  <div  class="div-new-container" [ngClass]="{'div-first-new-container': (_items.length == 0)}">
       <button md-icon-button (click)="newItem()">
         <md-icon>add</md-icon>
       </button>

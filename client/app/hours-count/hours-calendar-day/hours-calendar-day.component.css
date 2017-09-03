@@ -2,7 +2,12 @@
 {
   text-align:center;
   border:#E0E0E0 dashed 1px;
-  margin-bottom: 4%;
+  margin-bottom: 20px;
+}
+
+.div-first-new-container
+{
+  margin-top: 20px;
 }
 
 .div-item-card
@@ -23,6 +28,7 @@
 {
   text-align:center;
   font-weight: bold;
+  background-color: #FAFAFA;
 }
 
 .div-current-day
@@ -57,4 +63,14 @@
 .test-border
 {
   border-left: thick double #ff0000;
+}
+
+.gap-icon-container
+{
+  text-align: center;
+}
+
+.gap-icon
+{
+  color: #BDBDBD;
 }
