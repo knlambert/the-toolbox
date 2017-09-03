@@ -1,26 +1,30 @@
 import { UUIDService } from '../uuid.service';
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DBService } from '../../db/db.service';
-import { NgClass} from '@angular/common';
-import { UrlResolver} from '@angular/compiler';
 import { GoogleColorsService } from './../../app-common/google-colors.service';
-
 
 @Component({
   selector: 'hours-calendar-day',
   templateUrl: 'hours-calendar-day.component.html',
-  styleUrls:  ['hours-calendar-day.component.css'],
-  providers: [  ]
+  styleUrls:  ['hours-calendar-day.component.css']
 
 })
-export class HoursCalendarDay implements OnInit {
+export class HoursCalendarDay {
   
-  constructor(private uuidService:UUIDService, private dbService: DBService, private googleColorService: GoogleColorsService){}
+  /**
+   * Construct the component.
+   * @param uuidService Unique UUID generated for each item.
+   * @param dbService The DB service to interact with the DB API.
+   * @param googleColorService A service used to generated material design colors.
+   */
+  constructor(
+    private uuidService:UUIDService, 
+    private dbService: DBService, 
+    private googleColorService: GoogleColorsService
+  ){}
 
   @Input() userInformations: object;
   @Input() day: Date;
-  private _items: Array<object> = [];
-
   @Input() 
   set hours(hours: Array<object>) {
     this._items = [];
@@ -33,14 +37,13 @@ export class HoursCalendarDay implements OnInit {
         "isSelected": false
       });
     });
-  };
-
-
-
-  ngOnInit(){
-   
   }
 
+  private _items: Array<object> = [];
+
+  /**
+   * Generate the string representing the day.
+   */
   private getDayString(){
     let weekDay = {
       1: "Monday",
@@ -54,11 +57,18 @@ export class HoursCalendarDay implements OnInit {
     return (weekDay + " " + this.day.getDate());
   }
 
+  /**
+   * Generate a string representing hours / minutes.
+   * @param timestamp The timestamp to convert.
+   */
   private getHourMinuteFromTimestamp(timestamp: number){
     let date = new Date(Math.ceil(timestamp*1000));
     return ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2)
   }
 
+  /**
+   * Generate a brand new item.
+   */
   public newItem(){
     var defaultFrom = this.day;
     defaultFrom.setHours(9);
@@ -87,6 +97,10 @@ export class HoursCalendarDay implements OnInit {
     })
   }
 
+  /**
+   * The the index of the item in _items for a corresponding uuid.
+   * @param uuid Unique UUID generated for each item.
+   */
   private getItemIndex(uuid: string){
     for(var i = 0; i < this._items.length; i++){
       if(this._items[i]['uuid'] === uuid){
@@ -96,18 +110,30 @@ export class HoursCalendarDay implements OnInit {
     return -1;
   }
 
-  private selectItem(uuid: string, isSelected: string){
+  /**
+   * Select an item starting for the UUID.
+   * @param uuid Unique UUID generated for each item.
+   * @param isSelected If the item is selected or not.
+   */
+  private selectItem(uuid: string, isSelected: boolean){
     let index = this.getItemIndex(uuid);
     if(this._items[index]['status'] === "saved"){
       this._items[index]['isSelected'] = !isSelected;
     }
   }
 
+  /**
+   * Get a color for the project.
+   * @param item 
+   */
   private getProjectColor(item: object){
 
-    return 'solid 3px ' + this.googleColorService.generate(item['hour']['project']['name'], "600");
+    return this.googleColorService.generate(item['hour']['project']['name'], "600");
   }
 
+  /**
+   * Determine if this day is the current one.
+   */
   private isCurrentDay(){
     let currentDay = new Date();
     return (
@@ -117,6 +143,11 @@ export class HoursCalendarDay implements OnInit {
     );
   }
 
+  /**
+   * Called when item edition form update event is triggered.
+   * @param uuid Unique UUID generated for each item.
+   * @param hour The new hour.
+   */
   private onItemEdited(uuid: string, hour: object){
     this.setLoading(uuid, true);
     this.setStatus(uuid, "saved");
@@ -127,12 +158,21 @@ export class HoursCalendarDay implements OnInit {
     });
   }
   
+  /**
+   * Get the list of selected items.
+   */
   public getSelectedItems(){
     let selectedItems = this._items.filter((item) => {
       return item['isSelected'];
     });
     return selectedItems;
   }
+
+  /**
+   * Set an item as loading or not (on save, delete, ...).
+   * @param uuid Unique UUID generated for each item.
+   * @param isLoading If the item is loading or not.
+   */
   public setLoading(uuid: string, isLoading: boolean){
     let index = this.getItemIndex(uuid);
     if(index !== -1){
@@ -142,10 +182,19 @@ export class HoursCalendarDay implements OnInit {
     return -1;
   }
 
+  /**
+   * Set the status of the item (editing, saved, ...).
+   * @param uuid Unique UUID generated for each item.
+   * @param status Set the status of an item.
+   */
   private setStatus(uuid: string, status: string){
     this._items[this.getItemIndex(uuid)]['status'] = status;
   }
 
+  /**
+   * Called when item edition form saved event is triggered.
+   * @param item 
+   */
   private onItemSaved(item){
     let uuid = item['uuid']
     this.setLoading(uuid, true);
@@ -156,6 +205,10 @@ export class HoursCalendarDay implements OnInit {
     });
   }
  
+  /**
+   * Called when item edition form cancel event is triggered.
+   * @param uuid Unique UUID generated for each item.
+   */
   private onItemCanceled(uuid: string){
     let index = this.getItemIndex(uuid);
     let item = this._items[index];
@@ -167,6 +220,10 @@ export class HoursCalendarDay implements OnInit {
     }
   }
 
+  /**
+   * Delete the item corresponding to uuid.
+   * @param uuid Unique UUID generated for each item.
+   */
   public deleteItem(uuid: string){
     let index = this.getItemIndex(uuid);
     if(index !== -1){

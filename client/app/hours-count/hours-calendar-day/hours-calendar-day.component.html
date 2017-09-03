@@ -11,7 +11,7 @@
       <div>
         <md-progress-bar  [hidden]="!item.isLoading" mode="indeterminate"></md-progress-bar>
       </div>
-      <div [ngStyle]="{'border-left': getProjectColor(item) }" *ngIf="item.status == 'saved'">
+      <div [ngStyle]="{'border-left': ('solid 3px ' + getProjectColor(item)) }" *ngIf="item.status == 'saved'">
 
         <div class="div-hour-header" >{{getHourMinuteFromTimestamp(item.hour.started_at)}}</div>
         <p class="p-project-name" *ngIf="item.hour.project"><b>{{item.hour.project.client.name}}</b>, {{item.hour.project.name}}</p>
