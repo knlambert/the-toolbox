@@ -3,6 +3,7 @@ import { Component, Input, OnInit} from '@angular/core';
 import { DBService } from '../../db/db.service';
 import { NgClass} from '@angular/common';
 import { UrlResolver} from '@angular/compiler';
+import { GoogleColorsService } from './../../app-common/google-colors.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { UrlResolver} from '@angular/compiler';
 })
 export class HoursCalendarDay implements OnInit {
   
-  constructor(private uuidService:UUIDService, private dbService: DBService){}
+  constructor(private uuidService:UUIDService, private dbService: DBService, private googleColorService: GoogleColorsService){}
 
   @Input() userInformations: object;
   @Input() day: Date;
@@ -100,6 +101,11 @@ export class HoursCalendarDay implements OnInit {
     if(this._items[index]['status'] === "saved"){
       this._items[index]['isSelected'] = !isSelected;
     }
+  }
+
+  private getProjectColor(item: object){
+
+    return 'solid 3px ' + this.googleColorService.generate(item['hour']['project']['name'], "600");
   }
 
   private isCurrentDay(){
