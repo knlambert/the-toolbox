@@ -1,0 +1,13 @@
+
+
+<div id="div-filters-container" fxLayout="row" fxLayoutWrap fxLayoutGap="20px" fxFlexAlign="center center">
+    
+    <div fxFlex="200px"  *ngFor="let filter of filters;">
+        <md-form-field >
+            <input mdInput [placeholder]="format(filter)" [(ngModel)]="variables[filter]" (ngModelChange)="onFilterChange()">
+        </md-form-field>
+    </div>
+    <div id="div-search-icon-container" fxFlex="20px">
+        <md-icon>search</md-icon>
+    </div>
+</div>

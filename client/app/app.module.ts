@@ -37,6 +37,9 @@ import MaterialModule from './material/material.module';
           path: 'project-management',
           loadChildren: "./project-management/project-management.module#ProjectManagementModule"
         },{
+          path: 'projects',
+          loadChildren: "./projects/projects.module#ProjectsModule"
+        },{
            path: '',
            redirectTo: 'hours',
            pathMatch: 'full'
