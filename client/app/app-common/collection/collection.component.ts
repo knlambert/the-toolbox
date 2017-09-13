@@ -1,5 +1,5 @@
-import { Component, Input, Directive, ViewChild, ComponentFactoryResolver, OnInit, ViewChildren, QueryList} from '@angular/core';
-import { CollectionItemDynamicDirective } from './../collection-item-dynamic/collection-item-dynamic.directive';
+import { ViewContainerRef, Component, Input, Directive, ViewChild, ComponentFactoryResolver, OnInit, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
+// import { CollectionItemDynamicDirective } from './../collection-item-dynamic/collection-item-dynamic.directive';
 import { LoaderComponent } from './../loader/loader.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { LoaderComponent } from './../loader/loader.component';
   providers: [  ]
 
 })
-export class CollectionComponent {
+export class CollectionComponent implements AfterViewInit{
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
     
@@ -17,27 +17,29 @@ export class CollectionComponent {
     set items(items: Array<object>){
       this._items = items;
       this.refresh();
-  
     }
 
     private _items: Array<object> = [];screen
-    @ViewChildren(CollectionItemDynamicDirective) components: QueryList<CollectionItemDynamicDirective>
+    @ViewChildren('componentRef', {read: ViewContainerRef}) public widgetTargets: QueryList<ViewContainerRef>
 
     public refresh() {
-      let componentFactory = this.componentFactoryResolver.resolveComponentFactory(LoaderComponent);
-      if(typeof(this.components) !== "undefined"){
-        this.components.forEach((component, index) => {
-            var dynamicComponentRef = component.viewContainerRef;
-            dynamicComponentRef.clear();
-            let componentRef = dynamicComponentRef.createComponent(componentFactory);
-            this.components.
-        });
-      }
+      let component = LoaderComponent;
+
+      if(typeof(this.widgetTargets) !== "undefined"){
+
+        for (let i = 0; i < this.widgetTargets.toArray().length; i++) {
+            let target = this.widgetTargets.toArray()[i];
+            let widgetComponent = this.componentFactoryResolver.resolveComponentFactory(component);
+            let cmpRef: any = target.createComponent(widgetComponent);
+
           
-      // 
-      // 
-      // dynamicComponentRef.clear();
-      // let componentRef = dynamicComponentRef.createComponent(componentFactory);
+        }
+      }
     }
 
+    ngAfterViewInit(): void {
+      this.widgetTargets.changes.subscribe(() => {
+        this.refresh()
+      });
+    }
 }
