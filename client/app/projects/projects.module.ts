@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ProjectListMenuComponent } from './project-list-menu/project-list-menu.component';
 import { ProjectListItemComponent } from './project-list-item/project-list-item.component';
-import { LoaderComponent } from './../app-common/loader/loader.component';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -35,7 +34,7 @@ import MaterialModule from './../material/material.module';
   exports: [ ],
   providers: [ ],
   entryComponents: [
-    LoaderComponent
+    ProjectListItemComponent
   ]
 })
 export class ProjectsModule { }
