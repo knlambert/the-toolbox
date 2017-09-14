@@ -1,2 +1,2 @@
-<common-simple-filters [filters]="['client', 'project', 'code']" (filterUpdated)="onFiltersUpdated($event.filterValues)"></common-simple-filters>
-<common-collection [items]="projects" ></common-collection>
+<common-simple-filters [filters]="['search']" (filterUpdated)="onFiltersUpdated($event.filterValues)"></common-simple-filters>
+<common-collection [items]="projects" [itemDisplay]="['client.name', 'name']"></common-collection>

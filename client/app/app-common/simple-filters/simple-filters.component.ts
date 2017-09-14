@@ -18,8 +18,6 @@ export class SimpleFilterscomponent implements OnInit {
     this.filters.forEach((filter) => {
       this.variables[filter] = null;
     });
-    console.log("pouet")
-    console.log(this.variables)
   }
 
   private format(filter: string){

@@ -24,19 +24,20 @@ export class ProjectListMenuComponent implements OnInit{
   }
 
   private onFiltersUpdated(filtersValues: object){
-    let binding = {
-      client: "client.name",
-      project: "name",
-      code: "code"
-    }
-    let orFilters = [];
-    for(let key in filtersValues){
-      let orFilter = {}
-      orFilter[binding[key]] = {
-        "$regex": filtersValues[key]
-      };
-      orFilters.push(orFilter);
-    }
+    console.log(filtersValues)
+    let lookedFor = [
+      "client.name", "name", "code"
+    ];
+
+    var orFilters = [];
+    lookedFor.forEach((field) => {
+      let filter = {}
+      filter[field] = {
+        "$regex": filtersValues["search"]
+      }
+      orFilters.push(filter);
+    });
+
     this.refreshProjects({
       "$or": orFilters
     });
