@@ -26,7 +26,8 @@ import {
   MdToolbarModule,
   MdTooltipModule,
   MdDatepickerModule,
-  MdNativeDateModule
+  MdNativeDateModule,
+  MdPaginatorModule
 } from "@angular/material";
 
 let materialModules = [
@@ -55,7 +56,8 @@ let materialModules = [
   MdSelectModule,
   MdAutocompleteModule,
   MdDatepickerModule,
-  MdNativeDateModule
+  MdNativeDateModule,
+  MdPaginatorModule
 ];
 
 @NgModule({

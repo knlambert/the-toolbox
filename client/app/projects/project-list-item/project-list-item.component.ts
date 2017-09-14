@@ -11,17 +11,5 @@ export class ProjectListItemComponent {
 
     @Input()
     value: object;
-
-    private isMember: boolean = false;
-    
-    private roles = [
-      {
-        "id": 1,
-        "name": "Project manager"
-      }, {
-        "id": 2,
-        "name": "Developer"
-      }
-    ]
     
 }

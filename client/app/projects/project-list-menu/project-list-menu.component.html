@@ -1,4 +1,8 @@
 
 
 <common-simple-filters [filters]="['search']" (filterUpdated)="onFiltersUpdated($event.filterValues)"></common-simple-filters>
+<md-paginator [length]="100"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]">
+</md-paginator>
 <common-collection [itemComponent]="itemComponent" [items]="projects" ></common-collection>

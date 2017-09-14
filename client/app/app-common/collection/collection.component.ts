@@ -30,11 +30,11 @@ export class CollectionComponent implements AfterViewInit{
       let component = this.itemComponent;
 
       if(typeof(this.widgetTargets) !== "undefined"){
-
+        
         for (let i = 0; i < this.widgetTargets.toArray().length; i++) {
             let target = this.widgetTargets.toArray()[i];
             let widgetComponent = this.componentFactoryResolver.resolveComponentFactory(component);
-            
+            target.clear();
             let cmpRef: any = target.createComponent(widgetComponent);
             cmpRef.instance.value = this._items[i];
             this.cd.detectChanges();
