@@ -6,6 +6,7 @@ import { AppCommonModule } from './../app-common/app-common.module'
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ProjectListMenuComponent } from './project-list-menu/project-list-menu.component';
+import { ProjectListItemComponent } from './project-list-item/project-list-item.component';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -27,9 +28,13 @@ import MaterialModule from './../material/material.module';
     )
   ],
   declarations: [ 
-    ProjectListMenuComponent
+    ProjectListMenuComponent,
+    ProjectListItemComponent
   ],
   exports: [ ],
-  providers: [ ]
+  providers: [ ],
+  entryComponents: [
+    ProjectListItemComponent
+  ]
 })
 export class ProjectsModule { }

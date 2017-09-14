@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule }   from '@angular/router';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { LoaderComponent } from './loader/loader.component';
 import { ReportComponent } from './report/report.component';
 import { FlexibleFormComponent } from './flexible-form/flexible-form.component';
 import { MainMenuComponent }   from './main-menu/main-menu.component';
@@ -25,7 +24,6 @@ import MaterialModule from './../material/material.module';
     ],
   declarations: [ 
     MainMenuComponent, 
-    LoaderComponent, 
     ReportComponent, 
     FlexibleFormComponent, 
     FilterComponent,
@@ -34,7 +32,6 @@ import MaterialModule from './../material/material.module';
     ],
   exports: [ 
     MainMenuComponent, 
-    LoaderComponent, 
     ReportComponent, 
     FlexibleFormComponent, 
     FilterComponent,

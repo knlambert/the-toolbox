@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from './../../db/db.service';
+import { ProjectListItemComponent } from './../project-list-item/project-list-item.component';
 @Component({
   selector: 'hc-project-list-menu',
   templateUrl: 'project-list-menu.component.html',
@@ -10,6 +11,7 @@ import { DBService } from './../../db/db.service';
 export class ProjectListMenuComponent implements OnInit{
 
   private projects: Array<object> = [];
+  private itemComponent = ProjectListItemComponent;
 
   constructor(private dbService:DBService){}
 

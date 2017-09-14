@@ -1,0 +1,20 @@
+<div id="div-project-container">
+    <table>
+        <tr>
+            <td>{{value.client.name}} {{value.name}}</td>
+        </tr>
+        <tr>
+            
+            <td>
+                <md-checkbox [(ngModel)]="isMember" class="checkbox-role" mdTooltip="Join the project."></md-checkbox>
+        
+                <md-select *ngIf="isMember">
+                    <md-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</md-option>
+                </md-select>
+            </td>
+        </tr>
+
+    </table>
+
+    
+</div>
