@@ -7,6 +7,9 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ProjectListMenuComponent } from './project-list-menu/project-list-menu.component';
 import { ProjectListItemComponent } from './project-list-item/project-list-item.component';
+import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
+import { ProjectFormComponent } from './project-form/project-form.component';
+import { ProjectMembersComponent } from './project-members/project-members.component';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -23,13 +26,25 @@ import MaterialModule from './../material/material.module';
         {
           path: '',
           component: ProjectListMenuComponent
+        },
+        {
+          path: ':id',
+          component: ProjectDashboardComponent
+        },
+        {
+          path: 'new',
+          component: ProjectDashboardComponent
         }
       ]
     )
+    
   ],
   declarations: [ 
+    ProjectDashboardComponent,
     ProjectListMenuComponent,
-    ProjectListItemComponent
+    ProjectListItemComponent,
+    ProjectMembersComponent,
+    ProjectFormComponent
   ],
   exports: [ ],
   providers: [ ],

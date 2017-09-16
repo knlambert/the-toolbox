@@ -1,0 +1,32 @@
+
+<form fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center">
+
+    <md-form-field class="example-full-width">
+        <input mdInput placeholder="Client" [mdAutocomplete]="auto">
+        <!-- <md-autocomplete #auto="mdAutocomplete">
+            <md-option *ngFor="let state of filteredStates | async" [value]="state.name">
+            <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />
+            <span>{{ state.name }}</span> |
+            <small>Population: {{state.population}}</small>
+            </md-option>
+        </md-autocomplete> -->
+    </md-form-field>
+
+    <md-form-field>
+        <input mdInput placeholder="Name" value="">
+    </md-form-field>
+
+    <md-form-field>
+        <input type="number" mdInput placeholder="Days" value="">
+    </md-form-field>
+
+    <md-form-field>
+        <input mdInput [mdDatepicker]="picker" placeholder="Starting date">
+        <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+        <md-datepicker #picker></md-datepicker>
+    </md-form-field>
+    
+    <md-form-field>
+        <input mdInput placeholder="Code" value="">
+    </md-form-field>
+</form>

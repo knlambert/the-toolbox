@@ -1,0 +1,12 @@
+<md-list>
+    <h3 md-subheader>Members</h3>
+    <div id="div-members-container">
+        <md-list-item *ngFor="let member of members">
+            <h4 md-line>{{member.name}}</h4>
+            <p md-line> {{member.role}} </p>
+            <button md-icon-button>
+            <md-icon>delete</md-icon>
+            </button>
+        </md-list-item>
+    </div>
+</md-list>
