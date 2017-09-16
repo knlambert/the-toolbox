@@ -1,32 +1,32 @@
 
-<form fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center">
+<form fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center" [formGroup]="form" (ngSubmit)="submitForm(form.value)"> 
 
     <md-form-field class="example-full-width">
-        <input mdInput placeholder="Client" [mdAutocomplete]="auto">
-        <!-- <md-autocomplete #auto="mdAutocomplete">
-            <md-option *ngFor="let state of filteredStates | async" [value]="state.name">
-            <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />
-            <span>{{ state.name }}</span> |
-            <small>Population: {{state.population}}</small>
-            </md-option>
-        </md-autocomplete> -->
+        <input mdInput placeholder="Client" [mdAutocomplete]="auto" [formControl]="form.controls['client']">
+        <md-autocomplete [displayWith]="getName" #auto="mdAutocomplete">
+            <md-option *ngFor="let client of clients" [value]="client">{{client.name}}</md-option>
+        </md-autocomplete>
     </md-form-field>
 
     <md-form-field>
-        <input mdInput placeholder="Name" value="">
+        <input mdInput placeholder="Name" value="" [formControl]="form.controls['name']">
     </md-form-field>
 
     <md-form-field>
-        <input type="number" mdInput placeholder="Days" value="">
+        <input type="number" mdInput placeholder="Days" value="" [formControl]="form.controls['days']">
     </md-form-field>
 
     <md-form-field>
-        <input mdInput [mdDatepicker]="picker" placeholder="Starting date">
+        <input mdInput [mdDatepicker]="picker" placeholder="Starting date" [formControl]="form.controls['started_at']">
         <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
         <md-datepicker #picker></md-datepicker>
     </md-form-field>
     
-    <md-form-field>
-        <input mdInput placeholder="Code" value="">
+    <md-form-field >
+        <input  mdInput placeholder="Code" value="" [formControl]="form.controls['code']">
     </md-form-field>
+
+    <button id="button-save" md-icon-button [disabled]="!form.valid" color="primary">
+        <md-icon>save</md-icon>
+    </button>
 </form>

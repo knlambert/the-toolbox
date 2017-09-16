@@ -89,6 +89,18 @@ export class DBService {
     }).map(this.extractItems).catch(this.handleError);
   }
 
+  /**
+   * Return a item from his ID.
+   * @param source The name of the source we want details.
+   * @param id The ID of the item we want.
+   */
+  get(source: string, id: any){
+    console.log(this.url + source + "/" + id)
+    return this.http.get(this.url + source + "/" + id, {}).map((res) => {
+      return res;
+    }).catch(this.handleError);
+  }
+
   private extractItems(res: object){
     return res['items'];
   };
