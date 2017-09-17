@@ -5,12 +5,10 @@ import {
     Output,
     EventEmitter
 } from '@angular/core';
-
 import { Observable } from 'rxjs';
+import { MdSnackBar } from '@angular/material';
 import { DBService } from './../../db/db.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
-
 
 
 @Component({
@@ -24,10 +22,12 @@ export class ProjectFormComponent implements OnInit {
 
     constructor(
         private dbService: DBService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private snackBar: MdSnackBar
     ){}
     private form : FormGroup;
     private clients: Array<object> = [];
+    private locked: boolean = false;
 
     @Input() value: object;
 
@@ -51,6 +51,7 @@ export class ProjectFormComponent implements OnInit {
         });
 
         if(this.value != null){
+            console.log(this.value)
             this.form.controls['id'].setValue(this.value['id']);
             this.form.controls['client'].setValue(this.value['client']);
             this.form.controls['name'].setValue(this.value['name']);
@@ -68,14 +69,20 @@ export class ProjectFormComponent implements OnInit {
     }
 
     private getName(obj: any): string {
+        
         return obj ? obj.name : "";
     }
 
     private submitForm(value: object){
-        let project = value;
-        project["provisioned_hours"] = project['days'] * 8;
-        project["started_at"] = Math.floor((new Date(project["started_at"])).getTime() / 1000);
-        delete project['days'];
+        this.locked = true;
+        let project = {
+            "id": value['id'],
+            "provisioned_hours": value['days'] * 8,
+            "started_at": Math.floor((new Date(value["started_at"])).getTime() / 1000),
+            "client": value['client'],
+            "name": value['name'],
+            "code": value['code']
+        };
         
         if(project["id"] == null){
             delete project['id'];
@@ -84,6 +91,7 @@ export class ProjectFormComponent implements OnInit {
                 this.onProjectCreated.emit({
                     "project": project
                 });
+                this.locked = false;
             });
         }
         else{
@@ -94,9 +102,9 @@ export class ProjectFormComponent implements OnInit {
                 this.onProjectEdited.emit({
                     "project": project
                 });
-            })
+                this.locked = false;
+                this.snackBar.open("Project saved.")
+            });
         }
-        
-        
     }
 }   

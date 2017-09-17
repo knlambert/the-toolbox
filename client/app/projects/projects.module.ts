@@ -10,6 +10,7 @@ import { ProjectListItemComponent } from './project-list-item/project-list-item.
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { ProjectMembersComponent } from './project-members/project-members.component';
+import { ProjectMemberForm } from './project-member-form/project-member-form.component';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -44,6 +45,7 @@ import MaterialModule from './../material/material.module';
     ProjectListMenuComponent,
     ProjectListItemComponent,
     ProjectMembersComponent,
+    ProjectMemberForm,
     ProjectFormComponent
   ],
   exports: [ ],

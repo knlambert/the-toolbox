@@ -8,9 +8,6 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DBService } from './../../db/db.service';
 
 
-
-
-
 @Component({
 selector: 'hc-project-dashboard',
 templateUrl: 'project-dashboard.component.html',
@@ -34,9 +31,8 @@ export class ProjectDashboardComponent implements OnInit {
         });
     }
 
-
     private projectCreated(project: object){
-        console.log(project);
         this.project = project;
     }
+    
 }   

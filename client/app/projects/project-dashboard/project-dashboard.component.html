@@ -16,7 +16,7 @@
                 </div>
 
                 <div fxFlex="33" id="div-project-members-container" >
-                    <hc-project-members></hc-project-members>
+                    <hc-project-members [projectId]="project.id" ></hc-project-members>
                 </div>
 
                 <div fxFlex="33" id="div-project-files-container">
@@ -28,11 +28,9 @@
                 <div fxFlex="100" id="div-project-indicators-container">
                     <p>Indicators</p>
                 </div>
-
-                
             </div>
 
         </div>
     </md-tab>
-    <md-tab label="Planning">Content 2</md-tab>
+    <md-tab label="Planning"></md-tab>
 </md-tab-group>

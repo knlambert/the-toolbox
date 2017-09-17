@@ -1,0 +1,14 @@
+#button-save {
+    float:right;
+}
+
+#icon-cancel {
+    color:#F44336;
+}
+input, md-form-field {
+    width: 100%;
+}
+
+#div-buttons {
+    margin-top:10px;
+}

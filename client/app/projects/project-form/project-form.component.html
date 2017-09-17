@@ -1,7 +1,7 @@
 
 <form fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center" [formGroup]="form" (ngSubmit)="submitForm(form.value)"> 
 
-    <md-form-field class="example-full-width">
+    <md-form-field >
         <input mdInput placeholder="Client" [mdAutocomplete]="auto" [formControl]="form.controls['client']">
         <md-autocomplete [displayWith]="getName" #auto="mdAutocomplete">
             <md-option *ngFor="let client of clients" [value]="client">{{client.name}}</md-option>
@@ -26,7 +26,7 @@
         <input  mdInput placeholder="Code" value="" [formControl]="form.controls['code']">
     </md-form-field>
 
-    <button id="button-save" md-icon-button [disabled]="!form.valid" color="primary">
+    <button id="button-save" md-icon-button [disabled]="!form.valid || locked" >
         <md-icon>save</md-icon>
     </button>
 </form>

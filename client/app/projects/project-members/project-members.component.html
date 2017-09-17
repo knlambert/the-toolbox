@@ -1,12 +1,23 @@
 <md-list>
-    <h3 md-subheader>Members</h3>
-    <div id="div-members-container">
-        <md-list-item *ngFor="let member of members">
-            <h4 md-line>{{member.name}}</h4>
-            <p md-line> {{member.role}} </p>
-            <button md-icon-button>
-            <md-icon>delete</md-icon>
+
+    <h3 *ngIf="!new" md-subheader>Members
+            <button md-icon-button (click)="displayNewForm()">
+                <md-icon>add</md-icon>
             </button>
+    </h3>
+    
+    <hc-project-member-form [projectId]="projectId" *ngIf="new" (onCancel)="memberCanceled()" (onMemberCreated)="memberCreated()"></hc-project-member-form>
+
+    <div id="div-members-container" *ngIf="!new">
+        <md-list-item *ngFor="let assignement of assignements | async">
+
+            <h4 md-line>{{assignement.user.name}}</h4>
+            <p md-line>{{assignement.role.name}}</p>
+
+            <button (click)="deleteMember(assignement.id)" md-icon-button>
+                <md-icon>delete</md-icon>
+            </button>
+
         </md-list-item>
     </div>
 </md-list>
