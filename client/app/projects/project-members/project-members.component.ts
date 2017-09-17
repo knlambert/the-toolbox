@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from './../../db/db.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'hc-project-members',
@@ -14,7 +14,7 @@ export class ProjectMembersComponent implements OnInit {
     @Input() projectId: number;
     constructor(private dbService: DBService){}
 
-    private assignements: Observable<Array<object>>;
+    private assignements: Array<object> = [];
     private new: boolean = false;
 
     private displayNewForm(display: boolean = true){
@@ -22,19 +22,20 @@ export class ProjectMembersComponent implements OnInit {
     }
 
     ngOnInit(){
-        this.assignements = this.dbService.list("project_assignements", {
-            "project.id": this.projectId
-        }).map((assignement) => {
-            return assignement;
-        });
+        this.refreshMembers();  
     }
 
     private refreshMembers(){
-        let temp = this.assignements;
+        this.dbService.list("project_assignements", {
+            "project.id": this.projectId
+        }).subscribe((assignements) => {
+            this.assignements = assignements;
+        });
     }
 
     private memberCreated(){
         this.new = false;
+        this.refreshMembers();
     }
 
     private memberCanceled(){
@@ -47,5 +48,7 @@ export class ProjectMembersComponent implements OnInit {
         }).subscribe((result) => {
             this.refreshMembers();
         });
+
+        this.refreshMembers();
     }
 }
