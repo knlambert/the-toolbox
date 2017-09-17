@@ -20,7 +20,7 @@
                 </div>
 
                 <div fxFlex="33" id="div-project-files-container">
-                    <!-- <hc-file-links></hc-file-links> -->
+                    <hc-project-files [projectId]="project.id"></hc-project-files>
                 </div>
             </div>
 
@@ -32,5 +32,7 @@
 
         </div>
     </md-tab>
-    <md-tab label="Planning"></md-tab>
+    <md-tab label="Planning">
+        I'm a planning
+    </md-tab>
 </md-tab-group>

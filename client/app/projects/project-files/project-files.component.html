@@ -1,0 +1,26 @@
+<md-list>
+        
+            <h3 *ngIf="!new" md-subheader>Files
+                    <button md-icon-button (click)="displayNewForm()">
+                        <md-icon>add</md-icon>
+                    </button>
+            </h3>
+            
+            <hc-project-file-form [projectId]="projectId" *ngIf="new" (onCancel)="fileCanceled()" (onFileCreated)="fileCreated()"></hc-project-file-form>
+        
+            <div id="div-files-container" *ngIf="!new">
+                <md-list-item *ngFor="let file of files">
+        
+                    <h4 md-line>{{file.name}}</h4>
+                    
+                    <button md-icon-button (click)="openLink(file.url)">
+                        <md-icon>link</md-icon>
+                    </button>
+                   
+                    <button (click)="deleteFile(file.id)" md-icon-button>
+                        <md-icon>delete</md-icon>
+                    </button>
+        
+                </md-list-item>
+            </div>
+        </md-list>

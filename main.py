@@ -41,7 +41,8 @@ DB_REST_API_CONFIG = {
     u"project_consumptions": Api(DB, default_table_name=u"project_consumption"),
     u"project_loads": Api(DB, default_table_name=u"project_load"),
     u"cras": Api(DB, default_table_name=u"cra"),
-    u"roles": Api(DB, default_table_name=u"role")
+    u"roles": Api(DB, default_table_name=u"role"),
+    u"project_files": Api(DB, default_table_name=u"project_file")
 }
 
 DB_FLASK_API = FlaskRestDBApi(DB_REST_API_CONFIG)

@@ -11,6 +11,8 @@ import { ProjectDashboardComponent } from './project-dashboard/project-dashboard
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { ProjectMembersComponent } from './project-members/project-members.component';
 import { ProjectMemberForm } from './project-member-form/project-member-form.component';
+import { ProjectFileForm } from './project-file-form/project-file-form.component';
+import { ProjectFilesComponent } from './project-files/project-files.component';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -45,6 +47,8 @@ import MaterialModule from './../material/material.module';
     ProjectListMenuComponent,
     ProjectListItemComponent,
     ProjectMembersComponent,
+    ProjectFilesComponent,
+    ProjectFileForm,
     ProjectMemberForm,
     ProjectFormComponent
   ],

@@ -1,0 +1,27 @@
+
+<h3>New file</h3>
+<form fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center" [formGroup]="form" (ngSubmit)="submitForm(form.value)"> 
+    
+    
+
+    <md-form-field>
+        <input mdInput placeholder="Name" value="" [formControl]="form.controls['name']">
+    </md-form-field>
+
+
+    <md-form-field>
+        <input mdInput placeholder="Url" value="" [formControl]="form.controls['url']">
+    </md-form-field>
+
+
+    <div id="div-buttons" >
+        <button id="button-cancel" md-icon-button (click)="cancel()"[disabled]="locked" >
+            <md-icon id="icon-cancel" >cancel</md-icon>
+        </button>
+
+        <button id="button-save" md-icon-button [disabled]="!form.valid || locked" >
+            <md-icon>save</md-icon>
+        </button>
+    </div>
+    
+</form>
