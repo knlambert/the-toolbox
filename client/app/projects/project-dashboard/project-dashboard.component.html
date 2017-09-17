@@ -14,20 +14,21 @@
                 <div fxFlex="33" id="div-project-form-container">
                     <hc-project-form [value]="project" (onProjectEdited)="projectCreated($event.project)"></hc-project-form>
                 </div>
+                <div fxFlex="74" id="div-project-indicators-container">
+                    <hc-project-indicators [projectId]="project.id"></hc-project-indicators>
+                </div>
+                
+            </div>
 
-                <div fxFlex="33" id="div-project-members-container" >
+            <div fxLayout="row" fxLayoutWrap fxLayoutGap="1%">
+                <div fxFlex="49.5" id="div-project-members-container" >
                     <hc-project-members [projectId]="project.id" ></hc-project-members>
                 </div>
 
-                <div fxFlex="33" id="div-project-files-container">
+                <div fxFlex="49.5" id="div-project-files-container">
                     <hc-project-files [projectId]="project.id"></hc-project-files>
                 </div>
-            </div>
 
-            <div fxLayout="row" fxLayoutWrap >
-                <div fxFlex="100" id="div-project-indicators-container">
-                    <p>Indicators</p>
-                </div>
             </div>
 
         </div>

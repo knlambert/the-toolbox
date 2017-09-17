@@ -13,6 +13,8 @@ import { ProjectMembersComponent } from './project-members/project-members.compo
 import { ProjectMemberForm } from './project-member-form/project-member-form.component';
 import { ProjectFileForm } from './project-file-form/project-file-form.component';
 import { ProjectFilesComponent } from './project-files/project-files.component';
+import { ProjectIndicatorsComponent } from './project-indicators/project-indicators.component';
+import { PieChartModule } from '@swimlane/ngx-charts';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -24,6 +26,7 @@ import MaterialModule from './../material/material.module';
     ReactiveFormsModule,
     AppCommonModule,
     FlexLayoutModule,
+    PieChartModule,
     RouterModule.forChild(
       [
         {
@@ -43,14 +46,15 @@ import MaterialModule from './../material/material.module';
     
   ],
   declarations: [ 
+    ProjectIndicatorsComponent,
     ProjectDashboardComponent,
     ProjectListMenuComponent,
     ProjectListItemComponent,
     ProjectMembersComponent,
     ProjectFilesComponent,
-    ProjectFileForm,
+    ProjectFormComponent,
     ProjectMemberForm,
-    ProjectFormComponent
+    ProjectFileForm,
   ],
   exports: [ ],
   providers: [ ],
