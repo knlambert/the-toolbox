@@ -1,13 +1,27 @@
-<div fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center">
-        <div>
-            <ngx-charts-pie-chart 
-                [doughnut]="true"
-                [results]="single"
-                [explodeSlices]="explodeSlices"
-                [labels]="showLabels"
-                [doughnut]="doughnut"
-                [gradient]="gradient"
-                (select)="onSelect($event)">
-            </ngx-charts-pie-chart>
-        </div>
+
+<div fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center">   
+
+    <div>
+        <md-select placeholder="Graph" [(ngModel)]="selectedGraph">
+            <md-option value="1">Consumed / Left</md-option>
+            <md-option value="2">Consumed by person</md-option>
+            <md-option value="3">Consumed by role</md-option>
+        </md-select>
+
+    </div>
+    
+    <div>
+        <ngx-charts-pie-chart 
+            [doughnut]="true"
+            [results]="single"
+            [view]="view"
+            [explodeSlices]="explodeSlices"
+            [labels]="showLabels"
+            [doughnut]="doughnut"
+            [gradient]="gradient"
+            (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+    </div>
+
+    
 </div>

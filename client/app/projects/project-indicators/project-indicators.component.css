@@ -1,0 +1,8 @@
+md-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+md-select {
+    width: 200px;
+}

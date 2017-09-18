@@ -26,10 +26,9 @@ export class ProjectIndicatorsComponent implements OnInit {
         }
       ];
 
-    view: any[] = [400, 400];
+    view: any[] = [350, 350];
   
     // options
-    showLegend = true;
 
     // pie
     showLabels = true;
