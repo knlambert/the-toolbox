@@ -2,11 +2,10 @@
 -- CREATE VIEW project_consumption_per_role AS 
 -- (
     SELECT
-    P.id AS 'project_id',
-    P.name AS 'project_name',
-    PA.role,
-    SUM(consumed),
-    ROUND(P.provisioned_hours / 8) AS 'provisioned'
+    GROUP_CONCAT(H.consumed),
+    -- H.affected_to,
+    H.project,
+    PA.role
     FROM
     (
         SELECT
@@ -15,11 +14,10 @@
         H.project
         FROM hour H
         GROUP BY H.affected_to, H.project
+        ORDER BY H.project
     ) H
-    JOIN project P
-    ON H.project = P.id
-    JOIN project_assignement PA
-    ON H.affected_to = PA.user
-    GROUP BY PA.role, P.id, P.name
-    ORDER BY P.id
+    LEFT JOIN project_assignement PA
+    ON H.project = PA.project
+    GROUP BY H.project, PA.role
+    ORDER BY H.project
 -- );
