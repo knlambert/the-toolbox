@@ -19,6 +19,8 @@ styleUrls:  [
 export class ProjectDashboardComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, private dbService: DBService){}
+    
+    private loaded: boolean = false;
     @Input() project: object = null;
     @ViewChild('planning') planning: PlanningComponent;
     public ngOnInit(){
@@ -27,7 +29,11 @@ export class ProjectDashboardComponent implements OnInit {
           if(!isNaN(parseInt(projectId))){
             this.dbService.get("projects", projectId).subscribe((project) => {
                 this.project = project;
+                this.loaded = true;
             });
+          }
+          else {
+              this.loaded = true;
           }
         });
     }

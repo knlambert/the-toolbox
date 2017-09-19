@@ -1,4 +1,4 @@
-import { ViewContainerRef, ChangeDetectorRef, Component, Input, Directive, ViewChild, ComponentFactoryResolver, OnInit, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
+import { Output, EventEmitter, ViewContainerRef, ChangeDetectorRef, Component, Input, Directive, ViewChild, ComponentFactoryResolver, OnInit, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
 
 @Component({
   selector: 'common-collection',
@@ -22,6 +22,8 @@ export class CollectionComponent implements AfterViewInit{
       this._items = items;
       this.refresh();
     }
+
+    @Output() onItemOpened = new EventEmitter();
 
     private _items: Array<object> = [];screen
     @ViewChildren('componentRef', {read: ViewContainerRef}) public widgetTargets: QueryList<ViewContainerRef>

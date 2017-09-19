@@ -1,4 +1,4 @@
-<div *ngIf="!project" fxLayout="row" fxLayoutAlign="center center">
+<div *ngIf="!project && loaded" fxLayout="row" fxLayoutAlign="center center">
     <div fxFlex="40" id="div-project-form-container">
         <h3>New project</h3>
         <hc-project-form (onProjectCreated)="projectCreated($event.project)"></hc-project-form>

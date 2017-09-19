@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from './../../db/db.service';
 import { ProjectListItemComponent } from './../project-list-item/project-list-item.component';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'hc-project-list-menu',
   templateUrl: 'project-list-menu.component.html',
@@ -13,7 +15,7 @@ export class ProjectListMenuComponent implements OnInit{
   private projects: Array<object> = [];
   private itemComponent = ProjectListItemComponent;
 
-  constructor(private dbService:DBService){}
+  constructor(private dbService:DBService, private router: Router){}
 
   ngOnInit(){
     this.refreshProjects();
@@ -26,7 +28,6 @@ export class ProjectListMenuComponent implements OnInit{
   }
 
   private onFiltersUpdated(filtersValues: object){
-    console.log(filtersValues)
     let lookedFor = [
       "client.name", "name", "code"
     ];
@@ -43,5 +44,9 @@ export class ProjectListMenuComponent implements OnInit{
     this.refreshProjects({
       "$or": orFilters
     });
+  }
+
+  private openProject(project: object){
+    this.router.navigate(['/projects/'+project["id"]]);
   }
 }
