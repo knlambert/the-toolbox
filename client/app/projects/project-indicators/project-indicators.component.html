@@ -2,26 +2,36 @@
 <div fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center">   
 
     <div>
-        <md-select placeholder="Graph" [(ngModel)]="selectedGraph">
-            <md-option value="1">Consumed / Left</md-option>
-            <md-option value="2">Consumed by person</md-option>
-            <md-option value="3">Consumed by role</md-option>
+        <md-select placeholder="Graph" [(ngModel)]="selectedGraph" (ngModelChange)="refreshGraph()">
+            <md-option value="project_consumption">Consumed</md-option>
+            <md-option value="project_consumption_per_user">Consumed by person</md-option>
         </md-select>
 
     </div>
     
-    <div>
+    <div *ngIf="selectedGraph == 'project_consumption_per_user'">
         <ngx-charts-pie-chart 
             [doughnut]="true"
-            [results]="single"
+            [results]="data"
             [view]="view"
-            [explodeSlices]="explodeSlices"
-            [labels]="showLabels"
+            [explodeSlices]="false"
+            [labels]="true"
             [doughnut]="doughnut"
-            [gradient]="gradient"
-            (select)="onSelect($event)">
+            [gradient]="gradient">
         </ngx-charts-pie-chart>
     </div>
 
+    <div *ngIf="selectedGraph == 'project_consumption'">
+        <ngx-charts-gauge
+            [view]="view"
+            [results]="data"
+            [angleSpan]="240"
+            [startAngle]="-120"
+            [units]="'Days'"
+            [max]="max"
+            [bigSegments]="10"
+            [smallSegments]="5">
+        </ngx-charts-gauge>
+    </div>
     
 </div>

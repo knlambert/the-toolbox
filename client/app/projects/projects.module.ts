@@ -14,7 +14,10 @@ import { ProjectMemberForm } from './project-member-form/project-member-form.com
 import { ProjectFileForm } from './project-file-form/project-file-form.component';
 import { ProjectFilesComponent } from './project-files/project-files.component';
 import { ProjectIndicatorsComponent } from './project-indicators/project-indicators.component';
-import { PieChartModule } from '@swimlane/ngx-charts';
+import { PlanningComponent } from './planning/planning.component';
+import { PlanningTaskRowComponent } from './planning-task-row/planning-task-row.component';
+import { GoogleColorsService } from './../app-common/google-colors.service';
+import { PieChartModule, GaugeModule } from '@swimlane/ngx-charts';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -27,6 +30,7 @@ import MaterialModule from './../material/material.module';
     AppCommonModule,
     FlexLayoutModule,
     PieChartModule,
+    GaugeModule,
     RouterModule.forChild(
       [
         {
@@ -55,9 +59,13 @@ import MaterialModule from './../material/material.module';
     ProjectFormComponent,
     ProjectMemberForm,
     ProjectFileForm,
+    PlanningTaskRowComponent,
+    PlanningComponent
   ],
   exports: [ ],
-  providers: [ ],
+  providers: [
+    GoogleColorsService
+  ],
   entryComponents: [
     ProjectListItemComponent
   ]

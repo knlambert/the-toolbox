@@ -45,20 +45,7 @@ th {
     color:white;
 }
 
-#div-float-bar
-{
-    bottom: 0;
-    padding: 23px 12px;
-    position: fixed;
-    right: 15px;
-    z-index: 21;
-    text-align:center;
-}
 
-.td-float-button
-{
-    padding:5px;
-}
 
 #button-next-week
 {
@@ -76,10 +63,7 @@ th {
     width: 100%;
 }
 
-#button-delete-task, #button-add-task, #button-uncomplete-task {
-    background-color:  #F44336;
-    color: white;
-}
+
 
 #button-complete-task {
     color:white;

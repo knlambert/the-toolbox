@@ -6,7 +6,7 @@
 
 </div>
 
-<md-tab-group *ngIf="project">
+<md-tab-group *ngIf="project" (selectChange)="changeTab($event.index)">
     <md-tab label="Project details.">
         <div id="div-project-details-container" fxLayout="column"  fxFlexAlign="center center">
 
@@ -33,7 +33,30 @@
 
         </div>
     </md-tab>
-    <md-tab label="Planning">
-        I'm a planning
+    <md-tab label="Planning" *ngIf="project" >
+        <hc-planning #planning [project]="project"></hc-planning>
+
+        
+
     </md-tab>
 </md-tab-group>
+
+<div id="div-float-bar" [hidden]="tabIndex != 1">
+    <table>
+    
+        <tr >
+            <td class="td-float-button">
+                <button mdTooltip="Remove selected task(s)" [mdTooltipPosition]="'left'" id="button-delete-task" md-mini-fab (click)="planning.deleteSelectedTasks()" >
+                    <md-icon class="icon-white">delete</md-icon>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-float-button">
+                <button mdTooltip="Add a task." [mdTooltipPosition]="'left'" id="button-add-task" md-fab (click)="planning.addEmptyTask()">
+                    <md-icon class="icon-white" >add</md-icon>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>

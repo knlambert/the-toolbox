@@ -34,9 +34,6 @@ import MaterialModule from './material/material.module';
           path: 'parameters',
           loadChildren: "./parameters/parameters.module#ParametersModule"
         },{
-          path: 'project-management',
-          loadChildren: "./project-management/project-management.module#ProjectManagementModule"
-        },{
           path: 'projects',
           loadChildren: "./projects/projects.module#ProjectsModule"
         },{

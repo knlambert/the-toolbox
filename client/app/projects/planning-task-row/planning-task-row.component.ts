@@ -58,7 +58,9 @@ export class PlanningTaskRowComponent implements OnInit {
   }
 
   private updateColor(){
-    this.color = this.googleColorsService.generate(this.task['user']['id'], "400");
+    if(typeof(this.task['user']) !== "undefined"){
+      this.color = this.googleColorsService.generate(this.task['user']['id'], "400");
+    }
   }
   
    

@@ -16,6 +16,7 @@ export class PlanningComponent implements OnInit {
   @Input()
   set project(project) {
     this._project = project;
+    this.loadProject(project);
   }
 
   private currentDate = new Date();
@@ -58,6 +59,7 @@ export class PlanningComponent implements OnInit {
     this.dbService.list("project_assignements", {
       "project.id": this._project['id']
     }).subscribe((projectAssignements) => {
+      console.log(projectAssignements)
       projectAssignements.forEach((item) => {
         this.availableUsers.push(item['user'])
       });
@@ -98,7 +100,7 @@ export class PlanningComponent implements OnInit {
       this.dayHeaders = this.dayHeaders.concat(days)
   }
 
-  private addEmptyTask(){
+  public addEmptyTask(){
     let taskToSave = {
       completed: 0,
       description: "",
@@ -152,7 +154,7 @@ export class PlanningComponent implements OnInit {
     return null;
   }
 
-  private deleteSelectedTasks(){
+  public deleteSelectedTasks(){
     let toDelete = Array.from(this.selectedTaskIds);
     let filters = this.getSelectionFilter(toDelete);
     

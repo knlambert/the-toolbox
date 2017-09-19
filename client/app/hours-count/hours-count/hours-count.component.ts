@@ -14,7 +14,7 @@ export class HoursCountComponent implements OnInit{
   private userInformations: object = null;
 
   constructor(private tokenService: TokenService, private router: Router, private dbService: DBService){
-
+    
     this.tokenService.tokenModified.subscribe((credentials) => {
       this.updateUserInformation();
     });
@@ -25,9 +25,11 @@ export class HoursCountComponent implements OnInit{
     this.dbService.list('users', {
       email: userInformations['email']
     }).subscribe((items) => {
+      console.log(items)
       if(items.length === 1){
         userInformations['app_user_id'] = items[0]['id'];
         this.userInformations = userInformations;
+        console.log(this.userInformations)
       }
     })
   }
