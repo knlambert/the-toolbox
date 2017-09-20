@@ -18,6 +18,7 @@ import { PlanningComponent } from './planning/planning.component';
 import { PlanningTaskRowComponent } from './planning-task-row/planning-task-row.component';
 import { GoogleColorsService } from './../app-common/google-colors.service';
 import { PieChartModule, GaugeModule } from '@swimlane/ngx-charts';
+import { CollectionButtonsComponent } from './../app-common/collection-buttons/collection-buttons.component';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -60,6 +61,7 @@ import MaterialModule from './../material/material.module';
     ProjectMemberForm,
     ProjectFileForm,
     PlanningTaskRowComponent,
+    CollectionButtonsComponent,
     PlanningComponent
   ],
   exports: [ ],
