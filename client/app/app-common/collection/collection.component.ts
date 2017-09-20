@@ -16,19 +16,26 @@ export class CollectionComponent implements AfterViewInit{
     
     @Input()
     itemComponent;
-
     @Input()
     set items(items: Array<object>){
-      this._items = items;
+      let techItems = [];
+      items.forEach((item) => {
+        techItems.push({
+          "value": item,
+          "isSelected": false
+        });
+      });
+      this._items = techItems;
       this.refresh();
     }
-
     @Output() onItemOpened = new EventEmitter();
 
+    private selectedItemIndexes: Array<number> = [];
     private _items: Array<object> = [];screen
     @ViewChildren('componentRef', {read: ViewContainerRef}) public widgetTargets: QueryList<ViewContainerRef>
 
     public refresh() {
+      let selectedItems = [];
       let component = this.itemComponent;
 
       if(typeof(this.widgetTargets) !== "undefined"){
@@ -38,7 +45,7 @@ export class CollectionComponent implements AfterViewInit{
             let widgetComponent = this.componentFactoryResolver.resolveComponentFactory(component);
             target.clear();
             let cmpRef: any = target.createComponent(widgetComponent);
-            cmpRef.instance.value = this._items[i];
+            cmpRef.instance.value = this._items[i]["value"];
             this.cd.detectChanges();
         }
       }
@@ -48,5 +55,15 @@ export class CollectionComponent implements AfterViewInit{
       this.widgetTargets.changes.subscribe(() => {
           this.refresh()
       });
+    }
+
+    /**
+     * Select an item from his position in the list.
+     * @param index The index of the item we want to select.
+     */
+    private selectItem(index: number){
+      console.log(index)
+      console.log(this._items[index])
+      this._items[index]['isSelected'] = !this._items[index]['isSelected'];
     }
 }

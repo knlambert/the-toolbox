@@ -49,4 +49,9 @@ export class ProjectListMenuComponent implements OnInit{
   private openProject(project: object){
     this.router.navigate(['/projects/'+project["id"]]);
   }
+
+  private newProject(){
+    console.log("yoiup")
+    this.router.navigate(['/projects/new']);
+  }
 }
