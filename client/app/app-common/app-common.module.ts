@@ -10,6 +10,7 @@ import { FilterComponent }   from './filter/filter.component';
 import { CollectionComponent } from './collection/collection.component'
 import { SimpleFilterscomponent } from './simple-filters/simple-filters.component';
 import { DBModule } from './../db/db.module';
+import { CollectionButtonsComponent } from './collection-buttons/collection-buttons.component';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -28,14 +29,15 @@ import MaterialModule from './../material/material.module';
     FlexibleFormComponent, 
     FilterComponent,
     CollectionComponent,
-    SimpleFilterscomponent
+    SimpleFilterscomponent,
+    CollectionButtonsComponent
     ],
   exports: [ 
     MainMenuComponent, 
     ReportComponent, 
-    FlexibleFormComponent, 
     FilterComponent,
     CollectionComponent,
+    FlexibleFormComponent, 
     SimpleFilterscomponent
   ],
   providers: [  ]
