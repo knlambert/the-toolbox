@@ -1,4 +1,8 @@
-#div-search-icon-container
-{
+#div-search-icon-container {
     margin-top: 20px;
+    text-align: center;
+}
+
+md-form-field {
+    width: 100%;
 }

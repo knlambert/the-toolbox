@@ -1,7 +1,12 @@
 
-<form fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center" [formGroup]="form" (ngSubmit)="submitForm(form.value)"> 
 
-    <md-form-field >
+ 
+
+<form [formGroup]="form" (ngSubmit)="submitForm(form.value)"> 
+
+    
+    
+    <md-form-field>
         <input mdInput placeholder="Client" [mdAutocomplete]="auto" [formControl]="form.controls['client']">
         <md-autocomplete [displayWith]="getName" #auto="mdAutocomplete">
             <md-option *ngFor="let client of clients" [value]="client">{{client.name}}</md-option>
@@ -25,6 +30,10 @@
     <md-form-field >
         <input  mdInput placeholder="Code" value="" [formControl]="form.controls['code']">
     </md-form-field>
+
+    <button type="button" id="button-previous" md-icon-button (click)="previous()" >
+        <md-icon>keyboard_backspace</md-icon>
+    </button>
 
     <button id="button-save" md-icon-button [disabled]="!form.valid || locked" >
         <md-icon>save</md-icon>

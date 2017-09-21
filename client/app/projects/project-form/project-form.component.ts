@@ -8,8 +8,8 @@ import {
 import { Observable } from 'rxjs';
 import { MdSnackBar } from '@angular/material';
 import { DBService } from './../../db/db.service';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
 
 @Component({
 selector: 'hc-project-form',
@@ -23,14 +23,15 @@ export class ProjectFormComponent implements OnInit {
     constructor(
         private dbService: DBService,
         private fb: FormBuilder,
-        private snackBar: MdSnackBar
+        private snackBar: MdSnackBar,
+        private router: Router
     ){}
     private form : FormGroup;
     private clients: Array<object> = [];
     private locked: boolean = false;
 
     @Input() value: object;
-
+    @Input() userId: number;
     @Output() onProjectCreated = new EventEmitter();
     @Output() onProjectEdited = new EventEmitter();
 
@@ -51,7 +52,6 @@ export class ProjectFormComponent implements OnInit {
         });
 
         if(this.value != null){
-            console.log(this.value)
             this.form.controls['id'].setValue(this.value['id']);
             this.form.controls['client'].setValue(this.value['client']);
             this.form.controls['name'].setValue(this.value['name']);
@@ -71,6 +71,10 @@ export class ProjectFormComponent implements OnInit {
     private getName(obj: any): string {
         
         return obj ? obj.name : "";
+    }
+
+    private previous(){
+        this.router.navigate(['/projects/']);
     }
 
     private submitForm(value: object){

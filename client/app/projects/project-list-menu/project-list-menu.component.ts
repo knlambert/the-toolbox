@@ -14,20 +14,28 @@ export class ProjectListMenuComponent implements OnInit{
 
   private projects: Array<object> = [];
   private itemComponent = ProjectListItemComponent;
-
+  private offset: number = 0;
+  private filters: object = {};
+  private hasNext: boolean = true;
   constructor(private dbService:DBService, private router: Router){}
 
   ngOnInit(){
     this.refreshProjects();
   }
 
-  private refreshProjects(filters: object = {}){
-    this.dbService.list("projects", filters, [], 0, 10).subscribe((items) => {
-      return this.projects = items;
+  private refreshProjects(){
+    this.dbService.list("projects", this.filters, [], this.offset, 16).subscribe((items) => {
+      if(items.length < 16){
+        this.hasNext = false;
+      }
+      this.projects = this.projects.concat(items);
     });
   }
 
   private onFiltersUpdated(filtersValues: object){
+    this.hasNext = true;
+    this.projects = [];
+    this.offset = 0;
     let lookedFor = [
       "client.name", "name", "code"
     ];
@@ -41,9 +49,10 @@ export class ProjectListMenuComponent implements OnInit{
       orFilters.push(filter);
     });
 
-    this.refreshProjects({
+    this.filters = {
       "$or": orFilters
-    });
+    }
+    this.refreshProjects();
   }
 
   private openProject(project: object){
@@ -51,7 +60,11 @@ export class ProjectListMenuComponent implements OnInit{
   }
 
   private newProject(){
-    console.log("yoiup")
     this.router.navigate(['/projects/new']);
+  }
+
+  private loadMore(){
+    this.offset += 16;
+    this.refreshProjects();
   }
 }

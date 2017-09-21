@@ -1,8 +1,18 @@
 
 <div id="div-container">
-    <div fxLayout="row" fxLayoutWrap fxLayoutGap="1%" fxFlexAlign="center center">
-        <div [ngClass]="{'div-item-selected': item.isSelected }" (dblclick)="onItemOpened.emit(item.value)" (click)="selectItem(i)" class="div-item-card" fxFlex="24"  *ngFor="let item of _items; let i = index">
-            <div #componentRef ></div>
+    <div fxLayout="row"  fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="left top" >
+        <div [ngClass]="{'div-item-selected': item.isSelected }" 
+            (dblclick)="onItemOpened.emit(item.value)" 
+            (click)="selectItem(i)" 
+            class="div-item-card" 
+            
+            fxFkex.lt-sm="99"
+            fxFlex.sm="49"
+            fxFlex.md="23"
+            fxFlex.lg="13"
+            fxFlex.xl="13"
+            *ngFor="let item of _items; let i = index">
+                <div #componentRef ></div>
         </div>
     </div>
 </div>

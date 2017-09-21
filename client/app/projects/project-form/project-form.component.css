@@ -3,7 +3,5 @@ input, md-form-field {
 }
 
 #button-save {
-    margin-left: auto;
-    margin-right: 0;
+    float: right;
 }
-

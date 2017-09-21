@@ -37,8 +37,8 @@ export class CollectionComponent implements AfterViewInit{
     public refresh() {
       let selectedItems = [];
       let component = this.itemComponent;
-
-      if(typeof(this.widgetTargets) !== "undefined"){
+      
+      if(typeof(this.widgetTargets) !== "undefined" && this._items.length > 0){
         
         for (let i = 0; i < this.widgetTargets.toArray().length; i++) {
             let target = this.widgetTargets.toArray()[i];
@@ -62,8 +62,6 @@ export class CollectionComponent implements AfterViewInit{
      * @param index The index of the item we want to select.
      */
     private selectItem(index: number){
-      console.log(index)
-      console.log(this._items[index])
       this._items[index]['isSelected'] = !this._items[index]['isSelected'];
     }
 }

@@ -3,7 +3,10 @@
 <common-simple-filters [filters]="['search']" (filterUpdated)="onFiltersUpdated($event.filterValues)"></common-simple-filters>
 <common-collection (onItemOpened)="openProject($event)" [itemComponent]="itemComponent" [items]="projects"></common-collection>
 
-<button md-button>Load more</button>
-
-
 <common-collection-buttons (onClickAdd)="newProject()" (onClickRemove)="removeSelectedProjects()" ></common-collection-buttons>
+
+<div id="div-more-container" [hidden]="!hasNext">
+    <button md-icon-button (click)="loadMore()">
+        <md-icon >more_horiz</md-icon>
+    </button>
+</div>

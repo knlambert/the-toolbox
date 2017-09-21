@@ -1,17 +1,30 @@
+
+
 <div *ngIf="!project && loaded" fxLayout="row" fxLayoutAlign="center center">
+    
+
     <div fxFlex="40" id="div-project-form-container">
-        <h3>New project</h3>
+        
+        
+        <div>
+            <h3>New project</h3>
+        </div>
         <hc-project-form (onProjectCreated)="projectCreated($event.project)"></hc-project-form>
     </div>
 
 </div>
 
 <md-tab-group *ngIf="project" (selectChange)="changeTab($event.index)">
+    
+
     <md-tab label="Project details.">
+        
         <div id="div-project-details-container" fxLayout="column"  fxFlexAlign="center center">
 
             <div fxLayoutWrap fxLayout="row" fxLayoutGap="1%" fxFlexAlign="center center">
+                
                 <div fxFlex.lt-sm="99" fxFlex.md="24" fxFlex.lg="24" id="div-project-form-container">
+                    
                     <hc-project-form [value]="project" (onProjectEdited)="projectCreated($event.project)"></hc-project-form>
                 </div>
 

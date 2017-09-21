@@ -25,11 +25,9 @@ export class HoursCountComponent implements OnInit{
     this.dbService.list('users', {
       email: userInformations['email']
     }).subscribe((items) => {
-      console.log(items)
       if(items.length === 1){
         userInformations['app_user_id'] = items[0]['id'];
         this.userInformations = userInformations;
-        console.log(this.userInformations)
       }
     })
   }
