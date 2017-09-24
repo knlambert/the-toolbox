@@ -23,7 +23,6 @@ export class ProjectListMenuComponent implements OnInit{
   ngOnInit(){
     this.refreshProjects();
     this.userInformationsService.onUpdate.subscribe((userInformations) => {
-      console.log(userInformations)
     });
   }
 

@@ -32,9 +32,9 @@ export class AppComponent implements OnInit{
         "url" : "backoffice/"
       }
     ],
-    "loginUrl": "login/",
-    "settingsUrl": "parameters/my-settings",
-    "defaultUrl": "hours/mine/now"
+    "loginUrl": "/login",
+    "settingsUrl": "/parameters/my-settings",
+    "defaultUrl": "/hours/mine/now"
   };
   private loading: Boolean = true;
   constructor(private router: Router) { 

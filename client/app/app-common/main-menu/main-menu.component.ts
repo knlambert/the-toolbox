@@ -30,7 +30,9 @@ export class MainMenuComponent implements OnInit
         this.router.navigate([this.config['loginUrl']]);
       }
       else{
-        this.router.navigate([this.config['defaultUrl']]);
+        if(window.location.pathname === this.config['loginUrl']){
+          this.router.navigate([this.config['defaultUrl']]);
+        }
       }
     });
   };

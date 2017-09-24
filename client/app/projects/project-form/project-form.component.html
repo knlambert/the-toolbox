@@ -7,28 +7,28 @@
     
     
     <md-form-field>
-        <input mdInput placeholder="Client" [mdAutocomplete]="auto" [formControl]="form.controls['client']">
+        <input required mdInput placeholder="Client" [mdAutocomplete]="auto" [formControl]="form.controls['client']">
         <md-autocomplete [displayWith]="getName" #auto="mdAutocomplete">
             <md-option *ngFor="let client of clients" [value]="client">{{client.name}}</md-option>
         </md-autocomplete>
     </md-form-field>
 
     <md-form-field>
-        <input mdInput placeholder="Name" value="" [formControl]="form.controls['name']">
+        <input required mdInput placeholder="Name" value="" [formControl]="form.controls['name']">
     </md-form-field>
 
     <md-form-field>
-        <input type="number" mdInput placeholder="Days" value="" [formControl]="form.controls['days']">
+        <input required type="number" mdInput placeholder="Days" value="" [formControl]="form.controls['days']">
     </md-form-field>
 
     <md-form-field>
-        <input mdInput [mdDatepicker]="picker" placeholder="Starting date" [formControl]="form.controls['started_at']">
+        <input required mdInput [mdDatepicker]="picker" placeholder="Starting date" [formControl]="form.controls['started_at']">
         <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
         <md-datepicker #picker></md-datepicker>
     </md-form-field>
     
     <md-form-field >
-        <input  mdInput placeholder="Code" value="" [formControl]="form.controls['code']">
+        <input mdInput placeholder="Code" value="" [formControl]="form.controls['code']">
     </md-form-field>
 
     <button type="button" id="button-previous" md-icon-button (click)="previous()" >

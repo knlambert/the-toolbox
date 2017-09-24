@@ -1,37 +1,33 @@
 
-<div fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center">   
+<div>
+    <md-select placeholder="Graph" [(ngModel)]="selectedGraph" (ngModelChange)="refreshGraph()">
+        <md-option value="project_consumption">Consumed</md-option>
+        <md-option value="project_consumption_per_user">Consumed by person</md-option>
+    </md-select>
 
-    <div>
-        <md-select placeholder="Graph" [(ngModel)]="selectedGraph" (ngModelChange)="refreshGraph()">
-            <md-option value="project_consumption">Consumed</md-option>
-            <md-option value="project_consumption_per_user">Consumed by person</md-option>
-        </md-select>
+</div>
 
-    </div>
-    
-    <div *ngIf="selectedGraph == 'project_consumption_per_user'">
-        <ngx-charts-pie-chart 
-            [doughnut]="true"
-            [results]="data"
-            [view]="view"
-            [explodeSlices]="false"
-            [labels]="true"
-            [doughnut]="doughnut"
-            [gradient]="gradient">
-        </ngx-charts-pie-chart>
-    </div>
+<div *ngIf="selectedGraph == 'project_consumption_per_user'">
+    <ngx-charts-pie-chart 
+        [doughnut]="true"
+        [results]="data"
+        [view]="view"
+        [explodeSlices]="false"
+        [labels]="true"
+        [doughnut]="doughnut"
+        [gradient]="gradient">
+    </ngx-charts-pie-chart>
+</div>
 
-    <div *ngIf="selectedGraph == 'project_consumption'">
-        <ngx-charts-gauge
-            [view]="view"
-            [results]="data"
-            [angleSpan]="240"
-            [startAngle]="-120"
-            [units]="'Days'"
-            [max]="max"
-            [bigSegments]="10"
-            [smallSegments]="5">
-        </ngx-charts-gauge>
-    </div>
-    
+<div *ngIf="selectedGraph == 'project_consumption'">
+    <ngx-charts-gauge
+        [view]="view"
+        [results]="data"
+        [angleSpan]="240"
+        [startAngle]="-120"
+        [units]="'Days'"
+        [max]="max"
+        [bigSegments]="10"
+        [smallSegments]="5">
+    </ngx-charts-gauge>
 </div>

@@ -59,7 +59,6 @@ export class PlanningComponent implements OnInit {
     this.dbService.list("project_assignements", {
       "project.id": this._project['id']
     }).subscribe((projectAssignements) => {
-      console.log(projectAssignements)
       projectAssignements.forEach((item) => {
         this.availableUsers.push(item['user'])
       });

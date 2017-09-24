@@ -8,6 +8,7 @@ import { Output, EventEmitter, Component, Input, Directive } from '@angular/core
 
 })
 export class CollectionButtonsComponent {
+  @Input() hideRemoveButton: boolean = false;
   @Output() onClickAdd = new EventEmitter();
-  @Output() onClickRemove = new EventEmitter
+  @Output() onClickRemove = new EventEmitter();
 }

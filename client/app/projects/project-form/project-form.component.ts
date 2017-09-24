@@ -10,6 +10,7 @@ import { MdSnackBar } from '@angular/material';
 import { DBService } from './../../db/db.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserInformationsService } from './../../auth/user-informations.service';
 
 @Component({
 selector: 'hc-project-form',
@@ -22,6 +23,7 @@ export class ProjectFormComponent implements OnInit {
 
     constructor(
         private dbService: DBService,
+        private userInformationsService: UserInformationsService,
         private fb: FormBuilder,
         private snackBar: MdSnackBar,
         private router: Router
@@ -90,12 +92,32 @@ export class ProjectFormComponent implements OnInit {
         
         if(project["id"] == null){
             delete project['id'];
-            this.dbService.save("projects", project).subscribe((result) => {
-                project['id'] = result.inserted_id;
-                this.onProjectCreated.emit({
-                    "project": project
+
+            /* Get user informations */
+            this.userInformationsService.onUpdate.first().subscribe((userInformations) => {
+                /* Save the project */
+                this.dbService.save("projects", project).subscribe((result) => {
+
+                    project['id'] = result.inserted_id;
+
+                    this.onProjectCreated.emit({
+                        "project": project
+                    });
+                    
+                    /* Add current user as a member */
+                    this.dbService.save("project_assignements", {
+                        "project": project,
+                        "user": {
+                            "id": userInformations.appUser.id
+                        },
+                        "role": {
+                            "id": 1
+                        }
+                    }).subscribe((result) => {
+                        this.locked = false;
+                    })
+    
                 });
-                this.locked = false;
             });
         }
         else{
@@ -107,7 +129,7 @@ export class ProjectFormComponent implements OnInit {
                     "project": project
                 });
                 this.locked = false;
-                this.snackBar.open("Project saved.")
+                this.snackBar.open("Project saved.", "DISMISS");
             });
         }
     }

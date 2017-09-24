@@ -53,9 +53,11 @@ export class UserInformationsService {
                         appUser
                     )
                 }
-                console.log("Next : " + JSON.stringify(this.userInformations));
                 this.onUpdate.next(this.userInformations);
             });
+        }
+        else{
+            this.onUpdate.next(null);
         }
     }
 
