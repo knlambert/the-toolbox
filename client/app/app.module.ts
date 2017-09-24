@@ -9,6 +9,7 @@ import { ConnectionService } from './auth/connection.service';
 import { AppComponent }   from './app.component';
 import { AppCommonModule } from './app-common/app-common.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserInformationsService } from './auth/user-informations.service';
 import MaterialModule from './material/material.module';
 
 @NgModule({
@@ -46,7 +47,7 @@ import MaterialModule from './material/material.module';
   ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [  DBService , TokenService, ConnectionService]
+  providers: [  DBService , TokenService, ConnectionService, UserInformationsService]
 })
 export class AppModule { }
 

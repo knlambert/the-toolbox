@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from './../../db/db.service';
 import { ProjectListItemComponent } from './../project-list-item/project-list-item.component';
+import { UserInformationsService } from './../../auth/user-informations.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,10 +18,13 @@ export class ProjectListMenuComponent implements OnInit{
   private offset: number = 0;
   private filters: object = {};
   private hasNext: boolean = true;
-  constructor(private dbService:DBService, private router: Router){}
+  constructor(private dbService:DBService, private router: Router, private userInformationsService: UserInformationsService){}
 
   ngOnInit(){
     this.refreshProjects();
+    this.userInformationsService.onUpdate.subscribe((userInformations) => {
+      console.log(userInformations)
+    });
   }
 
   private refreshProjects(){

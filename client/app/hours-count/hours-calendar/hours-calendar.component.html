@@ -1,7 +1,7 @@
 
 
 
-<div fxLayoutGap="0%"  fxLayout.gt-xs="row"  fxLayoutWrap fxLayoutAlign="start start">
+<div *ngIf="userInformations" fxLayoutGap="0%"  fxLayout.gt-xs="row"  fxLayoutWrap fxLayoutAlign="start start">
   
   <div fxFlex="33%">
     <button md-icon-button id="button-previous" (click)="previous()">

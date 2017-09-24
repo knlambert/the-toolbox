@@ -3,7 +3,8 @@ import { HoursCalendarDay } from './../hours-calendar-day/hours-calendar-day.com
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { DBService } from './../../db/db.service';
-
+import { UserInformationsService } from './../../auth/user-informations.service';
+import { UserInformations } from './../../auth/user-informations.model';
 
 @Component({
   selector: 'hours-calendar',
@@ -14,7 +15,7 @@ import { DBService } from './../../db/db.service';
 })
 export class HoursCalendarComponent implements OnInit{
 
-  @Input() userInformations:Object;
+  @Input() userInformations:UserInformations;
   @Input() daysPerPage = 7;
   @Input() hideWeekend = false;
 
@@ -23,7 +24,12 @@ export class HoursCalendarComponent implements OnInit{
   @ViewChildren('calendardayComponent') calendardayComponents:QueryList<HoursCalendarDay>;
   
 
-  constructor(private dbService: DBService,  private route: ActivatedRoute, private router: Router){}
+  constructor(
+    private userInformationsService: UserInformationsService, 
+    private dbService: DBService,  
+    private route: ActivatedRoute, 
+    private router: Router
+  ){}
 
   private currentDate: Date;
   private dayHoursList: Observable<Array<object>>;
@@ -43,7 +49,7 @@ export class HoursCalendarComponent implements OnInit{
     const month = this.currentDate.getMonth()+1;
 
     this.dbService.export("cras", {
-      email: this.userInformations['email'],
+      email: this.userInformations.appUser.email,
       month: month
     });
   }
@@ -55,46 +61,56 @@ export class HoursCalendarComponent implements OnInit{
     };
 
   public ngOnInit(){
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      // (+) before `params.get()` turns the string into a number
-      let strDate = params.get('date');
-      if (strDate === "now"){
-        this.currentDate = new Date();
-        this.currentDate.setDate(this.currentDate.getDate() - this.currentDate.getDay()+1);
-        this.currentDate.setHours(0);
-        this.currentDate.setMinutes(0);
-        this.currentDate.setSeconds(0);
-      }
-      else{
-        this.currentDate = new Date(strDate);
-      }
-      let currentTimestamp = this.currentDate.getTime() / 1000;
-      this.dayHoursList = this.dbService.list("hours", {
-        "started_at": {
-          "$gte": currentTimestamp,
-          "$lt": currentTimestamp + (this.daysPerPage * 24 * 3600)
-        },
-        "affected_to.id": this.userInformations['app_user_id']
-      }, {
-        "started_at": 1
-      }).map((hours) => {
-        let days = [];
-        var cursorDay = new Date(this.currentDate);
-        for(var i = 0; i < this.daysPerPage; i++){
-          let cursorTimestamp = Math.floor(cursorDay.getTime()/1000);
-          days.push({
-            "day": new Date(cursorDay),
-            "hours": hours.filter((hour) => {
-              return hour['started_at'] >= cursorTimestamp && hour['started_at'] < (cursorTimestamp + (3600 * 24));
-            })
-          });
-          cursorDay.setDate(cursorDay.getDate()+1);
-        }
-        return days;
-      });
 
-     
+    this.userInformationsService.onUpdate.subscribe((userInformations) => {
+      if(userInformations == null){
+        return;
+      }
+      this.userInformations = userInformations
+      
+      this.route.paramMap.subscribe((params: ParamMap) => {
+        // (+) before `params.get()` turns the string into a number
+        let strDate = params.get('date');
+        if (strDate === "now"){
+          this.currentDate = new Date();
+          this.currentDate.setDate(this.currentDate.getDate() - this.currentDate.getDay()+1);
+          this.currentDate.setHours(0);
+          this.currentDate.setMinutes(0);
+          this.currentDate.setSeconds(0);
+        }
+        else{
+          this.currentDate = new Date(strDate);
+        }
+        let currentTimestamp = this.currentDate.getTime() / 1000;
+        this.dayHoursList = this.dbService.list("hours", {
+          "started_at": {
+            "$gte": currentTimestamp,
+            "$lt": currentTimestamp + (this.daysPerPage * 24 * 3600)
+          },
+          "affected_to.id": this.userInformations.appUser.id
+        }, {
+          "started_at": 1
+        }).map((hours) => {
+          let days = [];
+          var cursorDay = new Date(this.currentDate);
+          for(var i = 0; i < this.daysPerPage; i++){
+            let cursorTimestamp = Math.floor(cursorDay.getTime()/1000);
+            days.push({
+              "day": new Date(cursorDay),
+              "hours": hours.filter((hour) => {
+                return hour['started_at'] >= cursorTimestamp && hour['started_at'] < (cursorTimestamp + (3600 * 24));
+              })
+            });
+            cursorDay.setDate(cursorDay.getDate()+1);
+          }
+          return days;
+        });
+      });
     });
+
+    
+
+    
   }
 
   private getSelectedItems(){

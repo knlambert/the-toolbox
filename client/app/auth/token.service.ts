@@ -1,10 +1,10 @@
 import { Injectable, Output, EventEmitter} from '@angular/core';
 import { ReplaySubject }    from 'rxjs/ReplaySubject';
-
+import { AuthUser } from './auth-user.model';
 @Injectable()
 export class TokenService {
 
-  public tokenModified = new ReplaySubject(1);
+  public onTokenModified = new ReplaySubject(1);
 
   constructor(){}
 
@@ -15,7 +15,7 @@ export class TokenService {
       var time = now.getTime();
       now.setTime(parseInt(credentials['exp']) * 1000);
       document.cookie = "credentials=" + btoa(JSON.stringify(credentials)) + ";expires=" + now['toGMTString']() + ";path=/";
-      this.tokenModified.next(credentials)
+      this.onTokenModified.next(credentials)
     }
     else{
       document.cookie = "credentials=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
@@ -26,7 +26,15 @@ export class TokenService {
   public get(){
     var tab = document.cookie.match(/credentials\="*([^"]+)"*/);
     if (tab != null && tab.length > 0){
-      return JSON.parse(atob(tab[1]));
+      let parsed = JSON.parse(atob(tab[1]));
+      let authUser = new AuthUser(
+        parsed.id, 
+        parsed.email, 
+        parsed.name,
+        parsed.token,
+        parsed.exp
+      );
+      return authUser;
     }
     else{
       return null;

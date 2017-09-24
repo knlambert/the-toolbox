@@ -38,6 +38,7 @@ import MaterialModule from './../material/material.module';
     FlexibleFormComponent, 
     SimpleFilterscomponent
   ],
-  providers: [  ]
+  providers: [
+  ]
 })
 export class AppCommonModule { }

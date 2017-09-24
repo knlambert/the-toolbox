@@ -4,7 +4,7 @@
   </button>
   <div *ngIf="userInformations" class="main-menu-login" >
  
-    <div class="main-menu-login-text">{{userInformations.name}}</div>
+    <div class="main-menu-login-text">{{userInformations.appUser.name}}</div>
 
     <button class="main-menu-settings-button" md-icon-button (click)="settings();">
       <md-icon id="settings-icon">settings</md-icon>

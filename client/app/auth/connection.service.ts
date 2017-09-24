@@ -60,9 +60,7 @@ export class ConnectionService {
       	"email": email,
       	"password": newPassword
       }
-    ).map((res: Response) => {
-      }
-    ).catch(this.handleError);
+    ).map((res: Response) => {}).catch(this.handleError);
 
   };
 

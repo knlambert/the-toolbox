@@ -12,10 +12,10 @@ export class ProjectAssignementService {
 
   /**
    * Return the list of affected projects.
-   * @param userEmail The user email we want the project affected to.
+   * @param userId The user id we want the project affected to.
    */
-  listProjectAffectedTo(userEmail: String, filter={}){
-    filter['user.email'] = userEmail;
+  listProjectAffectedTo(userId: number, filter={}){
+    filter['user.id'] = userId;
     return this.dbService.list("project_assignements", filter).map((items) => {
       for(var i = 0; i < items.length; i++){
         items[i] = items[i].project;
@@ -26,11 +26,10 @@ export class ProjectAssignementService {
 
   /**
    * Return the list of affected clients (deduced from affected projects)
-   * @param userEmail The user email we want the clients affected to.
+   * @param userId The user id we want the clients affected to.
    */
-  listClientAffectedTo(userEmail: String, filter={}){
-    filter['email'] = userEmail;
-
+  listClientAffectedTo(userId: number, filter={}){
+    filter['user_id'] = userId;
     return this.dbService.list("clients_affected_to_users", filter);
   }
 }

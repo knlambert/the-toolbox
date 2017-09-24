@@ -8,8 +8,6 @@ import {
   NavigationError
 } from '@angular/router';
 import { MainMenuComponent } from './app-common/main-menu/main-menu.component';
-import { TokenService } from './auth/token.service';
-
 @Component({
   selector: 'app',
   templateUrl: 'app.component.html',
@@ -19,7 +17,6 @@ import { TokenService } from './auth/token.service';
 })
 export class AppComponent implements OnInit{
   @ViewChild(MainMenuComponent) mainMenu:MainMenuComponent;
-  private isConnected = false;
   private menuConfig = {
     "links": [
       {
@@ -36,10 +33,11 @@ export class AppComponent implements OnInit{
       }
     ],
     "loginUrl": "login/",
-    "settingsUrl": "parameters/my-settings"
+    "settingsUrl": "parameters/my-settings",
+    "defaultUrl": "hours/mine/now"
   };
   private loading: Boolean = true;
-  constructor(private router: Router, private tokenService: TokenService) { 
+  constructor(private router: Router) { 
       router.events.subscribe((event: RouterEvent) => {
           this.navigationInterceptor(event);
       });
@@ -59,14 +57,5 @@ export class AppComponent implements OnInit{
             this.loading = false;
         }
     }
-  ngOnInit(){
-    this.isConnected = this.tokenService.get() != null;
-    if(!this.isConnected){
-      this.router.navigate(['login/']);
-    }
-  };
-  private onConnected(){
-    this.isConnected = true;
-    this.mainMenu.refresh();
-  }
+  ngOnInit(){};
 }

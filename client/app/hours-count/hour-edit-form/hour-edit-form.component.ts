@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { TokenService } from "./../../auth/token.service";
+import { UserInformationsService } from "./../../auth/user-informations.service";
 import { DBService } from './../../db/db.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProjectAssignementService } from './../project-assignement.service';
@@ -24,7 +24,6 @@ export class HourEditFormComponent implements OnInit{
   private filteredHours: any;
   private filteredShortCuts: any;
 
-  private userAuth: Object;
   private timer: Date = null;
   private locked: boolean = false;
 
@@ -34,45 +33,42 @@ export class HourEditFormComponent implements OnInit{
   @Output() canceled = new EventEmitter();
 
   private form : FormGroup;
+  private appUserId: number = null;
 
   constructor(
     private fb: FormBuilder, 
-    private tokenService: TokenService, 
+    private userInformationsService: UserInformationsService, 
     private dbService:DBService,
     private projectAssignementService: ProjectAssignementService
   ) {
-    this.userAuth = this.tokenService.get();
-    this.dbService.list("users", {
-      "email": this.userAuth['email']
-    }).subscribe((users) => {
-      if(users.length == 1){
-        this.hour['affected_to'] = users[0];
-      }
-    });
-
-    this.form = fb.group({
-      'client': [null, Validators.compose([Validators.required, DBUtils.validDBAutocomplete()])],
-      'project': [null, Validators.compose([Validators.required, DBUtils.validDBAutocomplete()])],
-      'started_at':[null, Validators.compose([Validators.required, Validators.pattern('^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')])],
-      'minutes': [null, Validators.compose([Validators.required, , Validators.min(1)])],
-      'issue': [null]
-    });
+    
 
     
+
   }
 
   ngOnInit(){
     
-    var that = this;
-    
+    this.userInformationsService.onUpdate.subscribe((userInformations) => {
+      this.hour['affected_to'] = userInformations.appUser.id;
+      this.appUserId = userInformations.appUser.id;
+      this.form = this.fb.group({
+        'client': [null, Validators.compose([Validators.required, DBUtils.validDBAutocomplete()])],
+        'project': [null, Validators.compose([Validators.required, DBUtils.validDBAutocomplete()])],
+        'started_at':[null, Validators.compose([Validators.required, Validators.pattern('^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')])],
+        'minutes': [null, Validators.compose([Validators.required, , Validators.min(1)])],
+        'issue': [null]
+      });
+    });
+
 
     this.form.controls['client'].valueChanges
         .startWith(null)
         .subscribe(name => {
           if(name != null && name.length > 1){
-            that.filterClients(name).subscribe((result => {
-              that.form.controls['project'].setValue(null);
-              that.clients = result;
+            this.filterClients(name).subscribe((result => {
+              this.form.controls['project'].setValue(null);
+              this.clients = result;
             }));
           }
         });
@@ -83,13 +79,13 @@ export class HourEditFormComponent implements OnInit{
         .subscribe(project => {
 
            if(project != null && typeof(project) === "object"){
-            that.form.controls['client'].setValue(project.client);
+            this.form.controls['client'].setValue(project.client);
           }
 
 
           if(project != null && project.length > 1){
-            that.filterProjects(project).subscribe((result => {
-              that.projects = result;
+            this.filterProjects(project).subscribe((result => {
+              this.projects = result;
             }));
           }
         });
@@ -196,11 +192,11 @@ export class HourEditFormComponent implements OnInit{
     if(clientValue != null){
       filter["project.client.id"] = clientValue['id'];
     }
-    return this.projectAssignementService.listProjectAffectedTo(this.userAuth['email'], filter);
+    return this.projectAssignementService.listProjectAffectedTo(this.appUserId, filter);
   }
 
   private filterClients(val: string) {
-    return this.projectAssignementService.listClientAffectedTo(this.userAuth['email'], {
+    return this.projectAssignementService.listClientAffectedTo(this.appUserId, {
       "name": {
         $regex: (".*" + val + ".*")
       }

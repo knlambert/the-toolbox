@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TokenService} from "./../../auth/token.service";
 import { DBService } from "./../../db/db.service";
 import { ReportComponent } from './../../app-common/report/report.component';
 import { FlexibleFormComponent } from './../../app-common/flexible-form/flexible-form.component';
