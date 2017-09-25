@@ -37,11 +37,11 @@ import MaterialModule from './material/material.module';
         },{
           path: 'projects',
           loadChildren: "./projects/projects.module#ProjectsModule"
-        },{
-           path: '',
-           redirectTo: 'hours',
-           pathMatch: 'full'
-         }
+        },{ 
+          path:'',
+          redirectTo: '/hours/mine/now',
+          pathMatch: 'full' 
+        }
       ]
     )
   ],

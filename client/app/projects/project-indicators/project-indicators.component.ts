@@ -51,7 +51,6 @@ export class ProjectIndicatorsComponent implements OnInit {
               "value": consumed - exceeding 
             }
           ];
-          console.log(this.data)
 
         }
         else if(this.selectedGraph === "project_consumption_per_user"){

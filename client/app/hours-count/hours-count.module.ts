@@ -29,6 +29,9 @@ import { DBModule } from './../db/db.module';
         {
           path: 'mine/:date',
           component: HoursCountComponent
+        },{
+          path: '',
+          redirectTo: 'mine/now'
         }
       ]
     )

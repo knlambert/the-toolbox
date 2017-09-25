@@ -18,6 +18,7 @@ export class ProjectListMenuComponent implements OnInit{
   private offset: number = 0;
   private filters: object = {};
   private hasNext: boolean = true;
+  private isLoading:boolean = false;
   constructor(private dbService:DBService, private router: Router, private userInformationsService: UserInformationsService){}
 
   ngOnInit(){
@@ -27,10 +28,12 @@ export class ProjectListMenuComponent implements OnInit{
   }
 
   private refreshProjects(){
+    this.isLoading = true;
     this.dbService.list("projects", this.filters, [], this.offset, 16).subscribe((items) => {
       if(items.length < 16){
         this.hasNext = false;
       }
+      this.isLoading = false;
       this.projects = this.projects.concat(items);
     });
   }
@@ -58,9 +61,6 @@ export class ProjectListMenuComponent implements OnInit{
     this.refreshProjects();
   }
 
-  private openProject(project: object){
-    this.router.navigate(['/projects/'+project["id"]]);
-  }
 
   private newProject(){
     this.router.navigate(['/projects/new']);

@@ -3,6 +3,8 @@ common-simple-filters {
 }
 
 #div-more-container {
+    width: 100px;
     margin-top: 20px;
+    margin: 0 auto;
     text-align: center;
 }

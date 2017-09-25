@@ -3,10 +3,15 @@
 <common-simple-filters [filters]="['search']" (filterUpdated)="onFiltersUpdated($event.filterValues)"></common-simple-filters>
 <common-collection (onItemOpened)="openProject($event)" [itemComponent]="itemComponent" [items]="projects"></common-collection>
 
-<common-collection-buttons [hideRemoveButton]="true" (onClickAdd)="newProject()" (onClickRemove)="removeSelectedProjects()" ></common-collection-buttons>
+<common-collection-buttons 
+[hideRemoveButton]="true" 
+(onClickAdd)="newProject()" 
+(onClickRemove)="removeSelectedProjects()" ></common-collection-buttons>
 
-<div id="div-more-container" [hidden]="!hasNext">
-    <button md-icon-button (click)="loadMore()">
+<div id="div-more-container" >
+    <button [hidden]="!hasNext || isLoading" md-icon-button (click)="loadMore()">
         <md-icon >more_horiz</md-icon>
     </button>
+    <md-spinner  [hidden]="!isLoading" ></md-spinner>
+    
 </div>

@@ -10,4 +10,8 @@
     <md-form-field *ngIf="value.code" fxFlex="100" >
         <input [disabled]="true" mdInput placeholder="Code" value="{{value.code}}">
     </md-form-field>
+
+    <button (click)="openProject()" md-icon-button class="button-edit">
+        <md-icon class="icon-edit"  >edit</md-icon>
+    </button>
 </div>

@@ -2,7 +2,7 @@
 <div id="div-container">
     <div fxLayout="row"  fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="left top" >
         <div [ngClass]="{'div-item-selected': item.isSelected }" 
-            (dblclick)="onItemOpened.emit(item.value)" 
+            (onEdit)="onItemOpened.emit(item.value)" 
             (click)="selectItem(i)" 
             class="div-item-card" 
             
