@@ -21,7 +21,7 @@ export class ProjectIndicatorsComponent implements OnInit {
 
     private selectedGraph = "project_consumption";
     private data = [];
-    private view: any[] = [350, 325];
+    private view: any[] = [300, 320];
     private max: number;
 
     private refreshGraph(){

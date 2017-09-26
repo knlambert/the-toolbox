@@ -1,4 +1,9 @@
-<div id="div-project-container" fxLayout="row" fxLayoutWrap fxFlexAlign="center center">
+<div id="div-project-container" (dblclick)="openProject()" fxLayout="row" fxLayoutWrap fxFlexAlign="center center">
+<!--     
+    <button (dbclick)="openProject()" md-icon-button class="button-edit">
+        <md-icon class="icon-edit"  >edit</md-icon>
+    </button>
+     -->
     <md-form-field fxFlex="100" >
         <input [disabled]="true" mdInput placeholder="Client" value="{{value.client.name}}">
     </md-form-field>
@@ -11,7 +16,5 @@
         <input [disabled]="true" mdInput placeholder="Code" value="{{value.code}}">
     </md-form-field>
 
-    <button (click)="openProject()" md-icon-button class="button-edit">
-        <md-icon class="icon-edit"  >edit</md-icon>
-    </button>
+    
 </div>

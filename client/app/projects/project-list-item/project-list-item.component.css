@@ -4,15 +4,7 @@
 }
 
 .button-edit {
-    margin-right: 0px;
-    margin-left: auto;
-}
-
-.icon-edit {
-    opacity: 0.1;
-    transition: opacity 0.2s ease-in-out;
-}
-
-.icon-edit:hover {
-    opacity: 1;
+    position:relative;
+    top:0;
+    right:0;
 }

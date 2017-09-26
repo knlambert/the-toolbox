@@ -28,6 +28,7 @@ export class CollectionComponent implements AfterViewInit{
       this._items = techItems;
       this.refresh();
     }
+    @Input() selectable: boolean = false;
     @Output() onItemOpened = new EventEmitter();
 
     private selectedItemIndexes: Array<number> = [];
