@@ -196,6 +196,17 @@ export class HoursCalendarDay {
   }
 
   /**
+   * Open an hour in the interface starting from his IID.
+   * @param uuid The UUID of the hour to open.
+   */
+  private openHour(uuid: string){
+    let currentStatus = this._items[this.getItemIndex(uuid)]['status'];
+    if(currentStatus !== "new"){
+      this.setStatus(uuid, 'editing');
+    }
+  }
+
+  /**
    * Set the ID of the item (after saving).
    * @param uuid Unique UUID generated for each item.
    * @param id The ID to set.
