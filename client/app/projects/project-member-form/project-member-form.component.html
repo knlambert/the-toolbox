@@ -3,13 +3,13 @@
 <form fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center" [formGroup]="form" (ngSubmit)="submitForm(form.value)"> 
     
     <md-form-field>
-        <input mdInput placeholder="User" [mdAutocomplete]="auto" [formControl]="form.controls['user']">
+        <input required mdInput placeholder="User" [mdAutocomplete]="auto" [formControl]="form.controls['user']">
         <md-autocomplete [displayWith]="getName" #auto="mdAutocomplete">
-            <md-option *ngFor="let user of users | async" [value]="user">{{user.name}}</md-option>
+            <md-option *ngFor="let user of users" [value]="user">{{user.name}}</md-option>
         </md-autocomplete>
     </md-form-field>
 
-    <md-select placeholder="Role" [formControl]="form.controls['role']" >
+    <md-select required placeholder="Role" [formControl]="form.controls['role']" >
         <md-option *ngFor="let role of roles | async" [value]="role">{{role.name}}</md-option>
     </md-select>
 

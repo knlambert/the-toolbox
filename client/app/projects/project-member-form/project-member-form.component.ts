@@ -32,10 +32,7 @@ export class ProjectMemberForm implements OnInit {
     private roles = this.dbService.list("roles").map((roles) => {
         return roles;
     });
-
-    private users = this.dbService.list("users").map((users) => {
-        return users;
-    });
+    private users: Array<object> = []
 
     @Output() onMemberCreated = new EventEmitter();
     @Output() onCancel = new EventEmitter();
@@ -45,6 +42,12 @@ export class ProjectMemberForm implements OnInit {
             'user': [null, Validators.compose([Validators.required])],
             'role': [null, Validators.compose([Validators.required])]
         });        
+
+        this.form.controls['user'].valueChanges.startWith(null).subscribe(name => {
+            this.updateUsers(name).subscribe((result => {
+              this.users = result;
+            }));
+        });
     }
 
     private updateUsers(name: string = null){
