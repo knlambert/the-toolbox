@@ -13,7 +13,7 @@
     <div 
     class="div-item-card"
     (click)="selectItem(item.uuid, item.isSelected)" 
-    (dblclick)="setStatus(item.uuid, 'editing')"
+    (dblclick)="openHour(item.uuid)"
     [ngClass]="{'div-item-selected': item.isSelected}">
 
       <div>
