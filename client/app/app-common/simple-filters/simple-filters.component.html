@@ -2,7 +2,7 @@
 
 <div id="div-filters-container" fxLayout="row" fxLayoutWrap fxLayoutGap.gt-sm="20px" fxFlexAlign="center center">
     
-    <div fxFlex.lt-sm="85" *ngFor="let filter of filters;">
+    <div fxFlex.lt-sm="85" fxFlex.gt-sm="200px" *ngFor="let filter of filters;">
         <md-form-field >
             <input mdInput [placeholder]="format(filter)" [(ngModel)]="variables[filter]" (ngModelChange)="onFilterChange()">
         </md-form-field>
