@@ -80,57 +80,60 @@ export class ProjectFormComponent implements OnInit {
     }
 
     private submitForm(value: object){
-        this.locked = true;
-        let project = {
-            "id": value['id'],
-            "provisioned_hours": value['days'] * 8,
-            "started_at": Math.floor((new Date(value["started_at"])).getTime() / 1000),
-            "client": value['client'],
-            "name": value['name'],
-            "code": value['code']
-        };
+
+        if(this.form.valid){
+            this.locked = true;
+            let project = {
+                "id": value['id'],
+                "provisioned_hours": value['days'] * 8,
+                "started_at": Math.floor((new Date(value["started_at"])).getTime() / 1000),
+                "client": value['client'],
+                "name": value['name'],
+                "code": value['code']
+            };
+            
+            if(project["id"] == null){
+                delete project['id'];
+
+                /* Get user informations */
+                this.userInformationsService.onUpdate.first().subscribe((userInformations) => {
+                    /* Save the project */
+                    this.dbService.save("projects", project).subscribe((result) => {
+
+                        project['id'] = result.inserted_id;
+
+                        this.onProjectCreated.emit({
+                            "project": project
+                        });
+                        
+                        /* Add current user as a member */
+                        this.dbService.save("project_assignements", {
+                            "project": project,
+                            "user": {
+                                "id": userInformations.appUser.id
+                            },
+                            "role": {
+                                "id": 1
+                            }
+                        }).subscribe((result) => {
+                            this.locked = false;
+                        })
         
-        if(project["id"] == null){
-            delete project['id'];
-
-            /* Get user informations */
-            this.userInformationsService.onUpdate.first().subscribe((userInformations) => {
-                /* Save the project */
-                this.dbService.save("projects", project).subscribe((result) => {
-
-                    project['id'] = result.inserted_id;
-
-                    this.onProjectCreated.emit({
+                    });
+                });
+            }
+            else{
+                let projectId = project['id']
+                this.dbService.update("projects", {
+                    "id": projectId
+                }, project).subscribe((result) => {
+                    this.onProjectEdited.emit({
                         "project": project
                     });
-                    
-                    /* Add current user as a member */
-                    this.dbService.save("project_assignements", {
-                        "project": project,
-                        "user": {
-                            "id": userInformations.appUser.id
-                        },
-                        "role": {
-                            "id": 1
-                        }
-                    }).subscribe((result) => {
-                        this.locked = false;
-                    })
-    
+                    this.locked = false;
+                    this.snackBar.open("Project saved.", "DISMISS");
                 });
-            });
-        }
-        else{
-            let projectId = project['id']
-            this.dbService.update("projects", {
-                "id": projectId
-            }, project).subscribe((result) => {
-                this.onProjectEdited.emit({
-                    "project": project
-                });
-                this.locked = false;
-                this.snackBar.open("Project saved.", "DISMISS");
-            });
+            }
         }
     }
 }   

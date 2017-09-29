@@ -130,7 +130,6 @@ export class HoursCalendarDay {
    * @param item 
    */
   private getProjectColor(item: object){
-
     return this.googleColorService.generate(item['hour']['project']['name'], "600");
   }
 

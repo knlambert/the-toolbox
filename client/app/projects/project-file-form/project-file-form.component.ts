@@ -40,19 +40,21 @@ export class ProjectFileForm implements OnInit {
         });        
     }
     private submitForm(value: object){
-        this.locked = true;
-        value['project'] = {
-            "id": this.projectId
-        }
-        this.dbService.save("project_files", value).subscribe((result) => {
-            value['id'] = result['inserted_id'];
-            this.onFileCreated.emit({
-                "file": value
+        if(this.form.valid){
+            this.locked = true;
+            value['project'] = {
+                "id": this.projectId
+            }
+            this.dbService.save("project_files", value).subscribe((result) => {
+                value['id'] = result['inserted_id'];
+                this.onFileCreated.emit({
+                    "file": value
+                });
+            }, (error) => {
+                this.snackBar.open("File already registered.");
+                this.locked = false;
             });
-        }, (error) => {
-            this.snackBar.open("File already registered.");
-            this.locked = false;
-        });
+        }
     }
 
     private cancel(){

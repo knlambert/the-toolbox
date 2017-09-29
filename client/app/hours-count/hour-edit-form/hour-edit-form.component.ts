@@ -217,27 +217,29 @@ export class HourEditFormComponent implements OnInit{
   }
 
   submitForm(value: any){
-    this.locked = true;
-    var ret = {
-      uuid : this.uuid,
-      hour : this.hour
-    };
+    if(this.form.valid){
+      this.locked = true;
+      var ret = {
+        uuid : this.uuid,
+        hour : this.hour
+      };
 
-    /* Date handling to timestamp */
-    var startedAtDate = new Date(this.hour['started_at'] * 1000);
-    startedAtDate.setHours(value.started_at.split(":")[0]);
-    startedAtDate.setMinutes(value.started_at.split(":")[1]);
-    this.hour['project'] = value.project;
-    ret.hour['started_at'] = Math.floor(startedAtDate.getTime() / 1000)
-    ret.hour['minutes'] = Number(value.minutes);
-    ret.hour['issue'] = value.issue || ""
-    ret.hour['comments'] = null;
-    if (this.status === "new"){
-      delete ret.hour['id'];
-      this.saved.emit(ret);
-    }
-    else{
-      this.updated.emit(ret);
+      /* Date handling to timestamp */
+      var startedAtDate = new Date(this.hour['started_at'] * 1000);
+      startedAtDate.setHours(value.started_at.split(":")[0]);
+      startedAtDate.setMinutes(value.started_at.split(":")[1]);
+      this.hour['project'] = value.project;
+      ret.hour['started_at'] = Math.floor(startedAtDate.getTime() / 1000)
+      ret.hour['minutes'] = Number(value.minutes);
+      ret.hour['issue'] = value.issue || ""
+      ret.hour['comments'] = null;
+      if (this.status === "new"){
+        delete ret.hour['id'];
+        this.saved.emit(ret);
+      }
+      else{
+        this.updated.emit(ret);
+      }
     }
 
   };

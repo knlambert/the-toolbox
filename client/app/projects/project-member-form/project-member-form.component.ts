@@ -60,19 +60,21 @@ export class ProjectMemberForm implements OnInit {
     }
 
     private submitForm(value: object){
-        this.locked = true;
-        value['project'] = {
-            "id": this.projectId
-        }
-        this.dbService.save("project_assignements", value).subscribe((result) => {
-            value['id'] = result['inserted_id'];
-            this.onMemberCreated.emit({
-                "member": value
+        if(this.form.valid){
+            this.locked = true;
+            value['project'] = {
+                "id": this.projectId
+            }
+            this.dbService.save("project_assignements", value).subscribe((result) => {
+                value['id'] = result['inserted_id'];
+                this.onMemberCreated.emit({
+                    "member": value
+                });
+            }, (error) => {
+                this.snackBar.open("Member already registered.");
+                this.locked = false;
             });
-        }, (error) => {
-            this.snackBar.open("Member already registered.");
-            this.locked = false;
-        });
+        }
     }
 
     private cancel(){
