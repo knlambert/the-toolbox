@@ -63,11 +63,11 @@ export class HoursCalendarComponent implements OnInit{
   public ngOnInit(){
 
     this.userInformationsService.onUpdate.subscribe((userInformations) => {
+      
       if(userInformations == null){
         return;
       }
-      this.userInformations = userInformations
-      
+      this.userInformations = userInformations;
       this.route.paramMap.subscribe((params: ParamMap) => {
         // (+) before `params.get()` turns the string into a number
         let strDate = params.get('date');

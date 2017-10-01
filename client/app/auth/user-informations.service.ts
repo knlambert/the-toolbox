@@ -11,7 +11,7 @@ import { AuthUser } from './auth-user.model';
 export class UserInformationsService {
 
     private userInformations: UserInformations = null;
-    public onUpdate: ReplaySubject<UserInformations> = new ReplaySubject();
+    public onUpdate: ReplaySubject<UserInformations> = new ReplaySubject(1);
 
     constructor(
         private connectionService: ConnectionService,
