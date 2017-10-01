@@ -7,7 +7,6 @@ import {
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DBService } from './../../db/db.service';
-import { PlanningComponent } from './../planning/planning.component';
 
 @Component({
 selector: 'hc-project-dashboard',
@@ -22,7 +21,6 @@ export class ProjectDashboardComponent implements OnInit {
     
     private loaded: boolean = false;
     @Input() project: object = null;
-    @ViewChild('planning') planning: PlanningComponent;
     public ngOnInit(){
         this.route.paramMap.subscribe((params: ParamMap) => {
           let projectId = params.get('id');
@@ -45,10 +43,6 @@ export class ProjectDashboardComponent implements OnInit {
 
     private changeTab(tabIndex: number){
         this.tabIndex = tabIndex;
-        if(tabIndex === 1){
-            
-            this.planning.loadProject(this.project);
-        }
     }
     
 }   

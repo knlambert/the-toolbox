@@ -20,6 +20,9 @@ import { GoogleColorsService } from './../app-common/google-colors.service';
 import { PieChartModule, GaugeModule } from '@swimlane/ngx-charts';
 import { CollectionButtonsComponent } from './../app-common/collection-buttons/collection-buttons.component';
 import MaterialModule from './../material/material.module';
+import { TaskMenuComponent } from './task-menu/task-menu.component';
+import { TaskListComponent } from './task-list/task-list.component';
+
 
 @NgModule({
   imports:      [
@@ -62,7 +65,9 @@ import MaterialModule from './../material/material.module';
     ProjectFileForm,
     PlanningTaskRowComponent,
     CollectionButtonsComponent,
-    PlanningComponent
+    PlanningComponent,
+    TaskMenuComponent,
+    TaskListComponent
   ],
   exports: [ ],
   providers: [

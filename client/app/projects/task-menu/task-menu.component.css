@@ -1,0 +1,9 @@
+.div-lists-container {
+    overflow: auto;
+    padding: 20px;
+}
+
+hc-task-list {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

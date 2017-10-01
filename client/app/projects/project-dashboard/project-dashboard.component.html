@@ -14,7 +14,7 @@
 
 </div>
 
-<md-tab-group *ngIf="project" (selectChange)="changeTab($event.index)">
+<md-tab-group [selectedIndex]="1" *ngIf="project" (selectChange)="changeTab($event.index)">
     
 
     <md-tab label="Project details.">
@@ -46,16 +46,13 @@
 
         </div>
     </md-tab>
-    <md-tab label="Planning" *ngIf="project" >
-        <hc-planning #planning [project]="project"></hc-planning>
-
-        
-
+    <md-tab label="Tasks" *ngIf="project" >
+        <hc-task-menu></hc-task-menu>
     </md-tab>
 </md-tab-group>
 
 <div id="div-float-bar" [hidden]="tabIndex != 1">
-    <table>
+    <!-- <table>
     
         <tr >
             <td class="td-float-button">
@@ -71,5 +68,5 @@
                 </button>
             </td>
         </tr>
-    </table>
+    </table> -->
 </div>
