@@ -3,7 +3,6 @@ import { Observable, ReplaySubject }    from 'rxjs';
 import { ConnectionService} from './connection.service';
 import { UserInformations } from './user-informations.model';
 import { Router } from '@angular/router';
-import { TokenService } from './token.service';
 import { DBService } from './../db/db.service';
 import { AppUser } from './app-user.model';
 import { AuthUser } from './auth-user.model';
@@ -16,22 +15,18 @@ export class UserInformationsService {
 
     constructor(
         private connectionService: ConnectionService,
-        private tokenService: TokenService,
         private dbService: DBService,
         private router: Router
     ){
-        var authUser = this.tokenService.get();
-        if(authUser != null){
+        this.connectionService.getUserInformations().subscribe((authUser: AuthUser) => {
             this.refresh(authUser);
-        }
-        else{
+        },((err) => {
             this.router.navigate(['login']);
-        }
+        }));
     }
 
     public clear(){
-        this.tokenService.set(null);
-        this.connectionService.logout().subscribe(() => {
+        return this.connectionService.logout().map(() => {
             this.onUpdate.next(null);
         });
     }
@@ -45,7 +40,6 @@ export class UserInformationsService {
                     payload['name'],
                     payload['exp']
                 )
-                this.tokenService.set(authUser);
                 this.refresh(authUser);
             }
         )

@@ -4,7 +4,6 @@ import { RouterModule }   from '@angular/router';
 import { DBModule } from './db/db.module';
 import { DBService } from './db/db.service';
 import { AuthModule } from './auth/auth.module';
-import { TokenService } from './auth/token.service';
 import { ConnectionService } from './auth/connection.service';
 import { AppComponent }   from './app.component';
 import { AppCommonModule } from './app-common/app-common.module';
@@ -47,7 +46,7 @@ import MaterialModule from './material/material.module';
   ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [  DBService , TokenService, ConnectionService, UserInformationsService]
+  providers: [  DBService, ConnectionService, UserInformationsService]
 })
 export class AppModule { }
 

@@ -40,8 +40,9 @@ export class MainMenuComponent implements OnInit
  
 
   private logout(){
-    this.userInformationsService.clear();
-    this.router.navigate([this.config['loginUrl']]);
+    this.userInformationsService.clear().subscribe((result) => {
+      this.router.navigate([this.config['loginUrl']]);
+    });
   }
 
   private settings(){
