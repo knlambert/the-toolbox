@@ -1,10 +1,12 @@
 import { Injectable, Output, EventEmitter, OnInit} from '@angular/core';
 import { Observable, ReplaySubject }    from 'rxjs';
 import { ConnectionService} from './connection.service';
-import { TokenService } from './token.service';
 import { UserInformations } from './user-informations.model';
+import { Router } from '@angular/router';
+import { TokenService } from './token.service';
 import { DBService } from './../db/db.service';
 import { AppUser } from './app-user.model';
+import { AuthUser } from './auth-user.model';
 
 @Injectable()
 export class UserInformationsService {
@@ -15,33 +17,45 @@ export class UserInformationsService {
     constructor(
         private connectionService: ConnectionService,
         private tokenService: TokenService,
-        private dbService: DBService
+        private dbService: DBService,
+        private router: Router
     ){
-        this.refresh();
+        var authUser = this.tokenService.get();
+        if(authUser != null){
+            this.refresh(authUser);
+        }
+        else{
+            this.router.navigate(['login']);
+        }
     }
 
     public clear(){
         this.tokenService.set(null);
-        this.onUpdate.next(null);
+        this.connectionService.logout().subscribe(() => {
+            this.onUpdate.next(null);
+        });
     }
 
     public authentify(login: string, password: string){
         return this.connectionService.authentify(login, password).map(
-            (credentials) => {
-                this.tokenService.set(credentials);
-                this.refresh();
-                return credentials;
+            (payload) => {
+                let authUser = new AuthUser(
+                    payload['id'],
+                    payload['email'],
+                    payload['name'],
+                    payload['exp']
+                )
+                this.tokenService.set(authUser);
+                this.refresh(authUser);
             }
         )
     }
     
-    public refresh(){
-        let authUser = this.tokenService.get();
+    public refresh(authUser: AuthUser){
         if(authUser != null){
             let listObs = this.dbService.list("users", {
                 "email": authUser.email
             }, {}, 0, 2).subscribe((items) => {
-                let authUser = this.tokenService.get();
                 if(items.length == 1){
                     let appUser = new AppUser(
                         items[0].id,
