@@ -22,7 +22,7 @@
 
 </div>
 
-<div class="main-menu-slider" [hidden]="!isOpen">
+<div class="main-menu-slider" [ngClass]="{'main-menu-slider-open' : isOpen}">
   <ul *ngFor="let link of config.links;">
     <li>
       <a routerLink="{{link.url}}" routerLinkActive="active" (click)="route()">{{link.label}}</a>

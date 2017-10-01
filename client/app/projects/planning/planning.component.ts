@@ -16,7 +16,6 @@ export class PlanningComponent implements OnInit {
   @Input()
   set project(project) {
     this._project = project;
-    this.loadProject(project);
   }
 
   private currentDate = new Date();
@@ -65,7 +64,7 @@ export class PlanningComponent implements OnInit {
     });
   }
 
-  private loadProject(project, fromDate ?: Date){
+  public loadProject(project, fromDate ?: Date){
 
     this.fromDate = fromDate || new Date(project['started_at'] * 1000);
 

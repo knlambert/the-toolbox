@@ -45,6 +45,10 @@ export class ProjectDashboardComponent implements OnInit {
 
     private changeTab(tabIndex: number){
         this.tabIndex = tabIndex;
+        if(tabIndex === 1){
+            
+            this.planning.loadProject(this.project);
+        }
     }
     
 }   
