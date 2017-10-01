@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { AuthUser } from "./auth-user.model";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
@@ -9,7 +10,7 @@ import 'rxjs/add/operator/mergeMap';
 export class ConnectionService {
 
 
-  private url = 'api/user/';  // URL to web API
+  private url = 'api/users/';  // URL to web API
   constructor (private http: HttpClient) {}
 
 
@@ -17,34 +18,26 @@ export class ConnectionService {
    
     var token;
     return this.http.post(
-      this.url + "authentify", {
+      this.url + "login", {
       	"email": login,
       	"password": password
       }
     ).map((body: object) => {
-        token = body['token'];
-        return token;
-      }
-    ).flatMap((token) => {
-      return this.http.post(
-        this.url + "token/check/", {
-        	"token": token
-        }
-      ).map((body: object) => {
-        body['token'] = token;
         return body;
-      });
-    }).catch(this.handleError);
+      }
+    ).catch(this.handleError);
   };
 
-  public getUserInformationsFromToken(token): Observable<Object> {
-    return this.http.post(this.url + "token/check/", {
-    	"token": token
-    }).map((body: object) => {
-      return body;
-    }).catch(this.handleError);
-  };
-
+  public getUserInformations(): Observable<AuthUser> {
+    return this.http.get(this.url + "me").map((payload) => {
+      return new AuthUser(
+        payload['id'],
+        payload['email'],
+        payload['name'],
+        payload['exp']
+      );
+    });
+  }
 
   private handleError (error: any) {
     // In a real world app, we might use a remote logging infrastructure
@@ -56,14 +49,19 @@ export class ConnectionService {
 
   public modifyPassword(email: String, newPassword: String){
     return this.http.post(
-      this.url + "reset_password", {
+      this.url + "reset-password", {
       	"email": email,
       	"password": newPassword
       }
     ).map((res: Response) => {}).catch(this.handleError);
 
-  };
+  }
 
+  public logout(){
+    return this.http.get(this.url + "logout").map((result) => {
+      return result;
+    });
+  }
 
 
 }
