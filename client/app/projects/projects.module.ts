@@ -19,6 +19,7 @@ import { PlanningTaskRowComponent } from './planning-task-row/planning-task-row.
 import { GoogleColorsService } from './../app-common/google-colors.service';
 import { PieChartModule, GaugeModule } from '@swimlane/ngx-charts';
 import { CollectionButtonsComponent } from './../app-common/collection-buttons/collection-buttons.component';
+import { TaskListItemComponent } from './task-list-item/task-list-item.component';
 import MaterialModule from './../material/material.module';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
 import { TaskListComponent } from './task-list/task-list.component';
@@ -67,7 +68,8 @@ import { TaskListComponent } from './task-list/task-list.component';
     CollectionButtonsComponent,
     PlanningComponent,
     TaskMenuComponent,
-    TaskListComponent
+    TaskListComponent,
+    TaskListItemComponent
   ],
   exports: [ ],
   providers: [

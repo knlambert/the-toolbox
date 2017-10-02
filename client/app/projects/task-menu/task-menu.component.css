@@ -7,3 +7,11 @@ hc-task-list {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.div-new-container
+{
+  text-align:center;
+  border:#E0E0E0 dashed 1px;
+  margin-bottom: 20px;
+  height: 42px;
+}

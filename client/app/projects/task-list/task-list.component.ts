@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject } from 'rxjs';
 
@@ -9,10 +9,18 @@ import { Observable, Subject } from 'rxjs';
     'task-list.component.css'
   ]
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnInit{
 
-    public taskes: Array<object> = [
-        {}, {}, {}, {}, {}
-    ];
+    constructor(private dbService: DBService){}
+    
+    @Input() taskList: object;
+
+    private tasks: Observable<Array<object>>;
+
+    ngOnInit(){
+      this.tasks = this.dbService.list("tasks", {
+        "task_list.id": this.taskList["id"]
+      });
+    }
 
 }

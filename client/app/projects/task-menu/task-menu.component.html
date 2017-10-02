@@ -1,6 +1,12 @@
 
 <div class="div-lists-container" fxLayout="row" fxLayoutGap="10px">
-    <div fxFlex="270px" *ngFor="let list of lists"  >
-        <hc-task-list></hc-task-list>
+    <div fxFlex="270px" *ngFor="let taskList of taskLists"  >
+        <hc-task-list [taskList]="taskList.value"></hc-task-list>
+    </div>
+
+    <div fxFlex="270px" class="div-new-container" >
+      <button  mdTooltip="Add a list." md-icon-button (click)="insertItem()">
+        <md-icon>add</md-icon>
+      </button>
     </div>
 </div>

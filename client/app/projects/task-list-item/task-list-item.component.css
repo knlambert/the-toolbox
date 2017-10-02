@@ -1,0 +1,7 @@
+.input-task-title {
+    min-width: 100%;
+    max-width:100%;
+    font-size: 14px;
+    border: 0px solid black;
+    outline:0;
+}

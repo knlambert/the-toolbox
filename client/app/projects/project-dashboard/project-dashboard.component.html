@@ -47,7 +47,7 @@
         </div>
     </md-tab>
     <md-tab label="Tasks" *ngIf="project" >
-        <hc-task-menu></hc-task-menu>
+        <hc-task-menu [projectId]="project.id" ></hc-task-menu>
     </md-tab>
 </md-tab-group>
 
