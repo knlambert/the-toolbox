@@ -22,7 +22,7 @@ export class TaskMenuComponent implements OnInit {
 
   ngOnInit(){
     this.dbService.list("task-lists", {
-      "id": this.projectId
+      "project.id": this.projectId
     }).subscribe((items) => {
       items.forEach((value) => {
         this.insertItem(value, "saved");
@@ -41,10 +41,21 @@ export class TaskMenuComponent implements OnInit {
     };
 
     status = status || "new";
-    this.taskLists.push({
-      "status": status,
-      "value": value
-    });
 
+    if(status === "new"){
+      this.dbService.save("task-lists", value).subscribe((saved) => {
+        value['id'] = saved['inserted_id'];
+        this.taskLists.push({
+          "status": "saved",
+          "value": value
+        });
+      });
+    }
+    else{
+      this.taskLists.push({
+        "status": "saved",
+        "value": value
+      });
+    }
   }
 }

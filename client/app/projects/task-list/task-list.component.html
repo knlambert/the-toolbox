@@ -1,7 +1,14 @@
 <div class="div-taskes-container" fxLayout="column" fxLayoutGap="10px">
-    <input type="text" [value]="taskList.title" class="input-list-title"/>
+    <input 
+    type="text" 
+    [value]="taskList.title" 
+    [(ngModel)]="taskList.title" 
+    (focusout)="onTitleChange()"
+    class="input-list-title"/>
 
-    <div class="div-task-container" *ngFor="let task of tasks | async">
-        <hc-task-list-item [task]="task"></hc-task-list-item>
+    <div class="div-task-container" *ngFor="let task of tasks">
+        <hc-task-list-item [task]="task.value"></hc-task-list-item>
     </div>
+
+    <div class="div-add-card" (click)="insertItem()">Add a card ...</div>
 </div>

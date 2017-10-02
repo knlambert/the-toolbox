@@ -1,7 +1,25 @@
-.input-task-title {
-    min-width: 100%;
-    max-width:100%;
+.p-task-title {
     font-size: 14px;
-    border: 0px solid black;
-    outline:0;
+}
+
+.div-tile {
+    position: relative;
+}
+
+.button-more {
+    position: absolute;
+    left: 220px;
+    top: -30px;
+}
+
+md-icon {
+    font-size: 18px;
+}
+
+.icon-more {
+    color: #9E9E9E;
+}
+
+md-menu {
+    font-size: 12px;
 }
