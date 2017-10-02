@@ -1,6 +1,7 @@
 <div class="div-taskes-container" fxLayout="column" fxLayoutGap="10px">
-    <md-form-field class="field-list-title">
-        <input mdInput >
-    </md-form-field>
-    <div class="div-task-container" *ngFor="let task of taskes"> Task </div>
+    <input type="text" class="input-list-title"/>
+
+    <div class="div-task-container" *ngFor="let task of taskes">
+        <textarea class="text-area-task-description"></textarea>
+    </div>
 </div>
