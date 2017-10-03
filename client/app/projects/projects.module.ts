@@ -23,7 +23,7 @@ import { TaskListItemComponent } from './task-list-item/task-list-item.component
 import MaterialModule from './../material/material.module';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
 import { TaskListComponent } from './task-list/task-list.component';
-import { TaskFormComponent } from './task-form/task-form.component';
+import { TaskDetailsComponent } from './task-details/task-details.component';
 
 @NgModule({
   imports:      [
@@ -70,7 +70,7 @@ import { TaskFormComponent } from './task-form/task-form.component';
     TaskMenuComponent,
     TaskListComponent,
     TaskListItemComponent,
-    TaskFormComponent
+    TaskDetailsComponent
   ],
   exports: [ ],
   providers: [
@@ -78,7 +78,7 @@ import { TaskFormComponent } from './task-form/task-form.component';
   ],
   entryComponents: [
     ProjectListItemComponent,
-    TaskFormComponent
+    TaskDetailsComponent
   ]
 })
 export class ProjectsModule { }

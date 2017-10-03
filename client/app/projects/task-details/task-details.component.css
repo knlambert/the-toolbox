@@ -13,10 +13,7 @@ md-form-field {
     margin-left:auto;
     cursor: pointer;
 }
-.button-delete-member {
 
-}
-
-md-chip {
-    width: 100%;
+md-chip, .mat-chip:not(.mat-basic-chip) {
+    margin: 0 0 2.5px 8px;
 }

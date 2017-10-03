@@ -13,7 +13,13 @@ export class TaskListItemComponent {
 
     @Input() task: object;
     
+    constructor(private dbService: DBService){}
+    
     private openTask(taskId: number){
+    }
+
+    private deleteTask(taskId: number){
+    
     }
 
     

@@ -1,0 +1,36 @@
+<div fxLayout="row" fxLayoutGap="2%"> 
+
+    <div fxFlex="69" class="div-edit-zone">
+        <div fxLayout="column" fxLayoutAlign="center center" xLayoutGap="10">
+
+            <md-form-field>
+                <input mdInput placeholder="Title" maxlength="45" [(ngModel)]="task.value.title"  (focusout)="updateField('title', task.value.title)"/>
+            </md-form-field>
+
+             <md-form-field>
+                <textarea mdInput placeholder="Description" [(ngModel)]="task.value.description"  (focusout)="updateField('description', task.value.description)"></textarea>
+            </md-form-field>
+
+        </div>
+    </div>
+    <div fxFlex="29" class="div-commands-zone">
+        <md-form-field >
+            <input type="text" 
+                   [(ngModel)]="searchedMember" 
+                   (ngModelChange)="onMemberSearched($event)" 
+                   ngDefaultControl placeholder="Select members" 
+                   mdInput 
+                   [mdAutocomplete]="membersSearch">
+                   
+            <md-autocomplete #membersSearch="mdAutocomplete" [displayWith]="getName" >
+                <md-option *ngFor="let user of availableUsers" [value]="user">{{user.name}}</md-option>
+            </md-autocomplete>
+        </md-form-field>
+
+        <md-chip-list >
+            <md-chip *ngFor="let affected of affectedUsers | async">{{affected.user.name}}
+                <md-icon class="icon-delete-member" (click)="deleteTaskAffectation(affected.id)">close</md-icon>
+            </md-chip>
+        </md-chip-list>
+    </div>
+</div>

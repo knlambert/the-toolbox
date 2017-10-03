@@ -3,7 +3,7 @@
         <md-icon class="icon-more">more_vert</md-icon>
     </button>
     <md-menu #menu="mdMenu">
-        <button md-menu-item>
+        <button md-menu-item (click)="deleteTask(task.id)">
             <md-icon>delete</md-icon>
             <span>Delete</span>
         </button>
