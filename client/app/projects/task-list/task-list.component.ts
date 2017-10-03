@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject } from 'rxjs';
+import { MdDialog } from '@angular/material';
+import { TaskFormComponent } from './../task-form/task-form.component';
 
 @Component({
   selector: 'hc-task-list',
@@ -11,7 +13,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class TaskListComponent implements OnInit{
 
-    constructor(private dbService: DBService){}
+    constructor(private dbService: DBService, public dialog: MdDialog){}
     
     @Input() taskList: object;
 
@@ -26,6 +28,17 @@ export class TaskListComponent implements OnInit{
           this.insertItem(value, "saved");
         });
       })
+    }
+
+    openDialog(): void {
+      let dialogRef = this.dialog.open(TaskFormComponent, {
+          width: '250px',
+          data: {  }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+      });
     }
 
     private insertItem(value ?: object, status ? : string){
@@ -65,4 +78,6 @@ export class TaskListComponent implements OnInit{
 
       });
     }
+
+    
 }

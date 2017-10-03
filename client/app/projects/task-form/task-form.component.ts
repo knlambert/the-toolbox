@@ -3,18 +3,16 @@ import { DBService } from './../../db/db.service';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
-  selector: 'hc-task-list-item',
-  templateUrl: 'task-list-item.component.html',
+  selector: 'hc-task-form',
+  templateUrl: 'task-form.component.html',
   styleUrls:  [
-    'task-list-item.component.css'
+    'task-form.component.css'
   ]
 })
-export class TaskListItemComponent {
+export class TaskFormComponent {
 
     @Input() task: object;
-    
-    private openTask(taskId: number){
-    }
 
     
+
 }
