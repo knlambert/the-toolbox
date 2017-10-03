@@ -30,14 +30,13 @@ export class TaskListComponent implements OnInit{
       })
     }
 
-    openDialog(): void {
+    openDialog(task: object): void {
       let dialogRef = this.dialog.open(TaskFormComponent, {
-          width: '250px',
-          data: {  }
+        "width": "70%"
       });
-
+      dialogRef.componentInstance.task = task;
       dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
+        console.log('The dialog was closed :' + result);
       });
     }
 

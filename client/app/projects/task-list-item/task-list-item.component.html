@@ -1,5 +1,5 @@
 <div  class="div-tile" >
-    <button class="button-more" md-icon-button [mdMenuTriggerFor]="menu">
+    <button (click)="$event.stopPropagation()" class="button-more" md-icon-button [mdMenuTriggerFor]="menu">
         <md-icon class="icon-more">more_vert</md-icon>
     </button>
     <md-menu #menu="mdMenu">

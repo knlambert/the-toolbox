@@ -1,0 +1,22 @@
+md-form-field {
+    width: 100%;
+}
+
+.div-edit-zone, .div-commands-zone {
+    background-color: #FAFAFA;
+    padding: 2%;
+}
+
+.icon-delete-member {
+    color: white;
+    margin-right: 0px;
+    margin-left:auto;
+    cursor: pointer;
+}
+.button-delete-member {
+
+}
+
+md-chip {
+    width: 100%;
+}

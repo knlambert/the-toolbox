@@ -77,7 +77,8 @@ import { TaskFormComponent } from './task-form/task-form.component';
     GoogleColorsService
   ],
   entryComponents: [
-    ProjectListItemComponent
+    ProjectListItemComponent,
+    TaskFormComponent
   ]
 })
 export class ProjectsModule { }
