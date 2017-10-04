@@ -78,5 +78,22 @@ export class TaskListComponent implements OnInit{
       });
     }
 
+    private deleteTaskFromId(taskId: number){
+      for(var i = 0; i < this.tasks.length; i++){
+        if(this.tasks[i]['id'] === taskId){
+          this.tasks.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    private deleteTask(taskId: number){
+      this.dbService.delete("tasks", {
+        "id": taskId
+      }).subscribe(() => {
+        this.deleteTaskFromId(taskId);
+      });
+    }
+
     
 }

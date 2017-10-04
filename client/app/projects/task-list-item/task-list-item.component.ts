@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject } from 'rxjs';
 
@@ -12,6 +12,7 @@ import { Observable, Subject } from 'rxjs';
 export class TaskListItemComponent {
 
     @Input() task: object;
+    @Output() onDeletedTask = new EventEmitter();
     
     constructor(private dbService: DBService){}
     
@@ -19,7 +20,9 @@ export class TaskListItemComponent {
     }
 
     private deleteTask(taskId: number){
-    
+      this.onDeletedTask.emit({
+        taskId: this.task['id']
+      });
     }
 
     
