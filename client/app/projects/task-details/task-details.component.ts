@@ -35,7 +35,7 @@ export class TaskDetailsComponent implements OnInit{
 
     private refreshAffectedUser(){
       this.dbService.list("task-assignements", {
-        "task.id": this.task['value']['id']
+        "task.id": this.task['id']
       }).subscribe((items) => this.affectedUsers.next(items));
     }
 
@@ -52,7 +52,7 @@ export class TaskDetailsComponent implements OnInit{
         this.searchedMember = "";
         this.dbService.save("task-assignements", {
           "user": user,
-          "task": this.task['value']
+          "task": this.task
         }).subscribe(() => {
           this.refreshAffectedUser();
         });
@@ -80,7 +80,7 @@ export class TaskDetailsComponent implements OnInit{
       let update = {};
       update[key] = value;
       this.dbService.update("tasks", {
-        "id": this.task['value']['id']
+        "id": this.task['id']
       },update).subscribe(() => {});
     }
 }

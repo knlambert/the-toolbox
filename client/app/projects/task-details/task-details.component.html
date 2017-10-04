@@ -4,11 +4,11 @@
         <div fxLayout="column" fxLayoutAlign="center center" xLayoutGap="10">
 
             <md-form-field>
-                <input mdInput placeholder="Title" maxlength="45" [(ngModel)]="task.value.title"  (focusout)="updateField('title', task.value.title)"/>
+                <input mdInput placeholder="Title" maxlength="45" [(ngModel)]="task.title"  (focusout)="updateField('title', task.title)"/>
             </md-form-field>
 
              <md-form-field>
-                <textarea mdInput placeholder="Description" [(ngModel)]="task.value.description"  (focusout)="updateField('description', task.value.description)"></textarea>
+                <textarea mdInput placeholder="Description" [(ngModel)]="task.description"  (focusout)="updateField('description', task.description)"></textarea>
             </md-form-field>
 
         </div>

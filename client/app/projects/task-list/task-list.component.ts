@@ -17,27 +17,30 @@ export class TaskListComponent implements OnInit{
     
     @Input() taskList: object;
 
-    private tasks: Array<object> = [];
+    private tasksSumUp: Array<object> = [];
 
     ngOnInit(){
       let filters = {
-        "task_list.id": this.taskList["id"]
+        "task_list": this.taskList["id"]
       };
-      this.dbService.list("tasks", filters).subscribe((items) => {
+      this.dbService.list("tasks-sum-up", filters).subscribe((items) => {
         items.forEach((value) => {
           this.insertItem(value, "saved");
         });
-      })
+      });
     }
 
-    openDialog(task: object): void {
-      let dialogRef = this.dialog.open(TaskDetailsComponent, {
-        "width": "70%"
+    openDialog(taskId: object): void {
+      this.dbService.get("tasks", taskId).subscribe((task) => {
+        let dialogRef = this.dialog.open(TaskDetailsComponent, {
+          "width": "70%"
+        });
+        dialogRef.componentInstance.task = task;
+        dialogRef.afterClosed().subscribe(result => {
+          this.updateTaskTile(taskId);
+        });
       });
-      dialogRef.componentInstance.task = task;
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed :' + result);
-      });
+      
     }
 
     private insertItem(value ?: object, status ? : string){
@@ -54,19 +57,21 @@ export class TaskListComponent implements OnInit{
       if(status === "new"){
         this.dbService.save("tasks", value).subscribe((saved) => {
           value['id'] = saved['inserted_id'];
-          this.tasks.push({
+          this.tasksSumUp.push({
             "status": "saved",
             "value": value
           });
         });
       }
       else{
-        this.tasks.push({
+        this.tasksSumUp.push({
           "status": "saved",
           "value": value
         });
       }
     }
+
+    
 
     private onTitleChange(){
       this.dbService.update('task-lists', {
@@ -79,9 +84,9 @@ export class TaskListComponent implements OnInit{
     }
 
     private deleteTaskFromId(taskId: number){
-      for(var i = 0; i < this.tasks.length; i++){
-        if(this.tasks[i]['id'] === taskId){
-          this.tasks.splice(i, 1);
+      for(var i = 0; i < this.tasksSumUp.length; i++){
+        if(this.tasksSumUp[i]['id'] === taskId){
+          this.tasksSumUp.splice(i, 1);
           break;
         }
       }
@@ -93,6 +98,25 @@ export class TaskListComponent implements OnInit{
       }).subscribe(() => {
         this.deleteTaskFromId(taskId);
       });
+    }
+
+    private updateTaskTile(taskId){
+      this.dbService.get("tasks-sum-up", taskId).subscribe((taskSumUp) => {
+        this.updateValue(taskId, taskSumUp);
+      })
+    }
+
+    private fetchItemPosition(taskId: number){
+      for(var i = 0; i < this.tasksSumUp.length; i++){
+        if(this.tasksSumUp[i]['value']['id'] === taskId){
+          return i;
+        }
+      }
+    }
+
+    private updateValue(taskId: number, value: object){
+      let position = this.fetchItemPosition(taskId);
+      this.tasksSumUp[position]['value'] = value;
     }
 
     

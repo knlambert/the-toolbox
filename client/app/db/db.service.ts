@@ -100,7 +100,8 @@ export class DBService {
       "auto_lookup": 3
     });
 
-    return this.http.get(this.url + source + "/" + id, {
+    let url = this.url + source + "/" + id;
+    return this.http.get(url, {
       params: httpParams
     }).map((res) => {
       return res;

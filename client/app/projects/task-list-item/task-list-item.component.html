@@ -10,4 +10,17 @@
     </md-menu>
 
     <p>{{task.title}}</p>
+    <table>
+        <tr >
+            <td *ngIf="task.affected_users > 0" id="td-affected-user-count" >{{task.affected_users}}</td>
+
+            <td *ngIf="task.affected_users > 0">
+                <md-icon id="icon-affected-users" >people</md-icon>
+            </td>
+
+            <td *ngIf="task.has_description">
+                <md-icon id="icon-affected-users" >clear_all</md-icon>
+            </td>
+        </tr>
+    </table>
 </div>

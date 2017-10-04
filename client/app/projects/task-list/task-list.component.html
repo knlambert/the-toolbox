@@ -6,7 +6,7 @@
     (focusout)="onTitleChange()"
     class="input-list-title"/>
 
-    <div (click)="openDialog(task)" class="div-task-container" *ngFor="let task of tasks;let i = index">
+    <div (click)="openDialog(task.value.id)" class="div-task-container" *ngFor="let task of tasksSumUp;let i = index">
         <hc-task-list-item  (onDeletedTask)="deleteTask($event.taskId)" [task]="task.value"></hc-task-list-item>
     </div>
 

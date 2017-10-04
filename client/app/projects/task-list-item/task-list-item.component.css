@@ -23,3 +23,15 @@ md-icon {
 md-menu {
     font-size: 12px;
 }
+
+#icon-affected-users, #td-affected-user-count {
+    color: #9E9E9E;
+}
+
+#td-affected-user-count {
+    font-size: 14px;
+}
+
+#icon-affected-users {
+    margin-top: 5px;
+}
