@@ -1,4 +1,4 @@
-md-form-field {
+md-form-field, md-select{
     width: 100%;
 }
 
@@ -16,4 +16,9 @@ md-form-field {
 
 md-chip, .mat-chip:not(.mat-basic-chip) {
     margin: 0 0 2.5px 8px;
+}
+
+md-chip-list {
+    top: 10px;
+    position: relative;
 }

@@ -1,7 +1,7 @@
 
 <div class="div-lists-container" fxLayout="row" fxLayoutGap="10px">
     <div fxFlex="270px" *ngFor="let taskList of taskLists"  >
-        <hc-task-list [taskList]="taskList.value"></hc-task-list>
+        <hc-task-list (onDelete)="deleteTaskList($event.taskList.id)" [taskList]="taskList.value"></hc-task-list>
     </div>
 
     <div fxFlex="270px" class="div-new-container" >

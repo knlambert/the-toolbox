@@ -58,4 +58,21 @@ export class TaskMenuComponent implements OnInit {
       });
     }
   }
+
+  private fetchItemPosition(taskListId: number){
+    for(var i = 0; i < this.taskLists.length; i++){
+      if(this.taskLists[i]['value']['id'] === taskListId){
+        return i;
+      }
+    }
+  }
+
+  private deleteTaskList(taskListId: number){
+    let position = this.fetchItemPosition(taskListId);
+    this.dbService.delete("task-lists", {
+      "id": taskListId
+    }).subscribe((result) => {
+      this.taskLists.splice(position, 1);
+    });
+  }
 }

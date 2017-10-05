@@ -27,6 +27,7 @@ export class TaskDetailsComponent implements OnInit{
 
     ngOnInit(){
       this.refreshAffectedUser();
+      this.updateAvailableMembers();
     }
 
     onNoClick(): void {
@@ -36,20 +37,31 @@ export class TaskDetailsComponent implements OnInit{
     private refreshAffectedUser(){
       this.dbService.list("task-assignements", {
         "task.id": this.task['id']
-      }).subscribe((items) => this.affectedUsers.next(items));
+      }).subscribe((assignements) => {
+        this.updateAvailableMembers(assignements.map((item) => {
+          return item["user"]["email"];
+        }));
+        this.affectedUsers.next(assignements)
+      });
     }
 
-    private updateAvailableMembers(name: string = null){
-        let filters = (name != null && name != "" && typeof(name) !== "object") ? {"name": {"$regex": name}}: {};
-        return this.dbService.list("users", filters, {"name": 1, "id": -1}).subscribe((items) => {
-          this.availableUsers = items;
+    private updateAvailableMembers(excludedUserEmails: Array<string> = []){
+      let and = [];
+      excludedUserEmails.forEach((email) => {
+        and.push({
+          "email": {
+            "$ne": email
+          }
         });
-
+      });
+      return this.dbService.list("users", {"$and": and}, {"name": 1, "id": -1}).subscribe((items) => {
+        this.availableUsers = items;
+      });
     }
 
     private onMemberSearched(user){
       if(typeof(user) === "object"){
-        this.searchedMember = "";
+        this.searchedMember = null;
         this.dbService.save("task-assignements", {
           "user": user,
           "task": this.task

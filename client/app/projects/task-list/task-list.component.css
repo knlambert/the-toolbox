@@ -2,6 +2,7 @@
     padding: 5px;
     background-color: #E0E0E0;
     border-radius: 2px;
+    position: relative;
 }
 
 .div-task-container {
@@ -37,9 +38,28 @@
     padding: 5px;
     border-radius: 1px;
     outline:0;
+    width:230px;
 }
 
 .text-area-task-description {
     max-width: 100%;
     min-width: 100%;
+}
+
+ .button-more {
+    position: absolute;
+    left: 235px;
+    top: 1px;
+} 
+
+md-icon {
+    font-size: 18px;
+}
+
+.icon-more {
+    color: #757575;
+}
+
+md-menu {
+    font-size: 12px;
 }

@@ -35,3 +35,12 @@ md-menu {
 #icon-affected-users {
     margin-top: 5px;
 }
+
+#td-completed {
+}
+
+#icon-completed {
+    color: #00C853;
+    position: relative;
+    top: 3px;
+}

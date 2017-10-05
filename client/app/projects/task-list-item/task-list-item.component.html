@@ -21,6 +21,12 @@
             <td *ngIf="task.has_description">
                 <md-icon id="icon-affected-users" >clear_all</md-icon>
             </td>
+
+            <td *ngIf="task.completed" id="td-completed">
+                <md-icon id="icon-completed" >check_circle</md-icon>
+            </td>
         </tr>
     </table>
 </div>
+
+

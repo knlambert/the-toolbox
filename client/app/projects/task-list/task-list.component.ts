@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject } from 'rxjs';
 import { MdDialog } from '@angular/material';
@@ -16,6 +16,7 @@ export class TaskListComponent implements OnInit{
     constructor(private dbService: DBService, public dialog: MdDialog){}
     
     @Input() taskList: object;
+    @Output() onDelete = new EventEmitter();
 
     private tasksSumUp: Array<object> = [];
 
@@ -93,9 +94,12 @@ export class TaskListComponent implements OnInit{
     }
 
     private deleteTask(taskId: number){
+      
       this.dbService.delete("tasks", {
         "id": taskId
       }).subscribe(() => {
+        let position = this.fetchItemPosition(taskId);
+        this.tasksSumUp.splice(position, 1);
         this.deleteTaskFromId(taskId);
       });
     }
@@ -118,6 +122,8 @@ export class TaskListComponent implements OnInit{
       let position = this.fetchItemPosition(taskId);
       this.tasksSumUp[position]['value'] = value;
     }
+
+
 
     
 }

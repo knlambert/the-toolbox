@@ -1,10 +1,21 @@
 <div class="div-taskes-container" fxLayout="column" fxLayoutGap="10px">
     <input 
+    maxlength="45"
     type="text" 
     [value]="taskList.title" 
     [(ngModel)]="taskList.title" 
     (focusout)="onTitleChange()"
     class="input-list-title"/>
+
+    <button (click)="$event.stopPropagation()" class="button-more" md-icon-button [mdMenuTriggerFor]="menu">
+        <md-icon class="icon-more">more_vert</md-icon>
+    </button>
+    <md-menu #menu="mdMenu">
+        <button md-menu-item (click)="onDelete.emit({'taskList': taskList})">
+            <md-icon>delete</md-icon>
+            <span>Delete</span>
+        </button>
+    </md-menu>
 
     <div (click)="openDialog(task.value.id)" class="div-task-container" *ngFor="let task of tasksSumUp;let i = index">
         <hc-task-list-item  (onDeletedTask)="deleteTask($event.taskId)" [task]="task.value"></hc-task-list-item>
