@@ -1,0 +1,12 @@
+<form fxLayout="row" [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+    
+    <div fxFlex="75">
+        <md-form-field>
+            <input required type="number" mdInput placeholder="Minimum hours per week" value="" [formControl]="form.controls['min_hours_per_week']">
+        </md-form-field>
+    </div>
+
+    <div fxFlex="25">
+        <button md-raised-button [disabled]="!form.valid || locked" >Save</button>
+    </div>
+</form>

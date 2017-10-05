@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList} from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { HoursCalendarDay } from './../hours-calendar-day/hours-calendar-day.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { DBService } from './../../db/db.service';
 import { UserInformationsService } from './../../auth/user-informations.service';
@@ -19,6 +19,8 @@ export class HoursCalendarComponent implements OnInit{
   @Input() daysPerPage = 7;
   @Input() hideWeekend = false;
 
+  private hoursCount: number = 0;
+  private minHoursPerWeek: number = 0;
   private sizePerDay: string = "19%";
 
   @ViewChildren('calendardayComponent') calendardayComponents:QueryList<HoursCalendarDay>;
@@ -32,7 +34,7 @@ export class HoursCalendarComponent implements OnInit{
   ){}
 
   private currentDate: Date;
-  private dayHoursList: Observable<Array<object>>;
+  private dayHoursList = new Subject();
 
   public getFormatedWeek(){
     return this.currentDate.getDate() + "/" + (this.currentDate.getMonth()+1) + "/" + this.currentDate.getFullYear() + " week"
@@ -57,17 +59,19 @@ export class HoursCalendarComponent implements OnInit{
   public updateUri(days:number){
       let newdate = new Date(this.currentDate.getTime() + (3600 * 24 * 1000 * days));
       let newDateStr = newdate.getFullYear() + "-" + (newdate.getMonth()+1) + "-" + newdate.getDate();
+      this.hoursCount = 0;
       this.router.navigate(['hours/mine/', newDateStr]);
     };
 
   public ngOnInit(){
 
-    this.userInformationsService.onUpdate.subscribe((userInformations) => {
+    this.userInformationsService.onUpdate.subscribe((userInformations: UserInformations) => {
       
       if(userInformations == null){
         return;
       }
       this.userInformations = userInformations;
+      this.minHoursPerWeek = this.userInformations.appUser.min_hours_per_week;
       this.route.paramMap.subscribe((params: ParamMap) => {
         // (+) before `params.get()` turns the string into a number
         let strDate = params.get('date');
@@ -82,7 +86,7 @@ export class HoursCalendarComponent implements OnInit{
           this.currentDate = new Date(strDate);
         }
         let currentTimestamp = this.currentDate.getTime() / 1000;
-        this.dayHoursList = this.dbService.list("hours", {
+        this.dbService.list("hours", {
           "started_at": {
             "$gte": currentTimestamp,
             "$lt": currentTimestamp + (this.daysPerPage * 24 * 3600)
@@ -90,7 +94,7 @@ export class HoursCalendarComponent implements OnInit{
           "affected_to.id": this.userInformations.appUser.id
         }, {
           "started_at": 1
-        }).map((hours) => {
+        }).subscribe((hours) => {
           let days = [];
           var cursorDay = new Date(this.currentDate);
           for(var i = 0; i < this.daysPerPage; i++){
@@ -103,7 +107,7 @@ export class HoursCalendarComponent implements OnInit{
             });
             cursorDay.setDate(cursorDay.getDate()+1);
           }
-          return days;
+          this.dayHoursList.next(days);
         });
       });
     });
@@ -176,4 +180,10 @@ export class HoursCalendarComponent implements OnInit{
       this.sizePerDay = "19%";
     }
   }
+
+  private computeHoursCounts(oldValue: number, newValue: number){
+    this.hoursCount = this.hoursCount - oldValue + newValue;
+  }
+  
+
 }

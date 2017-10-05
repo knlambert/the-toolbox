@@ -1,8 +1,8 @@
-<div class="pure-g">
+<div fxLayout="column">
 
     
 
-    <div class="pure-u-1">
+    <div fxFlex="100">
         <md-card>
              <md-card-header>
                 <md-card-title>My settings</md-card-title>
@@ -16,10 +16,21 @@
                         <auth-reset-password-form (submitted)="updatePassword($event)"></auth-reset-password-form>
                     </md-card-content>
                 </md-card>
+
+                <md-card>
+                    <md-card-header>
+                        <md-card-title>App parameters</md-card-title>
+                    </md-card-header>
+                    <md-card-content>
+                        <hc-app-parameters-form *ngIf="appUser" [value]="appUser" (onSubmit)="updateAppParameters($event.value)" ></hc-app-parameters-form>
+                    </md-card-content>
+                </md-card>
+
             </md-card-content>
         </md-card>
-        
     </div>
+
+   
     
 </div>
 

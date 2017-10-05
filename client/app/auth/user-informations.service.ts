@@ -54,12 +54,14 @@ export class UserInformationsService {
                     let appUser = new AppUser(
                         items[0].id,
                         items[0].email,
-                        items[0].name
+                        items[0].name,
+                        items[0].default_role,
+                        items[0].min_hours_per_week
                     );
                     this.userInformations = new UserInformations(
                         authUser, 
                         appUser
-                    )
+                    );
                 }
                 this.onUpdate.next(this.userInformations);
             });
@@ -71,5 +73,14 @@ export class UserInformationsService {
 
     public updatePassword(password: string){
         return this.connectionService.modifyPassword(this.userInformations.authUser.email, password);
+    }
+
+    public updateParameters(value: object){
+        return this.dbService.update("users", {
+            "id": this.userInformations.appUser.id
+        }, value).map((result) => {
+            this.refresh(this.userInformations.authUser);
+            return result;
+        });
     }
 }

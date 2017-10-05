@@ -1,5 +1,5 @@
 import { UUIDService } from '../uuid.service';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DBService } from '../../db/db.service';
 import { GoogleColorsService } from './../../app-common/google-colors.service';
 
@@ -37,9 +37,15 @@ export class HoursCalendarDay {
         "isSelected": false
       });
     });
+    setTimeout(() => {
+      this.computeTotalHours();
+    })
   }
+  @Input() hoursCount: number = 0;
+  @Output() hoursCountChange: EventEmitter<object> = new EventEmitter<object>();
 
   private _items: Array<object> = [];
+
 
   /**
    * Generate the string representing the day.
@@ -97,7 +103,7 @@ export class HoursCalendarDay {
           "project": null,
           "started_at": Math.floor(defaultFrom.getTime() / 1000)
         }
-    })
+    });
   }
 
   /**
@@ -158,6 +164,7 @@ export class HoursCalendarDay {
     }, hour).subscribe((result) => {
       this.setLoading(uuid, false);
       this.sortItems();
+      this.computeTotalHours();
     });
   }
   
@@ -227,6 +234,7 @@ export class HoursCalendarDay {
       this.setLoading(item['uuid'], false);
       this.setId(uuid, result['inserted_id']);
       this.sortItems();
+      this.computeTotalHours();
     });
 
   }
@@ -255,6 +263,7 @@ export class HoursCalendarDay {
     let index = this.getItemIndex(uuid);
     if(index !== -1){
       this._items.splice(index, 1);
+      this.computeTotalHours();
       return index;
     }
     return -1;
@@ -282,9 +291,27 @@ export class HoursCalendarDay {
     return !(this.getHourMinuteFromTimestamp(previousTimestamp) === this.getHourMinuteFromTimestamp(currentTimestamp))
   }
 
+  /**
+   * sort the item to make the display consistant.
+   */
   private sortItems(){
     this._items = this._items.sort((a, b) => {
       return a['hour']['started_at'] - b['hour']['started_at']
     });
+  }
+
+  /**
+   * Calculate the sum of hours on the day.
+   */
+  private computeTotalHours(){
+    let total = 0;
+    this._items.forEach((item) => {
+      total += item['hour']['minutes'] / 60;
+    });
+    this.hoursCountChange.emit({
+      "oldValue": this.hoursCount,
+      "newValue": total
+    });
+    this.hoursCount = total;
   }
 }

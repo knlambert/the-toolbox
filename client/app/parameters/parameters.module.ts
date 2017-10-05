@@ -1,7 +1,10 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }       from '@angular/common';
 import { RouterModule }   from '@angular/router';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { MySettingsComponent } from './my-settings/my-settings.component';
+import { AppParametersFormComponent } from './app-parameters-form/app-parameters-form.component';
 import MaterialModule from './../material/material.module';
 import { AuthModule } from './../auth/auth.module';
 
@@ -10,6 +13,9 @@ import { AuthModule } from './../auth/auth.module';
     CommonModule,
     AuthModule,
     MaterialModule,
+    FormsModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
     RouterModule.forChild(
       [
         {
@@ -19,7 +25,7 @@ import { AuthModule } from './../auth/auth.module';
       ]
     )
   ],
-  declarations: [ MySettingsComponent ],
+  declarations: [ MySettingsComponent, AppParametersFormComponent ],
   exports: [ RouterModule ],
   providers: [ ]
 })
