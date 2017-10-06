@@ -14,7 +14,7 @@
 
 </div>
 
-<md-tab-group [selectedIndex]="1" *ngIf="project" (selectChange)="changeTab($event.index)">
+<md-tab-group [selectedIndex]="0" *ngIf="project" (selectChange)="changeTab($event.index)">
     
 
     <md-tab label="Project details.">
@@ -40,6 +40,9 @@
                     <hc-project-indicators [projectId]="project.id"></hc-project-indicators>
                 </div>
                 
+                <div fxFlex="99" id="div-project-load-container">
+                    <hc-project-load></hc-project-load>
+                </div>
                 
 
             </div>

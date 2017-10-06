@@ -24,6 +24,8 @@ import MaterialModule from './../material/material.module';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
+import { ProjecLoadComponent } from './project-load/project-load.component';
+import { ProjecLoadLineComponent } from './project-load-line/project-load-line.component';
 
 @NgModule({
   imports:      [
@@ -70,7 +72,9 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
     TaskMenuComponent,
     TaskListComponent,
     TaskListItemComponent,
-    TaskDetailsComponent
+    ProjecLoadComponent,
+    TaskDetailsComponent,
+    ProjecLoadLineComponent
   ],
   exports: [ ],
   providers: [
