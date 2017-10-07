@@ -1,0 +1,34 @@
+
+#div-container {
+    overflow-x: scroll;
+    overflow-y: auto;
+}
+
+#div-user-overlay {
+    margin-top: 60px;
+    background-color: white;
+    min-width: 100px;
+    position: absolute;
+}
+
+.td-user-name {
+    min-width:100px;
+    padding: 10px;
+}
+
+.tr-hours-line, .tr-user-name, #tr-hours-header {
+    border: 1px solid #EEEEEE;
+    height: 40px;
+}
+
+#tr-hours-header {
+    background-color: #3F51B5;
+    color: white;
+    height:60px;
+}
+
+.td-hours-header {
+    padding: 10px;
+    min-width: 40px;
+    text-align: center;
+}

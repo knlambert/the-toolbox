@@ -1,3 +1,16 @@
-<table>
-    <hc-project-load-line *ngFor="let user of users; let i = index; " #projectLoadLine ></hc-project-load-line>
-</table>
+<div id="div-user-overlay">
+    <table >
+        <tr class="tr-user-name" *ngFor="let user of users; let i = index; ">
+            <td class="td-user-name">{{user.name}}</td>
+        </tr>
+    </table>
+</div>
+<div id="div-container" #elem (scroll)="onScroll(elem.scrollLeft, elem.offsetWidth, inner.offsetWidth)">
+    <table #inner>
+        <tr id="tr-hours-header">
+            <td class="td-hours-header" *ngFor="let headerDay of headerDays">{{headerDay.dayNumber}}<br>{{headerDay.dayWeekLetter}}</td>
+        </tr>
+        
+        <tr class="tr-hours-line" [userId]="user.id" hc-project-load-line *ngFor="let user of users; let i = index; " #projectLoadLine ></tr>
+    </table>
+</div>

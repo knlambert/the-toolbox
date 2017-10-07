@@ -201,9 +201,7 @@ export class PlanningComponent implements OnInit {
         this.generateDays(7);
         this.rows.forEach((row) => {
           row.addDays(7);
-        });
-
-        
+        });  
       }
     }
   }

@@ -1,14 +1,13 @@
-CREATE VIEW project_load
-AS
-(
-    SELECT
-    TIMESTAMP(PL.day) AS 'timestamp',
+SELECT
+    UNIX_TIMESTAMP(PL.day) AS 'timestamp',
     DAY(PL.day) AS 'dayNumber',
+    MONTH(PL.day) AS 'monthNumber',
+    YEAR(PL.day) AS 'yearNumber',
     P.id AS 'project_id',
     P.name AS 'project_name',
     U.id AS 'affected_to_id',
     U.name AS 'affected_to_name',
-    PL.hour AS 'hour'
+    PL.hour AS 'hours'
     FROM
     (
         SELECT
@@ -25,5 +24,3 @@ AS
     ON PL.project = P.id 
     JOIN user U 
     ON PL.affected_to = U.id 
-)
-;
