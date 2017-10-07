@@ -7,8 +7,16 @@
 </div>
 <div id="div-container" #elem (scroll)="onScroll(elem.scrollLeft, elem.offsetWidth, inner.offsetWidth)">
     <table #inner>
-        <tr id="tr-hours-header">
-            <td class="td-hours-header" *ngFor="let headerDay of headerDays">{{headerDay.dayNumber}}<br>{{headerDay.dayWeekLetter}}</td>
+         <tr id="tr-monthes-header">
+            <td *ngFor="let headerMonth of headerMonthes" 
+                 class="td-monthes-header"
+                 [attr.colspan]="headerMonth.colspan"
+                  >{{headerMonth.monthLabel}} {{headerMonth.monthYear}}</td>
+        </tr>
+        <tr id="tr-days-header">
+            <td class="td-days-header" 
+                [ngClass]="{'td-current-day': isDayHeaderCurrent(headerDay)}"
+                *ngFor="let headerDay of headerDays">{{headerDay.dayNumber}}<br>{{headerDay.dayWeekLetter}}</td>
         </tr>
         
         <tr class="tr-hours-line" [userId]="user.id" hc-project-load-line *ngFor="let user of users; let i = index; " #projectLoadLine ></tr>

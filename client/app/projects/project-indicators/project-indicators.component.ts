@@ -29,17 +29,21 @@ export class ProjectIndicatorsComponent implements OnInit {
         "project_id": this.projectId
       }).subscribe((items) => {
         if(this.selectedGraph === "project_consumption"){
-          let consumed = (items[0]['consumed']) ? Math.round(items[0]["consumed"] / 8) : 0;
+          let consumed = 0;
+          if(items.length > 0){
+            consumed = (items[0]['consumed']) ? Math.round(items[0]["consumed"] / 8) : 0;
+          }
           let exceeding = 0;
 
-          if(items[0]['provisioned'] != null){
-            let provisioned = Math.round(items[0]["provisioned"] / 8);
+          let provisioned = 0;
+          if(items.length > 0 && items[0]['provisioned'] != null){
+            provisioned = Math.round(items[0]["provisioned"] / 8);
             exceeding = consumed - provisioned;
             if(exceeding <= 0){
               exceeding = 0;
-            }
-            this.max = provisioned;         
+            }       
           }
+          this.max = provisioned;  
 
           this.data = [
             {

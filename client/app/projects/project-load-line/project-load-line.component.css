@@ -4,3 +4,22 @@
     min-width: 40px;
     text-align: center;
 }
+
+.activity-weekend {
+    background-color: #EEEEEE;
+}
+
+.activity-low {
+    background-color:#FBE9E7;
+    color:black;
+}
+
+.activity-medium {
+    background-color: #FFCCBC;
+    color:black;
+}
+
+.activity-high {
+    background-color: #FFAB91;
+    color:black;
+}

@@ -27,9 +27,10 @@ export class ProjecLoadComponent implements OnInit {
   private daysCountPerRequest: number = 30;
   private users: Array<object> = [];
   private headerDays: Array<object> = [];
+  private headerMonthes: Array<object> = [];
   private monthBindings = {
     1: "January",
-    2: "Fabruary",
+    2: "February",
     3: "March",
     4: "April",
     5: "May",
@@ -61,15 +62,31 @@ export class ProjecLoadComponent implements OnInit {
    */
   private generateHeaderDays(fromDate: Date, toDate: Date){
     let headerDays = [];
+    let headerMonthes = this.headerMonthes;
     var dateVar = new Date(fromDate);
     while (dateVar < toDate){
       headerDays.push({
         dayNumber: dateVar.getDate(),
-        dayWeekLetter: this.dayLetters[dateVar.getDay()]
-      })
+        dayWeekLetter: this.dayLetters[dateVar.getDay()],
+        dayMonth: dateVar.getMonth()+1,
+        dayYear: dateVar.getFullYear()
+      });
+
+      if(dateVar.getDate() === 1 || headerMonthes.length == 0){
+        let isLargeEnough = dateVar.getDate() < 28 || headerMonthes.length == 1;
+        headerMonthes.push({
+          monthLabel: isLargeEnough ? this.monthBindings[dateVar.getMonth()+1] : "",
+          monthYear: isLargeEnough ? dateVar.getFullYear() : "",
+          colspan: 1
+        });
+      }
+      else {
+        headerMonthes[headerMonthes.length-1]['colspan']++;
+      }
       dateVar.setDate(dateVar.getDate() + 1);
     }
     this.headerDays = this.headerDays.concat(headerDays);
+    this.headerMonthes = headerMonthes;
   }
 
   /**
@@ -145,5 +162,18 @@ export class ProjecLoadComponent implements OnInit {
       this.expandDays(this._toDate, newToDate);
       this._toDate = newToDate;
     }
+  }
+
+  /**
+   * Take headerDay from the template, and test if it is current day.
+   * @param headerDay The header to test.
+   */
+  private isDayHeaderCurrent(headerDay: object){
+    let currentDay: Date = new Date();
+    return (
+      currentDay.getDate() == headerDay['dayNumber']
+      && currentDay.getMonth()+1 == headerDay['dayMonth']
+      && currentDay.getFullYear() == headerDay['dayYear']
+    );
   }
 }

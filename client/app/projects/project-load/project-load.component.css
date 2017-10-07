@@ -5,7 +5,7 @@
 }
 
 #div-user-overlay {
-    margin-top: 60px;
+    margin-top: 100px;
     background-color: white;
     min-width: 100px;
     position: absolute;
@@ -13,7 +13,7 @@
 
 .td-user-name {
     min-width:100px;
-    padding: 10px;
+    padding: 5px;
 }
 
 .tr-hours-line, .tr-user-name, #tr-hours-header {
@@ -21,14 +21,30 @@
     height: 40px;
 }
 
-#tr-hours-header {
+#tr-days-header {
     background-color: #3F51B5;
     color: white;
     height:60px;
 }
 
-.td-hours-header {
-    padding: 10px;
+.td-days-header {
+    padding: 5px;
     min-width: 40px;
     text-align: center;
+}
+
+#tr-monthes-header {
+    background-color: #3F51B5;
+    color: white;
+    height:40px;
+}
+
+.td-monthes-header {
+    padding: 5px;
+    text-align: left;
+}
+
+.td-current-day {
+    color: #F44336;
+    font-weight: bold;
 }
