@@ -24,6 +24,14 @@ mat-chip-list {
 }
 
 #div-dialog-container {
-    max-height: 90%;
     overflow-y: scroll;
+}
+
+.mat-dialog-content {
+    height: 100%;
+}
+
+#textarea-description {
+    min-height: 100px;
+    max-height: 100px;
 }

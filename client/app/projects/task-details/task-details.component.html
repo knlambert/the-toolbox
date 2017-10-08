@@ -1,38 +1,49 @@
 
 
-<mat-dialog-content>
-    <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="2%"> 
-        <div fxFlex="69" class="div-edit-zone">
-            <div fxLayout="column" fxLayoutAlign="center center" xLayoutGap="10">
-                
-                <mat-form-field>
-                    <input matInput placeholder="Title" maxlength="45" [(ngModel)]="task.title"  (focusout)="updateField('title', task.title)"/>
-                </mat-form-field>
+<mat-slide-toggle [(ngModel)]="task.completed" (ngModelChange)="updateField('completed', task.completed)">Completed</mat-slide-toggle>
+        
 
-                <mat-form-field>
-                    <textarea matInput placeholder="Description" [(ngModel)]="task.description"  (focusout)="updateField('description', task.description)"></textarea>
-                </mat-form-field>
-
-            </div>
-        </div>
-        <div fxFlex="29" class="div-commands-zone">
-            <mat-slide-toggle [(ngModel)]="task.completed" (ngModelChange)="updateField('completed', task.completed)">Completed</mat-slide-toggle>
-
+<div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="2%"> 
+    <div fxFlex="69" class="div-edit-zone">
+        <div fxLayout="column" fxLayoutAlign="center center" xLayoutGap="10">
             
             <mat-form-field>
-                <mat-select placeholder="Select a member"
-                    [(ngModel)]="searchedMember" 
-                    (ngModelChange)="onMemberSearched($event)" 
-                    ngDefaultControl >
-                    <mat-option *ngFor="let user of availableUsers" [value]="user">{{user.name}}</mat-option>
-                </mat-select>
+                <input matInput placeholder="Title" maxlength="45" [(ngModel)]="task.title"  (focusout)="updateField('title', task.title)"/>
             </mat-form-field>
 
-            <mat-chip-list>
-                <mat-chip *ngFor="let affected of affectedUsers | async">{{affected.user.name}}
-                    <mat-icon class="icon-delete-member" (click)="deleteTaskAffectation(affected.id)">close</mat-icon>
-                </mat-chip>
-            </mat-chip-list>
+            <mat-form-field>
+                <textarea id="textarea-description" matInput placeholder="Description" [(ngModel)]="task.description"  (focusout)="updateField('description', task.description)"></textarea>
+            </mat-form-field>
+
         </div>
     </div>
-</mat-dialog-content>
+    <div fxFlex="29" class="div-commands-zone">
+        
+        <mat-form-field>
+            <mat-select placeholder="Select a member"
+                [(ngModel)]="searchedMember" 
+                (ngModelChange)="onMemberSearched($event)" 
+                ngDefaultControl >
+                <mat-option *ngFor="let user of availableUsers" [value]="user">{{user.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-chip-list>
+            <mat-chip *ngFor="let affected of affectedUsers | async">{{affected.user.name}}
+                <mat-icon class="icon-delete-member" (click)="deleteTaskAffectation(affected.id)">close</mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+
+                
+    </div>
+    
+</div>
+<div fxLayout="column" >
+    <div fxFlex="100">
+        <hc-quill-editor></hc-quill-editor>
+    </div> 
+    
+    <div>
+        <button mat-raised-button color="primary" >Add comment</button>
+    </div>
+</div>

@@ -33,7 +33,10 @@ export class TaskListComponent implements OnInit{
 
     openDialog(taskId: object): void {
       this.dbService.get("tasks", taskId).subscribe((task) => {
-        let dialogRef = this.dialog.open(TaskDetailsComponent, {});
+        let dialogRef = this.dialog.open(TaskDetailsComponent, {
+          width: "90%",
+          height: "90%"
+        });
         dialogRef.componentInstance.task = task;
         dialogRef.afterClosed().subscribe(result => {
           this.updateTaskTile(taskId);

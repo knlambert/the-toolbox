@@ -24,6 +24,7 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { ProjecLoadComponent } from './project-load/project-load.component';
 import { ProjecLoadLineComponent } from './project-load-line/project-load-line.component';
+import { QuillModule } from './../quill/quill.module';
 
 @NgModule({
   imports:      [
@@ -36,6 +37,7 @@ import { ProjecLoadLineComponent } from './project-load-line/project-load-line.c
     FlexLayoutModule,
     PieChartModule,
     GaugeModule,
+    QuillModule,
     RouterModule.forChild(
       [
         {
