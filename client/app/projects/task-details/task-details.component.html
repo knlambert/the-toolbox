@@ -16,12 +16,15 @@
     <div fxFlex="29" class="div-commands-zone">
         <mat-slide-toggle [(ngModel)]="task.completed" (ngModelChange)="updateField('completed', task.completed)">Completed</mat-slide-toggle>
 
-        <mat-select placeholder="Select a member"
-            [(ngModel)]="searchedMember" 
-            (ngModelChange)="onMemberSearched($event)" 
-            ngDefaultControl placeholder="Select members" >
-            <mat-option *ngFor="let user of availableUsers" [value]="user">{{user.name}}</mat-option>
-        </mat-select>
+        
+        <mat-form-field>
+            <mat-select placeholder="Select a member"
+                [(ngModel)]="searchedMember" 
+                (ngModelChange)="onMemberSearched($event)" 
+                ngDefaultControl >
+                <mat-option *ngFor="let user of availableUsers" [value]="user">{{user.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
         <mat-chip-list>
             <mat-chip *ngFor="let affected of affectedUsers | async">{{affected.user.name}}

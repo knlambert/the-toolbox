@@ -1,10 +1,12 @@
 
 <div>
-    <mat-select placeholder="Graph" [(ngModel)]="selectedGraph" (ngModelChange)="refreshGraph()">
-        <mat-option value="project_consumption">Consumed</mat-option>
-        <mat-option value="project_consumption_per_user">Consumed by person</mat-option>
-    </mat-select>
 
+    <mat-form-field>
+        <mat-select placeholder="Graph" [(ngModel)]="selectedGraph" (ngModelChange)="refreshGraph()">
+            <mat-option value="project_consumption">Consumed</mat-option>
+            <mat-option value="project_consumption_per_user">Consumed by person</mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 
 <div *ngIf="selectedGraph == 'project_consumption_per_user'">

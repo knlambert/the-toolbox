@@ -9,9 +9,11 @@
         </mat-autocomplete>
     </mat-form-field>
 
-    <mat-select required placeholder="Role" [formControl]="form.controls['role']" >
-        <mat-option *ngFor="let role of roles | async" [value]="role">{{role.name}}</mat-option>
-    </mat-select>
+    <mat-form-field>
+        <mat-select required placeholder="Role" [formControl]="form.controls['role']" >
+            <mat-option *ngFor="let role of roles | async" [value]="role">{{role.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
 
     <div id="div-buttons" >
         <button id="button-cancel" mat-icon-button (click)="cancel()"[disabled]="locked" >
