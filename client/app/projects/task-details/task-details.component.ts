@@ -47,15 +47,20 @@ export class TaskDetailsComponent implements OnInit{
 
     private updateAvailableMembers(excludedUserEmails: Array<string> = []){
       let and = [];
+      and.push({
+        "project.id": this.task['task_list']['project']['id']
+      });
       excludedUserEmails.forEach((email) => {
         and.push({
-          "email": {
+          "user.email": {
             "$ne": email
           }
         });
       });
-      return this.dbService.list("users", {"$and": and}, {"name": 1, "id": -1}).subscribe((items) => {
-        this.availableUsers = items;
+      return this.dbService.list("project_assignements", {"$and": and}, {"user.name": 1, "user.id": -1}).subscribe((items) => {
+        this.availableUsers = items.map((item) => {
+          return item['user'];
+        });
       });
     }
 

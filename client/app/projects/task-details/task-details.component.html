@@ -1,5 +1,7 @@
 
+<mat-slide-toggle [(ngModel)]="task.completed" (ngModelChange)="updateField('completed', task.completed)">Completed</mat-slide-toggle>
 
+            
 <mat-dialog-content>
     <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="2%"> 
         <div fxFlex="69" class="div-edit-zone">
@@ -16,8 +18,6 @@
             </div>
         </div>
         <div fxFlex="29" class="div-commands-zone">
-            <mat-slide-toggle [(ngModel)]="task.completed" (ngModelChange)="updateField('completed', task.completed)">Completed</mat-slide-toggle>
-
             
             <mat-form-field>
                 <mat-select placeholder="Select a member"
