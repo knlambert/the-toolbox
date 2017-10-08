@@ -3,7 +3,7 @@ mat-form-field, mat-select{
 }
 
 .div-edit-zone, .div-commands-zone {
-    background-color: #FAFAFA;
+    /* background-color:#E8EAF6; */
     padding: 2%;
 }
 
@@ -21,4 +21,9 @@ mat-chip, .mat-chip:not(.mat-basic-chip) {
 mat-chip-list {
     top: 10px;
     position: relative;
+}
+
+#div-dialog-container {
+    max-height: 90%;
+    overflow-y: scroll;
 }
