@@ -1,37 +1,37 @@
 
 <div class="purge-g">
     <div id="loader-container">
-        <md-progress-bar [hidden]="!isLoading" mode="indeterminate"></md-progress-bar>
+        <mat-progress-bar [hidden]="!isLoading" mode="indeterminate"></mat-progress-bar>
     </div>
     <div id="report-container">
-        <button mdTooltip="Refresh the report" [disabled]="isLoading" (click)="refresh()" md-icon-button>
-            <md-icon>refresh</md-icon>
+        <button matTooltip="Refresh the report" [disabled]="isLoading" (click)="refresh()" mat-icon-button>
+            <mat-icon>refresh</mat-icon>
         </button>
-        <button mdTooltip="Reset filters" [disabled]="isLoading" (click)="refresh(true)" md-icon-button>
-            <md-icon>clear</md-icon>
+        <button matTooltip="Reset filters" [disabled]="isLoading" (click)="refresh(true)" mat-icon-button>
+            <mat-icon>clear</mat-icon>
         </button>
-        <button mdTooltip="Edit selection" [disabled]="isLoading || !hasSelection" (click)="edit()" md-icon-button>
-            <md-icon>edit</md-icon>
+        <button matTooltip="Edit selection" [disabled]="isLoading || !hasSelection" (click)="edit()" mat-icon-button>
+            <mat-icon>edit</mat-icon>
         </button>
-        <button mdTooltip="Remove selection" [disabled]="isLoading || !hasSelection" (click)="delete()" md-icon-button>
-            <md-icon id="delete-icon">delete</md-icon>
+        <button matTooltip="Remove selection" [disabled]="isLoading || !hasSelection" (click)="delete()" mat-icon-button>
+            <mat-icon id="delete-icon">delete</mat-icon>
         </button>
-        <button mdTooltip="Add new item(s)" [disabled]="isLoading" (click)="add()" md-icon-button>
-            <md-icon id="add-icon">add_circle</md-icon>
+        <button matTooltip="Add new item(s)" [disabled]="isLoading" (click)="add()" mat-icon-button>
+            <mat-icon id="add-icon">add_circle</mat-icon>
         </button>
-        <button mdTooltip="Add filter" [disabled]="isLoading" (click)="reportFilter.addFilter()" md-icon-button>
-            <md-icon >filter_list</md-icon>
+        <button matTooltip="Add filter" [disabled]="isLoading" (click)="reportFilter.addFilter()" mat-icon-button>
+            <mat-icon >filter_list</mat-icon>
         </button>
        
-        <button id="more-button" md-icon-button [mdMenuTriggerFor]="menu" >
-            <md-icon>more_vert</md-icon>
+        <button id="more-button" mat-icon-button [matMenuTriggerFor]="menu" >
+            <mat-icon>more_vert</mat-icon>
         </button>
-        <md-menu #menu="mdMenu">
-            <button md-menu-item (click)="export()">
-                <md-icon>file_download</md-icon>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="export()">
+                <mat-icon>file_download</mat-icon>
                 <span>Export</span>
             </button>
-        </md-menu>
+        </mat-menu>
 
         <div  >
             <ac-filter #reportFilter
@@ -43,29 +43,29 @@
         <table>
             <tr>
                 <th class="line-selector-cell">
-                    <md-checkbox (change)="selectAllLines($event)"></md-checkbox>
+                    <mat-checkbox (change)="selectAllLines($event)"></mat-checkbox>
                 </th>
                 <th (click)="sort(field)"  *ngFor="let field of fields">{{formatHeader(field.name)}}
-                    <md-icon class="sort-icon" *ngIf="getFieldSorting(field) == 1">keyboard_arrow_down</md-icon>
-                    <md-icon class="sort-icon" *ngIf="getFieldSorting(field) == -1">keyboard_arrow_up</md-icon>
+                    <mat-icon class="sort-icon" *ngIf="getFieldSorting(field) == 1">keyboard_arrow_down</mat-icon>
+                    <mat-icon class="sort-icon" *ngIf="getFieldSorting(field) == -1">keyboard_arrow_up</mat-icon>
                 </th>
             </tr>
 
             <tr *ngFor="let item of items" (dblclick)="editLine(item)" >
                 <td class=line-selector-cell >
-                    <md-checkbox [(checked)]="item.isSelected" (change)="selectLine(item.uuid)"></md-checkbox>
+                    <mat-checkbox [(checked)]="item.isSelected" (change)="selectLine(item.uuid)"></mat-checkbox>
                 <td *ngFor="let field of fields">{{formatCell(item.object, field)}}</td>
             </tr>
         </table>
         
     </div>
     <div id="pager" class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 pure-u-xl-1-6">
-        <button [disabled]="page == 0 || isLoading" (click)="pageBefore()" md-icon-button>
-            <md-icon>navigate_before</md-icon>
+        <button [disabled]="page == 0 || isLoading" (click)="pageBefore()" mat-icon-button>
+            <mat-icon>navigate_before</mat-icon>
         </button>
         <div id="page-num">{{page}}</div>
-        <button [disabled]="isLoading || items.length != pageSize" (click)="pageNext()" md-icon-button>
-            <md-icon>navigate_next</md-icon>
+        <button [disabled]="isLoading || items.length != pageSize" (click)="pageNext()" mat-icon-button>
+            <mat-icon>navigate_next</mat-icon>
         </button>
     </div>
 </div>

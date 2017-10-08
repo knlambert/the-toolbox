@@ -7,33 +7,33 @@
       <div *ngIf="['text', 'number', 'timestamp'].indexOf(field.type) !== -1 
       && field.nested_description == null && field.editable !== false && field.extra != 'auto_increment'">
         
-        <md-input-container *ngIf="field.type == 'text'">
+        <mat-form-field *ngIf="field.type == 'text'">
           <input 
-            mdInput class="form-control"
+            matInput class="form-control"
             [required]="field.required"
             type="text"
             [placeholder]="formatPlaceHolder(field.name)" 
             [formControl]="formGroup.controls[field.name]" >
-        </md-input-container>
-        <md-input-container *ngIf="field.type == 'number'">
+        </mat-form-field>
+        <mat-form-field *ngIf="field.type == 'number'">
           <input 
             class="form-control"
-            mdInput
+            matInput
             type="number"
             [required]="field.required"
             [placeholder]="formatPlaceHolder(field.name)" 
             [formControl]="formGroup.controls[field.name]" >
-        </md-input-container>
+        </mat-form-field>
           
-        <md-input-container *ngIf="field.type == 'timestamp'" >
-          <input mdInput 
+        <mat-form-field *ngIf="field.type == 'timestamp'" >
+          <input matInput 
             
             class="form-control"
             [required]="field.required"
             type="text"
             [placeholder]="formatPlaceHolder(field.name) + ' (MM/DD/YYYY)'" 
             [formControl]="formGroup.controls[field.name]" >
-          </md-input-container>
+          </mat-form-field>
         
       </div>
 
@@ -47,13 +47,13 @@
     </div>
 
     <div *ngIf="isEditable" class="form-group pure-u-1-2 button-container">
-      <button  md-icon-button class="pure-button pure-button-transparent" type="button" (click)="cancelForm()" >
-        <md-icon class="cancel-icon">cancel</md-icon>
+      <button  mat-icon-button class="pure-button pure-button-transparent" type="button" (click)="cancelForm()" >
+        <mat-icon class="cancel-icon">cancel</mat-icon>
       </button>
     </div>
     <div *ngIf="isEditable" class="form-group pure-u-1-2 button-container">
-      <button md-icon-button (click)="submitForm(formGroup.value);" type="button" class="pure-button pure-button-transparent button-right" [hidden]="!formGroup.valid">
-        <md-icon>save</md-icon>
+      <button mat-icon-button (click)="submitForm(formGroup.value);" type="button" class="pure-button pure-button-transparent button-right" [hidden]="!formGroup.valid">
+        <mat-icon>save</mat-icon>
       </button>
     </div>
     

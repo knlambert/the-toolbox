@@ -4,8 +4,8 @@
 <div *ngIf="userInformations" fxLayoutGap="0%"  fxLayout.gt-xs="row"  fxLayoutWrap fxLayoutAlign="start start">
   
   <div fxFlex="33%">
-    <button md-icon-button id="button-previous" (click)="previous()">
-      <md-icon id="icon-previous">chevron_left</md-icon>
+    <button mat-icon-button id="button-previous" (click)="previous()">
+      <mat-icon id="icon-previous">chevron_left</mat-icon>
     </button>
   </div>
 
@@ -17,29 +17,29 @@
   
   <div fxFlex="33%" >
     
-    <button md-icon-button id="button-next" (click)="next()">
-      <md-icon id="icon-next">chevron_right</md-icon>
+    <button mat-icon-button id="button-next" (click)="next()">
+      <mat-icon id="icon-next">chevron_right</mat-icon>
     </button>
 
 
-    <button id="button-more" md-icon-button [mdMenuTriggerFor]="menu" >
-        <md-icon id="icon-export">more_vert</md-icon>
+    <button id="button-more" mat-icon-button [matMenuTriggerFor]="menu" >
+        <mat-icon id="icon-export">more_vert</mat-icon>
       </button>
-      <md-menu #menu="mdMenu">
-        <button (click)="exportCra()" md-menu-item>
-          <md-icon>file_download</md-icon>
+      <mat-menu #menu="matMenu">
+        <button (click)="exportCra()" mat-menu-item>
+          <mat-icon>file_download</mat-icon>
           <span>Export hours for this month</span>
         </button>
 
        
-      </md-menu>
+      </mat-menu>
 
-      <md-slide-toggle 
-      mdTooltip="Display / hide week-ends."
+      <mat-slide-toggle 
+      matTooltip="Display / hide week-ends."
       [(ngModel)]="hideWeekend" 
       (ngModelChange)="onHideWeekChange($event)" 
       labelPosition="before" 
-      id="slide-weeks">Week-end</md-slide-toggle> 
+      id="slide-weeks">Week-end</mat-slide-toggle> 
     </div>
 </div>
 
@@ -56,8 +56,8 @@
 </div>
 
 <div id="div-float-bar">
-    <button mdTooltip="Remove selected hour(s)." [mdTooltipPosition]="'left'" id="button-delete-task" md-mini-fab (click)="deleteSelectedTasks()" >
-        <md-icon class="icon-white">delete</md-icon>
+    <button matTooltip="Remove selected hour(s)." [matTooltipPosition]="'left'" id="button-delete-task" mat-mini-fab (click)="deleteSelectedTasks()" >
+        <mat-icon class="icon-white">delete</mat-icon>
     </button>
 </div>
 

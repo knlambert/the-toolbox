@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 
@@ -14,7 +14,7 @@ export class TaskDetailsComponent implements OnInit{
 
 
     constructor(
-      public dialogRef: MdDialogRef<TaskDetailsComponent>,
+      public dialogRef: MatDialogRef<TaskDetailsComponent>,
       private dbService: DBService
     ) {}
 

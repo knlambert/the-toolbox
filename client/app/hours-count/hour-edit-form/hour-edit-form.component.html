@@ -3,73 +3,73 @@
 
   <div class="pure-u-1">
   
-    <md-input-container>
-      <input mdInput placeholder="Client" required [mdAutocomplete]="autoClient" [formControl]="form.controls['client']">
-    </md-input-container>
+    <mat-form-field>
+      <input matInput placeholder="Client" required [matAutocomplete]="autoClient" [formControl]="form.controls['client']">
+    </mat-form-field>
 
-    <md-autocomplete #autoClient="mdAutocomplete" [displayWith]="getName">
-      <md-option *ngFor="let client of clients" [value]="client">
+    <mat-autocomplete #autoClient="matAutocomplete" [displayWith]="getName">
+      <mat-option *ngFor="let client of clients" [value]="client">
         {{ client.name }}
-      </md-option>
-    </md-autocomplete>
+      </mat-option>
+    </mat-autocomplete>
 
   </div>
 
 
   <div class="pure-u-1">
   
-    <md-input-container>
-      <input mdInput placeholder="Project" required [mdAutocomplete]="autoProject" [formControl]="form.controls['project']">
-    </md-input-container>
+    <mat-form-field>
+      <input matInput placeholder="Project" required [matAutocomplete]="autoProject" [formControl]="form.controls['project']">
+    </mat-form-field>
 
-    <md-autocomplete  #autoProject="mdAutocomplete" [displayWith]="getName">
-      <md-option *ngFor="let project of projects" [value]="project">
+    <mat-autocomplete  #autoProject="matAutocomplete" [displayWith]="getName">
+      <mat-option *ngFor="let project of projects" [value]="project">
         {{ project.name }}
-      </md-option>
-    </md-autocomplete>
+      </mat-option>
+    </mat-autocomplete>
 
   </div>
 
 
   <div class="pure-u-1">
-    <md-input-container>
-      <input dividerColor="red" mdInput [mdAutocomplete]="autoHour" required class="form-control" type="text" placeholder="Started at (HH:MM)" [formControl]="form.controls['started_at']">
-    </md-input-container>
+    <mat-form-field>
+      <input dividerColor="red" matInput [matAutocomplete]="autoHour" required class="form-control" type="text" placeholder="Started at (HH:MM)" [formControl]="form.controls['started_at']">
+    </mat-form-field>
 
-    <md-autocomplete  #autoHour="mdAutocomplete">
-      <md-option *ngFor="let hour of filteredHours | async" [value]="hour">
+    <mat-autocomplete  #autoHour="matAutocomplete">
+      <mat-option *ngFor="let hour of filteredHours | async" [value]="hour">
         {{ hour }}
-      </md-option>
-    </md-autocomplete>
+      </mat-option>
+    </mat-autocomplete>
 
   </div>
 
   <div class="pure-u-1">
-    <md-input-container id="input-container-minutes">
-      <input mdInput required [mdAutocomplete]="autoMinutes" class="form-control" type="number" placeholder="Spent (minutes)" [formControl]="form.controls['minutes']">
-    </md-input-container>
+    <mat-form-field id="input-container-minutes">
+      <input matInput required [matAutocomplete]="autoMinutes" class="form-control" type="number" placeholder="Spent (minutes)" [formControl]="form.controls['minutes']">
+    </mat-form-field>
 
-    <md-autocomplete  #autoMinutes="mdAutocomplete">
-      <md-option *ngFor="let shortcut of filteredShortCuts | async" [value]="shortcut.minutes">
+    <mat-autocomplete  #autoMinutes="matAutocomplete">
+      <mat-option *ngFor="let shortcut of filteredShortCuts | async" [value]="shortcut.minutes">
         {{ shortcut.label }}
-      </md-option>
-    </md-autocomplete>
+      </mat-option>
+    </mat-autocomplete>
 
   </div>
 
   <div class="pure-u-1">
-    <md-input-container>
-      <input mdInput  type="text" class="form-control" placeholder="Issue" [formControl]="form.controls['issue']">
-    </md-input-container>
+    <mat-form-field>
+      <input matInput  type="text" class="form-control" placeholder="Issue" [formControl]="form.controls['issue']">
+    </mat-form-field>
   </div>
 
   <div class="pure-u-1 button-container">
-    <button type="reset" md-icon-button (click)="cancel(hour)" [hidden]="locked">
-        <md-icon id="icon-cancel">cancel</md-icon>
+    <button type="reset" mat-icon-button (click)="cancel(hour)" [hidden]="locked">
+        <mat-icon id="icon-cancel">cancel</mat-icon>
     </button>
     
-    <button class="button-right" md-icon-button required [hidden]="!form.valid || locked">
-        <md-icon>save</md-icon>
+    <button class="button-right" mat-icon-button required [hidden]="!form.valid || locked">
+        <mat-icon>save</mat-icon>
     </button>
   </div>
   <p></p>

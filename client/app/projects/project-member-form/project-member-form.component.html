@@ -2,24 +2,24 @@
 <h3>New member</h3>
 <form fxLayout="column" fxLayoutGap="1%" fxFlexAlign="center center" [formGroup]="form" (ngSubmit)="submitForm(form.value)"> 
     
-    <md-form-field>
-        <input required mdInput placeholder="User" [mdAutocomplete]="auto" [formControl]="form.controls['user']">
-        <md-autocomplete [displayWith]="getName" #auto="mdAutocomplete">
-            <md-option *ngFor="let user of users" [value]="user">{{user.name}}</md-option>
-        </md-autocomplete>
-    </md-form-field>
+    <mat-form-field>
+        <input required matInput placeholder="User" [matAutocomplete]="auto" [formControl]="form.controls['user']">
+        <mat-autocomplete [displayWith]="getName" #auto="matAutocomplete">
+            <mat-option *ngFor="let user of users" [value]="user">{{user.name}}</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
 
-    <md-select required placeholder="Role" [formControl]="form.controls['role']" >
-        <md-option *ngFor="let role of roles | async" [value]="role">{{role.name}}</md-option>
-    </md-select>
+    <mat-select required placeholder="Role" [formControl]="form.controls['role']" >
+        <mat-option *ngFor="let role of roles | async" [value]="role">{{role.name}}</mat-option>
+    </mat-select>
 
     <div id="div-buttons" >
-        <button id="button-cancel" md-icon-button (click)="cancel()"[disabled]="locked" >
-            <md-icon id="icon-cancel" >cancel</md-icon>
+        <button id="button-cancel" mat-icon-button (click)="cancel()"[disabled]="locked" >
+            <mat-icon id="icon-cancel" >cancel</mat-icon>
         </button>
 
-        <button id="button-save" md-icon-button [disabled]="!form.valid || locked" >
-            <md-icon>save</md-icon>
+        <button id="button-save" mat-icon-button [disabled]="!form.valid || locked" >
+            <mat-icon>save</mat-icon>
         </button>
     </div>
     

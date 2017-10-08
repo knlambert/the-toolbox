@@ -6,9 +6,9 @@
   <!--<pre style="letter-spacing: 0.01em;">{{ editingItems | json }}</pre>-->
 
   <div class="pure-u-1 pure-u-xl-1-6 pure-u-lg-1-4 pure-u-md-1-2">
-    <md-select (ngModelChange)="reset($event)" [(ngModel)]="referential" placeholder="Referential">
-      <md-option *ngFor="let ref of referentials" [value]="ref.service"  >{{ref.label}}</md-option>
-    </md-select>
+    <mat-select (ngModelChange)="reset($event)" [(ngModel)]="referential" placeholder="Referential">
+      <mat-option *ngFor="let ref of referentials" [value]="ref.service"  >{{ref.label}}</mat-option>
+    </mat-select>
   </div>
   
 </div>

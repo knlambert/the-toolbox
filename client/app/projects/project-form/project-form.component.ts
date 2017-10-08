@@ -6,7 +6,7 @@ import {
     EventEmitter
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { DBService } from './../../db/db.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -25,7 +25,7 @@ export class ProjectFormComponent implements OnInit {
         private dbService: DBService,
         private userInformationsService: UserInformationsService,
         private fb: FormBuilder,
-        private snackBar: MdSnackBar,
+        private snackBar: MatSnackBar,
         private router: Router
     ){}
     private form : FormGroup;

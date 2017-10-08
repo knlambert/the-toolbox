@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { DBService } from "./../../db/db.service";
-import { MdAutocomplete } from '@angular/material';
+import { MatAutocomplete } from '@angular/material';
 
 
 @Component({

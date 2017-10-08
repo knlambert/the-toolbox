@@ -1,20 +1,20 @@
 <div id="div-project-container" (click)="openProject()" fxLayout="row" fxLayoutWrap fxFlexAlign="center center">
 <!--     
-    <button (dbclick)="openProject()" md-icon-button class="button-edit">
-        <md-icon class="icon-edit"  >edit</md-icon>
+    <button (dbclick)="openProject()" mat-icon-button class="button-edit">
+        <mat-icon class="icon-edit"  >edit</mat-icon>
     </button>
      -->
-    <md-form-field fxFlex="100" >
-        <input [disabled]="true" mdInput placeholder="Client" value="{{value.client.name}}">
-    </md-form-field>
+    <mat-form-field fxFlex="100" >
+        <input [disabled]="true" matInput placeholder="Client" value="{{value.client.name}}">
+    </mat-form-field>
 
-    <md-form-field fxFlex="100" >
-        <input [disabled]="true" mdInput placeholder="Name" value="{{value.name}}">
-    </md-form-field>
+    <mat-form-field fxFlex="100" >
+        <input [disabled]="true" matInput placeholder="Name" value="{{value.name}}">
+    </mat-form-field>
 
-    <md-form-field *ngIf="value.code" fxFlex="100" >
-        <input [disabled]="true" mdInput placeholder="Code" value="{{value.code}}">
-    </md-form-field>
+    <mat-form-field *ngIf="value.code" fxFlex="100" >
+        <input [disabled]="true" matInput placeholder="Code" value="{{value.code}}">
+    </mat-form-field>
 
     
 </div>

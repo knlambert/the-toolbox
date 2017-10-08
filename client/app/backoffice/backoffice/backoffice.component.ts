@@ -3,7 +3,7 @@ import { DBService } from "./../../db/db.service";
 import { ReportComponent } from './../../app-common/report/report.component';
 import { FlexibleFormComponent } from './../../app-common/flexible-form/flexible-form.component';
 import { FormGroup, FormsModule, ReactiveFormsModule, FormBuilder, Validators } from "@angular/forms";
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'backoffice',
   templateUrl: 'backoffice.component.html',
@@ -15,7 +15,7 @@ export class BackofficeComponent implements OnInit{
   constructor(
     private dbService: DBService, 
     private fb: FormBuilder,
-    private snackBar: MdSnackBar
+    private snackBar: MatSnackBar
     ){};
 
   @ViewChild('Report') report:ReportComponent;

@@ -84,7 +84,7 @@ tr:hover {
     text-align:center;
 }
 
-md-icon-button:disabled > md-icon
+mat-icon-button:disabled > mat-icon
 {
     color:red;
 }

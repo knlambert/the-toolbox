@@ -6,7 +6,7 @@ import {
     EventEmitter
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { DBService } from './../../db/db.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -23,7 +23,7 @@ export class ProjectFileForm implements OnInit {
     constructor(
         private dbService: DBService,
         private fb: FormBuilder,
-        private snackBar: MdSnackBar
+        private snackBar: MatSnackBar
     ){}
 
     @Input() projectId: number;
