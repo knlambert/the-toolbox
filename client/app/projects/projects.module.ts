@@ -14,8 +14,6 @@ import { ProjectMemberForm } from './project-member-form/project-member-form.com
 import { ProjectFileForm } from './project-file-form/project-file-form.component';
 import { ProjectFilesComponent } from './project-files/project-files.component';
 import { ProjectIndicatorsComponent } from './project-indicators/project-indicators.component';
-import { PlanningComponent } from './planning/planning.component';
-import { PlanningTaskRowComponent } from './planning-task-row/planning-task-row.component';
 import { GoogleColorsService } from './../app-common/google-colors.service';
 import { PieChartModule, GaugeModule } from '@swimlane/ngx-charts';
 import { CollectionButtonsComponent } from './../app-common/collection-buttons/collection-buttons.component';
@@ -66,9 +64,7 @@ import { ProjecLoadLineComponent } from './project-load-line/project-load-line.c
     ProjectFormComponent,
     ProjectMemberForm,
     ProjectFileForm,
-    PlanningTaskRowComponent,
     CollectionButtonsComponent,
-    PlanningComponent,
     TaskMenuComponent,
     TaskListComponent,
     TaskListItemComponent,
