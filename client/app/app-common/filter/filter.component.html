@@ -14,15 +14,19 @@
 
 
     <div *ngIf="filter.isEditing" class="pure-u-1 pure-u-lg-1-4">
-        <mat-select (ngModelChange)="onFilterFieldSelected($event, i)" [(ngModel)]="filter.field" placeholder="Field" required >
-            <mat-option *ngFor="let field of fields" [value]="field.name">{{field.name}}</mat-option>
-        </mat-select>
+        <mat-form-field>
+            <mat-select (ngModelChange)="onFilterFieldSelected($event, i)" [(ngModel)]="filter.field" placeholder="Field" required >
+                <mat-option *ngFor="let field of fields" [value]="field.name">{{field.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div> 
 
     <div *ngIf="filter.isEditing" class="pure-u-1 pure-u-lg-1-4">
-        <mat-select [(ngModel)]="filter.operator"  placeholder="Filter" required >
-            <mat-option *ngFor="let operator of filter.operatorsList" [value]="operator.value">{{operator.label}}</mat-option>
-        </mat-select>
+        <mat-form-field>
+            <mat-select [(ngModel)]="filter.operator"  placeholder="Filter" required >
+                <mat-option *ngFor="let operator of filter.operatorsList" [value]="operator.value">{{operator.label}}</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 
     <div *ngIf="filter.isEditing" class="pure-u-1 pure-u-lg-1-4">
