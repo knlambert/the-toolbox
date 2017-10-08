@@ -1,26 +1,26 @@
-<md-list>
+<mat-list>
         
-        <h3 *ngIf="!new" md-subheader>Files
-                <button md-icon-button (click)="displayNewForm()">
-                    <md-icon>add</md-icon>
+        <h3 *ngIf="!new" matSubheader>Files
+                <button mat-icon-button (click)="displayNewForm()">
+                    <mat-icon>add</mat-icon>
                 </button>
         </h3>
         
         <hc-project-file-form [projectId]="projectId" *ngIf="new" (onCancel)="fileCanceled()" (onFileCreated)="fileCreated()"></hc-project-file-form>
     
         <div id="div-files-container" *ngIf="!new">
-            <md-list-item *ngFor="let file of files">
+            <mat-list-item *ngFor="let file of files">
     
-                <h4 md-line>{{file.name}}</h4>
+                <h4 matLine>{{file.name}}</h4>
                 
-                <button md-icon-button (click)="openLink(file.url)">
-                    <md-icon>link</md-icon>
+                <button mat-icon-button (click)="openLink(file.url)">
+                    <mat-icon>link</mat-icon>
                 </button>
                 
-                <button (click)="deleteFile(file.id)" md-icon-button>
-                    <md-icon>delete</md-icon>
+                <button (click)="deleteFile(file.id)" mat-icon-button>
+                    <mat-icon>delete</mat-icon>
                 </button>
     
-            </md-list-item>
+            </mat-list-item>
         </div>
-    </md-list>
+    </mat-list>

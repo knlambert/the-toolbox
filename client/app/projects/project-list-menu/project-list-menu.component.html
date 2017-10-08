@@ -9,9 +9,9 @@
 (onClickRemove)="removeSelectedProjects()" ></common-collection-buttons>
 
 <div id="div-more-container" >
-    <button [hidden]="!hasNext || isLoading" md-icon-button (click)="loadMore()">
-        <md-icon >more_horiz</md-icon>
+    <button [hidden]="!hasNext || isLoading" mat-icon-button (click)="loadMore()">
+        <mat-icon >more_horiz</mat-icon>
     </button>
-    <md-spinner  [hidden]="!isLoading" ></md-spinner>
+    <mat-spinner  [hidden]="!isLoading" ></mat-spinner>
     
 </div>

@@ -3,31 +3,31 @@
     
 
     <div fxFlex="100">
-        <md-card>
-             <md-card-header>
-                <md-card-title>My settings</md-card-title>
-            </md-card-header>
-            <md-card-content>
-                <md-card>
-                    <md-card-header>
-                        <md-card-title>Reset my password</md-card-title>
-                    </md-card-header>
-                    <md-card-content>
+        <mat-card>
+             <mat-card-header>
+                <mat-card-title>My settings</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Reset my password</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
                         <auth-reset-password-form (submitted)="updatePassword($event)"></auth-reset-password-form>
-                    </md-card-content>
-                </md-card>
+                    </mat-card-content>
+                </mat-card>
 
-                <md-card>
-                    <md-card-header>
-                        <md-card-title>App parameters</md-card-title>
-                    </md-card-header>
-                    <md-card-content>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>App parameters</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
                         <hc-app-parameters-form *ngIf="appUser" [value]="appUser" (onSubmit)="updateAppParameters($event.value)" ></hc-app-parameters-form>
-                    </md-card-content>
-                </md-card>
+                    </mat-card-content>
+                </mat-card>
 
-            </md-card-content>
-        </md-card>
+            </mat-card-content>
+        </mat-card>
     </div>
 
    

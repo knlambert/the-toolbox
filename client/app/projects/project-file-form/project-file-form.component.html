@@ -4,23 +4,23 @@
     
     
 
-    <md-form-field>
-        <input required mdInput placeholder="Name" value="" [formControl]="form.controls['name']">
-    </md-form-field>
+    <mat-form-field>
+        <input required matInput placeholder="Name" value="" [formControl]="form.controls['name']">
+    </mat-form-field>
 
 
-    <md-form-field>
-        <input required mdInput placeholder="Url" value="" [formControl]="form.controls['url']">
-    </md-form-field>
+    <mat-form-field>
+        <input required matInput placeholder="Url" value="" [formControl]="form.controls['url']">
+    </mat-form-field>
 
 
     <div id="div-buttons" >
-        <button id="button-cancel" md-icon-button (click)="cancel()"[disabled]="locked" >
-            <md-icon id="icon-cancel" >cancel</md-icon>
+        <button id="button-cancel" mat-icon-button (click)="cancel()"[disabled]="locked" >
+            <mat-icon id="icon-cancel" >cancel</mat-icon>
         </button>
 
-        <button id="button-save" md-icon-button [disabled]="!form.valid || locked" >
-            <md-icon>save</md-icon>
+        <button id="button-save" mat-icon-button [disabled]="!form.valid || locked" >
+            <mat-icon>save</mat-icon>
         </button>
     </div>
     

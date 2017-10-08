@@ -1,28 +1,28 @@
 
 <div [hidden]="loading" id="login-card">
-  <md-card>
+  <mat-card>
     <form class="pure-g">
 
       <div class="pure-u-1">
-        <md-input-container>
-          <input placeholder="Login" mdInput id="id_login" required [(ngModel)]="login" type="text" name="login" />
-        </md-input-container>
+        <mat-form-field>
+          <input placeholder="Login" matInput id="id_login" required [(ngModel)]="login" type="text" name="login" />
+        </mat-form-field>
       </div>
 
       <div class="pure-u-1">
-        <md-input-container>
-         <input placeholder="Password" mdInput id="id_password" required [(ngModel)]="password" type="password" name="password" />
-        </md-input-container>
+        <mat-form-field>
+         <input placeholder="Password" matInput id="id_password" required [(ngModel)]="password" type="password" name="password" />
+        </mat-form-field>
       </div>
 
       <div class="pure-u-1">
-        <button id="id_button_sign_in" md-button type="submit" (click)="connect()">Sign in</button>
+        <button id="id_button_sign_in" mat-button type="submit" (click)="connect()">Sign in</button>
       </div>
 
     </form>
-  </md-card>
+  </mat-card>
 </div>
 
 <div [hidden]="!loading" class="loader-container">
-  <md-spinner></md-spinner>
+  <mat-spinner></mat-spinner>
 </div>

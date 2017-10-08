@@ -3,11 +3,11 @@
 <div id="div-filters-container" fxLayout="row" fxLayoutWrap fxLayoutGap.gt-sm="20px" fxFlexAlign="center center">
     
     <div fxFlex.lt-sm="85" fxFlex.gt-sm="200px" *ngFor="let filter of filters;">
-        <md-form-field >
-            <input mdInput [placeholder]="format(filter)" [(ngModel)]="variables[filter]" (ngModelChange)="onFilterChange()">
-        </md-form-field>
+        <mat-form-field >
+            <input matInput [placeholder]="format(filter)" [(ngModel)]="variables[filter]" (ngModelChange)="onFilterChange()">
+        </mat-form-field>
     </div>
     <div id="div-search-icon-container" fxFlex.lt-md="15" fxFlex.gt-sm="20px">
-        <md-icon>search</md-icon>
+        <mat-icon>search</mat-icon>
     </div>
 </div>

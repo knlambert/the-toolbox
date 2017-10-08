@@ -1,23 +1,23 @@
-<md-list>
+<mat-list>
 
-    <h3 *ngIf="!new" md-subheader>Members
-            <button md-icon-button (click)="displayNewForm()">
-                <md-icon>add</md-icon>
+    <h3 *ngIf="!new" matSubheader>Members
+            <button mat-icon-button (click)="displayNewForm()">
+                <mat-icon>add</mat-icon>
             </button>
     </h3>
     
     <hc-project-member-form [projectId]="projectId" *ngIf="new" (onCancel)="memberCanceled()" (onMemberCreated)="memberCreated()"></hc-project-member-form>
 
     <div id="div-members-container" *ngIf="!new">
-        <md-list-item *ngFor="let assignement of assignements">
+        <mat-list-item *ngFor="let assignement of assignements">
 
-            <h4 md-line>{{assignement.user.name}}</h4>
-            <p md-line>{{assignement.role.name}}</p>
+            <h4 matLine>{{assignement.user.name}}</h4>
+            <p matLine>{{assignement.role.name}}</p>
 
-            <button (click)="deleteMember(assignement.id)" md-icon-button>
-                <md-icon>delete</md-icon>
+            <button (click)="deleteMember(assignement.id)" mat-icon-button>
+                <mat-icon>delete</mat-icon>
             </button>
 
-        </md-list-item>
+        </mat-list-item>
     </div>
-</md-list>
+</mat-list>

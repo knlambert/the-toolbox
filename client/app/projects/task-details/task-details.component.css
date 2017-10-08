@@ -1,4 +1,4 @@
-md-form-field, md-select{
+mat-form-field, mat-select{
     width: 100%;
 }
 
@@ -14,11 +14,11 @@ md-form-field, md-select{
     cursor: pointer;
 }
 
-md-chip, .mat-chip:not(.mat-basic-chip) {
+mat-chip, .mat-chip:not(.mat-basic-chip) {
     margin: 0 0 2.5px 8px;
 }
 
-md-chip-list {
+mat-chip-list {
     top: 10px;
     position: relative;
 }

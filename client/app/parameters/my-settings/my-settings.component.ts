@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
 import { UserInformationsService } from "./../../auth/user-informations.service";
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import { AppUser } from './../../auth/app-user.model';
 @Component({
   selector: 'dtb-my-settings',
@@ -16,7 +16,7 @@ export class MySettingsComponent implements OnInit{
 
   constructor(
     private userInformationsService: UserInformationsService,
-    private snackBar: MdSnackBar
+    private snackBar: MatSnackBar
   ){}
 
   ngOnInit(){

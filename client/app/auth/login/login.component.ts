@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router }   from '@angular/router';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { UserInformationsService } from './../user-informations.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit{
   constructor(
     private userInformationsService: UserInformationsService,
     private router: Router,
-    public snackBar: MdSnackBar
+    public snackBar: MatSnackBar
   ) { }
 
   ngOnInit(){}

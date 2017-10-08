@@ -30,14 +30,14 @@ button
   float:right;
 }
 
-md-input-container
+mat-form-field
 {
 
   width:100%;
 }
 
 
-md-spinner
+mat-spinner
 {
   margin-left: auto;
     margin-right: auto;

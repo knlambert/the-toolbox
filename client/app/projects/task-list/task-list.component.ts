@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject } from 'rxjs';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { TaskDetailsComponent } from './../task-details/task-details.component';
 
 @Component({
@@ -13,7 +13,7 @@ import { TaskDetailsComponent } from './../task-details/task-details.component';
 })
 export class TaskListComponent implements OnInit{
 
-    constructor(private dbService: DBService, public dialog: MdDialog){}
+    constructor(private dbService: DBService, public dialog: MatDialog){}
     
     @Input() taskList: object;
     @Output() onDelete = new EventEmitter();

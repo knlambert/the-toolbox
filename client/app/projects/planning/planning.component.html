@@ -10,12 +10,12 @@
                 <div class="pure-g">
                    
                     <div  class="pure-u-1">
-                        <md-form-field  id="input-date-container" >
-                            <input #dateInput (blur)="updateFromDate(dateInput.value)" mdInput [mdDatepicker]="picker" placeholder="Choose a date">
+                        <mat-form-field  id="input-date-container" >
+                            <input #dateInput (blur)="updateFromDate(dateInput.value)" matInput [matDatepicker]="picker" placeholder="Choose a date">
                         
-                            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-                            <md-datepicker (selectedChanged)="updateFromDate($event)" touchUi="true" #picker></md-datepicker>
-                        </md-form-field>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker (selectedChanged)="updateFromDate($event)" touchUi="true" #picker></mat-datepicker>
+                        </mat-form-field>
                     </div>
 
                 </div>

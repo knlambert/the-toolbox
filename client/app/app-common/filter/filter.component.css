@@ -6,7 +6,7 @@
   margin-left:2%;
   margin-right:2%;
 }
-md-input-container
+mat-form-field
 {
   width:98%;
   margin-top:0.5px;
@@ -14,14 +14,14 @@ md-input-container
   font-size:16px;
   margin-right:1%;
 }
-md-select
+mat-select
 {
   text-align:left;
   width: 98%;
   margin-left:1%;
   margin-right:1%;
 }
-md-chip
+mat-chip
 {
    margin-top: 10px !important;
 }
@@ -35,7 +35,7 @@ md-chip
   bottom: 5px;
   text-align:center;
 }
-md-icon-button 
+mat-icon-button 
 {
   width:30px;
   height:30px;

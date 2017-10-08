@@ -2,7 +2,7 @@
 <main-menu #menu [config]="menuConfig"></main-menu>
 <div class="app" (click)="menu.close()">
   <div [hidden]="!loading" class="loader-container">
-    <md-spinner></md-spinner>
+    <mat-spinner></mat-spinner>
   </div>
   <div [hidden]="loading">
     <router-outlet></router-outlet>

@@ -5,7 +5,7 @@
   *ngFor="let item of _items; let i = index">
 
     <div class="gap-icon-container" *ngIf="displayTopHour(item.uuid) && i !== 0">
-      <md-icon class="gap-icon">more_vert</md-icon>
+      <mat-icon class="gap-icon">more_vert</mat-icon>
     </div>
 
     <div class="div-hour-header" *ngIf="displayTopHour(item.uuid)" >{{getHourMinuteFromTimestamp(item.hour.started_at)}}</div>
@@ -17,7 +17,7 @@
     [ngClass]="{'div-item-selected': item.isSelected}">
 
       <div>
-        <md-progress-bar  [hidden]="!item.isLoading" mode="indeterminate"></md-progress-bar>
+        <mat-progress-bar  [hidden]="!item.isLoading" mode="indeterminate"></mat-progress-bar>
       </div>
 
       <div [ngStyle]="{'border-left': ('solid 3px ' + getProjectColor(item)), 'height': getItemHeight(item) }" 
@@ -48,8 +48,8 @@
 
 
   <div  class="div-new-container" [ngClass]="{'div-first-new-container': (_items.length == 0)}">
-      <button  mdTooltip="Add an hour." md-icon-button (click)="newItem()">
-        <md-icon>add</md-icon>
+      <button  matTooltip="Add an hour." mat-icon-button (click)="newItem()">
+        <mat-icon>add</mat-icon>
       </button>
   </div>
 

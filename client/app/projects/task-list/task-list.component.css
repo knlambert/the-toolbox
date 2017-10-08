@@ -52,7 +52,7 @@
     top: 1px;
 } 
 
-md-icon {
+mat-icon {
     font-size: 18px;
 }
 
@@ -60,6 +60,6 @@ md-icon {
     color: #757575;
 }
 
-md-menu {
+mat-menu {
     font-size: 12px;
 }

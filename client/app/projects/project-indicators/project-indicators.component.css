@@ -1,8 +1,8 @@
-md-radio-group {
+mat-radio-group {
   display: inline-flex;
   flex-direction: column;
 }
 
-md-select {
+mat-select {
     width: 200px;
 }

@@ -3,15 +3,15 @@
     
         <tr >
             <td class="td-float-button" *ngIf="!hideRemoveButton">
-                <button mdTooltip="Remove selection." [mdTooltipPosition]="'left'" id="button-delete-task" md-mini-fab (click)="onClickRemove.emit()" >
-                    <md-icon class="icon-white">delete</md-icon>
+                <button matTooltip="Remove selection." [matTooltipPosition]="'left'" id="button-delete-task" mat-mini-fab (click)="onClickRemove.emit()" >
+                    <mat-icon class="icon-white">delete</mat-icon>
                 </button>
             </td>
         </tr>
         <tr>
             <td class="td-float-button">
-                <button mdTooltip="Add an item." [mdTooltipPosition]="'left'" id="button-add-task" md-fab (click)="onClickAdd.emit()">
-                    <md-icon class="icon-white" >add</md-icon>
+                <button matTooltip="Add an item." [matTooltipPosition]="'left'" id="button-add-task" mat-fab (click)="onClickAdd.emit()">
+                    <mat-icon class="icon-white" >add</mat-icon>
                 </button>
             </td>
         </tr>

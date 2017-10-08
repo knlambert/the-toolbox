@@ -1,9 +1,9 @@
-<md-input-container>
-  <input mdInput [required]="required" [(ngModel)]="selectedValue" [placeholder]="placeholder" [mdAutocomplete]="auto" >
-</md-input-container>
+<mat-form-field>
+  <input matInput [required]="required" [(ngModel)]="selectedValue" [placeholder]="placeholder" [matAutocomplete]="auto" >
+</mat-form-field>
 
-<md-autocomplete  [displayWith]="generateGetLabel(labelField)" #auto="mdAutocomplete">
-  <md-option *ngFor="let value of values" [value]="value">
+<mat-autocomplete  [displayWith]="generateGetLabel(labelField)" #auto="matAutocomplete">
+  <mat-option *ngFor="let value of values" [value]="value">
     {{ value[labelField] }}
-  </md-option>
-</md-autocomplete>
+  </mat-option>
+</mat-autocomplete>

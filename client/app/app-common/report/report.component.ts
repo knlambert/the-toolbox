@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import { Router }   from '@angular/router';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { FilterComponent } from './../../app-common/filter/filter.component';
 @Component({
   selector: 'report',
@@ -10,7 +10,7 @@ import { FilterComponent } from './../../app-common/filter/filter.component';
 })
 export class ReportComponent implements OnInit{
 
-    constructor(public snackBar: MdSnackBar) {}
+    constructor(public snackBar: MatSnackBar) {}
 
     ngOnInit(){
         var that = this;
