@@ -16,6 +16,7 @@ export class TaskMenuComponent implements OnInit {
   @Input() projectId: number;
 
   private taskLists: Array<object> = [];
+  private openedTask: object = null;
 
   private newTaskList(){
   }
@@ -74,5 +75,9 @@ export class TaskMenuComponent implements OnInit {
     }).subscribe((result) => {
       this.taskLists.splice(position, 1);
     });
+  }
+
+  private openTask(task: object){
+    this.openedTask = task;
   }
 }

@@ -17,6 +17,7 @@ export class TaskListComponent implements OnInit{
     
     @Input() taskList: object;
     @Output() onDelete = new EventEmitter();
+    @Output() onTaskOpened = new EventEmitter();
 
     private tasksSumUp: Array<object> = [];
 
@@ -33,13 +34,8 @@ export class TaskListComponent implements OnInit{
 
     openDialog(taskId: object): void {
       this.dbService.get("tasks", taskId).subscribe((task) => {
-        let dialogRef = this.dialog.open(TaskDetailsComponent, {
-          width: "90%",
-          height: "90%"
-        });
-        dialogRef.componentInstance.task = task;
-        dialogRef.afterClosed().subscribe(result => {
-          this.updateTaskTile(taskId);
+        this.onTaskOpened.emit({
+          "task": task
         });
       });
       

@@ -1,7 +1,7 @@
 
-<div class="div-lists-container" fxLayout="row" fxLayoutGap="10px">
+<div *ngIf="!openedTask" class="div-lists-container" fxLayout="row" fxLayoutGap="10px">
     <div fxFlex="270px" *ngFor="let taskList of taskLists"  >
-        <hc-task-list (onDelete)="deleteTaskList($event.taskList.id)" [taskList]="taskList.value"></hc-task-list>
+        <hc-task-list (onTaskOpened)="openTask($event.task)" (onDelete)="deleteTaskList($event.taskList.id)" [taskList]="taskList.value"></hc-task-list>
     </div>
 
     <div fxFlex="270px" class="div-new-container" >
@@ -9,4 +9,8 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
+</div>
+
+<div *ngIf="openedTask" class="div-task-details-container" >
+  <hc-task-details [task]="openedTask" ></hc-task-details>
 </div>

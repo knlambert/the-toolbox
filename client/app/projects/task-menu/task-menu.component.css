@@ -1,7 +1,14 @@
-.div-lists-container {
+.div-lists-container, .div-task-details-container {
     overflow: auto;
-    padding: 20px;
+    padding-top: 20px;
     
+}
+
+.div-task-details-container {
+
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 2px;
 }
 
 hc-task-list {
@@ -9,8 +16,7 @@ hc-task-list {
     margin-bottom: 10px;
 }
 
-.div-new-container
-{
+.div-new-container {
   text-align:center;
   border:#E0E0E0 dashed 1px;
   margin-bottom: 20px;

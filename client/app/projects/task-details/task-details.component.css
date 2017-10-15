@@ -35,3 +35,7 @@ mat-chip-list {
     min-height: 100px;
     max-height: 100px;
 }
+
+hc-quill-editor {
+    width: 100%;
+}

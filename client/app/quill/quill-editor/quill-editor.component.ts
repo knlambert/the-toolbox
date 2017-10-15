@@ -1,6 +1,7 @@
 import { 
     Component,
     OnInit,
+    Input,
     ElementRef
 } from '@angular/core';
 
@@ -15,29 +16,37 @@ styleUrls:  [
     ]
 })
 export class QuillEditorComponent implements OnInit {
-
+    
     constructor(private elementRef: ElementRef){};
 
+    @Input() title: string;
+    @Input() readOnly: boolean = true;
+    
     private editorElem: HTMLElement;
     private quilEditor: any;
     
     ngOnInit(){
+        var toolbar: any = false;
+        if(!this.readOnly){
+            toolbar = [
+                ['bold', 'underline'],
+                ['blockquote', 'code-block'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [ 'image' ]
+            ];
+        }
         this.editorElem = this.elementRef.nativeElement.querySelector('[quill-editor-element]');
         this.quilEditor = new Quill(this.editorElem, {
             theme: 'snow',
             modules: {
-                toolbar: [
-                    ['bold', 'underline'],
-                    ['blockquote', 'code-block'],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    [ 'image' ]
-                ]
+                toolbar: toolbar
             },
-            readOnly: true
+            readOnly: this.readOnly
         });
 
         setTimeout(() => {
             var delta = this.quilEditor.getContents();
+            
             console.log(delta);
         }, 10000);
     }

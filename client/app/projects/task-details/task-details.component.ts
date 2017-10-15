@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 
@@ -14,7 +13,6 @@ export class TaskDetailsComponent implements OnInit{
 
 
     constructor(
-      public dialogRef: MatDialogRef<TaskDetailsComponent>,
       private dbService: DBService
     ) {}
 
@@ -31,7 +29,6 @@ export class TaskDetailsComponent implements OnInit{
     }
 
     onNoClick(): void {
-      this.dialogRef.close(this.task);
     }
 
     private refreshAffectedUser(){
