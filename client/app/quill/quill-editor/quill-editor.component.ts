@@ -2,8 +2,11 @@ import {
     Component,
     OnInit,
     Input,
-    ElementRef
+    ElementRef,
+    forwardRef
 } from '@angular/core';
+import { FormControl, NG_VALUE_ACCESSOR , NG_VALIDATORS } from "@angular/forms";
+
 
 import * as QuillNamespace from "quill";
 let Quill: any = QuillNamespace;
@@ -13,7 +16,25 @@ selector: 'hc-quill-editor',
 templateUrl: 'quill-editor.component.html',
 styleUrls:  [
     'quill-editor.component.css'
-    ]
+    ],
+    providers: [
+    { 
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => QuillEditorComponent),
+        multi: true
+    },
+    { 
+        provide: NG_VALIDATORS,
+        useValue: (c: FormControl) => {
+        let err = {
+            selectionError: {
+            given: null
+            }
+        };
+        return typeof(c.value) !== "object" ? err : null;
+        },
+        multi: true
+    }
 })
 export class QuillEditorComponent implements OnInit {
     
