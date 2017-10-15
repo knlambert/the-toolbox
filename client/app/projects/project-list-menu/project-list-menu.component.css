@@ -4,7 +4,9 @@ common-simple-filters {
 
 #div-more-container {
     width: 100px;
-    margin-top: 20px;
-    margin: 0 auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }

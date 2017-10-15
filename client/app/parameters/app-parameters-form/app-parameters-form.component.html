@@ -1,7 +1,7 @@
 <form fxLayout="row" [formGroup]="form" (ngSubmit)="submitForm(form.value)">
     
-    <div fxFlex="75">
-        <mat-form-field>
+    <div fxFlex="65">
+        <mat-form-field id="min-hours-field">
             <input required type="number" matInput placeholder="Minimum hours per week" [formControl]="form.controls['min_hours_per_week']">
         </mat-form-field>
     </div>
