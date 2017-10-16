@@ -29,6 +29,11 @@ export class TaskMenuComponent implements OnInit {
         this.insertItem(value, "saved");
       });
     });
+
+    this.dbService.list("tasks", {
+    }).subscribe((items) => {
+      this.openedTask = items[0];
+    });
   }
 
   private insertItem(value ?: object, status ? : string){

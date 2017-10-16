@@ -2,3 +2,11 @@ label {
     color: rgba(0,0,0,.54);
     font-size: 14px;
 }
+
+.hide {
+    display:none;
+}
+
+.ql-disabled {
+    border-top: 1px solid #ccc !important;
+}

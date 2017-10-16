@@ -22,6 +22,7 @@ export class TaskDetailsComponent implements OnInit{
     private searchedMember: any;
     private availableUsers: Array<object> = [];
     private affectedUsers = new Subject();
+    private locked: boolean = false;
 
     ngOnInit(){
       this.refreshAffectedUser();
