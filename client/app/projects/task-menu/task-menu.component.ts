@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
+import { TaskListComponent } from './../task-list/task-list.component';
 import { Observable, Subject } from 'rxjs';
 import { DBService } from './../../db/db.service';
 
@@ -17,9 +18,9 @@ export class TaskMenuComponent implements OnInit {
 
   private taskLists: Array<object> = [];
   private openedTask: object = null;
-
-  private newTaskList(){
-  }
+  @ViewChildren('taskListComponent') taskListComponents:QueryList<TaskListComponent>;
+  
+  private newTaskList(){}
 
   ngOnInit(){
     this.dbService.list("task-lists", {
@@ -28,11 +29,6 @@ export class TaskMenuComponent implements OnInit {
       items.forEach((value) => {
         this.insertItem(value, "saved");
       });
-    });
-
-    this.dbService.list("tasks", {
-    }).subscribe((items) => {
-      this.openedTask = items[0];
     });
   }
 
@@ -85,4 +81,14 @@ export class TaskMenuComponent implements OnInit {
   private openTask(task: object){
     this.openedTask = task;
   }
+
+  private closeTask(task: object){
+    this.openedTask = null;
+    this.taskListComponents.forEach((component: TaskListComponent) => {
+      if(component.taskList['id'] === task['task_list']['id']){
+        component.updateTaskItem(task['id']);
+      }
+    });
+  }
+
 }

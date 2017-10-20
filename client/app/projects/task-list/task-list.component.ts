@@ -38,7 +38,6 @@ export class TaskListComponent implements OnInit{
           "task": task
         });
       });
-      
     }
 
     private insertItem(value ?: object, status ? : string){
@@ -80,6 +79,15 @@ export class TaskListComponent implements OnInit{
 
       });
     }
+    
+    private getTaskIndexById(id: string){
+      for(var i = 0; i < this.tasksSumUp.length; i++){
+        if(this.tasksSumUp[i]['value']['id'] === id){
+          return i;
+        }
+      }
+      return -1;
+    }
 
     private deleteTaskFromId(taskId: number){
       for(var i = 0; i < this.tasksSumUp.length; i++){
@@ -120,7 +128,12 @@ export class TaskListComponent implements OnInit{
       this.tasksSumUp[position]['value'] = value;
     }
 
-
+    public updateTaskItem(id: string){
+      this.dbService.get("tasks-sum-up", id).subscribe((task) => {
+        let index = this.getTaskIndexById(id);
+        this.tasksSumUp[index]['value'] = task;
+      });
+    }
 
     
 }

@@ -6,7 +6,7 @@ import {
     forwardRef,
     ViewChild
 } from '@angular/core';
-import { FormControl, NG_VALUE_ACCESSOR , NG_VALIDATORS } from "@angular/forms";
+import { FormControl, NG_VALUE_ACCESSOR , NG_VALIDATORS, ControlValueAccessor } from "@angular/forms";
 
 
 import * as QuillNamespace from "quill";
@@ -36,7 +36,7 @@ let Quill: any = QuillNamespace;
         }
     ]
 })
-export class QuillEditorComponent implements OnInit {
+export class QuillEditorComponent implements OnInit, ControlValueAccessor {
     
     constructor(private elementRef: ElementRef){};
 
@@ -57,22 +57,14 @@ export class QuillEditorComponent implements OnInit {
     private editorElem: HTMLElement;
     private editorToolbarElem: HTMLElement;
     private quilEditor: any;
-    
+    propagateChange = (_: any) => {}
+
     ngOnInit(){
         this.loadQuill();
     }
 
     private loadQuill(){
         var toolbarOptions: any = false;
-        // if(!this._readOnly){
-        //     toolbarOptions = [
-        //         ['bold', 'underline'],
-        //         ['blockquote', 'code-block'],
-        //         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        //         [ 'image' ]
-        //     ];
-        // }
-
         this.editorToolbarElem = this.elementRef.nativeElement.querySelector('[quill-editor-toolbar-element]');
         this.editorElem = this.elementRef.nativeElement.querySelector('[quill-editor-element]');
         this.quilEditor = new Quill(this.editorElem, {
@@ -84,5 +76,27 @@ export class QuillEditorComponent implements OnInit {
             },
             readOnly: this._readOnly
         });
+    }
+
+    writeValue(value: string) {
+        if (value !== undefined) {
+            try {
+                console.log(value)
+                this.quilEditor.setContents(JSON.parse(value));
+            }
+            catch(err){
+                this.quilEditor.setText(value);
+            }
+        }
+    }
+
+    registerOnChange(fn) {
+        this.propagateChange = fn;
+    }
+
+    registerOnTouched() {}
+    
+    private onFocusOut(){
+        this.propagateChange(JSON.stringify(this.quilEditor.getContents()));
     }
 }

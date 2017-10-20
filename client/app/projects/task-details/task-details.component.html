@@ -1,8 +1,10 @@
 <mat-card >
-
+    
     <mat-slide-toggle [(ngModel)]="task.completed" (ngModelChange)="updateField('completed', task.completed)">Completed</mat-slide-toggle>
-    <mat-slide-toggle [(ngModel)]="locked" >Locked</mat-slide-toggle>
-            
+    
+    <button id="button-previous" (click)="this.previous()" mat-icon-button>
+        <mat-icon >keyboard_backspace</mat-icon>
+    </button>
 
     <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="2%"> 
         <div fxFlex="69" class="div-edit-zone">
@@ -12,10 +14,7 @@
                     <input matInput placeholder="Title" maxlength="45" [(ngModel)]="task.title"  (focusout)="updateField('title', task.title)"/>
                 </mat-form-field>
 
-                <!-- <mat-form-field>
-                    <textarea id="textarea-description" matInput placeholder="Description" [(ngModel)]="task.description"  (focusout)="updateField('description', task.description)"></textarea>
-                </mat-form-field> -->
-                <hc-quill-editor [readOnly]="locked" [title]="'Description'"></hc-quill-editor>
+                <hc-quill-editor [(ngModel)]="task.description" [readOnly]="locked" [title]="'Description'" (focusout)="updateField('description', task.description)" ></hc-quill-editor>
             </div>
         </div>
         <div fxFlex="29" class="div-commands-zone">
@@ -39,14 +38,4 @@
         </div>
         
     </div>
-    <!-- <div fxLayout="column" >
-        <div fxFlex="100">
-            <hc-quill-editor></hc-quill-editor>
-        </div> 
-        
-        <div>
-            <button mat-raised-button color="primary" >Add comment</button>
-        </div>
-    </div> -->
-
 </mat-card>

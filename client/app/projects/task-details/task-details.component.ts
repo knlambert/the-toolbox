@@ -18,6 +18,7 @@ export class TaskDetailsComponent implements OnInit{
 
     @Input() task: object;
     @Output() onTaskSubmitted = new EventEmitter();
+    @Output() onTaskPrevious = new EventEmitter();
 
     private searchedMember: any;
     private availableUsers: Array<object> = [];
@@ -92,5 +93,11 @@ export class TaskDetailsComponent implements OnInit{
       this.dbService.update("tasks", {
         "id": this.task['id']
       },update).subscribe(() => {});
+    }
+
+    private previous(){
+      this.onTaskPrevious.emit({
+        "task": this.task
+      });
     }
 }
