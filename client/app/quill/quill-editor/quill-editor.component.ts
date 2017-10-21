@@ -41,6 +41,7 @@ export class QuillEditorComponent implements OnInit, ControlValueAccessor {
     constructor(private elementRef: ElementRef){};
 
     @Input() title: string;
+    @Input() value: string = "";
     @Input() set readOnly(readOnly: boolean){
         if(this.quilEditor){
             if(readOnly){
@@ -76,12 +77,12 @@ export class QuillEditorComponent implements OnInit, ControlValueAccessor {
             },
             readOnly: this._readOnly
         });
+        this.writeValue(this.value);
     }
 
     writeValue(value: string) {
         if (value !== undefined) {
             try {
-                console.log(value)
                 this.quilEditor.setContents(JSON.parse(value));
             }
             catch(err){

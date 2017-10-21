@@ -1,0 +1,26 @@
+p {
+    text-align: left;
+    font-size: 12px;
+}
+
+#button-more {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#icon-more {
+    font-size: 16px;
+    color: #757575;
+}
+
+#div-button-container {
+    margin-right: 0px;
+    margin-left: auto;
+    width: 85px;
+    height: 20px;
+}
+
+#icon-cancel {
+    color: #F44336;
+}

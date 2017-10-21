@@ -1,0 +1,20 @@
+
+
+<div class="div-comment-container" *ngFor="let comment of comments; let i = index;">
+    <hc-task-comment [index]="i" [comment]="comment" (delete)="onDelete($event.index)"></hc-task-comment>
+</div> 
+
+<div id="div-new-container" *ngIf="!newComment" >
+    <button  matTooltip="Add a comment." mat-icon-button (click)="displayNewComment()">
+        <mat-icon>comment</mat-icon>
+    </button>
+</div>
+
+<div id="div-new-comment-container">
+    <hc-task-comment 
+    *ngIf="newComment" 
+    [locked]="false" 
+    [comment]="newComment" 
+    (submit)="onSubmitComment($event.comment)"
+    (cancel)="cancelNewComment()"></hc-task-comment>
+</div>

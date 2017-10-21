@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core
 import { TaskListComponent } from './../task-list/task-list.component';
 import { Observable, Subject } from 'rxjs';
 import { DBService } from './../../db/db.service';
+import { UserInformationsService } from './../../auth/user-informations.service';
 
 @Component({
   selector: 'hc-task-menu',
@@ -12,7 +13,10 @@ import { DBService } from './../../db/db.service';
 })
 export class TaskMenuComponent implements OnInit {
 
-  constructor(private dbService: DBService){}
+  constructor(
+    private dbService: DBService,
+    private userInformationsService: UserInformationsService
+  ){}
 
   @Input() projectId: number;
 
@@ -23,12 +27,21 @@ export class TaskMenuComponent implements OnInit {
   private newTaskList(){}
 
   ngOnInit(){
+
+   
+  
     this.dbService.list("task-lists", {
       "project.id": this.projectId
     }).subscribe((items) => {
       items.forEach((value) => {
         this.insertItem(value, "saved");
       });
+    });
+
+    this.dbService.list('tasks', {
+      "project.id": this.projectId
+    }).subscribe((items) => {
+      this.openedTask = items[0];
     });
   }
 

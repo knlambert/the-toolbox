@@ -63,7 +63,7 @@ export class DBService {
    * @param first Cursor to loop on data.
    * @param nb Max item count returned.
    */
-  list(source, filters?, orderBy?, first?: Number, nb?: Number){
+  list(source, filters?, orderBy?, first?: Number, nb?: Number, lookup?: Array<object>){
     var filters = filters || {};
     var orderBy = orderBy || {};
     var order = [];
@@ -72,12 +72,19 @@ export class DBService {
       order.push(key);
       order_by.push(orderBy[key]);
     }
+    
     var args = {
       "filters": JSON.stringify(filters),
       "offset": first,
       "limit": nb,
       "auto_lookup": 3
     }
+
+    if(typeof(lookup) !== "undefined"){
+      delete args["auto_lookup"];
+      args['lookup'] = JSON.stringify(lookup);
+    }
+
     if (order.length > 0){
       args["order"] = order.join(",");
       args["order_by"] = order_by.join(",");

@@ -25,7 +25,8 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
 import { ProjecLoadComponent } from './project-load/project-load.component';
 import { ProjecLoadLineComponent } from './project-load-line/project-load-line.component';
 import { QuillModule } from './../quill/quill.module';
-
+import { TaskCommentsComponent } from './task-comments/task-comments.component';
+import { TaskCommentComponent } from './task-comment/task-comment.component';
 @NgModule({
   imports:      [
     MaterialModule,
@@ -72,7 +73,9 @@ import { QuillModule } from './../quill/quill.module';
     TaskListItemComponent,
     ProjecLoadComponent,
     TaskDetailsComponent,
-    ProjecLoadLineComponent
+    ProjecLoadLineComponent,
+    TaskCommentsComponent,
+    TaskCommentComponent
   ],
   exports: [ ],
   providers: [
