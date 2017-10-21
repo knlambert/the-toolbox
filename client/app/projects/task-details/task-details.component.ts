@@ -17,17 +17,21 @@ export class TaskDetailsComponent implements OnInit{
     ) {}
 
     @Input() task: object;
-    @Output() onTaskSubmitted = new EventEmitter();
-    @Output() onTaskPrevious = new EventEmitter();
+    @Output() taskSubmit = new EventEmitter();
+    @Output() taskPrevious = new EventEmitter();
+    @Output() taskTitleDescriptionUpdate = new EventEmitter();
 
     private searchedMember: any;
     private availableUsers: Array<object> = [];
     private affectedUsers = new Subject();
-    private locked: boolean = false;
+    private locked: boolean = true;
 
     ngOnInit(){
       this.refreshAffectedUser();
       this.updateAvailableMembers();
+      if(this.task['title'] === ""){
+        this.locked = false;
+      }
     }
 
     onNoClick(): void {
@@ -48,13 +52,20 @@ export class TaskDetailsComponent implements OnInit{
       let and = [];
       excludedUserEmails.forEach((email) => {
         and.push({
-          "email": {
+          "user.email": {
             "$ne": email
           }
         });
       });
-      return this.dbService.list("users", {"$and": and}, {"name": 1, "id": -1}).subscribe((items) => {
-        this.availableUsers = items;
+      return this.dbService.list("project_assignements", {
+          "project.id": this.task['task_list']['project']['id'], 
+          "$and": and
+        }, {"user.name": 1, "user.id": -1}).map((items) => {
+          return items.map((item) => {
+            return item['user'];
+          });
+        }).subscribe((users) => {
+        this.availableUsers = users;
       });
     }
 
@@ -95,9 +106,22 @@ export class TaskDetailsComponent implements OnInit{
       },update).subscribe(() => {});
     }
 
-    private previous(){
-      this.onTaskPrevious.emit({
+    private doPrevious(){
+      this.taskPrevious.emit({
         "task": this.task
+      });
+    }
+
+    private doUnlock(){
+      this.locked = false;
+    }
+
+    private doSave(){
+      this.locked = true;
+      this.taskTitleDescriptionUpdate.emit({
+        "taskId": this.task['id'],
+        "title": this.task['title'],
+        "description": this.task['description']
       });
     }
 }

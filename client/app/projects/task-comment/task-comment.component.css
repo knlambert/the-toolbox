@@ -1,12 +1,13 @@
 p {
     text-align: left;
     font-size: 12px;
+    text-align: center;
 }
 
 #button-more {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 20px;
+    top: 22px;
 }
 
 #icon-more {
@@ -23,4 +24,8 @@ p {
 
 #icon-cancel {
     color: #F44336;
+}
+
+#div-title-container {
+    padding: 0.25px;
 }

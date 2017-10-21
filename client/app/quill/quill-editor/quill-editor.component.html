@@ -1,7 +1,7 @@
 <label for="title">{{title}}</label>
 <input name="title" type="hidden">
 
-<div quill-editor-toolbar-element [hidden]="_readOnly"> 
+<div class="div-toolbar" quill-editor-toolbar-element [hidden]="_readOnly"> 
     <!-- Add font size dropdown -->
     <!-- Add a bold button -->
     <button class="ql-bold"></button>
@@ -13,4 +13,8 @@
     <button class="ql-image"></button>
     <button class="ql-link"></button>
 </div>
-<div quill-editor-element (focusout)="onFocusOut()"></div>
+<div quill-editor-element 
+    [ngClass]="{'ql-container-editing': !_readOnly}" 
+    (focusout)="onFocusOut()"
+></div>
+<div [ngClass]="{ 'ql-underline-locked': _readOnly }"></div>

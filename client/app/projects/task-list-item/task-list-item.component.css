@@ -24,20 +24,29 @@ mat-menu {
     font-size: 12px;
 }
 
-#icon-affected-users, #td-affected-user-count {
+#icon-affected-users, #td-affected-user-count, #icon-comments, #td-comments-count {
     color: #9E9E9E;
 }
 
-#td-affected-user-count {
+#td-affected-user-count, #td-comments-count {
     font-size: 14px;
+}
+
+#icon-comments {
+    font-size: 16px;
+    top: 2px;
+    position: relative;
 }
 
 #icon-affected-users {
     margin-top: 5px;
 }
 
-#td-completed {
+#icon-comments {
+    margin-top: 5px;
 }
+
+
 
 #icon-completed {
     color: #00C853;

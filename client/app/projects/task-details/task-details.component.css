@@ -41,8 +41,15 @@ hc-quill-editor {
 }
 
 
-#button-previous {
+#button-previous, #button-edit, #button-save{
     position: absolute;
     top: 14px;
-    right: 20px;
+}
+
+#button-previous {
+    right: 70px;
+}
+
+#button-edit, #button-save {
+    right: 25px;
 }

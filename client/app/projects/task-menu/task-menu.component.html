@@ -1,16 +1,28 @@
+<div [hidden]="openedTask">
+  <mat-slide-toggle id="slide-completed-tasks" [(ngModel)]="uncompletedTasksOnly" labelPosition="before" >Uncompleted task(s) only</mat-slide-toggle>
 
-<div [hidden]="openedTask" class="div-lists-container" fxLayout="row" fxLayoutGap="10px">
-    <div fxFlex="270px" *ngFor="let taskList of taskLists"  >
-        <hc-task-list #taskListComponent (onTaskOpened)="openTask($event.task)" (onDelete)="deleteTaskList($event.taskList.id)" [taskList]="taskList.value"></hc-task-list>
-    </div>
+  <div [hidden]="openedTask" class="div-lists-container" fxLayout="row" fxLayoutGap="10px">
+      <div fxFlex="270px" *ngFor="let taskList of taskLists"  >
+          <hc-task-list 
+          #taskListComponent 
+          [uncompletedTasksOnly]="uncompletedTasksOnly"
+          (onTaskOpened)="openTask($event.task)" 
+          (onDelete)="deleteTaskList($event.taskList.id)" [taskList]="taskList.value"
+          
+          ></hc-task-list>
+      </div>
 
-    <div fxFlex="270px" class="div-new-container" >
-      <button  matTooltip="Add a list." mat-icon-button (click)="insertItem()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
+      <div fxFlex="270px" class="div-new-container" >
+        <button  matTooltip="Add a list." mat-icon-button (click)="insertItem()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+  </div>
 </div>
 
 <div *ngIf="openedTask" class="div-task-details-container" >
-  <hc-task-details [task]="openedTask" (onTaskPrevious)="closeTask($event.task)"></hc-task-details>
+  <hc-task-details 
+  [task]="openedTask" 
+  (taskPrevious)="closeTask($event.task)" 
+  (taskTitleDescriptionUpdate)="updateTaskTitleDescription($event.taskId, $event.title, $event.description)"></hc-task-details>
 </div>

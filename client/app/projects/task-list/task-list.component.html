@@ -18,7 +18,7 @@
         </button>
     </mat-menu>
 
-    <div (click)="openDialog(task.value.id)" class="div-task-container" *ngFor="let task of tasksSumUp;let i = index">
+    <div (click)="openTask(task.value.id)" class="div-task-container" *ngFor="let task of tasksSumUp;let i = index">
         <hc-task-list-item  (onDeletedTask)="deleteTask($event.taskId)" [task]="task.value"></hc-task-list-item>
     </div>
 

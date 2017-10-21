@@ -1,7 +1,6 @@
 .div-lists-container, .div-task-details-container {
     overflow: auto;
-    padding-top: 20px;
-    
+    padding-top: 30px;
 }
 
 .div-task-details-container {
@@ -21,4 +20,11 @@ hc-task-list {
   border:#E0E0E0 dashed 1px;
   margin-bottom: 20px;
   height: 42px;
+}
+
+#slide-completed-tasks {
+  margin: 5px;
+  position: absolute;
+  right: 5px;
+
 }

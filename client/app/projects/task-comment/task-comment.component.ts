@@ -3,7 +3,7 @@ import { DBService } from './../../db/db.service';
 import { Observable, Subject } from 'rxjs';
 import { UserInformationsService } from './../../auth/user-informations.service';
 import { UserInformations } from './../../auth/user-informations.model';
-
+import { GoogleColorsService } from './../../app-common/google-colors.service';
 
 
 
@@ -18,7 +18,9 @@ export class TaskCommentComponent implements OnInit {
 
     constructor(
       private dbService: DBService,
-      private userInformationsService: UserInformationsService){}
+      private userInformationsService: UserInformationsService,
+      private googleColorsService: GoogleColorsService
+    ){}
 
     @Input() index: number;
     @Input() comment: object;  
@@ -26,6 +28,8 @@ export class TaskCommentComponent implements OnInit {
     @Output() delete = new EventEmitter();
     @Output() cancel = new EventEmitter();
     @Output() submit = new EventEmitter();
+
+    private userColor: string = "white";
 
     public get jsDate(){
       if(typeof(this.comment) !== "undefined"){
@@ -40,12 +44,16 @@ export class TaskCommentComponent implements OnInit {
 
     public get commentHour(){
       let date = this.jsDate;
-      return date.getHours() + ":" + (date.getMinutes());
+      return  ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
     }
 
     ngOnInit(){
       this.userInformationsService.onUpdate.subscribe((userInformatons: UserInformations) => {
-        this.comment['author'] = userInformatons.appUser;
+        if(typeof(this.comment['id']) === "undefined"){
+          this.comment['author'] = userInformatons.appUser;
+        }
+
+        this.userColor = this.googleColorsService.generate(this.comment['author']['id'], "100");
       });
     }
     public toggleEditMode(){
@@ -67,4 +75,5 @@ export class TaskCommentComponent implements OnInit {
         comment: this.comment
       });
     }
+
 }

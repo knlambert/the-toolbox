@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import { Router } from '@angular/router';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject } from 'rxjs';
-import { MatDialog } from '@angular/material';
 import { TaskDetailsComponent } from './../task-details/task-details.component';
 
 @Component({
@@ -13,18 +13,33 @@ import { TaskDetailsComponent } from './../task-details/task-details.component';
 })
 export class TaskListComponent implements OnInit{
 
-    constructor(private dbService: DBService, public dialog: MatDialog){}
+    constructor(
+      private dbService: DBService,
+      private router: Router
+    ){}
     
     @Input() taskList: object;
+    @Input() set uncompletedTasksOnly(value: boolean) {
+      this._uncompletedTasksOnly = value;
+      this.refreshTasks();
+    }
     @Output() onDelete = new EventEmitter();
     @Output() onTaskOpened = new EventEmitter();
 
     private tasksSumUp: Array<object> = [];
+    private _uncompletedTasksOnly: boolean = false;
 
-    ngOnInit(){
+    ngOnInit(){}
+
+    private refreshTasks(){
+      this.tasksSumUp = [];
       let filters = {
         "task_list": this.taskList["id"]
       };
+      if(this._uncompletedTasksOnly){
+        filters['completed'] = false;
+      }
+
       this.dbService.list("tasks-sum-up", filters).subscribe((items) => {
         items.forEach((value) => {
           this.insertItem(value, "saved");
@@ -32,7 +47,7 @@ export class TaskListComponent implements OnInit{
       });
     }
 
-    openDialog(taskId: object): void {
+    openTask(taskId: object): void {
       this.dbService.get("tasks", taskId).subscribe((task) => {
         this.onTaskOpened.emit({
           "task": task

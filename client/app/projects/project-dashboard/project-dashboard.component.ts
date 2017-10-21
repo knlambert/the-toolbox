@@ -20,6 +20,7 @@ export class ProjectDashboardComponent implements OnInit {
     constructor(private route: ActivatedRoute, private dbService: DBService){}
     
     private loaded: boolean = false;
+    private selectedTabIndex: number = 0;
     @Input() project: object = null;
     public ngOnInit(){
         this.route.paramMap.subscribe((params: ParamMap) => {
@@ -33,6 +34,8 @@ export class ProjectDashboardComponent implements OnInit {
           else {
               this.loaded = true;
           }
+        
+          
         });
     }
     private tabIndex: number = 0;

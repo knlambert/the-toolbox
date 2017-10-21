@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
+import { Router } from '@angular/router';
 import { TaskListComponent } from './../task-list/task-list.component';
 import { Observable, Subject } from 'rxjs';
 import { DBService } from './../../db/db.service';
@@ -15,21 +16,19 @@ export class TaskMenuComponent implements OnInit {
 
   constructor(
     private dbService: DBService,
-    private userInformationsService: UserInformationsService
+    private userInformationsService: UserInformationsService,
+    private router: Router
   ){}
 
   @Input() projectId: number;
+  @ViewChildren('taskListComponent') taskListComponents:QueryList<TaskListComponent>;
 
   private taskLists: Array<object> = [];
   private openedTask: object = null;
-  @ViewChildren('taskListComponent') taskListComponents:QueryList<TaskListComponent>;
+  private uncompletedTasksOnly: boolean = false;
   
-  private newTaskList(){}
-
   ngOnInit(){
 
-   
-  
     this.dbService.list("task-lists", {
       "project.id": this.projectId
     }).subscribe((items) => {
@@ -38,11 +37,6 @@ export class TaskMenuComponent implements OnInit {
       });
     });
 
-    this.dbService.list('tasks', {
-      "project.id": this.projectId
-    }).subscribe((items) => {
-      this.openedTask = items[0];
-    });
   }
 
   private insertItem(value ?: object, status ? : string){
@@ -104,4 +98,18 @@ export class TaskMenuComponent implements OnInit {
     });
   }
 
+  /**
+   * Update title & description for the task. Triggered by task detail component.
+   * @param taskId The ID of the task to update.
+   * @param title The title to update.
+   * @param description The description to update.
+   */
+  private updateTaskTitleDescription(taskId: number, title: string, description: string){
+    this.dbService.update("tasks", {
+      "id": taskId
+    }, {
+      "title": title,
+      "description": description
+    }).subscribe();
+  }
 }

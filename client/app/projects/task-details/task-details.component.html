@@ -2,8 +2,16 @@
     
     <mat-slide-toggle [(ngModel)]="task.completed" (ngModelChange)="updateField('completed', task.completed)">Completed</mat-slide-toggle>
     
-    <button id="button-previous" (click)="this.previous()" mat-icon-button>
+    <button id="button-previous" (click)="doPrevious()" mat-icon-button>
         <mat-icon >keyboard_backspace</mat-icon>
+    </button>
+
+    <button id="button-edit" [hidden]="!locked" (click)="doUnlock()" mat-icon-button>
+        <mat-icon >mode_edit</mat-icon>
+    </button>
+
+    <button id="button-save" [hidden]="locked" (click)="doSave()" mat-icon-button>
+        <mat-icon >save</mat-icon>
     </button>
 
     <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="2%"> 
@@ -11,16 +19,16 @@
             <div fxLayout="column" fxLayoutAlign="center center" xLayoutGap="10">
                 
                 <mat-form-field>
-                    <input matInput placeholder="Title" maxlength="45" [(ngModel)]="task.title"  (focusout)="updateField('title', task.title)"/>
+                    <input [disabled]="locked" matInput placeholder="Title" maxlength="45" [(ngModel)]="task.title"/>
                 </mat-form-field>
 
-                <hc-quill-editor [(ngModel)]="task.description" [readOnly]="locked" [title]="'Description'" (focusout)="updateField('description', task.description)" ></hc-quill-editor>
+                <hc-quill-editor [(ngModel)]="task.description" [readOnly]="locked" [title]="'Description'" ></hc-quill-editor>
             </div>
         </div>
         <div fxFlex="29" class="div-commands-zone">
             
-            <mat-form-field>
-                <mat-select placeholder="Select a member"
+            <mat-form-field [hidden]="locked">
+                <mat-select placeholder="Select a person to affect"
                     [(ngModel)]="searchedMember" 
                     (ngModelChange)="onMemberSearched($event)" 
                     ngDefaultControl >
@@ -30,14 +38,14 @@
 
             <mat-chip-list>
                 <mat-chip *ngFor="let affected of affectedUsers | async">{{affected.user.name}}
-                    <mat-icon class="icon-delete-member" (click)="deleteTaskAffectation(affected.id)">close</mat-icon>
+                    <mat-icon [hidden]="locked" class="icon-delete-member" (click)="deleteTaskAffectation(affected.id)">close</mat-icon>
                 </mat-chip>
             </mat-chip-list>
 
-                    
         </div>
         
     </div>
+
 </mat-card>
 
 <hc-task-comments [taskId]="task.id"></hc-task-comments>
