@@ -14,7 +14,7 @@
 
 </div>
 
-<mat-tab-group [selectedIndex]="selectedTabIndex" *ngIf="project" (selectChange)="changeTab($event.index)">
+<mat-tab-group [selectedIndex]="selectedTabIndex" *ngIf="project" (selectChange)="onTabChanged($event.index)">
     
 
     <mat-tab label="Project details">

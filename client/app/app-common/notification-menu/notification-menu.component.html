@@ -1,5 +1,6 @@
-<h2 mat-dialog-title>Task(s) todo</h2>
+<h2 mat-dialog-title>Task(s) to do</h2>
 <mat-dialog-content>
+    <mat-spinner [hidden]="!loading"></mat-spinner>
     <table>
         <tr *ngFor="let notification of notifications; let i = index">
             <td><b>{{notification.title}}</b> ({{notification.project_name}})</td>

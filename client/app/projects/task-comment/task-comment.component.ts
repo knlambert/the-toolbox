@@ -84,6 +84,7 @@ export class TaskCommentComponent implements OnInit {
      * Trigger cancel event to notify parent components.
      */
     private doCancel(){
+      this.locked = true;
       this.cancel.emit();
     }
 

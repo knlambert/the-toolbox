@@ -13,3 +13,8 @@
 #div-new-comment-container {
     margin-bottom: 500px;
 }
+
+mat-spinner {
+    margin: auto;
+    margin-top: 50px;
+}

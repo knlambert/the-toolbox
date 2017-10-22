@@ -1,24 +1,30 @@
 
 
-<div class="div-comment-container" *ngFor="let comment of comments; let i = index;">
-    <hc-task-comment 
-        [index]="i" 
-        [comment]="comment" 
-        (delete)="onDelete($event.index)"
-        (submit)="onSubmitComment($event.comment, $event.isNew)"></hc-task-comment>
-</div> 
 
-<div id="div-new-container" *ngIf="!newComment" >
-    <button  matTooltip="Add a comment." mat-icon-button (click)="displayNewComment()">
-        <mat-icon>comment</mat-icon>
-    </button>
-</div>
+<div>
 
-<div id="div-new-comment-container">
-    <hc-task-comment 
-    *ngIf="newComment" 
-    [locked]="false" 
-    [comment]="newComment" 
-    (submit)="onSubmitComment($event.comment, $event.isNew)"
-    (cancel)="cancelNewComment()"></hc-task-comment>
+    <mat-spinner [hidden]="!loading"></mat-spinner>
+
+    <div [hidden]="loading" class="div-comment-container" *ngFor="let comment of comments; let i = index;">
+        <hc-task-comment 
+            [index]="i" 
+            [comment]="comment" 
+            (delete)="onDelete($event.index)"
+            (submit)="onSubmitComment($event.comment, $event.isNew)"></hc-task-comment>
+    </div> 
+    
+    <div [hidden]="loading" id="div-new-container" *ngIf="!newComment" >
+        <button  matTooltip="Add a comment." mat-icon-button (click)="displayNewComment()">
+            <mat-icon>comment</mat-icon>
+        </button>
+    </div>
+    
+    <div id="div-new-comment-container">
+        <hc-task-comment 
+        *ngIf="newComment" 
+        [locked]="false" 
+        [comment]="newComment" 
+        (submit)="onSubmitComment($event.comment, $event.isNew)"
+        (cancel)="cancelNewComment()"></hc-task-comment>
+    </div>
 </div>

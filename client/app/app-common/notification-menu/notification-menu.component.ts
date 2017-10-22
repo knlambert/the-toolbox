@@ -24,6 +24,7 @@ export class MenuNotificationComponent implements OnInit {
 
   
   private notifications: Array<object> = [];
+  private loading: boolean = true;
 
   private openTask(index: number){
     this.router.navigate([this.notifications[index]['link']]);
@@ -34,12 +35,17 @@ export class MenuNotificationComponent implements OnInit {
     this.refresh();
   }
   
+  /**
+   * Refresh the notifications.
+   */
   public refresh(){
+    this.loading = true;
     this.userInformationsService.onUpdate.subscribe((user: UserInformations) => {
       this.dbService.list("tasks-left", {
         "user_id": user.appUser.id
       }).subscribe((tasks) => {
         this.notifications = tasks;
+        this.loading = false;
       });
     });
   }
