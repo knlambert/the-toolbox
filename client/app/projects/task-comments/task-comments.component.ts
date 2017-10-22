@@ -53,16 +53,33 @@ export class TaskCommentsComponent implements OnInit {
       };
     }
 
+    /**
+     * Cancel a comment which was creating.
+     */
     private cancelNewComment(){
       this.newComment = null;
     }
 
-    private onSubmitComment(newComment: object){
-      newComment['created_at'] = Math.floor(new Date().getTime() / 1000);
-      this.dbService.save("comments", newComment).subscribe((id) => {
-        newComment['id'] = id;
-        this.comments.push(newComment);
-        this.newComment = null;
-      });
+    /**
+     * Submit a comment for new or update action.
+     * @param comment The comment to insert.
+     * @param isNew Is the comment new or not.
+     */
+    private onSubmitComment(comment: object, isNew: boolean = true){
+      console.log("pouet")
+      if(isNew){
+        comment['created_at'] = Math.floor(new Date().getTime() / 1000);
+        this.dbService.save("comments", comment).subscribe((id) => {
+          comment['id'] = id;
+          this.comments.push(comment);
+          this.newComment = null;
+        });
+      } else{
+        this.dbService.update("comments", {
+          "id": comment['id']
+        }, {
+          "description": comment['description']
+        }).subscribe(() => {});
+      }
     }
 }

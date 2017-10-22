@@ -25,11 +25,14 @@ export class TaskCommentComponent implements OnInit {
     @Input() index: number;
     @Input() comment: object;  
     @Input() locked: boolean = true;
+    
     @Output() delete = new EventEmitter();
     @Output() cancel = new EventEmitter();
     @Output() submit = new EventEmitter();
 
     private userColor: string = "white";
+    private isConnectedUserAuthor: boolean = false;
+    private isNew: boolean = true;
 
     public get jsDate(){
       if(typeof(this.comment) !== "undefined"){
@@ -48,32 +51,51 @@ export class TaskCommentComponent implements OnInit {
     }
 
     ngOnInit(){
-      this.userInformationsService.onUpdate.subscribe((userInformatons: UserInformations) => {
+      this.userInformationsService.onUpdate.subscribe((userInformations: UserInformations) => {
         if(typeof(this.comment['id']) === "undefined"){
-          this.comment['author'] = userInformatons.appUser;
+          this.comment['author'] = userInformations.appUser;
+        }
+        else {
+          this.isConnectedUserAuthor = (this.comment['author']['id'] === userInformations.appUser.id);
+          this.isNew = false;
         }
 
         this.userColor = this.googleColorsService.generate(this.comment['author']['id'], "100");
       });
     }
+
+    /**
+     * Unlocks form.
+     */
     public toggleEditMode(){
       this.locked = !this.locked;
     }
 
+    /**
+     * Trigger delete event to notify parent components.
+     */
     public doDelete(){
       this.delete.emit({
         index: this.index
       });
     }
 
+    /**
+     * Trigger cancel event to notify parent components.
+     */
     private doCancel(){
       this.cancel.emit();
     }
 
+    /**
+     * Trigger submission event to notify parent components.
+     */
     private doSubmit(){
       this.submit.emit({
-        comment: this.comment
+        "isNew": this.isNew,
+        "comment": this.comment
       });
+      this.locked = true;
     }
 
 }

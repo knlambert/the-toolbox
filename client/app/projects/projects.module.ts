@@ -46,12 +46,12 @@ import { TaskCommentComponent } from './task-comment/task-comment.component';
           component: ProjectListMenuComponent
         },
         {
-          path: ':id',
+          path: ':id/:tabName',
           component: ProjectDashboardComponent
         },
         {
-          path: ':id/tasks/:taskId',
-          component: TaskDetailsComponent
+          path: ':id/:tabName/:taskId',
+          component: ProjectDashboardComponent
         },
         {
           path: 'new',

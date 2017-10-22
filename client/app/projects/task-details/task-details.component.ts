@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Location } from '@angular/common';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 
@@ -13,6 +14,7 @@ export class TaskDetailsComponent implements OnInit{
 
 
     constructor(
+      private location: Location,
       private dbService: DBService
     ) {}
 
@@ -27,15 +29,18 @@ export class TaskDetailsComponent implements OnInit{
     private locked: boolean = true;
 
     ngOnInit(){
+      this.location.go("projects/" + this.task['task_list']['project']['id'] + "/tasks/" + this.task['id']);
+      
+      /* Refresh the list of users affected to the task */
       this.refreshAffectedUser();
+      /* Keep only users not affected */
       this.updateAvailableMembers();
       if(this.task['title'] === ""){
         this.locked = false;
       }
     }
 
-    onNoClick(): void {
-    }
+    onNoClick(): void {}
 
     private refreshAffectedUser(){
       this.dbService.list("task-assignements", {
