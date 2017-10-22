@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { UserInformationsService } from './../../auth/user-informations.service';
 import { UserInformations } from './../../auth/user-informations.model';
+import { Router } from '@angular/router';
 import { DBService } from './../../db/db.service';
 import { NgClass } from '@angular/common';
-import { Router } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'notification-menu',
@@ -15,14 +16,18 @@ import { Router } from '@angular/router';
 export class MenuNotificationComponent implements OnInit {
 
   constructor(
+    public dialogRef: MatDialogRef<MenuNotificationComponent>,
     private userInformationsService: UserInformationsService,
-    private dbService: DBService
+    private dbService: DBService,
+    private router: Router
   ){}
+
   
   private notifications: Array<object> = [];
 
   private openTask(index: number){
-    window.open(this.notifications[index]['link']);
+    this.router.navigate([this.notifications[index]['link']]);
+    this.dialogRef.close();
   }
 
   ngOnInit(){
