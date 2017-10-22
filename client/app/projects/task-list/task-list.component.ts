@@ -61,7 +61,8 @@ export class TaskListComponent implements OnInit{
           "id": this.taskList['id']
         },
         "title": "",
-        "completed": 0
+        "completed": 0,
+        "created_at": Math.floor((new Date()).getTime() / 1000)
       };
   
       status = status || "new";
