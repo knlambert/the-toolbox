@@ -1,6 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { TaskListComponent } from './../task-list/task-list.component';
 import { Observable, Subject } from 'rxjs';
 import { DBService } from './../../db/db.service';
+import { UserInformationsService } from './../../auth/user-informations.service';
 
 @Component({
   selector: 'hc-task-menu',
@@ -11,21 +15,36 @@ import { DBService } from './../../db/db.service';
 })
 export class TaskMenuComponent implements OnInit {
 
-  constructor(private dbService: DBService){}
+  constructor(
+    private location: Location,
+    private dbService: DBService,
+    private userInformationsService: UserInformationsService,
+    private route: ActivatedRoute,
+    private router: Router
+  ){}
 
   @Input() projectId: number;
+  @ViewChildren('taskListComponent') taskListComponents:QueryList<TaskListComponent>;
 
   private taskLists: Array<object> = [];
-
-  private newTaskList(){
-  }
-
+  private openedTask: object = null;
+  private uncompletedTasksOnly: boolean = false;
+  
   ngOnInit(){
+
     this.dbService.list("task-lists", {
       "project.id": this.projectId
     }).subscribe((items) => {
       items.forEach((value) => {
         this.insertItem(value, "saved");
+      });
+      this.route.paramMap.subscribe((params: ParamMap) => {
+        let taskId = parseInt(params.get('taskId'));
+        if(!isNaN(taskId)){
+          this.dbService.get("tasks", taskId).subscribe((task) => {
+              this.openedTask = task;
+          });
+        }
       });
     });
   }
@@ -74,5 +93,42 @@ export class TaskMenuComponent implements OnInit {
     }).subscribe((result) => {
       this.taskLists.splice(position, 1);
     });
+  }
+
+  /**
+   * Open a specific task.
+   * @param task 
+   */
+  private openTask(task: object){
+    this.openedTask = task;
+  }
+
+  /**
+   * Close the opened task.
+   * @param task The task to open.
+   */
+  private closeTask(task: object){
+    this.openedTask = null;
+    this.location.go("projects/" + this.projectId + "/tasks");
+    this.taskListComponents.forEach((component: TaskListComponent) => {
+      if(component.taskList['id'] === task['task_list']['id']){
+        component.updateTaskItem(task['id']);
+      }
+    });
+  }
+
+  /**
+   * Update title & description for the task. Triggered by task detail component.
+   * @param taskId The ID of the task to update.
+   * @param title The title to update.
+   * @param description The description to update.
+   */
+  private updateTaskTitleDescription(taskId: number, title: string, description: string){
+    this.dbService.update("tasks", {
+      "id": taskId
+    }, {
+      "title": title,
+      "description": description
+    }).subscribe();
   }
 }

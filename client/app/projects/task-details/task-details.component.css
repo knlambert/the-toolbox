@@ -24,6 +24,32 @@ mat-chip-list {
 }
 
 #div-dialog-container {
-    max-height: 90%;
     overflow-y: scroll;
+}
+
+.mat-dialog-content {
+    height: 100%;
+}
+
+#textarea-description {
+    min-height: 100px;
+    max-height: 100px;
+}
+
+hc-quill-editor {
+    width: 100%;
+}
+
+
+#button-previous, #button-edit, #button-save{
+    position: absolute;
+    top: 14px;
+}
+
+#button-previous {
+    right: 70px;
+}
+
+#button-edit, #button-save {
+    right: 25px;
 }

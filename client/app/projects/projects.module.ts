@@ -24,7 +24,9 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { ProjecLoadComponent } from './project-load/project-load.component';
 import { ProjecLoadLineComponent } from './project-load-line/project-load-line.component';
-
+import { QuillModule } from './../quill/quill.module';
+import { TaskCommentsComponent } from './task-comments/task-comments.component';
+import { TaskCommentComponent } from './task-comment/task-comment.component';
 @NgModule({
   imports:      [
     MaterialModule,
@@ -36,6 +38,7 @@ import { ProjecLoadLineComponent } from './project-load-line/project-load-line.c
     FlexLayoutModule,
     PieChartModule,
     GaugeModule,
+    QuillModule,
     RouterModule.forChild(
       [
         {
@@ -43,7 +46,11 @@ import { ProjecLoadLineComponent } from './project-load-line/project-load-line.c
           component: ProjectListMenuComponent
         },
         {
-          path: ':id',
+          path: ':id/:tabName',
+          component: ProjectDashboardComponent
+        },
+        {
+          path: ':id/:tabName/:taskId',
           component: ProjectDashboardComponent
         },
         {
@@ -70,7 +77,9 @@ import { ProjecLoadLineComponent } from './project-load-line/project-load-line.c
     TaskListItemComponent,
     ProjecLoadComponent,
     TaskDetailsComponent,
-    ProjecLoadLineComponent
+    ProjecLoadLineComponent,
+    TaskCommentsComponent,
+    TaskCommentComponent
   ],
   exports: [ ],
   providers: [

@@ -24,6 +24,7 @@ export class TaskListItemComponent {
         taskId: this.task['id']
       });
     }
+    
 
     
 }

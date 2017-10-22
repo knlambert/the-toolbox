@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import { Router } from '@angular/router';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject } from 'rxjs';
-import { MatDialog } from '@angular/material';
 import { TaskDetailsComponent } from './../task-details/task-details.component';
 
 @Component({
@@ -13,17 +13,33 @@ import { TaskDetailsComponent } from './../task-details/task-details.component';
 })
 export class TaskListComponent implements OnInit{
 
-    constructor(private dbService: DBService, public dialog: MatDialog){}
+    constructor(
+      private dbService: DBService,
+      private router: Router
+    ){}
     
     @Input() taskList: object;
+    @Input() set uncompletedTasksOnly(value: boolean) {
+      this._uncompletedTasksOnly = value;
+      this.refreshTasks();
+    }
     @Output() onDelete = new EventEmitter();
+    @Output() onTaskOpened = new EventEmitter();
 
     private tasksSumUp: Array<object> = [];
+    private _uncompletedTasksOnly: boolean = false;
 
-    ngOnInit(){
+    ngOnInit(){}
+
+    private refreshTasks(){
+      this.tasksSumUp = [];
       let filters = {
         "task_list": this.taskList["id"]
       };
+      if(this._uncompletedTasksOnly){
+        filters['completed'] = false;
+      }
+
       this.dbService.list("tasks-sum-up", filters).subscribe((items) => {
         items.forEach((value) => {
           this.insertItem(value, "saved");
@@ -31,15 +47,12 @@ export class TaskListComponent implements OnInit{
       });
     }
 
-    openDialog(taskId: object): void {
+    openTask(taskId: object): void {
       this.dbService.get("tasks", taskId).subscribe((task) => {
-        let dialogRef = this.dialog.open(TaskDetailsComponent, {});
-        dialogRef.componentInstance.task = task;
-        dialogRef.afterClosed().subscribe(result => {
-          this.updateTaskTile(taskId);
+        this.onTaskOpened.emit({
+          "task": task
         });
       });
-      
     }
 
     private insertItem(value ?: object, status ? : string){
@@ -81,6 +94,15 @@ export class TaskListComponent implements OnInit{
 
       });
     }
+    
+    private getTaskIndexById(id: string){
+      for(var i = 0; i < this.tasksSumUp.length; i++){
+        if(this.tasksSumUp[i]['value']['id'] === id){
+          return i;
+        }
+      }
+      return -1;
+    }
 
     private deleteTaskFromId(taskId: number){
       for(var i = 0; i < this.tasksSumUp.length; i++){
@@ -121,7 +143,12 @@ export class TaskListComponent implements OnInit{
       this.tasksSumUp[position]['value'] = value;
     }
 
-
+    public updateTaskItem(id: string){
+      this.dbService.get("tasks-sum-up", id).subscribe((task) => {
+        let index = this.getTaskIndexById(id);
+        this.tasksSumUp[index]['value'] = task;
+      });
+    }
 
     
 }

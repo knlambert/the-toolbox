@@ -3,7 +3,7 @@
 <div *ngIf="!project && loaded" fxLayout="row" fxLayoutAlign="center center">
     
 
-    <div fxFlex.lt-sm="99" fxFlex.md="40" fxFlex.lg="30" id="div-project-form-container">
+    <div fxFlex.lt-sm="99" fxFlex.md="40" fxFlex.gt-md="30" id="div-project-form-container">
         
         
         <div>
@@ -14,10 +14,10 @@
 
 </div>
 
-<mat-tab-group [selectedIndex]="0" *ngIf="project" (selectChange)="changeTab($event.index)">
+<mat-tab-group [selectedIndex]="selectedTabIndex" *ngIf="project" (selectChange)="changeTab($event.index)">
     
 
-    <mat-tab label="Project details.">
+    <mat-tab label="Project details">
         
         <div id="div-project-details-container" fxLayout="column" fxLayoutGap="10px" fxFlexAlign="left center">
 
@@ -51,26 +51,7 @@
         </div>
     </mat-tab>
     <mat-tab label="Tasks" *ngIf="project" >
-        <hc-task-menu [projectId]="project.id" ></hc-task-menu>
+        <hc-task-menu [projectId]="project.id"  ></hc-task-menu>
     </mat-tab>
-</mat-tab-group>
 
-<div id="div-float-bar" [hidden]="tabIndex != 1">
-    <!-- <table>
-    
-        <tr >
-            <td class="td-float-button">
-                <button matTooltip="Remove selected task(s)" [matTooltipPosition]="'left'" id="button-delete-task" mat-mini-fab (click)="planning.deleteSelectedTasks()" >
-                    <mat-icon class="icon-white">delete</mat-icon>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td class="td-float-button">
-                <button matTooltip="Add a task." [matTooltipPosition]="'left'" id="button-add-task" mat-fab (click)="planning.addEmptyTask()">
-                    <mat-icon class="icon-white" >add</mat-icon>
-                </button>
-            </td>
-        </tr>
-    </table> -->
-</div>
+</mat-tab-group>

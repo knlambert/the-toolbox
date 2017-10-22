@@ -15,6 +15,6 @@ export class ProjectListItemComponent {
     value: object;
     
     private openProject(){
-      this.router.navigate(['/projects/' + this.value["id"]]);
+      this.router.navigate(['/projects/' + this.value["id"] + "/dashboard"]);
     }
   }

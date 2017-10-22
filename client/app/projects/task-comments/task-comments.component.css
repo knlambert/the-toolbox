@@ -1,0 +1,15 @@
+.div-comment-container, #div-new-comment-container {
+    margin-top: 10px;
+}
+
+#div-new-container {
+  text-align:center;
+  border:#E0E0E0 dashed 1px;
+  margin-bottom: 500px;
+  height: 42px;
+  margin-top: 10px;
+}
+
+#div-new-comment-container {
+    margin-bottom: 500px;
+}
