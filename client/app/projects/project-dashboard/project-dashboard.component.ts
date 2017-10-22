@@ -24,15 +24,22 @@ export class ProjectDashboardComponent implements OnInit {
     @Input() project: object = null;
     public ngOnInit(){
         this.route.paramMap.subscribe((params: ParamMap) => {
+            
             this.selectedTabIndex = {
                 "dashboard": 0,
                 "tasks": 1
             }[params.get('tabName')];
-
-            this.dbService.get("projects", params.get('id')).subscribe((project) => {
-                this.project = project;
+            
+            let projectId = params.get('id');
+            if(typeof(projectId) === "number"){
+                this.dbService.get("projects", projectId).subscribe((project) => {
+                    this.project = project;
+                    this.loaded = true;
+                });
+            }
+            else {
                 this.loaded = true;
-            });
+            }
         });
     }
     private tabIndex: number = 0;
