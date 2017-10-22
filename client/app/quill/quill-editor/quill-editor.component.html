@@ -1,0 +1,20 @@
+<label for="title">{{title}}</label>
+<input name="title" type="hidden">
+
+<div class="div-toolbar" quill-editor-toolbar-element [hidden]="_readOnly"> 
+    <!-- Add font size dropdown -->
+    <!-- Add a bold button -->
+    <button class="ql-bold"></button>
+    <button class="ql-blockquote"></button>
+    <button class="ql-code-block"></button>
+    <button class="ql-list" value="ordered"></button>
+    <button class="ql-list" value="bullet"></button>
+    
+    <button class="ql-image"></button>
+    <button class="ql-link"></button>
+</div>
+<div quill-editor-element 
+    [ngClass]="{'ql-container-editing': !_readOnly}" 
+    (focusout)="onFocusOut()"
+></div>
+<div [ngClass]="{ 'ql-underline-locked': _readOnly }"></div>

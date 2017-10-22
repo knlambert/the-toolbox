@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Location } from '@angular/common';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 
@@ -14,25 +14,33 @@ export class TaskDetailsComponent implements OnInit{
 
 
     constructor(
-      public dialogRef: MatDialogRef<TaskDetailsComponent>,
+      private location: Location,
       private dbService: DBService
     ) {}
 
     @Input() task: object;
-    @Output() onTaskSubmitted = new EventEmitter();
+    @Output() taskSubmit = new EventEmitter();
+    @Output() taskPrevious = new EventEmitter();
+    @Output() taskTitleDescriptionUpdate = new EventEmitter();
 
     private searchedMember: any;
     private availableUsers: Array<object> = [];
     private affectedUsers = new Subject();
+    private locked: boolean = true;
 
     ngOnInit(){
+      this.location.go("projects/" + this.task['task_list']['project']['id'] + "/tasks/" + this.task['id']);
+      
+      /* Refresh the list of users affected to the task */
       this.refreshAffectedUser();
+      /* Keep only users not affected */
       this.updateAvailableMembers();
+      if(this.task['title'] === ""){
+        this.locked = false;
+      }
     }
 
-    onNoClick(): void {
-      this.dialogRef.close(this.task);
-    }
+    onNoClick(): void {}
 
     private refreshAffectedUser(){
       this.dbService.list("task-assignements", {
@@ -57,10 +65,15 @@ export class TaskDetailsComponent implements OnInit{
           }
         });
       });
-      return this.dbService.list("project_assignements", {"$and": and}, {"user.name": 1, "user.id": -1}).subscribe((items) => {
-        this.availableUsers = items.map((item) => {
-          return item['user'];
-        });
+      return this.dbService.list("project_assignements", {
+          "project.id": this.task['task_list']['project']['id'], 
+          "$and": and
+        }, {"user.name": 1, "user.id": -1}).map((items) => {
+          return items.map((item) => {
+            return item['user'];
+          });
+        }).subscribe((users) => {
+        this.availableUsers = users;
       });
     }
 
@@ -99,5 +112,24 @@ export class TaskDetailsComponent implements OnInit{
       this.dbService.update("tasks", {
         "id": this.task['id']
       },update).subscribe(() => {});
+    }
+
+    private doPrevious(){
+      this.taskPrevious.emit({
+        "task": this.task
+      });
+    }
+
+    private doUnlock(){
+      this.locked = false;
+    }
+
+    private doSave(){
+      this.locked = true;
+      this.taskTitleDescriptionUpdate.emit({
+        "taskId": this.task['id'],
+        "title": this.task['title'],
+        "description": this.task['description']
+      });
     }
 }

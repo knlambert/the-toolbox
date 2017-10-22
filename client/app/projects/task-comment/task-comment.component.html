@@ -1,0 +1,34 @@
+<div>
+    <mat-card>
+        <div *ngIf="comment.id" >
+
+            <div id="div-title-container" [ngStyle]="{'background-color': userColor}" >
+                <p ><b>{{comment.author.name}}</b>, {{commentDate}} at {{commentHour}}</p>
+            </div>
+
+            <button *ngIf="isConnectedUserAuthor" id="button-more" mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon id="icon-more">more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button (click)="toggleEditMode()" mat-menu-item>
+                    <mat-icon>mode_edit</mat-icon>
+                    <span>Edit</span>
+                </button>
+                <button (click)="doDelete()" mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>
+            </mat-menu>
+        </div>
+        <hc-quill-editor [(ngModel)]="comment.description" [readOnly]="locked"  ></hc-quill-editor>
+
+        <div id="div-button-container" *ngIf="!locked" >
+            <button mat-icon-button>
+                <mat-icon id="icon-cancel" (click)="doCancel()">cancel</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon (click)="doSubmit()" >save</mat-icon>
+            </button>
+        </div>
+    </mat-card> 
+</div>

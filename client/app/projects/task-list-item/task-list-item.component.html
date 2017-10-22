@@ -12,15 +12,22 @@
     <p>{{task.title}}</p>
     <table>
         <tr >
+
+            <td *ngIf="task.has_description">
+                <mat-icon id="icon-affected-users" >clear_all</mat-icon>
+            </td>
+
             <td *ngIf="task.affected_users > 0" id="td-affected-user-count" >{{task.affected_users}}</td>
 
             <td *ngIf="task.affected_users > 0">
                 <mat-icon id="icon-affected-users" >people</mat-icon>
             </td>
 
-            <td *ngIf="task.has_description">
-                <mat-icon id="icon-affected-users" >clear_all</mat-icon>
-            </td>
+            <td *ngIf="task.comments > 0" id="td-comments-count" >{{task.comments}}</td>
+
+            <td *ngIf="task.comments > 0">
+                    <mat-icon id="icon-comments" >comment</mat-icon>
+                </td>
 
             <td *ngIf="task.completed" id="td-completed">
                 <mat-icon id="icon-completed" >check_circle</mat-icon>

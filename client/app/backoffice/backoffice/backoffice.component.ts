@@ -37,7 +37,8 @@ export class BackofficeComponent implements OnInit{
       {"service": "clients", "label": "Clients"},
       {"service": "users", "label": "Users"},
       {"service": "project_assignements", "label": "Project affectations"},
-      {"service": "roles", "label": "Project roles"}
+      {"service": "roles", "label": "Project roles"},
+      {"service": "tags", "label": "Task tags"}
     ]
   };
 

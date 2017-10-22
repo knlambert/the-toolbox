@@ -27,7 +27,6 @@ export class AppParametersFormComponent implements OnInit {
         this.form = this.fb.group({
             "min_hours_per_week": [0, [Validators.required]],
         });
-        console.log(this.value['min_hours_per_week'])
         if(this.value != null){
             this.form.controls['min_hours_per_week'].setValue(this.value['min_hours_per_week']);
         };
