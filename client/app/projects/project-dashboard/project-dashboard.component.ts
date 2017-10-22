@@ -30,8 +30,9 @@ export class ProjectDashboardComponent implements OnInit {
                 "tasks": 1
             }[params.get('tabName')];
             
-            let projectId = params.get('id');
-            if(typeof(projectId) === "number"){
+            let projectId = parseInt(params.get('id'));
+            
+            if(!isNaN(projectId)){
                 this.dbService.get("projects", projectId).subscribe((project) => {
                     this.project = project;
                     this.loaded = true;
