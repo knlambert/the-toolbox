@@ -1,9 +1,5 @@
-.main-menu-login
-{
-  padding-top:15px;
-  padding-right:15px;
+.main-menu-login {
   color: white;
-  font-weight: bold;
   border:none;
   background:none;
   display:block;
@@ -11,23 +7,7 @@
 }
 
 
-.main-menu-logout-button, .main-menu-settings-button
-{
- 
-    margin-top: -8px;
-    margin-right: 0px;
-    display: inline-block;
-}
-
-.main-menu-login-text
-{
-  margin-top: 3px;
-  float:left;
-  margin-right:20px;
-}
-
-.main-menu-container
-{
+.main-menu-container {
   width:100%;
   display:block;
   height:55px;
@@ -35,8 +15,7 @@
   
 }
 
-.main-menu-slider-button
-{
+.main-menu-slider-button {
   margin-top: 5px;
   margin-left: 5px;
   color: white;
@@ -45,8 +24,7 @@
   background:none;
 }
 
-.main-menu-slider
-{
+.main-menu-slider {
   display:block;
   width:300px;
   height:100%;
@@ -80,17 +58,24 @@
   color:white;
 }
 
-#settings-icon
-{
+#menu-icon, #settings-icon, #list-icon {
   color:white;
 }
 
-#logout-icon, #menu-icon
-{
-  color:white;
-}
-
-#logout-icon
-{
+#logout-icon {
   color:#F44336;
+}
+
+#disconnected-container {
+  position: absolute;
+  right: 11px;
+  top: 15px;
+  font-weight: bold;
+}
+
+#connected-container {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  font-weight: bold;
 }

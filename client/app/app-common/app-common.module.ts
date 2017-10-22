@@ -10,6 +10,7 @@ import { FilterComponent }   from './filter/filter.component';
 import { CollectionComponent } from './collection/collection.component'
 import { SimpleFilterscomponent } from './simple-filters/simple-filters.component';
 import { DBModule } from './../db/db.module';
+import { MenuNotificationComponent } from './notification-menu/notification-menu.component';
 import MaterialModule from './../material/material.module';
 
 @NgModule({
@@ -28,7 +29,8 @@ import MaterialModule from './../material/material.module';
     FlexibleFormComponent, 
     FilterComponent,
     CollectionComponent,
-    SimpleFilterscomponent
+    SimpleFilterscomponent,
+    MenuNotificationComponent
     ],
   exports: [ 
     MainMenuComponent, 
@@ -37,6 +39,9 @@ import MaterialModule from './../material/material.module';
     CollectionComponent,
     FlexibleFormComponent, 
     SimpleFilterscomponent
+  ],
+  entryComponents: [
+    MenuNotificationComponent
   ],
   providers: [
   ]

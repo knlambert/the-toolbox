@@ -2,22 +2,40 @@
   <button mat-icon-button *ngIf="userInformations != null" class="main-menu-slider-button" (click)="toggle();" >
     <mat-icon id="menu-icon">menu</mat-icon>
   </button>
-  <div *ngIf="userInformations" class="main-menu-login" >
- 
-    <div class="main-menu-login-text">{{userInformations.appUser.name}}</div>
-
-    <button class="main-menu-settings-button" mat-icon-button (click)="settings();">
-      <mat-icon id="settings-icon">settings</mat-icon>
-    </button>
+  <div class="main-menu-login" >
     
+    <div *ngIf="!userInformations" id="disconnected-container">
+      You are not connected
+    </div>
 
-    <button mat-icon-button class="main-menu-logout-button" (click)="logout();" >
-      <mat-icon id="logout-icon">cancel</mat-icon>
-    </button>
+    <table *ngIf="userInformations" id="connected-container">
+      <tr>
+        <td>
+          <div id="div-user-text">{{userInformations.appUser.name}}</div>
+        </td>
+        
+        <td >
+            <button (click)="doOpenNotification()" id="button-task-left" mat-icon-button>
+                <mat-icon id="list-icon">assignment</mat-icon>
+            </button>
+        </td>
+        
+        <td>
+          <button class="button-settings" mat-icon-button (click)="settings();">
+              <mat-icon id="settings-icon">settings</mat-icon>
+          </button>
+        </td>
 
+        <td>
+          <button mat-icon-button class="button-logout" (click)="logout();" >
+            <mat-icon id="logout-icon">cancel</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
 
   </div>
-  <div *ngIf="!userInformations" class="main-menu-login" >You are not connected</div>
+ 
 
 
 </div>

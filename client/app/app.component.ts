@@ -8,6 +8,8 @@ import {
   NavigationError
 } from '@angular/router';
 import { MainMenuComponent } from './app-common/main-menu/main-menu.component';
+
+
 @Component({
   selector: 'app',
   templateUrl: 'app.component.html',
@@ -16,6 +18,15 @@ import { MainMenuComponent } from './app-common/main-menu/main-menu.component';
   ]
 })
 export class AppComponent implements OnInit{
+
+  constructor(
+    private router: Router
+  ) { 
+      router.events.subscribe((event: RouterEvent) => {
+          this.navigationInterceptor(event);
+      });
+  }
+
   @ViewChild(MainMenuComponent) mainMenu:MainMenuComponent;
   private menuConfig = {
     "links": [
@@ -37,11 +48,7 @@ export class AppComponent implements OnInit{
     "defaultUrl": "/hours/mine/now"
   };
   private loading: Boolean = true;
-  constructor(private router: Router) { 
-      router.events.subscribe((event: RouterEvent) => {
-          this.navigationInterceptor(event);
-      });
-  }
+  
   navigationInterceptor(event: RouterEvent): void {
         if (event instanceof NavigationStart) {
             this.loading = true;
@@ -57,5 +64,5 @@ export class AppComponent implements OnInit{
             this.loading = false;
         }
     }
-  ngOnInit(){};
+  ngOnInit(){}
 }

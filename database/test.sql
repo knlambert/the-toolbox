@@ -1,26 +1,21 @@
-SELECT
-T.id,
-T.title,
-IF(T.description != '{"ops":[{"insert":"\\n"}]}' AND T.description != '', 1, 0) AS 'has_description',
-T.completed,
-IF(M.affected_users IS NULL, 0, M.affected_users) AS 'affected_users',
-IF(C.comments IS NULL, 0, C.comments) AS 'comments',
-T.task_list
-FROM task T
-LEFT JOIN (
+
+CREATE OR REPLACE VIEW tasks_left AS
+(
     SELECT
-    COUNT(user) AS 'affected_users',
-    task
-    FROM user_has_task UHT
-    GROUP BY task
-) AS M
-ON T.id = M.task
-LEFT JOIN (
-    SELECT
-    COUNT(*) AS 'comments',
-    comment.task AS 'task'
-    FROM
-    comment
-    GROUP BY task
-) AS C
-ON T.id = C.task
+    T.id,
+    T.title,
+    P.id AS 'project_id',
+    P.name AS 'project_name',
+    UHT.user AS 'user_id',
+    CONCAT("projects/", P.id, "/tasks/", T.id) AS 'link'
+    FROM task T
+    JOIN user_has_task UHT
+    ON T.id = UHT.task
+    JOIN task_list TL
+    ON T.task_list = TL.id
+    JOIN project P
+    ON TL.project = P.id
+    WHERE T.completed = 0
+    ORDER BY T.created_at
+)
+;

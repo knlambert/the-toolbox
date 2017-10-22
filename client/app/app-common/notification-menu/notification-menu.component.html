@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Task(s) todo</h2>
+<mat-dialog-content>
+    <table>
+        <tr *ngFor="let notification of notifications; let i = index">
+            <td><b>{{notification.title}}</b> ({{notification.project_name}})</td>
+            <td class="actions-column">
+                <button (click)="openTask(i)"mat-icon-button>
+                    <mat-icon id="list-icon">open_in_new</mat-icon>
+                </button> 
+            </td>
+        </tr>
+    </table>
+</mat-dialog-content>

@@ -1,7 +1,9 @@
-import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {NgClass} from '@angular/common';
-import { Router } from '@angular/router';
 import { UserInformationsService } from './../../auth/user-informations.service';
+import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MenuNotificationComponent } from './../notification-menu/notification-menu.component';
+import { NgClass } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'main-menu',
@@ -16,12 +18,15 @@ export class MainMenuComponent implements OnInit
 
   constructor(
     private userInformationsService: UserInformationsService, 
+    private dialog: MatDialog,
     private router: Router
   ) {}
 
+  @Input() config;
+  @Output() openNotifications = new EventEmitter();
+
   private isOpen: boolean = false;
   private userInformations;
-  @Input() config;
 
   ngOnInit(){
     this.userInformationsService.onUpdate.subscribe((userInformations) => {
@@ -35,9 +40,7 @@ export class MainMenuComponent implements OnInit
         }
       }
     });
-  };
-
- 
+  }
 
   private logout(){
     this.userInformationsService.clear().subscribe((result) => {
@@ -61,4 +64,15 @@ export class MainMenuComponent implements OnInit
   private route(){
     this.toggle();
   }
+
+  private doOpenNotification(){
+    this.openNotifications.emit({});
+    let dialogRef = this.dialog.open(MenuNotificationComponent, {
+      data: {}
+    });
+    dialogRef.componentInstance.refresh();
+
+
+  }
+
 }
