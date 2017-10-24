@@ -2,20 +2,21 @@
 from abc import ABCMeta, abstractmethod
 
 
-class AbstractMailIO(object):
+class AbstractNotificationIO(object):
     """
-    Abstract task for mail communication.
+    Abstract task for notification communication.
     """
     __metaclass__ = ABCMeta
 
-    def __init__(self):
-        pass
+    def __init__(self, config):
+        self._config = config
     
     @abstractmethod
-    def send(self, subject, message):
+    def notify(self, recipient, subject, message):
         """
         Send an email.
         Args:
+            recipient (list of unicode): The person who will receive the message.
             subject (unicode): The subject of the email.
             message (unicode): The message in the email. HTML Like.
         """

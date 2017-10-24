@@ -9,7 +9,10 @@ from flask import Flask, send_from_directory, send_file
 from pyrestdbapi.api import Api
 from pyrestdbapi.db_api_blueprint import FlaskRestDBApi
 from pysqlcollection.client import Client
-from server.api.task_api import TaskApi
+from server.api.comment_api import CommentApi
+from server.api.user_has_task_api import UserHasTaskApi
+from server.service.standard_mail_io import StandardMailIO
+from notification_config import NOTIFICATION_CONFIG
 
 # create flask server
 APP = Flask(__name__)
@@ -30,6 +33,8 @@ CLIENT = Client(
 )
 DB = getattr(CLIENT, DB_API_CONF[u"db_name"])
 
+MAIL_IO = StandardMailIO(NOTIFICATION_CONFIG) 
+
 DB_REST_API_CONFIG = {
     u"projects": Api(DB, default_table_name=u"project"),
     u"clients": Api(DB, default_table_name=u"client"),
@@ -37,8 +42,8 @@ DB_REST_API_CONFIG = {
     u"project_assignements": Api(DB, default_table_name=u"project_assignement"),
     u"users": Api(DB, default_table_name=u"user"),
     u"task-lists": Api(DB, default_table_name=u"task_list"),
-    u"tasks": TaskApi(DB),
-    u"comments": Api(DB, default_table_name="comment"),
+    u"tasks": Api(DB, default_table_name="task"),
+    u"comments": CommentApi(DB, MAIL_IO, NOTIFICATION_CONFIG),
     u"tags": Api(DB, default_table_name="tag"),
     u"clients_affected_to_users": Api(DB, default_table_name=u"clients_affected_to_users"),
     u"project_consumption": Api(DB, default_table_name=u"project_consumption"),
@@ -47,7 +52,7 @@ DB_REST_API_CONFIG = {
     u"cras": Api(DB, default_table_name=u"cra"),
     u"roles": Api(DB, default_table_name=u"role"),
     u"project_files": Api(DB, default_table_name=u"project_file"),
-    u"task-assignements": Api(DB, default_table_name=u"user_has_task"),
+    u"task-assignements": UserHasTaskApi(DB, MAIL_IO, NOTIFICATION_CONFIG),
     u"tasks-sum-up": Api(DB, default_table_name=u"task_sum_up"),
     u"tasks-left": Api(DB, default_table_name=u"tasks_left")
 }
