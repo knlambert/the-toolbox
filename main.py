@@ -9,6 +9,7 @@ from flask import Flask, send_from_directory, send_file
 from pyrestdbapi.api import Api
 from pyrestdbapi.db_api_blueprint import FlaskRestDBApi
 from pysqlcollection.client import Client
+from server.api.task_api import TaskApi
 
 # create flask server
 APP = Flask(__name__)
@@ -36,7 +37,7 @@ DB_REST_API_CONFIG = {
     u"project_assignements": Api(DB, default_table_name=u"project_assignement"),
     u"users": Api(DB, default_table_name=u"user"),
     u"task-lists": Api(DB, default_table_name=u"task_list"),
-    u"tasks": Api(DB, default_table_name=u"task"),
+    u"tasks": TaskApi(DB),
     u"comments": Api(DB, default_table_name="comment"),
     u"tags": Api(DB, default_table_name="tag"),
     u"clients_affected_to_users": Api(DB, default_table_name=u"clients_affected_to_users"),
