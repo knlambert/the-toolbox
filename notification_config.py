@@ -1,6 +1,6 @@
 NOTIFICATION_CONFIG = {
     u"COMMENT_ADDED": {
-        u"SUBJECT": u"A task you are affected has been commented.",
+        u"SUBJECT": u"A task you are affected to has been commented.",
         u"MESSAGE": u"""<p>The task <b>%(TASK_NAME)s</b> you are involved in has been commented.<br>To reach the comment, click <a href="%(LINK)s">there</a>.</p>"""
     },
     u"USER_AFFECTED": {
