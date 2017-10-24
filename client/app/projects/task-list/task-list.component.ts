@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { DBService } from './../../db/db.service';
+import { UserInformationsService } from './../../auth/user-informations.service';
+import { UserInformations } from './../../auth/user-informations.model';
+
 import { Observable, Subject } from 'rxjs';
 import { TaskDetailsComponent } from './../task-details/task-details.component';
 
@@ -15,7 +18,8 @@ export class TaskListComponent implements OnInit{
 
     constructor(
       private dbService: DBService,
-      private router: Router
+      private router: Router,
+      private userInformationsService: UserInformationsService
     ){}
     
     @Input() taskList: object;
@@ -28,8 +32,13 @@ export class TaskListComponent implements OnInit{
 
     private tasksSumUp: Array<object> = [];
     private _uncompletedTasksOnly: boolean = false;
+    private userInformations: UserInformations;
 
-    ngOnInit(){}
+    ngOnInit(){
+      this.userInformationsService.onUpdate.subscribe((userInformations: UserInformations) => {
+        this.userInformations = userInformations;
+      })
+    }
 
     private refreshTasks(){
       this.tasksSumUp = [];
@@ -62,7 +71,8 @@ export class TaskListComponent implements OnInit{
         },
         "title": "",
         "completed": 0,
-        "created_at": Math.floor((new Date()).getTime() / 1000)
+        "created_at": Math.floor((new Date()).getTime() / 1000),
+        "author": this.userInformations.appUser.id
       };
   
       status = status || "new";

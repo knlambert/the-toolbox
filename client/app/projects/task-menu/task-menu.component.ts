@@ -28,7 +28,7 @@ export class TaskMenuComponent implements OnInit {
 
   private taskLists: Array<object> = [];
   private openedTask: object = null;
-  private uncompletedTasksOnly: boolean = false;
+  private uncompletedTasksOnly: boolean = true;
   
   ngOnInit(){
 
