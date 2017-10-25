@@ -40,7 +40,7 @@ class CommentApi(Api):
         if self._notification_config.get(u"ACTIVE", False):
             notifications = list(self._comment_notification.find(query={
                 u"TASK_ID": document[u"task"],
-                u"AUTHOR_ID": {
+                u"USER_ID": {
                     u"$ne": document[u"author"][u'id']
                 }
             }))
@@ -59,5 +59,3 @@ class CommentApi(Api):
                 )
         
         return result
-
-        

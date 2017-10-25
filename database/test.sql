@@ -8,8 +8,8 @@ CREATE OR REPLACE VIEW comment_notification AS
     P.name AS 'PROJECT_NAME',
     P.id AS 'PROJECT_ID',
     U.email AS 'USER_EMAIL',
-    U.id AS 'AUTHOR_ID',
-    U.name AS 'AUTHOR_NAME',
+    U2.id AS 'AUTHOR_ID',
+    U2.name AS 'AUTHOR_NAME',
     CONCAT("projects/", P.id, "/tasks/", T.id) AS 'TASK_LINK'
     FROM comment C
     JOIN task T
