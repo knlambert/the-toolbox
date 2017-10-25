@@ -42,7 +42,7 @@ class CommentApi(Api):
                 u"TASK_ID": document[u"task"],
                 u"USER_ID": {
                     u"$ne": document[u"author"][u'id']
-                }
+                },
                 u"COMMENT_ID": result[u"inserted_id"]
             }))
 
