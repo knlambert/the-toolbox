@@ -43,6 +43,7 @@ class CommentApi(Api):
                 u"USER_ID": {
                     u"$ne": document[u"author"][u'id']
                 }
+                u"COMMENT_ID": result[u"inserted_id"]
             }))
 
             if len(notifications) > 0:
