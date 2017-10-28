@@ -2,6 +2,8 @@ var path = require('path');
 var webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const workboxPlugin = require('workbox-webpack-plugin');
+const DIST_DIR = 'dist';
 module.exports = {
   entry: {
     'polyfills': './client/polyfills.ts',
@@ -11,7 +13,7 @@ module.exports = {
   output: {
     filename: 'dev-[name].js',
     chunkFilename: 'dev-[id].chunk.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, DIST_DIR)
   },
   resolve: {
     extensions: ['.ts', '.js']
@@ -53,6 +55,11 @@ module.exports = {
         }),
         new ExtractTextPlugin({
           filename: "dev-styles.css"
+        }),
+        new workboxPlugin({
+          globDirectory: DIST_DIR,
+          globPatterns: ['**/*.{html,js,css}'],
+          swDest: path.join(DIST_DIR, 'sw.js'),
         })
   ]
 };
