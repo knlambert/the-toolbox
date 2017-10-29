@@ -73,6 +73,11 @@ def send_assets(path):
     """
     return send_from_directory('assets/', path)
 
+@APP.route('/sw.js')
+def send_service_worker():
+    # Send web worker with no timeout.
+    return send_file("dist/sw.js", cache_timeout=0)
+
 @APP.route('/<path:path>')
 def send_client(path):
     """

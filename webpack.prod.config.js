@@ -3,6 +3,8 @@ var webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const workboxPlugin = require('workbox-webpack-plugin');
+const DIST_DIR = 'dist';
 
 module.exports = {
   entry: {
@@ -13,7 +15,7 @@ module.exports = {
   output: {
     filename: '[name]-[hash].js',
     chunkFilename: '[id]-[hash].chunk.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, DIST_DIR)
   },
   resolve: {
     extensions: ['.ts', '.js']
@@ -58,7 +60,11 @@ module.exports = {
         }),
         new ExtractTextPlugin({
           filename: "styles-[hash].css"
+        }),
+        new workboxPlugin({
+          globDirectory: DIST_DIR,
+          globPatterns: ['**/*.{html,js,css}'],
+          swDest: path.join(DIST_DIR, 'sw.js'),
         })
-
   ]
 };
