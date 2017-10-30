@@ -11,7 +11,6 @@ platform.bootstrapModule(
 ).then(() => {
   registerServiceWorker('sw')
 });
-console.log("GO2")
 
 function registerServiceWorker(swName: string) {
   if ('serviceWorker' in navigator) {
