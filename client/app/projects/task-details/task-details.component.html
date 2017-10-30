@@ -26,21 +26,10 @@
             </div>
         </div>
         <div fxFlex="29" class="div-commands-zone">
-            
-            <mat-form-field [hidden]="locked">
-                <mat-select placeholder="Select a person to affect"
-                    [(ngModel)]="searchedMember" 
-                    (ngModelChange)="onMemberSearched($event)" 
-                    ngDefaultControl >
-                    <mat-option *ngFor="let user of availableUsers" [value]="user">{{user.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-chip-list>
-                <mat-chip *ngFor="let affected of affectedUsers | async">{{affected.user.name}}
-                    <mat-icon [hidden]="locked" class="icon-delete-member" (click)="deleteTaskAffectation(affected.id)">close</mat-icon>
-                </mat-chip>
-            </mat-chip-list>
+            <hc-task-affected-users
+                [locked]="locked"
+                [savedAffectedUsers]="affectedUsers"
+                [availableUsers]="availableUsers" ></hc-task-affected-users>
         </div>
         
     </div>

@@ -1,0 +1,14 @@
+<mat-form-field [hidden]="locked">
+    <mat-select placeholder="Select a person to affect"
+        [(ngModel)]="searchedMember" 
+        (ngModelChange)="onMemberSearched($event.email)" 
+        ngDefaultControl >
+        <mat-option *ngFor="let user of availableUsers" [value]="user">{{user.name}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-chip-list>
+    <mat-chip *ngFor="let affected of _affectedUsers">{{affected.name}}
+        <mat-icon [hidden]="locked" class="icon-delete-member" (click)="deleteTaskAffectation(affected.email)">close</mat-icon>
+    </mat-chip>
+</mat-chip-list>

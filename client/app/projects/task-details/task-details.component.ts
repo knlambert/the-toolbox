@@ -23,51 +23,29 @@ export class TaskDetailsComponent implements OnInit{
     @Output() taskPrevious = new EventEmitter();
     @Output() taskTitleDescriptionUpdate = new EventEmitter();
 
-    private searchedMember: any;
+    private affectedUsers: Array<object> = [];
     private availableUsers: Array<object> = [];
-    private affectedUsers = new Subject();
     private locked: boolean = true;
 
     ngOnInit(){
       this.location.go("projects/" + this.task['task_list']['project']['id'] + "/tasks/" + this.task['id']);
-      
-      /* Refresh the list of users affected to the task */
-      this.refreshAffectedUser();
-      /* Keep only users not affected */
-      this.updateAvailableMembers();
       if(this.task['title'] === ""){
         this.locked = false;
       }
+      this.refreshAffectedUser();
+      this.updateAvailableMembers();
     }
 
     onNoClick(): void {}
 
-    private refreshAffectedUser(){
-      this.dbService.list("task-assignements", {
-        "task.id": this.task['id']
-      }).subscribe((assignements) => {
-        this.updateAvailableMembers(assignements.map((item) => {
-          return item["user"]["email"];
-        }));
-        this.affectedUsers.next(assignements)
-      });
-    }
-
+    
     private updateAvailableMembers(excludedUserEmails: Array<string> = []){
       let and = [];
       and.push({
         "project.id": this.task['task_list']['project']['id']
       });
-      excludedUserEmails.forEach((email) => {
-        and.push({
-          "user.email": {
-            "$ne": email
-          }
-        });
-      });
       return this.dbService.list("project_assignements", {
-          "project.id": this.task['task_list']['project']['id'], 
-          "$and": and
+          "project.id": this.task['task_list']['project']['id']
         }, {"user.name": 1, "user.id": -1}).map((items) => {
           return items.map((item) => {
             return item['user'];
@@ -77,33 +55,14 @@ export class TaskDetailsComponent implements OnInit{
       });
     }
 
-    private onMemberSearched(user){
-      if(typeof(user) === "object"){
-        this.searchedMember = null;
-        this.dbService.save("task-assignements", {
-          "user": user,
-          "task": this.task
-        }).subscribe(() => {
-          this.refreshAffectedUser();
+    private refreshAffectedUser(){
+      this.dbService.list("task-assignements", {
+        "task.id": this.task['id']
+      }).subscribe((assignements) => {
+        this.affectedUsers = assignements.map((item) => {
+          return item['user'];
         });
-        user = "";
-      }
-      else{
-        this.updateAvailableMembers(user);
-      }
-      
-    }
-    
-    private getName(obj: any): string {
-      return obj ? obj.name : "";
-    }
-
-    private deleteTaskAffectation(taskAffectationid: number){
-      this.dbService.delete("task-assignements", {
-        "id": taskAffectationid
-      }).subscribe(() => {
-        this.refreshAffectedUser();
-      })
+      });
     }
 
     private updateField(key: string, value: any){
