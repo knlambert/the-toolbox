@@ -66,17 +66,17 @@ for f in os.listdir('./dist'):
     if fnmatch.fnmatch(f, 'dev-index.html') or fnmatch.fnmatch(f, '*index-*.html'):
         INDEX_FILE = u"/".join([u"dist", f])
 
-@APP.route('/assets/<path:path>')
-def send_assets(path):
-    """
-    Handle assets.
-    """
-    return send_from_directory('assets/', path)
-
 @APP.route('/sw.js')
 def send_service_worker():
     # Send web worker with no timeout.
     return send_file("dist/sw.js", cache_timeout=0)
+
+@APP.route('/index.html')
+def send_index():
+    """
+    Handles client resources.
+    """
+    return send_file(INDEX_FILE)
 
 @APP.route('/<path:path>')
 def send_client(path):

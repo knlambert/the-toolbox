@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "white",
   "theme_color": "#3F51B5",
-  "start_url": "/",
+  "start_url": "/dev-index.html",
   "icons": [
     {
       "src": "icons/app_64.png",

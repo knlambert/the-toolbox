@@ -2,7 +2,8 @@ var path = require('path');
 var webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const workboxPlugin = require('workbox-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DIST_DIR = 'dist';
 module.exports = {
   entry: {
@@ -56,10 +57,23 @@ module.exports = {
         new ExtractTextPlugin({
           filename: "dev-styles.css"
         }),
-        new workboxPlugin({
+        new CopyWebpackPlugin([
+          {
+              from: 'client/assets',
+              to: 'assets'
+          }
+        ]),
+        new WorkboxPlugin({
           globDirectory: DIST_DIR,
-          globPatterns: ['**/*.{html,js,css}'],
+          globPatterns: ['**/*.{html,js,css,json,ttf,png}'],
           swDest: path.join(DIST_DIR, 'sw.js'),
+          navigateFallback: '/dev-index.html',
+          runtimeCaching: [
+            {
+              urlPattern: /^http:\/\/localhost:5000\/.*/,
+              handler: 'networkFirst'
+            }
+          ]
         })
   ]
 };
