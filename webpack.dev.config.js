@@ -12,8 +12,8 @@ module.exports = {
     'app': './client/main.ts'
   },
   output: {
-    filename: 'dev-[name].js',
-    chunkFilename: 'dev-[id].chunk.js',
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
     path: path.resolve(__dirname, DIST_DIR)
   },
   resolve: {
@@ -52,10 +52,10 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: 'client/index.html',
-            filename: 'dev-index.html'
+            filename: 'index.html'
         }),
         new ExtractTextPlugin({
-          filename: "dev-styles.css"
+          filename: "styles.css"
         }),
         new CopyWebpackPlugin([
           {
@@ -67,13 +67,7 @@ module.exports = {
           globDirectory: DIST_DIR,
           globPatterns: ['**/*.{html,js,css,json,ttf,png}'],
           swDest: path.join(DIST_DIR, 'sw.js'),
-          navigateFallback: '/dev-index.html',
-          runtimeCaching: [
-            {
-              urlPattern: /^http:\/\/localhost:5000\/.*/,
-              handler: 'networkFirst'
-            }
-          ]
+          navigateFallback: '/index.html'
         })
   ]
 };

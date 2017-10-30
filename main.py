@@ -61,22 +61,11 @@ DB_FLASK_API = FlaskRestDBApi(DB_REST_API_CONFIG)
 DB_API_BLUEPRINT = DB_FLASK_API.construct_blueprint()
 
 # App routes.
-INDEX_FILE = None
-for f in os.listdir('./dist'):
-    if fnmatch.fnmatch(f, 'dev-index.html') or fnmatch.fnmatch(f, '*index-*.html'):
-        INDEX_FILE = u"/".join([u"dist", f])
 
 @APP.route('/sw.js')
 def send_service_worker():
     # Send web worker with no timeout.
     return send_file("dist/sw.js", cache_timeout=0)
-
-@APP.route('/index.html')
-def send_index():
-    """
-    Handles client resources.
-    """
-    return send_file(INDEX_FILE)
 
 @APP.route('/<path:path>')
 def send_client(path):
@@ -90,7 +79,7 @@ def send_index(e):
     """
     Redirect to client index file if not found.
     """
-    return send_file(INDEX_FILE)
+    return send_file("dist/index.html")
 
 @DB_API_BLUEPRINT.before_request
 @FLASK_USER_API.is_connected(login_url="/login")

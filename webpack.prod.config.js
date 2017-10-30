@@ -3,7 +3,8 @@ var webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const workboxPlugin = require('workbox-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DIST_DIR = 'dist';
 
 module.exports = {
@@ -13,8 +14,8 @@ module.exports = {
     'app': './client/main.ts'
   },
   output: {
-    filename: '[name]-[hash].js',
-    chunkFilename: '[id]-[hash].chunk.js',
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
     path: path.resolve(__dirname, DIST_DIR)
   },
   resolve: {
@@ -51,20 +52,25 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills']
         }),
-        new UglifyJSPlugin({
-
-        }),
+        new UglifyJSPlugin({}),
         new HtmlWebpackPlugin({
             template: 'client/index.html',
-            filename: 'index-[hash].html'
+            filename: 'index.html'
         }),
         new ExtractTextPlugin({
-          filename: "styles-[hash].css"
+          filename: "styles.css"
         }),
-        new workboxPlugin({
+        new CopyWebpackPlugin([
+          {
+              from: 'client/assets',
+              to: 'assets'
+          }
+        ]),
+        new WorkboxPlugin({
           globDirectory: DIST_DIR,
-          globPatterns: ['**/*.{html,js,css}'],
+          globPatterns: ['**/*.{html,js,css,json,ttf,png}'],
           swDest: path.join(DIST_DIR, 'sw.js'),
+          navigateFallback: '/index.html'
         })
   ]
 };
