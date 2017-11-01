@@ -130,6 +130,22 @@ export class TaskMenuComponent implements OnInit {
     }, {
       "title": title,
       "description": description
-    }).subscribe();
+    }).subscribe(() => {
+      affectedUsersChanges['toAdd'].forEach((user) => {
+        this.dbService.save('task-assignements', {
+          "task": {
+            "id": taskId
+          },
+          "user": user
+        }).subscribe();
+      });
+      affectedUsersChanges['toRemove'].forEach((user) => {
+        this.dbService.delete('task-assignements', {
+          "task.id": taskId,
+          "user.id": user['id']
+        }).subscribe();
+      });
+      
+    });
   }
 }

@@ -15,13 +15,13 @@ export class TaskAffectedUsersComponent implements OnInit {
     @Input() availableUsers: Array<object>;
     @Input() locked: boolean;
     @Input() set savedAffectedUsers(users){
-        console.log(users)
         this._savedAffectedUsers = users;
         this._affectedUsers = [];
         this._availableUsers = this.availableUsers;
         users.forEach(user => {
             this.addTaskAffectation(user['email']);
         });
+        console.log(this._affectedUsers)
     }
     
     private _availableUsers: Array<object> = [];

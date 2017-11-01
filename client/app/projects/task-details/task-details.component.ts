@@ -36,17 +36,13 @@ export class TaskDetailsComponent implements OnInit{
         this.locked = false;
       }
       this.refreshAffectedUser();
-      this.updateAvailableMembers();
+      this.refreshAvailableMembers();
     }
 
     onNoClick(): void {}
 
     
-    private updateAvailableMembers(excludedUserEmails: Array<string> = []){
-      let and = [];
-      and.push({
-        "project.id": this.task['task_list']['project']['id']
-      });
+    private refreshAvailableMembers(excludedUserEmails: Array<string> = []){
       return this.dbService.list("project_assignements", {
           "project.id": this.task['task_list']['project']['id']
         }, {"user.name": 1, "user.id": -1}).map((items) => {
@@ -59,7 +55,7 @@ export class TaskDetailsComponent implements OnInit{
     }
 
     private refreshAffectedUser(){
-      this.dbService.list("task-assignements", {
+      return this.dbService.list("task-assignements", {
         "task.id": this.task['id']
       }).subscribe((assignements) => {
         this.affectedUsers = assignements.map((item) => {
@@ -83,6 +79,8 @@ export class TaskDetailsComponent implements OnInit{
     }
 
     private doUnlock(){
+      this.refreshAvailableMembers();
+      this.refreshAffectedUser();
       this.locked = false;
     }
 

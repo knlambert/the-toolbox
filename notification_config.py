@@ -14,5 +14,5 @@ NOTIFICATION_CONFIG = {
         u"email": u"dummy@gmail.com",
         u"password": u"test"
     },
-    u"ACTIVE": True
+    u"ACTIVE": False
 }
