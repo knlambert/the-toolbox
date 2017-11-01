@@ -27,9 +27,11 @@
         </div>
         <div fxFlex="29" class="div-commands-zone">
             <hc-task-affected-users
+                #affectedUsersComponent
                 [locked]="locked"
                 [savedAffectedUsers]="affectedUsers"
-                [availableUsers]="availableUsers" ></hc-task-affected-users>
+                [availableUsers]="availableUsers" >
+            </hc-task-affected-users>
         </div>
         
     </div>

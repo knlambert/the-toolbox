@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Inject, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
-
+import { TaskAffectedUsersComponent } from '../task-affected-users/task-affected-users.component';
 @Component({
   selector: 'hc-task-details',
   templateUrl: 'task-details.component.html',
@@ -22,6 +22,9 @@ export class TaskDetailsComponent implements OnInit{
     @Output() taskSubmit = new EventEmitter();
     @Output() taskPrevious = new EventEmitter();
     @Output() taskTitleDescriptionUpdate = new EventEmitter();
+
+    @ViewChild("affectedUsersComponent") affectedUsersComponent: TaskAffectedUsersComponent;
+
 
     private affectedUsers: Array<object> = [];
     private availableUsers: Array<object> = [];
@@ -88,7 +91,8 @@ export class TaskDetailsComponent implements OnInit{
       this.taskTitleDescriptionUpdate.emit({
         "taskId": this.task['id'],
         "title": this.task['title'],
-        "description": this.task['description']
+        "description": this.task['description'],
+        "affectedUsersChanges": this.affectedUsersComponent.getChanges()
       });
     }
 }

@@ -3,7 +3,7 @@
         [(ngModel)]="searchedMember" 
         (ngModelChange)="addTaskAffectation($event.email)" 
         ngDefaultControl >
-        <mat-option *ngFor="let user of availableUsers" [value]="user">{{user.name}}</mat-option>
+        <mat-option *ngFor="let user of _availableUsers" [value]="user">{{user.name}}</mat-option>
     </mat-select>
 </mat-form-field>
 

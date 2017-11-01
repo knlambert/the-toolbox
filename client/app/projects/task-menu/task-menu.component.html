@@ -26,5 +26,5 @@
   <hc-task-details 
   [task]="openedTask" 
   (taskPrevious)="closeTask($event.task)" 
-  (taskTitleDescriptionUpdate)="updateTaskTitleDescription($event.taskId, $event.title, $event.description)"></hc-task-details>
+  (taskTitleDescriptionUpdate)="updateTaskTitleDescription($event.taskId, $event.title, $event.description, $event.affectedUsersChanges)"></hc-task-details>
 </div>
