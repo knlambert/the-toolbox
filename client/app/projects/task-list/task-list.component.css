@@ -63,3 +63,11 @@ mat-icon {
 mat-menu {
     font-size: 12px;
 }
+
+#icon-delete {
+    font-size: 24px;
+}
+
+#span-delete {
+    font-size: 14px;
+}

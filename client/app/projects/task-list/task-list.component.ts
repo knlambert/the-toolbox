@@ -161,5 +161,13 @@ export class TaskListComponent implements OnInit{
       });
     }
 
+    private completeTaskList(completed: boolean){
+      this.dbService.update('task-lists', {
+        "id": this.taskList['id']
+      }, {
+        "completed": completed
+      }).subscribe((result) => {});
+    }
+
     
 }

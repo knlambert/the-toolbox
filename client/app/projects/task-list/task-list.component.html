@@ -1,5 +1,6 @@
 <div class="div-taskes-container" fxLayout="column" fxLayoutGap="10px">
 
+  
     <input 
     maxlength="45"
     type="text" 
@@ -12,10 +13,19 @@
         <mat-icon class="icon-more">more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
+
+        <div mat-menu-item>
+             <mat-slide-toggle 
+             (ngModelChange)="completeTaskList($event)" 
+             [(ngModel)]="taskList.completed" >Completed</mat-slide-toggle>
+        </div>
+        
+            
         <button mat-menu-item (click)="onDelete.emit({'taskList': taskList})">
-            <mat-icon>delete</mat-icon>
-            <span>Delete</span>
+            <mat-icon id="icon-delete">delete</mat-icon>
+            <span id="span-delete">Delete</span>
         </button>
+
     </mat-menu>
 
     <div (click)="openTask(task.value.id)" class="div-task-container" *ngFor="let task of tasksSumUp;let i = index">

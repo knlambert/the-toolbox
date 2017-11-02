@@ -31,10 +31,18 @@ export class TaskMenuComponent implements OnInit {
   private uncompletedTasksOnly: boolean = true;
   
   ngOnInit(){
+    this.refreshTaskLists();
+  }
 
-    this.dbService.list("task-lists", {
+  private refreshTaskLists(uncompletedTasksOnly: boolean = this.uncompletedTasksOnly){
+    let filters = {
       "project.id": this.projectId
-    }).subscribe((items) => {
+    };
+    if(uncompletedTasksOnly){
+      filters['completed'] = false;
+    }
+    this.dbService.list("task-lists", filters).subscribe((items) => {
+      this.taskLists = [];
       items.forEach((value) => {
         this.insertItem(value, "saved");
       });
