@@ -124,7 +124,7 @@ export class TaskMenuComponent implements OnInit {
    * @param description The description to update.
    */
   private updateTaskTitleDescription(taskId: number, title: string, description: string, affectedUsersChanges: object){
-    console.log(affectedUsersChanges);
+
     this.dbService.update("tasks", {
       "id": taskId
     }, {

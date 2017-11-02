@@ -35,8 +35,15 @@ export class TaskDetailsComponent implements OnInit{
       if(this.task['title'] === ""){
         this.locked = false;
       }
-      this.refreshAffectedUser();
-      this.refreshAvailableMembers();
+
+      this.refreshAvailableMembers().subscribe((availableUsers) => {
+        this.availableUsers = availableUsers;
+        this.refreshAffectedUser().subscribe((affectedUsers) => {
+          this.affectedUsers = affectedUsers.map((item) => {
+            return item['user'];
+          });
+        });
+      });
     }
 
     onNoClick(): void {}
@@ -44,23 +51,17 @@ export class TaskDetailsComponent implements OnInit{
     
     private refreshAvailableMembers(excludedUserEmails: Array<string> = []){
       return this.dbService.list("project_assignements", {
-          "project.id": this.task['task_list']['project']['id']
-        }, {"user.name": 1, "user.id": -1}).map((items) => {
-          return items.map((item) => {
-            return item['user'];
-          });
-        }).subscribe((users) => {
-        this.availableUsers = users;
+        "project.id": this.task['task_list']['project']['id']
+      }, {"user.name": 1, "user.id": -1}).map((items) => {
+        return items.map((item) => {
+          return item['user'];
+        });
       });
     }
 
     private refreshAffectedUser(){
       return this.dbService.list("task-assignements", {
         "task.id": this.task['id']
-      }).subscribe((assignements) => {
-        this.affectedUsers = assignements.map((item) => {
-          return item['user'];
-        });
       });
     }
 
@@ -79,8 +80,6 @@ export class TaskDetailsComponent implements OnInit{
     }
 
     private doUnlock(){
-      this.refreshAvailableMembers();
-      this.refreshAffectedUser();
       this.locked = false;
     }
 
@@ -90,7 +89,7 @@ export class TaskDetailsComponent implements OnInit{
         "taskId": this.task['id'],
         "title": this.task['title'],
         "description": this.task['description'],
-        "affectedUsersChanges": this.affectedUsersComponent.getChanges()
+        "affectedUsersChanges": this.affectedUsersComponent.getChanges(true)
       });
     }
 }

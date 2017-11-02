@@ -21,7 +21,6 @@ export class TaskAffectedUsersComponent implements OnInit {
         users.forEach(user => {
             this.addTaskAffectation(user['email']);
         });
-        console.log(this._affectedUsers)
     }
     
     private _availableUsers: Array<object> = [];
@@ -51,7 +50,10 @@ export class TaskAffectedUsersComponent implements OnInit {
         this._availableUsers.splice(index, 1);
     };
 
-    public getChanges(){
+    public getChanges(reset: boolean = false){
+        if(reset){
+
+        }
         let affectedUsersEmails = this._affectedUsers.map((user) => user['email']);
         let savedUsersEmails = this._savedAffectedUsers.map((user) => user['email']);
         return {
