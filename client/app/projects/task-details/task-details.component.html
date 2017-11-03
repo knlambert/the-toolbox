@@ -26,16 +26,21 @@
             </div>
         </div>
         <div fxFlex="29" class="div-commands-zone">
-            <hc-task-affected-users
+            <hc-entity-affectation
                 #affectedUsersComponent
+                primaryKey="email"
                 [locked]="locked"
-                [savedAffectedUsers]="affectedUsers"
-                [availableUsers]="availableUsers" >
-            </hc-task-affected-users>
+                [savedAffectedEntities]="affectedUsers"
+                [availableEntities]="availableUsers" >
+            </hc-entity-affectation>
+
+        
         </div>
         
+    
     </div>
 
+    
 </mat-card>
 
 <hc-task-comments [taskId]="task.id"></hc-task-comments>

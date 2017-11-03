@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Inject, Output, EventEmitter, ViewChild } fro
 import { Location } from '@angular/common';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
-import { TaskAffectedUsersComponent } from '../task-affected-users/task-affected-users.component';
+import { EntityAffectationComponent } from '../entity-affectation/entity-affectation.component';
 @Component({
   selector: 'hc-task-details',
   templateUrl: 'task-details.component.html',
@@ -23,7 +23,7 @@ export class TaskDetailsComponent implements OnInit{
     @Output() taskPrevious = new EventEmitter();
     @Output() taskTitleDescriptionUpdate = new EventEmitter();
 
-    @ViewChild("affectedUsersComponent") affectedUsersComponent: TaskAffectedUsersComponent;
+    @ViewChild("affectedUsersComponent") affectedUsersComponent: EntityAffectationComponent;
 
 
     private affectedUsers: Array<object> = [];
