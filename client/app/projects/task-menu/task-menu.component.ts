@@ -130,8 +130,16 @@ export class TaskMenuComponent implements OnInit {
    * @param taskId The ID of the task to update.
    * @param title The title to update.
    * @param description The description to update.
+   * @param affectedUsersChange: Two fields with to add & to remove users.
+   * @param affectedTagsChange: Two field with to add & to remove tags.
    */
-  private updateTaskTitleDescription(taskId: number, title: string, description: string, affectedUsersChanges: object){
+  private updateTaskTitleDescription(
+    taskId: number, 
+    title: string, 
+    description: string, 
+    affectedUsersChanges: object,
+    affectedTagsChanges: object
+  ){
 
     this.dbService.update("tasks", {
       "id": taskId
@@ -139,6 +147,7 @@ export class TaskMenuComponent implements OnInit {
       "title": title,
       "description": description
     }).subscribe(() => {
+      
       affectedUsersChanges['toAdd'].forEach((user) => {
         this.dbService.save('task-assignements', {
           "task": {
@@ -147,6 +156,7 @@ export class TaskMenuComponent implements OnInit {
           "user": user
         }).subscribe();
       });
+
       affectedUsersChanges['toRemove'].forEach((user) => {
         this.dbService.delete('task-assignements', {
           "task.id": taskId,
@@ -154,6 +164,22 @@ export class TaskMenuComponent implements OnInit {
         }).subscribe();
       });
       
+      affectedTagsChanges['toAdd'].forEach((tag) => {
+        this.dbService.save('task-tags', {
+          "task": {
+            "id": taskId
+          },
+          "tag": tag
+        }).subscribe();
+      });
+
+      affectedTagsChanges['toRemove'].forEach((tag) => {
+        this.dbService.delete('task-tags', {
+          "task.id": taskId,
+          "tag.id": tag['id']
+        }).subscribe();
+      });
+
     });
   }
 }

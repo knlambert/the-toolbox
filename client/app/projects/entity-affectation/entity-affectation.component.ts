@@ -12,11 +12,13 @@ import { Observable, Subject, ReplaySubject } from 'rxjs';
 })
 export class EntityAffectationComponent implements OnInit {
 
+    @Input() title: string;
     @Input() placeholder: string = "Select an affectation";
     @Input() availableEntities: Array<object>;
     @Input() locked: boolean;
     @Input() primaryKey: string = "id";
     @Input() labelKey: string = "name";
+    @Input() colorField: string = null;
 
     @Input() set savedAffectedEntities(entities){
         this._savedAffectedEntities = entities;

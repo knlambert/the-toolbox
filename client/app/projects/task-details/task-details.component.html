@@ -29,12 +29,31 @@
             <hc-entity-affectation
                 #affectedUsersComponent
                 primaryKey="email"
+                placeholder="Select a user to affect"
+                title="Affected users"
                 [locked]="locked"
                 [savedAffectedEntities]="affectedUsers"
                 [availableEntities]="availableUsers" >
             </hc-entity-affectation>
 
-        
+            
+            <hc-entity-affectation
+                id="tag-affectations"
+                #affectedTagsComponent
+                placeholder="Select a tag"
+                primaryKey="id"
+                title="Tags"
+                labelKey="name"
+                colorField="color"
+                [locked]="locked"
+                [savedAffectedEntities]="affectedTags"
+                [availableEntities]="availableTags" >
+
+
+                <!-- [savedAffectedEntities]="affectedUsers" -->
+            </hc-entity-affectation>
+
+
         </div>
         
     

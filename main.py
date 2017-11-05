@@ -45,6 +45,7 @@ DB_REST_API_CONFIG = {
     u"tasks": Api(DB, default_table_name="task"),
     u"comments": CommentApi(DB, MAIL_IO, NOTIFICATION_CONFIG),
     u"tags": Api(DB, default_table_name="tag"),
+    u"task-tags": Api(DB, default_table_name="task_has_tag"),
     u"clients_affected_to_users": Api(DB, default_table_name=u"clients_affected_to_users"),
     u"project_consumption": Api(DB, default_table_name=u"project_consumption"),
     u"project_consumption_per_user": Api(DB, default_table_name=u"project_consumption_per_user"),

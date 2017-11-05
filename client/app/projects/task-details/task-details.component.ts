@@ -24,10 +24,13 @@ export class TaskDetailsComponent implements OnInit{
     @Output() taskTitleDescriptionUpdate = new EventEmitter();
 
     @ViewChild("affectedUsersComponent") affectedUsersComponent: EntityAffectationComponent;
+    @ViewChild("affectedTagsComponent") affectedTagsComponent: EntityAffectationComponent;
 
 
     private affectedUsers: Array<object> = [];
+    private affectedTags: Array<object> = [];
     private availableUsers: Array<object> = [];
+    private availableTags: Array<object> = [];
     private locked: boolean = true;
 
     ngOnInit(){
@@ -44,12 +47,30 @@ export class TaskDetailsComponent implements OnInit{
           });
         });
       });
+
+      this.refreshAvailableTags().subscribe((availableTags) => {
+        this.availableTags = availableTags;
+        this.refreshAffectedTags().subscribe((affectedTags) => {
+          this.affectedTags = affectedTags.map((item) => {
+            return item['tag'];
+          });
+        });
+      });
     }
 
     onNoClick(): void {}
 
-    
-    private refreshAvailableMembers(excludedUserEmails: Array<string> = []){
+    private refreshAvailableTags(){
+      return this.dbService.list("tags");
+    }
+
+    private refreshAffectedTags(){
+      return this.dbService.list("task-tags", {
+        "task.id": this.task['id']
+      });
+    }
+
+    private refreshAvailableMembers(){
       return this.dbService.list("project_assignements", {
         "project.id": this.task['task_list']['project']['id']
       }, {"user.name": 1, "user.id": -1}).map((items) => {
@@ -89,7 +110,8 @@ export class TaskDetailsComponent implements OnInit{
         "taskId": this.task['id'],
         "title": this.task['title'],
         "description": this.task['description'],
-        "affectedUsersChanges": this.affectedUsersComponent.getChanges(true)
+        "affectedUsersChanges": this.affectedUsersComponent.getChanges(true),
+        "affectedTagsChanges": this.affectedTagsComponent.getChanges(true)
       });
     }
 }
