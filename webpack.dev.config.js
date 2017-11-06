@@ -67,7 +67,14 @@ module.exports = {
           globDirectory: DIST_DIR,
           globPatterns: ['**/*.{html,js,css,json,ttf,png}'],
           swDest: path.join(DIST_DIR, 'sw.js'),
-          navigateFallback: '/index.html'
+          navigateFallbackWhitelist: [
+            /\/index\.html/,
+            /\/\d\.chunk\.js/,
+            /\/app\.js/,
+            /\/polyfills\.js/,
+            /\/styles\.css/,
+            /\/vendors\.js/
+          ]
         })
   ]
 };
