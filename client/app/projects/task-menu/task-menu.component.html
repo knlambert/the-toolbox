@@ -1,7 +1,7 @@
 
 
 <div [hidden]="openedTask">
-  <mat-slide-toggle id="slide-completed-tasks" (change)="refreshTaskLists($event.checked)" [(ngModel)]="uncompletedTasksOnly" labelPosition="before" >Uncompleted task(s)</mat-slide-toggle>
+  <mat-slide-toggle id="slide-completed-tasks" (ngModelChange)="refreshTaskLists()" [(ngModel)]="uncompletedTasksOnly" labelPosition="before" >Uncompleted task(s)</mat-slide-toggle>
 
   <div [hidden]="openedTask" class="div-lists-container" fxLayout="row" fxLayoutGap="10px">
       <div fxFlex="270px" *ngFor="let taskList of taskLists"  >

@@ -33,6 +33,7 @@ export class TaskListComponent implements OnInit{
     private tasksSumUp: Array<object> = [];
     private _uncompletedTasksOnly: boolean = false;
     private userInformations: UserInformations;
+    private loading: boolean = true;
 
     ngOnInit(){
       this.userInformationsService.onUpdate.subscribe((userInformations: UserInformations) => {
@@ -41,18 +42,20 @@ export class TaskListComponent implements OnInit{
     }
 
     private refreshTasks(){
-      this.tasksSumUp = [];
       let filters = {
         "task_list": this.taskList["id"]
       };
       if(this._uncompletedTasksOnly){
         filters['completed'] = false;
       }
+      this.loading = true;
 
       this.dbService.list("tasks-sum-up", filters).subscribe((items) => {
+        this.tasksSumUp = [];
         items.forEach((value) => {
           this.insertItem(value, "saved");
         });
+        this.loading = false;
       });
     }
 

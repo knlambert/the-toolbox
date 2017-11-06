@@ -71,3 +71,8 @@ mat-menu {
 #span-delete {
     font-size: 14px;
 }
+
+mat-spinner {
+    margin: 0 auto;
+    margin-bottom: 20px;
+}

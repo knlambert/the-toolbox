@@ -34,11 +34,11 @@ export class TaskMenuComponent implements OnInit {
     this.refreshTaskLists();
   }
 
-  private refreshTaskLists(uncompletedTasksOnly: boolean = this.uncompletedTasksOnly){
+  private refreshTaskLists(){
     let filters = {
       "project.id": this.projectId
     };
-    if(uncompletedTasksOnly){
+    if(this.uncompletedTasksOnly){
       filters['completed'] = false;
     }
     this.dbService.list("task-lists", filters).subscribe((items) => {
