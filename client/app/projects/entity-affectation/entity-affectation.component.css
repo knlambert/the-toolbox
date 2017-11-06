@@ -6,5 +6,6 @@
 }
 
 .tag-chip {
+    margin-top: 5px !important;
     color: white;
 }

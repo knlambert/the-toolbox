@@ -3,37 +3,45 @@
         <mat-icon class="icon-more">more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="deleteTask(task.id)">
+        <button mat-menu-item (click)="deleteTask(_task.id)">
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
         </button>
     </mat-menu>
 
-    <p>{{task.title}}</p>
+    <p>{{_task.title}}</p>
+
+    <mat-chip-list>
+        <mat-chip class="tag-chip" [ngStyle]="{background: tag.color}" *ngFor="let tag of formatedTags">{{tag.name}}</mat-chip>
+    </mat-chip-list>
+    
     <table>
         <tr >
 
-            <td *ngIf="task.has_description">
+            <td *ngIf="_task.has_description">
                 <mat-icon id="icon-affected-users" >clear_all</mat-icon>
             </td>
 
-            <td *ngIf="task.affected_users > 0" id="td-affected-user-count" >{{task.affected_users}}</td>
+            <td *ngIf="_task.affected_users > 0" id="td-affected-user-count" >{{_task.affected_users}}</td>
 
-            <td *ngIf="task.affected_users > 0">
+            <td *ngIf="_task.affected_users > 0">
                 <mat-icon id="icon-affected-users" >people</mat-icon>
             </td>
 
-            <td *ngIf="task.comments > 0" id="td-comments-count" >{{task.comments}}</td>
+            <td *ngIf="_task.comments > 0" id="td-comments-count" >{{_task.comments}}</td>
 
-            <td *ngIf="task.comments > 0">
-                    <mat-icon id="icon-comments" >comment</mat-icon>
-                </td>
+            <td *ngIf="_task.comments > 0">
+                <mat-icon id="icon-comments" >comment</mat-icon>
+            </td>
 
-            <td *ngIf="task.completed" id="td-completed">
+
+            <td *ngIf="_task.completed" id="td-completed">
                 <mat-icon id="icon-completed" >check_circle</mat-icon>
             </td>
         </tr>
     </table>
+
+    
 </div>
 
 

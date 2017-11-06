@@ -15,7 +15,7 @@
     </button>
 
     <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="2%"> 
-        <div fxFlex="69" class="div-edit-zone">
+        <div fxFlex="73" class="div-edit-zone">
             <div fxLayout="column" fxLayoutAlign="center center" xLayoutGap="10">
                 
                 <mat-form-field>
@@ -25,7 +25,7 @@
                 <hc-quill-editor [(ngModel)]="task.description" [readOnly]="locked" [title]="'Description'" ></hc-quill-editor>
             </div>
         </div>
-        <div fxFlex="29" class="div-commands-zone">
+        <div fxFlex="25" class="div-commands-zone">
             <hc-entity-affectation
                 #affectedUsersComponent
                 primaryKey="email"

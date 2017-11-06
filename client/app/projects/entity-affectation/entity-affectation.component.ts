@@ -22,10 +22,9 @@ export class EntityAffectationComponent implements OnInit {
 
     @Input() set savedAffectedEntities(entities){
         this._savedAffectedEntities = entities;
-        this._affectedEntities = [];
         this._availableEntities = this.availableEntities;
-        entities.forEach(entities => {
-            this.addEntityAffectation(entities[this.primaryKey]);
+        entities.forEach(entity => {
+            this.addEntityAffectation(entity[this.primaryKey]);
         });
     }
     
@@ -52,16 +51,46 @@ export class EntityAffectationComponent implements OnInit {
 
     private addEntityAffectation(key: string){
         let index = this.findIndexByKey(this._availableEntities, key);
-        this._affectedEntities.push(this._availableEntities[index]);
-        this._availableEntities.splice(index, 1);
+        if(index !== -1){
+            this._affectedEntities.push(this._availableEntities[index]);
+            this._availableEntities.splice(index, 1);
+        }
     };
 
+    /**
+     * Copy items in affected into saved. Then changes will be reset.
+     */
+    public commitChanges(){
+        let temp = JSON.parse(JSON.stringify(this._affectedEntities));
+        this._affectedEntities = this._affectedEntities;
+        this.savedAffectedEntities = temp;
+    }
     public getChanges(reset: boolean = false){
+        
         let affectedEntitiesKeys = this._affectedEntities.map((entity) => entity[this.primaryKey]);
         let savedEntitiesKeys = this._savedAffectedEntities.map((entity) => entity[this.primaryKey]);
-        return {
+        let result = {
             "toAdd": this._affectedEntities.filter((toSaveEntity) => savedEntitiesKeys.indexOf(toSaveEntity[this.primaryKey]) === -1),
             "toRemove": this._savedAffectedEntities.filter((toSaveEntity) => affectedEntitiesKeys.indexOf(toSaveEntity[this.primaryKey]) === -1)
         };
+        if(reset){
+            /* Remove / add items which will change */
+            result["toAdd"].forEach((entity) => {
+                this._savedAffectedEntities.push(entity);
+            });
+            result["toRemove"].forEach((entity) => {
+                let index = this.findIndexByKey(this._savedAffectedEntities, entity[this.primaryKey]);
+                this._savedAffectedEntities.splice(index, 1);
+            });
+        }
+        return result;
+    }
+
+    private getEntityColor(entity: object){
+        if(typeof(entity) !== "undefined"){
+            return entity['color'] || '#3F51B5'
+        }
+        return '#3F51B5';
+        
     }
 }
