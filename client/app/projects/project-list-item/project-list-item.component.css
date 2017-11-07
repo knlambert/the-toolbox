@@ -1,6 +1,7 @@
-#div-project-container
-{
+#div-project-container {
     padding:5%;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
 }
 
 .button-edit {
@@ -8,3 +9,4 @@
     top:0;
     right:0;
 }
+

@@ -26,8 +26,9 @@ button:disabled
     opacity: 0.3;
 }
 
-
-
+.clickable {
+  cursor: pointer ;
+}
 
 
 .card {

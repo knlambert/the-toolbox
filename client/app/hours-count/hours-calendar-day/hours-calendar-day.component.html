@@ -14,7 +14,7 @@
     class="div-item-card"
     (click)="selectItem(item.uuid, item.isSelected)" 
     (dblclick)="openHour(item.uuid)"
-    [ngClass]="{'div-item-selected': item.isSelected}">
+    [ngClass]="{'div-item-selected': item.isSelected && item.status == 'saved', 'clickable': item.status == 'saved'}">
 
       <div>
         <mat-progress-bar  [hidden]="!item.isLoading" mode="indeterminate"></mat-progress-bar>

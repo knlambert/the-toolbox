@@ -1,7 +1,7 @@
 
-<div id="div-container">
-    <div fxLayout="row"  fxLayoutWrap fxLayoutAlign="left top" >
-        <div [ngClass]="{'div-item-selected': item.isSelected && selectable }" 
+<div id="div-container"  >
+    <div  fxLayout="row"  fxLayoutWrap fxLayoutAlign="left top" >
+        <div  [ngClass]="{'clickable': true, 'div-item-selected': item.isSelected && selectable }" 
             (onEdit)="onItemOpened.emit(item.value)" 
             (click)="selectItem(i)" 
             class="div-item-card" 
@@ -12,7 +12,7 @@
             fxFlex.lg="13"
             fxFlex.xl="13"
             *ngFor="let item of _items; let i = index">
-                <div #componentRef ></div>
+                <div   #componentRef ></div>
         </div>
     </div>
 </div>
