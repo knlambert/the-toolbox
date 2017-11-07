@@ -71,7 +71,9 @@ export class ProjectMemberForm implements OnInit {
                     "member": value
                 });
             }, (error) => {
-                this.snackBar.open("Member already registered.");
+                this.snackBar.open("Member already registered.", "DISMISS",{
+                    duration: 5000,
+                });
                 this.locked = false;
             });
         }

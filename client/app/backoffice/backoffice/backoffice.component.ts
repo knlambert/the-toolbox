@@ -115,7 +115,9 @@ export class BackofficeComponent implements OnInit{
     }
     
     if (err['error_code'])
-    this.snackBar.open(errMsg, "Dismiss");
+    this.snackBar.open(errMsg, "DISMISS", {
+      duration: 5000,
+    });
     this.report.refresh();
   };
 
