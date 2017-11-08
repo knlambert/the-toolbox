@@ -37,3 +37,7 @@ button:disabled
   padding:10px;
   background-color:white;
 }
+
+mat-card {
+  box-shadow: 0 0.5px 1.5px rgba(0,0,0,0.06), 0 0.5px 1px rgba(0,0,0,0.12) !important;
+}

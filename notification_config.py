@@ -7,6 +7,14 @@ NOTIFICATION_CONFIG = {
         u"SUBJECT": u"%(PROJECT_NAME)s | %(TASK_TITLE)s - assignement",
         u"MESSAGE": u"""<p>You've been affected to the task <b>%(TASK_TITLE)s</b>.<br><br><a href="%(TASK_LINK)s">View it there</a>.</p>"""
     },
+    u"TASK_CLOSED": {
+        u"SUBJECT": u"%(PROJECT_NAME)s | %(TASK_TITLE)s - task closed",
+        u"MESSAGE": u"""<p>The task <b>%(TASK_TITLE)s</b> has been closed.<br><br><a href="%(TASK_LINK)s">View it there</a>.</p>"""
+    },
+    u"TASK_REOPENED": {
+        u"SUBJECT": u"%(PROJECT_NAME)s | %(TASK_TITLE)s - task reopened",
+        u"MESSAGE": u"""<p>The task <b>%(TASK_TITLE)s</b> has been reopened.<br><br><a href="%(TASK_LINK)s">View it there</a>.</p>"""
+    },
     u"APP_URL": u"http://localhost:5000",
     u"SMTP": {
         u"host": u"smtp.gmail.com",
@@ -14,5 +22,6 @@ NOTIFICATION_CONFIG = {
         u"email": u"dummy@gmail.com",
         u"password": u"test"
     },
-    u"ACTIVE": False
+    u"ACTIVE": True,
+    u"SIMULATION": True
 }

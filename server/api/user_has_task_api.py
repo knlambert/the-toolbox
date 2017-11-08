@@ -20,7 +20,7 @@ class UserHasTaskApi(Api):
             db=db,
             default_table_name=u"user_has_task"
         )
-        self._assignement_notification = db.assignement_notification
+        self._task_notification = db.task_notification
         self._notification_io = notification_io
         self._notification_config = notification_config
 
@@ -40,7 +40,7 @@ class UserHasTaskApi(Api):
             user_email = document['user']['email']
             task_id = document[u"task"][u"id"]
 
-            task = list(self._assignement_notification.find({
+            task = list(self._task_notification.find({
                 u"TASK_ID": document[u"task"][u"id"]
             }))[0]
             task[u"TASK_LINK"] = u"{}/{}".format(self._notification_config[u"APP_URL"], task[u"TASK_LINK"])

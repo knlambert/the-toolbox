@@ -49,12 +49,18 @@ class CommentApi(Api):
             if len(notifications) > 0:
                 common_notification = notifications[0]
                 common_notification[u"TASK_LINK"] = u"{}/{}".format(self._notification_config[u"APP_URL"], common_notification[u"TASK_LINK"])
-            
+
+                recipients = [
+                    notif[u"USER_EMAIL"]
+                    for notif in notifications
+                ] + [common_notification[u"TASK_AUTHOR_EMAIL"]]
+
                 self._notification_io.notify(
                     recipient=[
-                        notif[u"USER_EMAIL"]
-                        for notif in notifications
-                    ], 
+                        email
+                        for email in recipients
+                        if email != document[u"author"]["email"] 
+                    ],
                     subject=self._notification_config[u"COMMENT_ADDED"][u"SUBJECT"] % common_notification,
                     message=self._notification_config[u"COMMENT_ADDED"][u"MESSAGE"] % common_notification
                 )

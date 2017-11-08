@@ -17,7 +17,7 @@
     <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="2%"> 
         <div fxFlex="73" class="div-edit-zone">
             <div fxLayout="column" fxLayoutAlign="center center" xLayoutGap="10">
-                
+                <p id="list-title">In list <u>{{task.task_list.title}}</u></p>
                 <mat-form-field>
                     <input [disabled]="locked" matInput placeholder="Title" maxlength="45" [(ngModel)]="task.title"/>
                 </mat-form-field>

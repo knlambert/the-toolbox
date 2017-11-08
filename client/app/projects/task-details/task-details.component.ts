@@ -89,9 +89,7 @@ export class TaskDetailsComponent implements OnInit{
     private updateField(key: string, value: any){
       let update = {};
       update[key] = value;
-      this.dbService.update("tasks", {
-        "id": this.task['id']
-      },update).subscribe(() => {});
+      this.dbService.update_id("tasks", this.task['id'], update).subscribe(() => {});
     }
 
     private doPrevious(){

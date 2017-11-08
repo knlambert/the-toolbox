@@ -2,17 +2,31 @@
 
 import os
 import fnmatch
+import logging
 from config import CONFIG
 from user_api.user_api import UserApi
 from user_api.flask_user_api import FlaskUserApi
 from flask import Flask, send_from_directory, send_file
 from pyrestdbapi.api import Api
+from server.api.task_api import TaskApi
 from pyrestdbapi.db_api_blueprint import FlaskRestDBApi
 from pysqlcollection.client import Client
 from server.api.comment_api import CommentApi
 from server.api.user_has_task_api import UserHasTaskApi
 from server.service.standard_mail_io import StandardMailIO
 from notification_config import NOTIFICATION_CONFIG
+
+formatter = logging.Formatter(u'%(message)s')
+logger = logging.getLogger()
+
+if not logger.handlers:
+    handler = logging.StreamHandler()
+else:
+    handler = logger.handlers[0]
+
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
 
 # create flask server
 APP = Flask(__name__)
@@ -42,7 +56,7 @@ DB_REST_API_CONFIG = {
     u"project_assignements": Api(DB, default_table_name=u"project_assignement"),
     u"users": Api(DB, default_table_name=u"user"),
     u"task-lists": Api(DB, default_table_name=u"task_list"),
-    u"tasks": Api(DB, default_table_name="task"),
+    u"tasks": TaskApi(DB, MAIL_IO, NOTIFICATION_CONFIG),
     u"comments": CommentApi(DB, MAIL_IO, NOTIFICATION_CONFIG),
     u"tags": Api(DB, default_table_name="tag"),
     u"task-tags": Api(DB, default_table_name="task_has_tag"),
