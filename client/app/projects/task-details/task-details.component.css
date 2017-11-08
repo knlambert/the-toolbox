@@ -7,12 +7,7 @@ mat-form-field, mat-select{
     padding: 2%;
 }
 
-.icon-delete-member {
-    color: white;
-    margin-right: 0px;
-    margin-left:auto;
-    cursor: pointer;
-}
+
 
 mat-chip, .mat-chip:not(.mat-basic-chip) {
     margin: 0 0 2.5px 8px;
@@ -52,4 +47,15 @@ hc-quill-editor {
 
 #button-edit, #button-save {
     right: 25px;
+}
+
+#tag-affectations {
+    margin-top: 20px;
+}
+
+#list-title {
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    color: #9E9E9E;
 }

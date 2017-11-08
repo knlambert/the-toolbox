@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { DBService } from './../../db/db.service';
+import { GoogleColorsService } from './../../app-common/google-colors.service';
+
 @Component({
   selector: 'hc-project-list-item',
   templateUrl: 'project-list-item.component.html',
@@ -10,11 +12,20 @@ import { DBService } from './../../db/db.service';
 })
 export class ProjectListItemComponent {
 
-    constructor(private router: Router){}
+    constructor(private router: Router, private googleColorsService: GoogleColorsService){}
     @Input()
     value: object;
     
     private openProject(){
       this.router.navigate(['/projects/' + this.value["id"] + "/dashboard"]);
     }
+
+    /**
+     * Get a color for the project.
+     * @param item 
+     */
+    private getProjectColor(item: object){
+      return this.googleColorsService.generate(item['name'], "600");
+    }
+    
   }

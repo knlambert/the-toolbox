@@ -1,5 +1,7 @@
+
+
 <div [hidden]="openedTask">
-  <mat-slide-toggle id="slide-completed-tasks" [(ngModel)]="uncompletedTasksOnly" labelPosition="before" >Uncompleted task(s)</mat-slide-toggle>
+  <mat-slide-toggle id="slide-completed-tasks" (ngModelChange)="refreshTaskLists()" [(ngModel)]="uncompletedTasksOnly" labelPosition="before" >Uncompleted task(s)</mat-slide-toggle>
 
   <div [hidden]="openedTask" class="div-lists-container" fxLayout="row" fxLayoutGap="10px">
       <div fxFlex="270px" *ngFor="let taskList of taskLists"  >
@@ -24,5 +26,5 @@
   <hc-task-details 
   [task]="openedTask" 
   (taskPrevious)="closeTask($event.task)" 
-  (taskTitleDescriptionUpdate)="updateTaskTitleDescription($event.taskId, $event.title, $event.description)"></hc-task-details>
+  (taskTitleDescriptionUpdate)="updateTaskTitleDescription($event.taskId, $event.title, $event.description, $event.affectedUsersChanges, $event.affectedTagsChanges)"></hc-task-details>
 </div>

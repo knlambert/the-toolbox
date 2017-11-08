@@ -10,6 +10,7 @@ class AbstractNotificationIO(object):
 
     def __init__(self, config):
         self._config = config
+        self._simulation = config[u"SIMULATION"]
     
     @abstractmethod
     def notify(self, recipient, subject, message):

@@ -20,7 +20,7 @@ class UserHasTaskApi(Api):
             db=db,
             default_table_name=u"user_has_task"
         )
-        self._task = db.task
+        self._task_notification = db.task_notification
         self._notification_io = notification_io
         self._notification_config = notification_config
 
@@ -37,26 +37,19 @@ class UserHasTaskApi(Api):
         """
         result = Api.create(self, document, lookup, auto_lookup)
         if self._notification_config.get(u"ACTIVE", False):
-            task = list(self._task.find({
-                u"id": document[u"task"][u"id"]
-            }, lookup=[{
-                u"from": u"task_list",
-                u"to": u"task",
-                u"foreignField": u"id",
-                u"localField": u"task_list"
-            }]))[0]
+            user_email = document['user']['email']
+            task_id = document[u"task"][u"id"]
+
+            task = list(self._task_notification.find({
+                u"TASK_ID": document[u"task"][u"id"]
+            }))[0]
+            task[u"TASK_LINK"] = u"{}/{}".format(self._notification_config[u"APP_URL"], task[u"TASK_LINK"])
             self._notification_io.notify(
-                recipient=document['user']['email'], 
-                subject=self._notification_config[u"USER_AFFECTED"][u"SUBJECT"],
-                message=self._notification_config[u"USER_AFFECTED"][u"MESSAGE"] % {
-                    u"TASK_NAME": document[u"task"][u"title"],
-                    u"LINK": u"{}/projects/{}/tasks/{}".format(
-                        self._notification_config[u"APP_URL"],
-                        int(task[u"task_list"][u"project"]),
-                        int(task[u"id"])
-                    )
-                }
+                recipient=user_email, 
+                subject=(self._notification_config[u"USER_AFFECTED"][u"SUBJECT"] % task),
+                message=(self._notification_config[u"USER_AFFECTED"][u"MESSAGE"] % task)
             )
+
         return result
 
         

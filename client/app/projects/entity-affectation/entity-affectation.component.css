@@ -1,0 +1,11 @@
+.icon-delete-member {
+    color: white;
+    margin-right: 0px;
+    margin-left:auto;
+    cursor: pointer;
+}
+
+.tag-chip {
+    margin-top: 5px !important;
+    color: white;
+}

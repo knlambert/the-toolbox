@@ -14,7 +14,11 @@
 
 </div>
 
-<mat-tab-group [selectedIndex]="selectedTabIndex" *ngIf="project" (selectChange)="onTabChanged($event.index)">
+<button [hidden]="!project" type="button" id="button-previous" mat-icon-button (click)="previous()" >
+    <mat-icon>keyboard_backspace</mat-icon>
+</button>
+
+<mat-tab-group [selectedIndex]="selectedTabIndex" *ngIf="project" (selectedTabChange)="onTabChanged($event.index)">
     
 
     <mat-tab label="Project details">

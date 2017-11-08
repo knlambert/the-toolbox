@@ -53,3 +53,9 @@ mat-menu {
     position: relative;
     top: 3px;
 }
+
+.tag-chip {
+    color: white;
+    padding: 4px !important;
+    font-size: 10px;
+}

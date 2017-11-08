@@ -2,6 +2,9 @@ var path = require('path');
 var webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const DIST_DIR = 'dist';
 module.exports = {
   entry: {
     'polyfills': './client/polyfills.ts',
@@ -9,9 +12,9 @@ module.exports = {
     'app': './client/main.ts'
   },
   output: {
-    filename: 'dev-[name].js',
-    chunkFilename: 'dev-[id].chunk.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
+    path: path.resolve(__dirname, DIST_DIR)
   },
   resolve: {
     extensions: ['.ts', '.js']
@@ -49,10 +52,29 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: 'client/index.html',
-            filename: 'dev-index.html'
+            filename: 'index.html'
         }),
         new ExtractTextPlugin({
-          filename: "dev-styles.css"
+          filename: "styles.css"
+        }),
+        new CopyWebpackPlugin([
+          {
+              from: 'client/assets',
+              to: 'assets'
+          }
+        ]),
+        new WorkboxPlugin({
+          globDirectory: DIST_DIR,
+          globPatterns: ['**/*.{html,js,css,json,ttf,png}'],
+          swDest: path.join(DIST_DIR, 'sw.js'),
+          navigateFallbackWhitelist: [
+            /\/index\.html/,
+            /\/\d\.chunk\.js/,
+            /\/app\.js/,
+            /\/polyfills\.js/,
+            /\/styles\.css/,
+            /\/vendors\.js/
+          ]
         })
   ]
 };

@@ -5,7 +5,7 @@ import {
     ViewChild
 } from '@angular/core';
 
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common'
 import { DBService } from './../../db/db.service';
 
@@ -20,9 +20,11 @@ export class ProjectDashboardComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute, 
+        private router: Router,
         private dbService: DBService,
         private location: Location
     ){}
+    
     
     @Input() project: object = null;
 
@@ -34,6 +36,9 @@ export class ProjectDashboardComponent implements OnInit {
     private loaded: boolean = false;
     private selectedTabIndex: number = 0;
 
+    private previous(){
+        this.router.navigate(['/projects/']);
+    }
 
     public ngOnInit(){
         this.route.paramMap.subscribe((params: ParamMap) => {

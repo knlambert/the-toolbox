@@ -1,0 +1,15 @@
+<p [hidden]="!locked">{{title}}</p>
+<mat-form-field [hidden]="locked">
+    <mat-select [placeholder]="placeholder"
+        [(ngModel)]="searchedEntity" 
+        (ngModelChange)="addEntityAffectation($event[primaryKey])" 
+        ngDefaultControl >
+        <mat-option *ngFor="let entity of availableEntities" [value]="entity">{{entity[labelKey]}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-chip-list>
+    <mat-chip class="tag-chip" [ngStyle]="{background: getEntityColor(entity)}" *ngFor="let entity of _affectedEntities">{{entity.name}}
+        <mat-icon  [hidden]="locked" class="icon-delete-member" (click)="deleteEntityAffectation(entity[primaryKey])">close</mat-icon>
+    </mat-chip>
+</mat-chip-list>

@@ -3,6 +3,9 @@
   "name": "Toolbox",
   "short_name": "Toolbox",
   "display": "standalone",
+  "background_color": "white",
+  "theme_color": "#3F51B5",
+  "start_url": "/index.html",
   "icons": [
     {
       "src": "icons/app_64.png",
@@ -15,6 +18,10 @@
     },{
       "src": "icons/app_192.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },{
+      "src": "icons/app_512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]

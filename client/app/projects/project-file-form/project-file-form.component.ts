@@ -51,7 +51,9 @@ export class ProjectFileForm implements OnInit {
                     "file": value
                 });
             }, (error) => {
-                this.snackBar.open("File already registered.");
+                this.snackBar.open("File already registered.", "DISMISS",{
+                    duration: 5000,
+                });
                 this.locked = false;
             });
         }

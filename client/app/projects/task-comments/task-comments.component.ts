@@ -69,8 +69,8 @@ export class TaskCommentsComponent implements OnInit {
   private onSubmitComment(comment: object, isNew: boolean = true){
     if(isNew){
       comment['created_at'] = Math.floor(new Date().getTime() / 1000);
-      this.dbService.save("comments", comment).subscribe((id) => {
-        comment['id'] = id;
+      this.dbService.save("comments", comment).subscribe((result) => {
+        comment['id'] = result["inserted_id"];
         this.comments.push(comment);
         this.newComment = null;
       });

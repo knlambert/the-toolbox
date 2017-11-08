@@ -31,10 +31,18 @@ export class TaskMenuComponent implements OnInit {
   private uncompletedTasksOnly: boolean = true;
   
   ngOnInit(){
+    this.refreshTaskLists();
+  }
 
-    this.dbService.list("task-lists", {
+  private refreshTaskLists(){
+    let filters = {
       "project.id": this.projectId
-    }).subscribe((items) => {
+    };
+    if(this.uncompletedTasksOnly){
+      filters['completed'] = false;
+    }
+    this.dbService.list("task-lists", filters).subscribe((items) => {
+      this.taskLists = [];
       items.forEach((value) => {
         this.insertItem(value, "saved");
       });
@@ -122,13 +130,56 @@ export class TaskMenuComponent implements OnInit {
    * @param taskId The ID of the task to update.
    * @param title The title to update.
    * @param description The description to update.
+   * @param affectedUsersChange: Two fields with to add & to remove users.
+   * @param affectedTagsChange: Two field with to add & to remove tags.
    */
-  private updateTaskTitleDescription(taskId: number, title: string, description: string){
+  private updateTaskTitleDescription(
+    taskId: number, 
+    title: string, 
+    description: string, 
+    affectedUsersChanges: object,
+    affectedTagsChanges: object
+  ){
+
     this.dbService.update("tasks", {
       "id": taskId
     }, {
       "title": title,
       "description": description
-    }).subscribe();
+    }).subscribe(() => {
+      
+      affectedUsersChanges['toAdd'].forEach((user) => {
+        this.dbService.save('task-assignements', {
+          "task": {
+            "id": taskId
+          },
+          "user": user
+        }).subscribe();
+      });
+
+      affectedUsersChanges['toRemove'].forEach((user) => {
+        this.dbService.delete('task-assignements', {
+          "task.id": taskId,
+          "user.id": user['id']
+        }).subscribe();
+      });
+      
+      affectedTagsChanges['toAdd'].forEach((tag) => {
+        this.dbService.save('task-tags', {
+          "task": {
+            "id": taskId
+          },
+          "tag": tag
+        }).subscribe();
+      });
+
+      affectedTagsChanges['toRemove'].forEach((tag) => {
+        this.dbService.delete('task-tags', {
+          "task.id": taskId,
+          "tag.id": tag['id']
+        }).subscribe();
+      });
+
+    });
   }
 }

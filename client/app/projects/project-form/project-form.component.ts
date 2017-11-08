@@ -131,7 +131,9 @@ export class ProjectFormComponent implements OnInit {
                         "project": project
                     });
                     this.locked = false;
-                    this.snackBar.open("Project saved.", "DISMISS");
+                    this.snackBar.open("Project saved.", "DISMISS",{
+                        duration: 5000,
+                    });
                 });
             }
         }

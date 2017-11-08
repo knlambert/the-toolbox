@@ -21,9 +21,8 @@ class CommentApi(Api):
             default_table_name=u"comment"
         )
         self._notification_io = notification_io
-        self._user_has_task = db.user_has_task
-        self._task = db.task
         self._notification_config = notification_config
+        self._comment_notification = db.comment_notification
 
     def create(self, document, lookup=None, auto_lookup=None):
         """
@@ -39,32 +38,31 @@ class CommentApi(Api):
         result = Api.create(self, document, lookup, auto_lookup)
 
         if self._notification_config.get(u"ACTIVE", False):
-            filters = {
-                "task.id": document["task"]
-            }
-            items = list(self._user_has_task.find(query=filters, auto_lookup=1))
-            task = list(self._task.find(query={
-                u"id": document.get(u"task")
-            }, auto_lookup=1))[0]
+            notifications = list(self._comment_notification.find(query={
+                u"TASK_ID": document[u"task"],
+                u"USER_ID": {
+                    u"$ne": document[u"author"][u'id']
+                },
+                u"COMMENT_ID": result[u"inserted_id"]
+            }))
 
-            emails_to_notify = [
-                item['user']['email']
-                for item in items
-                if item[u"user"][u"id"] != document[u"author"][u'id']
-            ]
-            self._notification_io.notify(
-                recipient=emails_to_notify, 
-                subject=self._notification_config[u"COMMENT_ADDED"][u"SUBJECT"],
-                message=self._notification_config[u"COMMENT_ADDED"][u"MESSAGE"] % {
-                    u"TASK_NAME": task[u"title"],
-                    u"LINK": u"{}/projects/{}/tasks/{}".format(
-                        self._notification_config[u"APP_URL"],
-                        int(task[u"task_list"][u"project"]),
-                        int(task[u"id"])
-                    )
-                }
-            )
+            if len(notifications) > 0:
+                common_notification = notifications[0]
+                common_notification[u"TASK_LINK"] = u"{}/{}".format(self._notification_config[u"APP_URL"], common_notification[u"TASK_LINK"])
+
+                recipients = [
+                    notif[u"USER_EMAIL"]
+                    for notif in notifications
+                ] + [common_notification[u"TASK_AUTHOR_EMAIL"]]
+
+                self._notification_io.notify(
+                    recipient=[
+                        email
+                        for email in recipients
+                        if email != document[u"author"]["email"] 
+                    ],
+                    subject=self._notification_config[u"COMMENT_ADDED"][u"SUBJECT"] % common_notification,
+                    message=self._notification_config[u"COMMENT_ADDED"][u"MESSAGE"] % common_notification
+                )
         
         return result
-
-        

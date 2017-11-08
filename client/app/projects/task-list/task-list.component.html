@@ -1,5 +1,6 @@
 <div class="div-taskes-container" fxLayout="column" fxLayoutGap="10px">
 
+  
     <input 
     maxlength="45"
     type="text" 
@@ -12,17 +13,26 @@
         <mat-icon class="icon-more">more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="onDelete.emit({'taskList': taskList})">
-            <mat-icon>delete</mat-icon>
-            <span>Delete</span>
-        </button>
-    </mat-menu>
 
-    <div (click)="openTask(task.value.id)" class="div-task-container" *ngFor="let task of tasksSumUp;let i = index">
+        <div mat-menu-item>
+             <mat-slide-toggle 
+             (ngModelChange)="completeTaskList($event)" 
+             [(ngModel)]="taskList.completed" >Completed</mat-slide-toggle>
+        </div>
+        
+            
+        <button mat-menu-item (click)="onDelete.emit({'taskList': taskList})">
+            <mat-icon id="icon-delete">delete</mat-icon>
+            <span id="span-delete">Delete</span>
+        </button>
+
+    </mat-menu>
+    <mat-spinner [diameter]="30" [strokeWidth]="3" [hidden]="!loading"></mat-spinner>
+    <div [hidden]="loading" (click)="openTask(task.value.id)" class="div-task-container" *ngFor="let task of tasksSumUp;let i = index">
         <hc-task-list-item  (onDeletedTask)="deleteTask($event.taskId)" [task]="task.value"></hc-task-list-item>
     </div>
 
-    <div class="div-add-card" (click)="insertItem()">Add a card ...</div>
+    <div [hidden]="loading" class="div-add-card" (click)="insertItem()">Add a card ...</div>
 
     
   

@@ -15,9 +15,9 @@
     </button>
 
     <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="2%"> 
-        <div fxFlex="69" class="div-edit-zone">
+        <div fxFlex="73" class="div-edit-zone">
             <div fxLayout="column" fxLayoutAlign="center center" xLayoutGap="10">
-                
+                <p id="list-title">In list <u>{{task.task_list.title}}</u></p>
                 <mat-form-field>
                     <input [disabled]="locked" matInput placeholder="Title" maxlength="45" [(ngModel)]="task.title"/>
                 </mat-form-field>
@@ -25,26 +25,41 @@
                 <hc-quill-editor [(ngModel)]="task.description" [readOnly]="locked" [title]="'Description'" ></hc-quill-editor>
             </div>
         </div>
-        <div fxFlex="29" class="div-commands-zone">
-            
-            <mat-form-field [hidden]="locked">
-                <mat-select placeholder="Select a person to affect"
-                    [(ngModel)]="searchedMember" 
-                    (ngModelChange)="onMemberSearched($event)" 
-                    ngDefaultControl >
-                    <mat-option *ngFor="let user of availableUsers" [value]="user">{{user.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+        <div fxFlex="25" class="div-commands-zone">
+            <hc-entity-affectation
+                #affectedUsersComponent
+                primaryKey="email"
+                placeholder="Select a user to affect"
+                title="Affected users"
+                [locked]="locked"
+                [savedAffectedEntities]="affectedUsers"
+                [availableEntities]="availableUsers" >
+            </hc-entity-affectation>
 
-            <mat-chip-list>
-                <mat-chip *ngFor="let affected of affectedUsers | async">{{affected.user.name}}
-                    <mat-icon [hidden]="locked" class="icon-delete-member" (click)="deleteTaskAffectation(affected.id)">close</mat-icon>
-                </mat-chip>
-            </mat-chip-list>
+            
+            <hc-entity-affectation
+                id="tag-affectations"
+                #affectedTagsComponent
+                placeholder="Select a tag"
+                primaryKey="id"
+                title="Tags"
+                labelKey="name"
+                colorField="color"
+                [locked]="locked"
+                [savedAffectedEntities]="affectedTags"
+                [availableEntities]="availableTags" >
+
+
+                <!-- [savedAffectedEntities]="affectedUsers" -->
+            </hc-entity-affectation>
+
+
         </div>
         
+    
     </div>
 
+    
 </mat-card>
 
 <hc-task-comments [taskId]="task.id"></hc-task-comments>

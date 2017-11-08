@@ -166,6 +166,27 @@ export class DBService {
     }).map(this.standardExtract).catch(this.handleError);
   };
 
+  /**
+   * Update a specific document with his ID.
+   * @param source The name of the source we want details.
+   * @param document_id 
+   * @param item 
+   */
+  update_id(source, document_id, item): Observable<Object> {
+    var itemToSave = JSON.parse(JSON.stringify(item));
+    let uri = this.url + source + "/" + document_id;
+   
+    let httpParams = this.jsonToParams({
+      auto_lookup: 3
+    });
+
+    return this.http.put((uri), {
+      "$set": itemToSave
+    }, {
+      params: httpParams
+    }).map(this.standardExtract).catch(this.handleError);
+  }
+
   private newHandleError(err: HttpErrorResponse){
     if (err.error instanceof Error) {
       // A client-side or network error occurred. Handle it accordingly.

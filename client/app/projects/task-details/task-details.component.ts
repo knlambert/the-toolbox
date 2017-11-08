@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Inject, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { DBService } from './../../db/db.service';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
-
+import { EntityAffectationComponent } from '../entity-affectation/entity-affectation.component';
 @Component({
   selector: 'hc-task-details',
   templateUrl: 'task-details.component.html',
@@ -23,95 +23,73 @@ export class TaskDetailsComponent implements OnInit{
     @Output() taskPrevious = new EventEmitter();
     @Output() taskTitleDescriptionUpdate = new EventEmitter();
 
-    private searchedMember: any;
+    @ViewChild("affectedUsersComponent") affectedUsersComponent: EntityAffectationComponent;
+    @ViewChild("affectedTagsComponent") affectedTagsComponent: EntityAffectationComponent;
+
+
+    private affectedUsers: Array<object> = [];
+    private affectedTags: Array<object> = [];
     private availableUsers: Array<object> = [];
-    private affectedUsers = new Subject();
+    private availableTags: Array<object> = [];
     private locked: boolean = true;
 
     ngOnInit(){
       this.location.go("projects/" + this.task['task_list']['project']['id'] + "/tasks/" + this.task['id']);
-      
-      /* Refresh the list of users affected to the task */
-      this.refreshAffectedUser();
-      /* Keep only users not affected */
-      this.updateAvailableMembers();
       if(this.task['title'] === ""){
         this.locked = false;
       }
+
+      this.refreshAvailableMembers().subscribe((availableUsers) => {
+        this.availableUsers = availableUsers;
+        this.refreshAffectedUser().subscribe((affectedUsers) => {
+          this.affectedUsers = affectedUsers.map((item) => {
+            return item['user'];
+          });
+        });
+      });
+
+      this.refreshAvailableTags().subscribe((availableTags) => {
+        this.availableTags = availableTags;
+        this.refreshAffectedTags().subscribe((affectedTags) => {
+          this.affectedTags = affectedTags.map((item) => {
+            return item['tag'];
+          });
+        });
+      });
     }
 
     onNoClick(): void {}
 
-    private refreshAffectedUser(){
-      this.dbService.list("task-assignements", {
+    private refreshAvailableTags(){
+      return this.dbService.list("tags");
+    }
+
+    private refreshAffectedTags(){
+      return this.dbService.list("task-tags", {
         "task.id": this.task['id']
-      }).subscribe((assignements) => {
-        this.updateAvailableMembers(assignements.map((item) => {
-          return item["user"]["email"];
-        }));
-        this.affectedUsers.next(assignements)
       });
     }
 
-    private updateAvailableMembers(excludedUserEmails: Array<string> = []){
-      let and = [];
-      and.push({
-        "project.id": this.task['task_list']['project']['id']
-      });
-      excludedUserEmails.forEach((email) => {
-        and.push({
-          "user.email": {
-            "$ne": email
-          }
-        });
-      });
+    private refreshAvailableMembers(){
       return this.dbService.list("project_assignements", {
-          "project.id": this.task['task_list']['project']['id'], 
-          "$and": and
-        }, {"user.name": 1, "user.id": -1}).map((items) => {
-          return items.map((item) => {
-            return item['user'];
-          });
-        }).subscribe((users) => {
-        this.availableUsers = users;
+        "project.id": this.task['task_list']['project']['id']
+      }, {"user.name": 1, "user.id": -1}).map((items) => {
+        return items.map((item) => {
+          return item['user'];
+        });
       });
     }
 
-    private onMemberSearched(user){
-      if(typeof(user) === "object"){
-        this.searchedMember = null;
-        this.dbService.save("task-assignements", {
-          "user": user,
-          "task": this.task
-        }).subscribe(() => {
-          this.refreshAffectedUser();
-        });
-        user = "";
-      }
-      else{
-        this.updateAvailableMembers(user);
-      }
-      
-    }
-    
-    private getName(obj: any): string {
-      return obj ? obj.name : "";
-    }
-
-    private deleteTaskAffectation(taskAffectationid: number){
-      this.dbService.delete("task-assignements", {
-        "id": taskAffectationid
-      }).subscribe(() => {
-        this.refreshAffectedUser();
-      })
+    private refreshAffectedUser(){
+      return this.dbService.list("task-assignements", {
+        "task.id": this.task['id']
+      });
     }
 
     private updateField(key: string, value: any){
       let update = {};
       update[key] = value;
-      this.dbService.update("tasks", {
-        "id": this.task['id']
-      },update).subscribe(() => {});
+      this.dbService.update_id("tasks", this.task['id'], update).subscribe(() => {});
     }
 
     private doPrevious(){
@@ -129,7 +107,9 @@ export class TaskDetailsComponent implements OnInit{
       this.taskTitleDescriptionUpdate.emit({
         "taskId": this.task['id'],
         "title": this.task['title'],
-        "description": this.task['description']
+        "description": this.task['description'],
+        "affectedUsersChanges": this.affectedUsersComponent.getChanges(true),
+        "affectedTagsChanges": this.affectedTagsComponent.getChanges(true)
       });
     }
 }

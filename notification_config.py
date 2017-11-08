@@ -1,18 +1,27 @@
 NOTIFICATION_CONFIG = {
     u"COMMENT_ADDED": {
-        u"SUBJECT": u"A task you are affected to has been commented.",
-        u"MESSAGE": u"""<p>The task <b>%(TASK_NAME)s</b> you are involved in has been commented.<br>To reach the comment, click <a href="%(LINK)s">there</a>.</p>"""
+        u"SUBJECT": u"%(PROJECT_NAME)s | %(TASK_TITLE)s - new comment",
+        u"MESSAGE": u"""<p>%(AUTHOR_NAME)s has added a comment to the task <b>%(TASK_TITLE)s</b> you are involved in.<br><br><a href="%(TASK_LINK)s">View it there</a>.</p>"""
     },
     u"USER_AFFECTED": {
-        u"SUBJECT": u"You've been affected to a task.",
-        u"MESSAGE": u"""<p>You've been affected to the task <b>%(TASK_NAME)s.</b>You can reach it <a href="%(LINK)s">there</a>.</p>"""
+        u"SUBJECT": u"%(PROJECT_NAME)s | %(TASK_TITLE)s - assignement",
+        u"MESSAGE": u"""<p>You've been affected to the task <b>%(TASK_TITLE)s</b>.<br><br><a href="%(TASK_LINK)s">View it there</a>.</p>"""
+    },
+    u"TASK_CLOSED": {
+        u"SUBJECT": u"%(PROJECT_NAME)s | %(TASK_TITLE)s - task closed",
+        u"MESSAGE": u"""<p>The task <b>%(TASK_TITLE)s</b> has been closed.<br><br><a href="%(TASK_LINK)s">View it there</a>.</p>"""
+    },
+    u"TASK_REOPENED": {
+        u"SUBJECT": u"%(PROJECT_NAME)s | %(TASK_TITLE)s - task reopened",
+        u"MESSAGE": u"""<p>The task <b>%(TASK_TITLE)s</b> has been reopened.<br><br><a href="%(TASK_LINK)s">View it there</a>.</p>"""
     },
     u"APP_URL": u"http://localhost:5000",
     u"SMTP": {
         u"host": u"smtp.gmail.com",
         u"port": 587,
-        u"email": u"dumb@gmail.com",
-        u"password": u"password"
+        u"email": u"dummy@gmail.com",
+        u"password": u"test"
     },
-    u"ACTIVE": False
+    u"ACTIVE": True,
+    u"SIMULATION": True
 }
