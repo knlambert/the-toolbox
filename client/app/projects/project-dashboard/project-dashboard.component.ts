@@ -35,6 +35,7 @@ export class ProjectDashboardComponent implements OnInit {
     private tabIndex: number = 0;
     private loaded: boolean = false;
     private selectedTabIndex: number = 0;
+    private projectMembers: Array<object> = [];
 
     private previous(){
         this.router.navigate(['/projects/']);
@@ -50,6 +51,7 @@ export class ProjectDashboardComponent implements OnInit {
             if(!isNaN(projectId)){
                 this.dbService.get("projects", projectId).subscribe((project) => {
                     this.project = project;
+                    this.refreshAvailableMembers();
                     this.loaded = true;
                 });
             }
@@ -57,6 +59,7 @@ export class ProjectDashboardComponent implements OnInit {
                 this.loaded = true;
             }
         });
+        
     }
 
     /**
@@ -81,4 +84,15 @@ export class ProjectDashboardComponent implements OnInit {
         }
     }
     
+    private refreshAvailableMembers(){
+        this.dbService.list("project_assignements", {
+            "project.id": this.project['id']
+        }, {"user.name": 1, "user.id": -1}).map((items) => {
+            return items.map((item) => {
+            return item['user'];
+            });
+        }).subscribe((users) => {
+            this.projectMembers = users;
+        })
+    }
 }   

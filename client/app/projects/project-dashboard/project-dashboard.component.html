@@ -55,7 +55,7 @@
         </div>
     </mat-tab>
     <mat-tab label="Tasks" *ngIf="project" >
-        <hc-task-menu [projectId]="project.id"  ></hc-task-menu>
+        <hc-task-menu [projectMembers]="projectMembers" [projectId]="project.id"  ></hc-task-menu>
     </mat-tab>
 
 </mat-tab-group>

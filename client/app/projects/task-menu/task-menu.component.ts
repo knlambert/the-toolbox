@@ -24,25 +24,34 @@ export class TaskMenuComponent implements OnInit {
   ){}
 
   @Input() projectId: number;
+  @Input() projectMembers: Array<object>;
   @ViewChildren('taskListComponent') taskListComponents:QueryList<TaskListComponent>;
 
   private taskLists: Array<object> = [];
   private openedTask: object = null;
-  private uncompletedTasksOnly: boolean = true;
+  private uncompletedTasksOnly: boolean;
+  private selectedMembers: Array<object> = [];
+  
   
   ngOnInit(){
-    this.refreshTaskLists();
+    this.refreshTaskLists(true, []);
   }
 
-  private refreshTaskLists(){
+  private refreshTaskLists(uncompletedTasksOnly: boolean, selectedMembers: any){
+    
     let filters = {
       "project.id": this.projectId
     };
-    if(this.uncompletedTasksOnly){
+    if(uncompletedTasksOnly){
       filters['completed'] = false;
     }
+    
+
+    this.selectedMembers = selectedMembers;
+    
+    this.taskLists = [];
+    this.uncompletedTasksOnly = uncompletedTasksOnly;
     this.dbService.list("task-lists", filters).subscribe((items) => {
-      this.taskLists = [];
       items.forEach((value) => {
         this.insertItem(value, "saved");
       });

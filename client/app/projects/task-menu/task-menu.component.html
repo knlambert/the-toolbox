@@ -1,7 +1,19 @@
 
 
 <div [hidden]="openedTask">
-  <mat-slide-toggle id="slide-completed-tasks" (ngModelChange)="refreshTaskLists()" [(ngModel)]="uncompletedTasksOnly" labelPosition="before" >Uncompleted task(s)</mat-slide-toggle>
+
+  <div fxLayout.lt-sm="column" fxLayout.gt-xs="row">
+    
+      <mat-form-field fxFlex.gt-xs="270px">
+        <mat-select placeholder="Affected users" multiple (selectionChange)="refreshTaskLists(uncompletedTasksOnly, $event.value)">
+          <mat-option *ngFor="let user of projectMembers" [value]="user">{{user.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div fxLayout.lt-sm="100%" ngClass.gt-xs="slide-completed-tasks-container-gt-xs" class="slide-completed-tasks-container">
+        <mat-slide-toggle id="slide-completed-tasks" (change)="refreshTaskLists($event.checked)" checked="true"  labelPosition="before" >Uncompleted task(s)</mat-slide-toggle>
+      </div>
+  </div>
+  
 
   <div [hidden]="openedTask" class="div-lists-container" fxLayout="row" fxLayoutGap="10px">
       <div fxFlex="270px" *ngFor="let taskList of taskLists"  >
