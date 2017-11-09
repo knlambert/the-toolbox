@@ -46,12 +46,12 @@ export class TaskMenuComponent implements OnInit {
       filters['completed'] = false;
     }
     
-
-    this.selectedMembers = selectedMembers;
-    
     this.taskLists = [];
+    this.selectedMembers = selectedMembers || [];
     this.uncompletedTasksOnly = uncompletedTasksOnly;
+
     this.dbService.list("task-lists", filters).subscribe((items) => {
+      this.taskLists = [];
       items.forEach((value) => {
         this.insertItem(value, "saved");
       });

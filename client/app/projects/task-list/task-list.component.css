@@ -3,12 +3,14 @@
     background-color: #E0E0E0;
     border-radius: 2px;
     position: relative;
+    box-shadow: 0 0.5px 1.5px rgba(0,0,0,0.06), 0 0.5px 1px rgba(0,0,0,0.12);
 }
 
 .div-task-container {
 
     background-color: #fff;
     border-radius: 2px;
+    box-shadow: 0 0.5px 1.5px rgba(0,0,0,0.06), 0 0.5px 1px rgba(0,0,0,0.12);
 }
 
 .div-add-card, .div-task-container {
