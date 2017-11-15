@@ -23,6 +23,7 @@ class CommentApi(Api):
         self._notification_io = notification_io
         self._notification_config = notification_config
         self._comment_notification = db.comment_notification
+        self._user = db.user
 
     def create(self, document, lookup=None, auto_lookup=None):
         """
@@ -42,27 +43,31 @@ class CommentApi(Api):
                 u"TASK_ID": document[u"task"],
                 u"USER_ID": {
                     u"$ne": document[u"author"][u'id']
-                },
-                u"COMMENT_ID": result[u"inserted_id"]
+                }
             }))
-
+            
             if len(notifications) > 0:
                 common_notification = notifications[0]
                 common_notification[u"TASK_LINK"] = u"{}/{}".format(self._notification_config[u"APP_URL"], common_notification[u"TASK_LINK"])
+                common_notification[u"AUTHOR_MAIL"] = document[u"author"][u'email']
+                common_notification[u"AUTHOR_NAME"] = document[u"author"][u'name']
 
-                recipients = [
+                recipient_emails = [
                     notif[u"USER_EMAIL"]
                     for notif in notifications
                 ] + [common_notification[u"TASK_AUTHOR_EMAIL"]]
 
+                # If comment writer is in recipients, remove it.
+                recipient_emails = [
+                    email
+                    for email in recipient_emails
+                    if email != common_notification[u"AUTHOR_MAIL"]
+                ]
+
                 self._notification_io.notify(
-                    recipient=[
-                        email
-                        for email in recipients
-                        if email != document[u"author"]["email"] 
-                    ],
+                    recipient=list(set(recipient_emails)),
                     subject=self._notification_config[u"COMMENT_ADDED"][u"SUBJECT"] % common_notification,
                     message=self._notification_config[u"COMMENT_ADDED"][u"MESSAGE"] % common_notification
                 )
-        
+            
         return result
