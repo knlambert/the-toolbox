@@ -35,8 +35,10 @@
   </div>
 </div>
 
-<div *ngIf="openedTask" class="div-task-details-container" >
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="openedTask" class="div-task-details-container" >
   <hc-task-details 
+  fxFlex.lt-md="100"
+  fxFlex.gt-sm="960px"
   [task]="openedTask" 
   (taskPrevious)="closeTask($event.task)" 
   (taskTitleDescriptionUpdate)="updateTaskTitleDescription($event.taskId, $event.title, $event.description, $event.affectedUsersChanges, $event.affectedTagsChanges)"></hc-task-details>
