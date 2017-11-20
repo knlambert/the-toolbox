@@ -126,7 +126,9 @@ export class TaskMenuComponent implements OnInit {
    */
   private closeTask(task: object){
     this.openedTask = null;
-    this.location.go("projects/" + this.projectId + "/tasks");
+    let taskMenuUrl = "projects/" + this.projectId + "/tasks";
+    this.location.go(taskMenuUrl);
+    this.router.navigate([taskMenuUrl]);
     this.taskListComponents.forEach((component: TaskListComponent) => {
       if(component.taskList['id'] === task['task_list']['id']){
         component.updateTaskItem(task['id']);
