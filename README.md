@@ -1,7 +1,16 @@
-![alt text](https://user-images.githubusercontent.com/16439060/33559904-3fd4c226-d8dc-11e7-87e4-ec6d7369cf41.png "Main page")
+# The-toolbox
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/16439060/33559904-3fd4c226-d8dc-11e7-87e4-ec6d7369cf41.png" width="550">
+</p>
 
-# Structure
+## Features
+
+- Hours counting (calendar style).
+- Project management (Linking documents, following time left, members, task affectation, ...).
+- Fully responsive, progressive app.
+
+## Structure
 
 The repository uses npm & bash for automation.
 
