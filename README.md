@@ -1,3 +1,4 @@
+![alt text](https://user-images.githubusercontent.com/16439060/33559904-3fd4c226-d8dc-11e7-87e4-ec6d7369cf41.png "Main page")
 
 
 # Structure
