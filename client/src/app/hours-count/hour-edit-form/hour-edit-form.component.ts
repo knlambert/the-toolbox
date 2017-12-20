@@ -63,7 +63,6 @@ export class HourEditFormComponent implements OnInit {
 
 
     this.form.controls['client'].valueChanges
-      .startWith(null)
       .subscribe(name => {
         if (name != null && name.length > 1) {
           this.filterClients(name).subscribe((result => {
@@ -75,7 +74,6 @@ export class HourEditFormComponent implements OnInit {
 
 
     this.form.controls['project'].valueChanges
-      .startWith(null)
       .subscribe(project => {
 
         if (project != null && typeof (project) === 'object') {
@@ -91,12 +89,10 @@ export class HourEditFormComponent implements OnInit {
       });
 
     this.filteredHours = this.form.controls['started_at'].valueChanges
-      .startWith(null)
       .map(name => this.filterHours(name));
     this.hours = this.generateHours();
 
     this.filteredShortCuts = this.form.controls['minutes'].valueChanges
-      .startWith(null)
       .map(name => this.filterShortCuts(name));
 
     this.shortCuts = this.generateMinutesShortCut();

@@ -1,7 +1,7 @@
 <p [hidden]="!locked">{{title}}</p>
 <mat-form-field [hidden]="locked">
     <mat-select [placeholder]="placeholder"
-        (ngModelChange)="addEntityAffectation($event[primaryKey])" 
+        (selectionChange)="addEntityAffectation($event['value'][primaryKey])" 
         ngDefaultControl >
         <mat-option *ngFor="let entity of availableEntities" [value]="entity">{{entity[labelKey]}}</mat-option>
     </mat-select>

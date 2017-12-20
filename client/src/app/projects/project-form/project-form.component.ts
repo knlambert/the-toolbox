@@ -47,7 +47,7 @@ export class ProjectFormComponent implements OnInit {
       'code': [null, Validators.compose([])]
     });
 
-    this.form.controls['client'].valueChanges.startWith(null).subscribe(name => {
+    this.form.controls['client'].valueChanges.subscribe(name => {
       this.updateClients(name).subscribe((result => {
         this.clients = result;
       }));

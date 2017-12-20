@@ -43,7 +43,7 @@ export class ProjectMemberFormComponent implements OnInit {
       'role': [null, Validators.compose([Validators.required])]
     });
 
-    this.form.controls['user'].valueChanges.startWith(null).subscribe(name => {
+    this.form.controls['user'].valueChanges.subscribe(name => {
       this.updateUsers(name).subscribe((result => {
         this.users = result;
       }));
