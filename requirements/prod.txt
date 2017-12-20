@@ -5,7 +5,6 @@ itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
 MySQL-python==1.2.5
-pkg-resources==0.0.0
 py-rest-db-api==0.1
 py-sql-collection==0.1
 pycrypto==2.6.1
