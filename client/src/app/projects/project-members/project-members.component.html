@@ -6,7 +6,7 @@
             </button>
     </h3>
     
-    <hc-project-member-form [projectId]="projectId" *ngIf="new" (onCancel)="memberCanceled()" (onMemberCreated)="memberCreated()"></hc-project-member-form>
+    <hc-project-member-form [projectId]="projectId" *ngIf="new" (cancel)="memberCanceled()" (memberCreate)="memberCreated()"></hc-project-member-form>
 
     <div id="div-members-container" *ngIf="!new">
         <mat-list-item *ngFor="let assignement of assignements">

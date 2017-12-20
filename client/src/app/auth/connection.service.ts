@@ -11,21 +11,21 @@ export class ConnectionService {
 
 
   private url = 'api/users/';  // URL to web API
-  constructor (private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
 
-  public authentify (login, password): Observable<Object> {
-   
+  public authentify(login, password): Observable<Object> {
+
     var token;
     return this.http.post(
       this.url + "login", {
-      	"email": login,
-      	"password": password
+        "email": login,
+        "password": password
       }
     ).map((body: object) => {
-        return body;
-      }
-    ).catch(this.handleError);
+      return body;
+    }
+      ).catch(this.handleError);
   };
 
   public getUserInformations(): Observable<AuthUser> {
@@ -39,7 +39,7 @@ export class ConnectionService {
     });
   }
 
-  private handleError (error: any) {
+  private handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
     // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :
@@ -47,17 +47,17 @@ export class ConnectionService {
     return Observable.throw(errMsg);
   };
 
-  public modifyPassword(email: String, newPassword: String){
+  public modifyPassword(email: String, newPassword: String) {
     return this.http.post(
       this.url + "reset-password", {
-      	"email": email,
-      	"password": newPassword
+        "email": email,
+        "password": newPassword
       }
-    ).map((res: Response) => {}).catch(this.handleError);
+    ).map((res: Response) => { }).catch(this.handleError);
 
   }
 
-  public logout(){
+  public logout() {
     return this.http.get(this.url + "logout").map((result) => {
       return result;
     });

@@ -9,7 +9,7 @@ import { UserInformationsService } from './../../auth/user-informations.service'
 @Component({
   selector: 'hc-task-menu',
   templateUrl: 'task-menu.component.html',
-  styleUrls:  [
+  styleUrls: [
     'task-menu.component.css'
   ]
 })
@@ -21,92 +21,91 @@ export class TaskMenuComponent implements OnInit {
     private userInformationsService: UserInformationsService,
     private route: ActivatedRoute,
     private router: Router
-  ){}
+  ) { }
 
   @Input() projectId: number;
   @Input() projectMembers: Array<object>;
-  @ViewChildren('taskListComponent') taskListComponents:QueryList<TaskListComponent>;
+  @ViewChildren('taskListComponent') taskListComponents: QueryList<TaskListComponent>;
 
-  private taskLists: Array<object> = [];
-  private openedTask: object = null;
-  private uncompletedTasksOnly: boolean;
+  public taskLists: Array<object> = [];
+  public openedTask: object = null;
+  public uncompletedTasksOnly: boolean;
   private selectedMembers: Array<object> = [];
-  
-  
-  ngOnInit(){
+
+
+  ngOnInit() {
     this.refreshTaskLists(true, []);
   }
 
-  private refreshTaskLists(uncompletedTasksOnly: boolean, selectedMembers: any){
-    
-    let filters = {
-      "project.id": this.projectId
+  public refreshTaskLists(uncompletedTasksOnly: boolean, selectedMembers: any) {
+
+    const filters = {
+      'project.id': this.projectId
     };
-    if(uncompletedTasksOnly){
+    if (uncompletedTasksOnly) {
       filters['completed'] = false;
     }
-    
+
     this.taskLists = [];
     this.selectedMembers = selectedMembers || [];
     this.uncompletedTasksOnly = uncompletedTasksOnly;
 
-    this.dbService.list("task-lists", filters).subscribe((items) => {
+    this.dbService.list('task-lists', filters).subscribe((items) => {
       this.taskLists = [];
       items.forEach((value) => {
-        this.insertItem(value, "saved");
+        this.insertItem(value, 'saved');
       });
       this.route.paramMap.subscribe((params: ParamMap) => {
-        let taskId = parseInt(params.get('taskId'));
-        if(!isNaN(taskId)){
-          this.dbService.get("tasks", taskId).subscribe((task) => {
-              this.openedTask = task;
+        const taskId = parseInt(params.get('taskId'), 0);
+        if (!isNaN(taskId)) {
+          this.dbService.get('tasks', taskId).subscribe((task) => {
+            this.openedTask = task;
           });
         }
       });
     });
   }
 
-  private insertItem(value ?: object, status ? : string){
+  public insertItem(value?: object, status?: string) {
     value = value || {
-      "project": {
-        "id": this.projectId
+      'project': {
+        'id': this.projectId
       },
-      "title": "",
-      "completed": 0,
-      "end_date": Math.floor(new Date().getTime() / 1000)
+      'title': '',
+      'completed': 0,
+      'end_date': Math.floor(new Date().getTime() / 1000)
     };
 
-    status = status || "new";
+    status = status || 'new';
 
-    if(status === "new"){
-      this.dbService.save("task-lists", value).subscribe((saved) => {
+    if (status === 'new') {
+      this.dbService.save('task-lists', value).subscribe((saved) => {
         value['id'] = saved['inserted_id'];
         this.taskLists.push({
-          "status": "saved",
-          "value": value
+          'status': 'saved',
+          'value': value
         });
       });
-    }
-    else{
+    } else {
       this.taskLists.push({
-        "status": "saved",
-        "value": value
+        'status': 'saved',
+        'value': value
       });
     }
   }
 
-  private fetchItemPosition(taskListId: number){
-    for(var i = 0; i < this.taskLists.length; i++){
-      if(this.taskLists[i]['value']['id'] === taskListId){
+  private fetchItemPosition(taskListId: number) {
+    for (let i = 0; i < this.taskLists.length; i++) {
+      if (this.taskLists[i]['value']['id'] === taskListId) {
         return i;
       }
     }
   }
 
-  private deleteTaskList(taskListId: number){
-    let position = this.fetchItemPosition(taskListId);
-    this.dbService.delete("task-lists", {
-      "id": taskListId
+  private deleteTaskList(taskListId: number) {
+    const position = this.fetchItemPosition(taskListId);
+    this.dbService.delete('task-lists', {
+      'id': taskListId
     }).subscribe((result) => {
       this.taskLists.splice(position, 1);
     });
@@ -116,7 +115,7 @@ export class TaskMenuComponent implements OnInit {
    * Open a specific task.
    * @param task 
    */
-  private openTask(task: object){
+  private openTask(task: object) {
     this.openedTask = task;
   }
 
@@ -124,13 +123,13 @@ export class TaskMenuComponent implements OnInit {
    * Close the opened task.
    * @param task The task to open.
    */
-  private closeTask(task: object){
+  private closeTask(task: object) {
     this.openedTask = null;
-    let taskMenuUrl = "projects/" + this.projectId + "/tasks";
+    const taskMenuUrl = 'projects/' + this.projectId + '/tasks';
     this.location.go(taskMenuUrl);
     this.router.navigate([taskMenuUrl]);
     this.taskListComponents.forEach((component: TaskListComponent) => {
-      if(component.taskList['id'] === task['task_list']['id']){
+      if (component.taskList['id'] === task['task_list']['id']) {
         component.updateTaskItem(task['id']);
       }
     });
@@ -145,52 +144,52 @@ export class TaskMenuComponent implements OnInit {
    * @param affectedTagsChange: Two field with to add & to remove tags.
    */
   private updateTaskTitleDescription(
-    taskId: number, 
-    title: string, 
-    description: string, 
+    taskId: number,
+    title: string,
+    description: string,
     affectedUsersChanges: object,
     affectedTagsChanges: object
-  ){
+  ) {
 
-    this.dbService.update("tasks", {
-      "id": taskId
+    this.dbService.update('tasks', {
+      'id': taskId
     }, {
-      "title": title,
-      "description": description
-    }).subscribe(() => {
-      
-      affectedUsersChanges['toAdd'].forEach((user) => {
-        this.dbService.save('task-assignements', {
-          "task": {
-            "id": taskId
-          },
-          "user": user
-        }).subscribe();
-      });
+        'title': title,
+        'description': description
+      }).subscribe(() => {
 
-      affectedUsersChanges['toRemove'].forEach((user) => {
-        this.dbService.delete('task-assignements', {
-          "task.id": taskId,
-          "user.id": user['id']
-        }).subscribe();
-      });
-      
-      affectedTagsChanges['toAdd'].forEach((tag) => {
-        this.dbService.save('task-tags', {
-          "task": {
-            "id": taskId
-          },
-          "tag": tag
-        }).subscribe();
-      });
+        affectedUsersChanges['toAdd'].forEach((user) => {
+          this.dbService.save('task-assignements', {
+            'task': {
+              'id': taskId
+            },
+            'user': user
+          }).subscribe();
+        });
 
-      affectedTagsChanges['toRemove'].forEach((tag) => {
-        this.dbService.delete('task-tags', {
-          "task.id": taskId,
-          "tag.id": tag['id']
-        }).subscribe();
-      });
+        affectedUsersChanges['toRemove'].forEach((user) => {
+          this.dbService.delete('task-assignements', {
+            'task.id': taskId,
+            'user.id': user['id']
+          }).subscribe();
+        });
 
-    });
+        affectedTagsChanges['toAdd'].forEach((tag) => {
+          this.dbService.save('task-tags', {
+            'task': {
+              'id': taskId
+            },
+            'tag': tag
+          }).subscribe();
+        });
+
+        affectedTagsChanges['toRemove'].forEach((tag) => {
+          this.dbService.delete('task-tags', {
+            'task.id': taskId,
+            'tag.id': tag['id']
+          }).subscribe();
+        });
+
+      });
   }
 }

@@ -9,7 +9,7 @@
         <div>
             <h3>New project</h3>
         </div>
-        <hc-project-form (onProjectCreated)="projectCreated($event.project)"></hc-project-form>
+        <hc-project-form (projectCreate)="projectCreated($event.project)"></hc-project-form>
     </div>
 
 </div>
@@ -28,7 +28,7 @@
             <div fxLayoutWrap fxLayout.lt-md="column" fxLayoutGap.lt-md="10px" fxLayout.gt-md="row" fxLayoutGap.gt-sm="1%"   fxFlexAlign="left center">
                 
                 <div fxFlex.md="48.5" fxFlex.gt-md="24" id="div-project-form-container">
-                    <hc-project-form [value]="project" (onProjectEdited)="projectCreated($event.project)"></hc-project-form>
+                    <hc-project-form [value]="project" (projectEdit)="projectCreated($event.project)"></hc-project-form>
                 </div>
 
                 <div fxFlex.md="48.5" fxFlex.gt-md="24"  id="div-project-indicators-container">

@@ -1,58 +1,59 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from './../../db/db.service';
-import { Observable, Subject } from 'rxjs';
-
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+ 
 @Component({
   selector: 'hc-project-files',
   templateUrl: 'project-files.component.html',
-  styleUrls:  [
+  styleUrls: [
     'project-files.component.css'
   ]
 })
 export class ProjectFilesComponent implements OnInit {
-    
-    @Input() projectId: number;
-    constructor(private dbService: DBService){}
 
-    private files: Array<object> = [];
-    private new: boolean = false;
+  @Input() projectId: number;
+  constructor(private dbService: DBService) { }
 
-    private displayNewForm(display: boolean = true){
-        this.new = display
-    }
+  private files: Array<object> = [];
+  public new = false;
 
-    ngOnInit(){
-        this.refreshFiles();  
-    }
+  public displayNewForm(display: boolean = true) {
+    this.new = display;
+  }
 
-    private refreshFiles(){
-        this.dbService.list("project_files", {
-            "project.id": this.projectId
-        }).subscribe((files) => {
-            this.files = files;
-        });
-    }
+  ngOnInit() {
+    this.refreshFiles();
+  }
 
-    private openLink(url: string){
-        window.open(url, '_blank');
-    }
+  public refreshFiles() {
+    this.dbService.list('project_files', {
+      'project.id': this.projectId
+    }).subscribe((files) => {
+      this.files = files;
+    });
+  }
 
-    private fileCreated(){
-        this.new = false;
-        this.refreshFiles();
-    }
+  private openLink(url: string) {
+    window.open(url, '_blank');
+  }
 
-    private fileCanceled(){
-        this.new = false;
-    }
+  private fileCreated() {
+    this.new = false;
+    this.refreshFiles();
+  }
 
-    private deleteFile(fileId: number){
-        this.dbService.delete("project_files", {
-            "id": fileId
-        }).subscribe((result) => {
-            this.refreshFiles();
-        });
+  private fileCanceled() {
+    this.new = false;
+  }
 
-        this.refreshFiles();
-    }
+  private deleteFile(fileId: number) {
+    this.dbService.delete('project_files', {
+      'id': fileId
+    }).subscribe((result) => {
+      this.refreshFiles();
+    });
+
+    this.refreshFiles();
+  }
 }

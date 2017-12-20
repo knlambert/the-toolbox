@@ -7,30 +7,30 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'hc-project-list-menu',
   templateUrl: 'project-list-menu.component.html',
-  styleUrls:  [
+  styleUrls: [
     'project-list-menu.component.css'
   ]
 })
-export class ProjectListMenuComponent implements OnInit{
+export class ProjectListMenuComponent implements OnInit {
 
-  private projects: Array<object> = [];
-  private itemComponent = ProjectListItemComponent;
-  private offset: number = 0;
-  private filters: object = {};
-  private hasNext: boolean = true;
-  private isLoading:boolean = false;
-  constructor(private dbService:DBService, private router: Router, private userInformationsService: UserInformationsService){}
+  public projects: Array<object> = [];
+  public itemComponent = ProjectListItemComponent;
+  public offset = 0;
+  public filters: object = {};
+  public hasNext = true;
+  public isLoading = false;
+  constructor(private dbService: DBService, private router: Router, private userInformationsService: UserInformationsService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.refreshProjects();
     this.userInformationsService.onUpdate.subscribe((userInformations) => {
     });
   }
 
-  private refreshProjects(){
+  private refreshProjects() {
     this.isLoading = true;
-    this.dbService.list("projects", this.filters, [], this.offset, 16).subscribe((items) => {
-      if(items.length < 16){
+    this.dbService.list('projects', this.filters, [], this.offset, 16).subscribe((items) => {
+      if (items.length < 16) {
         this.hasNext = false;
       }
       this.isLoading = false;
@@ -38,35 +38,35 @@ export class ProjectListMenuComponent implements OnInit{
     });
   }
 
-  private onFiltersUpdated(filtersValues: object){
+  public onFiltersUpdated(filtersValues: object) {
     this.hasNext = true;
     this.projects = [];
     this.offset = 0;
-    let lookedFor = [
-      "client.name", "name", "code"
+    const lookedFor = [
+      'client.name', 'name', 'code'
     ];
 
-    var orFilters = [];
+    const orFilters = [];
     lookedFor.forEach((field) => {
-      let filter = {}
+      const filter = {};
       filter[field] = {
-        "$regex": filtersValues["search"]
-      }
+        '$regex': filtersValues['search']
+      };
       orFilters.push(filter);
     });
 
     this.filters = {
-      "$or": orFilters
-    }
+      '$or': orFilters
+    };
     this.refreshProjects();
   }
 
 
-  private newProject(){
+  public newProject() {
     this.router.navigate(['/projects/new']);
   }
 
-  private loadMore(){
+  public loadMore() {
     this.offset += 16;
     this.refreshProjects();
   }

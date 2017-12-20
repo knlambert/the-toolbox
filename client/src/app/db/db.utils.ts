@@ -3,18 +3,18 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 
 export function validDBAutocomplete(): ValidatorFn {
-  return (control: AbstractControl) :{[key: string]: any} => {
+  return (control: AbstractControl): { [key: string]: any } => {
     let valid = false;
-    if(control.value != null && typeof(control.value) === 'object'){
+    if (control.value != null && typeof (control.value) === 'object') {
       return null;
     }
-    
-    if(!valid){
+
+    if (!valid) {
       return {
         notExist: false
       }
     }
-    
+
   };
 }
 

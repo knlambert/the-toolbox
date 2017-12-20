@@ -1,15 +1,15 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router }   from '@angular/router';
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { UserInformationsService } from './../user-informations.service';
 
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
-  styleUrls:  ['login.component.css'],
-  providers: [  ]
+  styleUrls: ['login.component.css'],
+  providers: []
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   public login: string;
   public password: string;
   public message: string
@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit{
     public snackBar: MatSnackBar
   ) { }
 
-  ngOnInit(){}
-  public connect(){
-    
+  ngOnInit() { }
+  public connect() {
+
     this.loading = true;
 
     this.userInformationsService.authentify(

@@ -1,15 +1,15 @@
-import { NgModule }      from '@angular/core';
-import { CommonModule }       from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AppCommonModule } from './../app-common/app-common.module';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { LoginComponent } from './login/login.component'
-import { RouterModule }   from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { RouterModule } from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { MaterialModule } from './../material/material.module';
-import { ResetPasswordForm } from './reset-password-form/reset-password-form.component';
+import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 
 @NgModule({
-  imports:      [
+  imports: [
     AppCommonModule,
     MaterialModule,
     CommonModule,
@@ -24,8 +24,8 @@ import { ResetPasswordForm } from './reset-password-form/reset-password-form.com
       ]
     )
   ],
-  declarations: [ LoginComponent, LoginFormComponent, ResetPasswordForm ],
-  exports: [ LoginComponent, RouterModule, ResetPasswordForm ],
-  providers: [  ]
+  declarations: [LoginComponent, LoginFormComponent, ResetPasswordFormComponent],
+  exports: [LoginComponent, RouterModule, ResetPasswordFormComponent],
+  providers: []
 })
 export class AuthModule { }

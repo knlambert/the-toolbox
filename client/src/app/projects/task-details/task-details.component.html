@@ -1,6 +1,8 @@
 <mat-card >
     
-    <mat-slide-toggle [(ngModel)]="task.completed" (ngModelChange)="updateField('completed', task.completed)">Completed</mat-slide-toggle>
+    <mat-slide-toggle 
+        [(ngModel)]="task['completed']" 
+        (ngModelChange)="updateField('completed', task['completed'])">Completed</mat-slide-toggle>
     
     <button id="button-previous" (click)="doPrevious()" mat-icon-button>
         <mat-icon >keyboard_backspace</mat-icon>
@@ -17,12 +19,12 @@
     <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap="2%"> 
         <div fxFlex="73" class="div-edit-zone">
             <div fxLayout="column" fxLayoutAlign="center center" xLayoutGap="10">
-                <p id="list-title">In list <u>{{task.task_list.title}}</u></p>
+                <p id="list-title">In list <u>{{task['task_list']['title']}}</u></p>
                 <mat-form-field>
-                    <input [disabled]="locked" matInput placeholder="Title" maxlength="45" [(ngModel)]="task.title"/>
+                    <input [disabled]="locked" matInput placeholder="Title" maxlength="45" [(ngModel)]="task['title']"/>
                 </mat-form-field>
 
-                <hc-quill-editor [(ngModel)]="task.description" [readOnly]="locked" [title]="'Description'" ></hc-quill-editor>
+                <hc-quill-editor [(ngModel)]="task['description']" [readOnly]="locked" [title]="'Description'" ></hc-quill-editor>
             </div>
         </div>
         <div fxFlex="25" class="div-commands-zone">
@@ -30,7 +32,7 @@
                 #affectedUsersComponent
                 primaryKey="email"
                 placeholder="Select a user to affect"
-                title="Affected users"
+                [title]="'Affected users'"
                 [locked]="locked"
                 [savedAffectedEntities]="affectedUsers"
                 [availableEntities]="availableUsers" >
@@ -38,9 +40,7 @@
 
             
             <hc-entity-affectation
-                id="tag-affectations"
-                #affectedTagsComponent
-                placeholder="Select a tag"
+                id="tag-affectations" #affectedTagsComponent placeholder="Select a tag"
                 primaryKey="id"
                 title="Tags"
                 labelKey="name"
@@ -62,4 +62,4 @@
     
 </mat-card>
 
-<hc-task-comments [taskId]="task.id"></hc-task-comments>
+<hc-task-comments [taskId]="task['id']"></hc-task-comments>

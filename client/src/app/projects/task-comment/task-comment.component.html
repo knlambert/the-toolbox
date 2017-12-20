@@ -1,6 +1,6 @@
 <div>
     <mat-card>
-        <div *ngIf="comment.id" >
+        <div *ngIf="comment['id']" >
 
             <div id="div-title-container" [ngStyle]="{'background-color': userColor}" >
                 <p ><b>{{comment.author.name}}</b>, {{commentDate}} at {{commentHour}}</p>
@@ -20,7 +20,7 @@
                 </button>
             </mat-menu>
         </div>
-        <hc-quill-editor [(ngModel)]="comment.description" [readOnly]="locked"  ></hc-quill-editor>
+        <hc-quill-editor [(ngModel)]="comment['description']" [readOnly]="locked"  ></hc-quill-editor>
 
         <div id="div-button-container" *ngIf="!locked" >
             <button mat-icon-button>

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { BackofficeComponent} from "./backoffice/backoffice.component";
-import { NgModule }      from '@angular/core';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { RouterModule }   from '@angular/router';
+import { BackofficeComponent } from "./backoffice/backoffice.component";
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AppCommonModule } from './../app-common/app-common.module';
 import { MaterialModule } from './../material/material.module';
 import { DBModule } from './../db/db.module';
@@ -24,8 +24,8 @@ import { DBModule } from './../db/db.module';
       ]
     )
   ],
-  declarations: [ BackofficeComponent ],
-  exports: [ BackofficeComponent  ],
-  providers: [  ]
+  declarations: [BackofficeComponent],
+  exports: [BackofficeComponent],
+  providers: []
 })
 export class BackofficeModule { }

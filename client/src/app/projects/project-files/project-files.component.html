@@ -6,7 +6,7 @@
                 </button>
         </h3>
         
-        <hc-project-file-form [projectId]="projectId" *ngIf="new" (onCancel)="fileCanceled()" (onFileCreated)="fileCreated()"></hc-project-file-form>
+        <hc-project-file-form [projectId]="projectId" *ngIf="new" (cancel)="fileCanceled()" (fileCreate)="fileCreated()"></hc-project-file-form>
     
         <div id="div-files-container" *ngIf="!new">
             <mat-list-item *ngFor="let file of files">

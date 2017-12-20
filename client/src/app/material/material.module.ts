@@ -1,4 +1,4 @@
-import {NgModule} from "@angular/core";
+import { NgModule } from "@angular/core";
 
 import {
   MatChipsModule,
@@ -65,4 +65,4 @@ let materialModules = [
   declarations: [],
   exports: materialModules
 })
-export class MaterialModule {}
+export class MaterialModule { }

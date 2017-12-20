@@ -4,8 +4,8 @@
     <input 
     maxlength="45"
     type="text" 
-    [value]="taskList.title" 
-    [(ngModel)]="taskList.title" 
+    [value]="taskList['title']" 
+    [(ngModel)]="taskList['title']" 
     (focusout)="onTitleChange()"
     class="input-list-title"/>
 
@@ -17,11 +17,11 @@
         <div mat-menu-item>
              <mat-slide-toggle 
              (ngModelChange)="completeTaskList($event)" 
-             [(ngModel)]="taskList.completed" >Completed</mat-slide-toggle>
+             [(ngModel)]="taskList['completed']" >Completed</mat-slide-toggle>
         </div>
         
             
-        <button mat-menu-item (click)="onDelete.emit({'taskList': taskList})">
+        <button mat-menu-item (click)="delete.emit({'taskList': taskList})">
             <mat-icon id="icon-delete">delete</mat-icon>
             <span id="span-delete">Delete</span>
         </button>
@@ -29,7 +29,7 @@
     </mat-menu>
     <mat-spinner [diameter]="30" [strokeWidth]="3" [hidden]="!loading"></mat-spinner>
     <div [hidden]="loading" (click)="openTask(task.value.id)" class="div-task-container" *ngFor="let task of tasksSumUp;let i = index">
-        <hc-task-list-item class="clickable" (onDeletedTask)="deleteTask($event.taskId)" [task]="task.value"></hc-task-list-item>
+        <hc-task-list-item class="clickable" (taskDelete)="deleteTask($event['taskId'])" [task]="task['value']"></hc-task-list-item>
     </div>
 
     <div [hidden]="loading" class="div-add-card" (click)="insertItem()">Add a card ...</div>

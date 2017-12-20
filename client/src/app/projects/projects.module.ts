@@ -1,17 +1,17 @@
-import { NgModule }      from '@angular/core';
-import { CommonModule }       from '@angular/common';
-import { RouterModule }   from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { DBModule } from './../db/db.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AppCommonModule } from './../app-common/app-common.module'
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectListMenuComponent } from './project-list-menu/project-list-menu.component';
 import { ProjectListItemComponent } from './project-list-item/project-list-item.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { ProjectMembersComponent } from './project-members/project-members.component';
-import { ProjectMemberForm } from './project-member-form/project-member-form.component';
-import { ProjectFileForm } from './project-file-form/project-file-form.component';
+import { ProjectMemberFormComponent } from './project-member-form/project-member-form.component';
+import { ProjectFileFormComponent } from './project-file-form/project-file-form.component';
 import { ProjectFilesComponent } from './project-files/project-files.component';
 import { ProjectIndicatorsComponent } from './project-indicators/project-indicators.component';
 import { GoogleColorsService } from './../app-common/google-colors.service';
@@ -30,7 +30,7 @@ import { TaskCommentComponent } from './task-comment/task-comment.component';
 import { EntityAffectationComponent } from './entity-affectation/entity-affectation.component';
 
 @NgModule({
-  imports:      [
+  imports: [
     MaterialModule,
     CommonModule,
     DBModule,
@@ -61,9 +61,9 @@ import { EntityAffectationComponent } from './entity-affectation/entity-affectat
         }
       ]
     )
-    
+
   ],
-  declarations: [ 
+  declarations: [
     ProjectIndicatorsComponent,
     ProjectDashboardComponent,
     ProjectListMenuComponent,
@@ -71,8 +71,8 @@ import { EntityAffectationComponent } from './entity-affectation/entity-affectat
     ProjectMembersComponent,
     ProjectFilesComponent,
     ProjectFormComponent,
-    ProjectMemberForm,
-    ProjectFileForm,
+    ProjectMemberFormComponent,
+    ProjectFileFormComponent,
     CollectionButtonsComponent,
     TaskMenuComponent,
     TaskListComponent,
@@ -84,7 +84,7 @@ import { EntityAffectationComponent } from './entity-affectation/entity-affectat
     TaskCommentsComponent,
     TaskCommentComponent
   ],
-  exports: [ ],
+  exports: [],
   providers: [
     GoogleColorsService
   ],

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { DBService } from './../../db/db.service';
 import { GoogleColorsService } from './../../app-common/google-colors.service';
@@ -6,26 +6,26 @@ import { GoogleColorsService } from './../../app-common/google-colors.service';
 @Component({
   selector: 'hc-project-list-item',
   templateUrl: 'project-list-item.component.html',
-  styleUrls:  [
+  styleUrls: [
     'project-list-item.component.css'
   ]
 })
 export class ProjectListItemComponent {
 
-    constructor(private router: Router, private googleColorsService: GoogleColorsService){}
-    @Input()
-    value: object;
-    
-    private openProject(){
-      this.router.navigate(['/projects/' + this.value["id"] + "/dashboard"]);
-    }
+  constructor(private router: Router, private googleColorsService: GoogleColorsService) { }
+  @Input()
+  value: object;
 
-    /**
-     * Get a color for the project.
-     * @param item 
-     */
-    private getProjectColor(item: object){
-      return this.googleColorsService.generate(item['name'], "600");
-    }
-    
+  public openProject() {
+    this.router.navigate(['/projects/' + this.value['id'] + '/dashboard']);
   }
+
+  /**
+   * Get a color for the project.
+   * @param item The project we want the color.
+   */
+  public getProjectColor(item: object) {
+    return this.googleColorsService.generate(item['name'], '600');
+  }
+
+}

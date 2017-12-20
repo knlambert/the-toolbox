@@ -8,16 +8,16 @@ export class ProjectAssignementService {
    * 
    * @param dbService The DB service to communicate with the Database service.
    */
-  constructor (private dbService: DBService) {}
+  constructor(private dbService: DBService) { }
 
   /**
    * Return the list of affected projects.
    * @param userId The user id we want the project affected to.
    */
-  listProjectAffectedTo(userId: number, filter={}){
+  listProjectAffectedTo(userId: number, filter = {}) {
     filter['user.id'] = userId;
     return this.dbService.list("project_assignements", filter).map((items) => {
-      for(var i = 0; i < items.length; i++){
+      for (var i = 0; i < items.length; i++) {
         items[i] = items[i].project;
       }
       return items;
@@ -28,7 +28,7 @@ export class ProjectAssignementService {
    * Return the list of affected clients (deduced from affected projects)
    * @param userId The user id we want the clients affected to.
    */
-  listClientAffectedTo(userId: number, filter={}){
+  listClientAffectedTo(userId: number, filter = {}) {
     filter['user_id'] = userId;
     return this.dbService.list("clients_affected_to_users", filter);
   }

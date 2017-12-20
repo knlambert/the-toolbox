@@ -5,50 +5,50 @@ import { Observable, Subject } from 'rxjs';
 @Component({
   selector: 'hc-project-members',
   templateUrl: 'project-members.component.html',
-  styleUrls:  [
+  styleUrls: [
     'project-members.component.css'
   ]
 })
 export class ProjectMembersComponent implements OnInit {
-    
-    @Input() projectId: number;
-    constructor(private dbService: DBService){}
 
-    private assignements: Array<object> = [];
-    private new: boolean = false;
+  @Input() projectId: number;
+  constructor(private dbService: DBService) { }
 
-    private displayNewForm(display: boolean = true){
-        this.new = display
-    }
+  public assignements: Array<object> = [];
+  public new = false;
 
-    ngOnInit(){
-        this.refreshMembers();  
-    }
+  private displayNewForm(display: boolean = true) {
+    this.new = display;
+  }
 
-    private refreshMembers(){
-        this.dbService.list("project_assignements", {
-            "project.id": this.projectId
-        }).subscribe((assignements) => {
-            this.assignements = assignements;
-        });
-    }
+  ngOnInit() {
+    this.refreshMembers();
+  }
 
-    private memberCreated(){
-        this.new = false;
-        this.refreshMembers();
-    }
+  private refreshMembers() {
+    this.dbService.list('project_assignements', {
+      'project.id': this.projectId
+    }).subscribe((assignements) => {
+      this.assignements = assignements;
+    });
+  }
 
-    private memberCanceled(){
-        this.new = false;
-    }
+  private memberCreated() {
+    this.new = false;
+    this.refreshMembers();
+  }
 
-    private deleteMember(assignementId: number){
-        this.dbService.delete("project_assignements", {
-            "id": assignementId
-        }).subscribe((result) => {
-            this.refreshMembers();
-        });
+  private memberCanceled() {
+    this.new = false;
+  }
 
-        this.refreshMembers();
-    }
+  private deleteMember(assignementId: number) {
+    this.dbService.delete('project_assignements', {
+      'id': assignementId
+    }).subscribe((result) => {
+      this.refreshMembers();
+    });
+
+    this.refreshMembers();
+  }
 }

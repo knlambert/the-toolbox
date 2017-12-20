@@ -7,15 +7,15 @@
     
    
     <mat-form-field fxFlex="100" >
-        <input [disabled]="true" matInput placeholder="Client" value="{{value.client.name}}">
+        <input [disabled]="true" matInput placeholder="Client" value="{{value['client']['name']}}">
     </mat-form-field>
 
     <mat-form-field fxFlex="100" >
-        <input [disabled]="true" matInput placeholder="Name" value="{{value.name}}">
+        <input [disabled]="true" matInput placeholder="Name" value="{{value['name']}}">
     </mat-form-field>
 
-    <mat-form-field *ngIf="value.code" fxFlex="100" >
-        <input [disabled]="true" matInput placeholder="Code" value="{{value.code}}">
+    <mat-form-field *ngIf="value['code']" fxFlex="100" >
+        <input [disabled]="true" matInput placeholder="Code" value="{{value['code']}}">
     </mat-form-field>
 
     
