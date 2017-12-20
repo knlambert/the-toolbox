@@ -118,7 +118,7 @@ export class DBAutocompleteComponent implements ControlValueAccessor {
   }
 
   
-  private generateGetLabel(labelField: string){
+  public generateGetLabel(labelField: string){
     var labelField = labelField;
     return function(obj: any): string {
       return obj ? obj[labelField] : "";

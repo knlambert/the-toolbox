@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { LoginComponent } from './login/login.component'
 import { RouterModule }   from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component';
-import MaterialModule from './../material/material.module';
+import { MaterialModule } from './../material/material.module';
 import { ResetPasswordForm } from './reset-password-form/reset-password-form.component';
 
 @NgModule({

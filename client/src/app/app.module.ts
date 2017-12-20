@@ -9,7 +9,7 @@ import { AppComponent }   from './app.component';
 import { AppCommonModule } from './app-common/app-common.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserInformationsService } from './auth/user-informations.service';
-import MaterialModule from './material/material.module';
+import { MaterialModule } from './material/material.module';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -29,7 +29,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
         {
           path: 'login',
           loadChildren: "./auth/auth.module#AuthModule"
-        },{
+        }, {
           path: 'hours',
           loadChildren: "./hours-count/hours-count.module#HoursCountModule"
         },{

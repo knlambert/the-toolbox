@@ -18,7 +18,7 @@ import { GoogleColorsService } from './../app-common/google-colors.service';
 import { PieChartModule, GaugeModule } from '@swimlane/ngx-charts';
 import { CollectionButtonsComponent } from './../app-common/collection-buttons/collection-buttons.component';
 import { TaskListItemComponent } from './task-list-item/task-list-item.component';
-import MaterialModule from './../material/material.module';
+import { MaterialModule } from './../material/material.module';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';

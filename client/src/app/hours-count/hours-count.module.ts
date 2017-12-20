@@ -7,7 +7,7 @@ import { HoursCountComponent } from './hours-count/hours-count.component';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { RouterModule }   from '@angular/router';
 import { AppCommonModule } from "./../app-common/app-common.module";
-import MaterialModule from './../material/material.module';
+import { MaterialModule } from './../material/material.module';
 import { ProjectAssignementService } from './project-assignement.service';
 import { GoogleColorsService } from './../app-common/google-colors.service';
 import { UUIDService } from './uuid.service';

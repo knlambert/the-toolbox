@@ -5,7 +5,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { MySettingsComponent } from './my-settings/my-settings.component';
 import { AppParametersFormComponent } from './app-parameters-form/app-parameters-form.component';
-import MaterialModule from './../material/material.module';
+import { MaterialModule } from './../material/material.module';
 import { AuthModule } from './../auth/auth.module';
 
 @NgModule({

@@ -65,5 +65,4 @@ let materialModules = [
   declarations: [],
   exports: materialModules
 })
-export default class MaterialModule {
-}
+export class MaterialModule {}

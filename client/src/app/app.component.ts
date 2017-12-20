@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { 
+import {
   Router,
   Event as RouterEvent,
   NavigationStart,
@@ -21,13 +21,13 @@ export class AppComponent implements OnInit{
 
   constructor(
     private router: Router
-  ) { 
+  ) {
       router.events.subscribe((event: RouterEvent) => {
           this.navigationInterceptor(event);
       });
   }
 
-  @ViewChild(MainMenuComponent) mainMenu:MainMenuComponent;
+  @ViewChild(MainMenuComponent) mainMenu: MainMenuComponent;
   private menuConfig = {
     "links": [
       {

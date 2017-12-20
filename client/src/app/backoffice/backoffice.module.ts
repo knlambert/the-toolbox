@@ -4,7 +4,7 @@ import { NgModule }      from '@angular/core';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { RouterModule }   from '@angular/router';
 import { AppCommonModule } from './../app-common/app-common.module';
-import MaterialModule from './../material/material.module';
+import { MaterialModule } from './../material/material.module';
 import { DBModule } from './../db/db.module';
 
 @NgModule({

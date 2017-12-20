@@ -11,7 +11,7 @@ import { CollectionComponent } from './collection/collection.component'
 import { SimpleFilterscomponent } from './simple-filters/simple-filters.component';
 import { DBModule } from './../db/db.module';
 import { MenuNotificationComponent } from './notification-menu/notification-menu.component';
-import MaterialModule from './../material/material.module';
+import { MaterialModule } from './../material/material.module';
 
 @NgModule({
   imports:      [ 

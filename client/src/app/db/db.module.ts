@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule }   from '@angular/router';
 import { DBService } from './db.service';
 import { DBAutocompleteComponent } from './db-autocomplete/db-autocomplete.component';
-import MaterialModule from './../material/material.module';
+import { MaterialModule } from './../material/material.module';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
