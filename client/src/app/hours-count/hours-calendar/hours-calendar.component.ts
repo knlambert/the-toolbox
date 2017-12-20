@@ -81,12 +81,13 @@ export class HoursCalendarComponent implements OnInit {
         if (strDate === 'now') {
           this.currentDate = new Date();
           this.currentDate.setDate(this.currentDate.getDate() - this.currentDate.getDay() + 1);
-          this.currentDate.setHours(0);
-          this.currentDate.setMinutes(0);
-          this.currentDate.setSeconds(0);
+
         } else {
-          this.currentDate = new Date(strDate);
+          this.currentDate = new Date(strDate + " 00:00:00");
         }
+        this.currentDate.setHours(0);
+        this.currentDate.setMinutes(0);
+        this.currentDate.setSeconds(0);
         let currentTimestamp = this.currentDate.getTime() / 1000;
         this.dbService.list('hours', {
           'started_at': {

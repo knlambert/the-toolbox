@@ -22,7 +22,7 @@
                         <mat-card-title>App parameters</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
-                        <hc-app-parameters-form *ngIf="appUser" [value]="appUser" (submit)="updateAppParameters($event.value)" ></hc-app-parameters-form>
+                        <hc-app-parameters-form *ngIf="appUser" [value]="appUser" (submitForm)="updateAppParameters($event.value)" ></hc-app-parameters-form>
                     </mat-card-content>
                 </mat-card>
 

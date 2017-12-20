@@ -83,7 +83,6 @@ export class EntityAffectationComponent implements OnInit {
         this._savedAffectedEntities.splice(index, 1);
       });
     }
-    console.log(result)
     return result;
   }
 

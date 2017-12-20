@@ -13,12 +13,12 @@ export class AppParametersFormComponent implements OnInit {
   public form: FormGroup;
 
   @Input() value: object;
-  @Output() submit = new EventEmitter();
+  @Output() submitForm = new EventEmitter();
 
   constructor(private fb: FormBuilder) { }
 
-  public submitForm(value) {
-    this.submit.emit({
+  public submit(value) {
+    this.submitForm.emit({
       'value': value
     });
   }
