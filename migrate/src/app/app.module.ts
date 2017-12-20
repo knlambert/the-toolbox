@@ -10,6 +10,9 @@ import { AppCommonModule } from './app-common/app-common.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserInformationsService } from './auth/user-informations.service';
 import MaterialModule from './material/material.module';
+import { environment } from '../environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 
 @NgModule({
   imports:      [
@@ -19,6 +22,8 @@ import MaterialModule from './material/material.module';
     AppCommonModule,
     AuthModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot(
       [
         {

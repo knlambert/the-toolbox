@@ -11,7 +11,7 @@ import { MainMenuComponent } from './app-common/main-menu/main-menu.component';
 
 
 @Component({
-  selector: 'app',
+  selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls:  [
     'app.component.css'
