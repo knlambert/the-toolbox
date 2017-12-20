@@ -1,0 +1,14 @@
+click==6.7
+ecdsa==0.13
+Flask==0.12.2
+itsdangerous==0.24
+Jinja2==2.10
+MarkupSafe==1.0
+MySQL-python==1.2.5
+pkg-resources==0.0.0
+py-rest-db-api==0.1
+py-sql-collection==0.1
+pycrypto==2.6.1
+PyJWT==1.5.3
+user-api==0.3
+Werkzeug==0.13
