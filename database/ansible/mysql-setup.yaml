@@ -1,0 +1,39 @@
+# Setup a web server for the toolbox.
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Install dependencies
+    apt: 
+      name: "{{item}}"
+      state: latest
+      update_cache: yes
+      cache_valid_time: 86400
+    with_items:
+    - mysql-server
+    - mysql-client
+    - python-pip
+    - python-dev
+    - default-libmysqlclient-dev
+  - name: Install the Python MySQLB module
+    pip: name=MySQL-python
+  - name: Copy SQL scripts to remote location (schemas / values)
+    copy:
+      src: ../sql-scripts
+      dest: ~/
+      directory_mode: yes
+  - name: Copy SQL scripts to remote location (templates)
+    template:
+      src: templates/create-toolbox-user.j2
+      dest: ~/sql-scripts/create-toolbox-user.sql
+  - name: Create the hours count schema
+    shell: mysql < /root/sql-scripts/hours-count-init-schema.sql
+  - name: Init base values for hours_count schema
+    shell: mysql hours_count < /root/sql-scripts/hours-count-init-values.sql
+  - name: Create the user api schema
+    shell: mysql < /root/sql-scripts/user-api-init-schema.sql
+  - name: Create the toolbox user
+    shell: mysql hours_count < /root/sql-scripts/create-toolbox-user.sql
+    tags: debug
+  
+  

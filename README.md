@@ -65,3 +65,11 @@ Then compile the client :
 ```bash
 node_modules/webpack/bin/webpack.js --watch --config webpack.dev.config.js
 ```
+
+## MySQL database provisionning
+
+The repo contains an ansible script to create the MySQL database starting from a Ubuntu 17.04.
+The command to start the script is :
+```
+ansible-playbook ansible/mysql-setup.yaml -i '<machine-ip>,' --extra-vars "mysql_toolbox_password=<password>"
+```
