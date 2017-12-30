@@ -1,7 +1,6 @@
 FROM knlambert/the-toolbox-server:latest
 
-EXPOSE 8080
-COPY . build/
-WORKDIR build/
-
-CMD ["venv/bin/gunicorn", "gunicorn", "-b", "0.0.0.0:8080", "wsgi"]
+COPY build/ .
+RUN virtualenv -p python2 venv/
+RUN venv/bin/pip2 install -r requirements/prod.txt
+CMD venv/bin/gunicorn -b 0.0.0.0:$PORT wsgi
