@@ -15,28 +15,36 @@
 The repository uses npm & bash for automation.
 
 The folders & files :
-- client : Frontend code (Angular2).
+- client : Frontend code (Angular 2+).
 - database : Script & workbench schema for the database.
-- assets : Various resources for the front end.
-- requirements : The requirements of the App (Python pip).
+- requirements : The requirements of the App (Python pip). Two files : dev and prod.
 - tasks : Automated bash tasks.
 - config.py : App configuration. Only a dummy example.
-- main.py : Entry point.
-- tsconfig : Typescript config.
-- webpack.[dev|prod].config.js : Webpack configuration depending what you want to do.
+- notification_config.py : Configuraton for email notifications.
+- main.py : Entry point of the Python API.
 
-## Setup
 
-We supply in bash a set of commands to make your life easier.
+## Setup the dev environment
 
-- Setup the project.
+To setup the project, you need [the angular cli](https://cli.angular.io/), Python 2, pip, and virtualenv.
+
+### Server
+
 ```bash
-./task/setup.sh
+virtualenv -p python2 venv
+source venv/bin/activate
+pip2 install -r requirements/dev.txt
 ```
 
-## The database
+### Client 
+```bash
+cd client
+npm install
+```
 
-This application uses MySQL. To develop localy, you need to install docker and [a Mysql image](https://hub.docker.com/_/mysql/).
+### The database
+
+This application uses MySQL. To develop localy, install docker and [a Mysql image](https://hub.docker.com/_/mysql/).
 
 ```bash
 # Install docker
@@ -51,25 +59,38 @@ sudo apt-get install mysql-client
 mysql -h 127.0.0.1 -u root -p
 ```
 
-## Dev mode
+If you change the login and / or the passowrd, don't forget to update it in the config.py file.
 
-When the configuration & the database are set, just start the developpement server :
+### Start
 
+From the root of the project :
+
+Start the CLI dev server.
+```bash
+cd client
+npm run watch
+```
+In another terminal : 
 ```bash
 source venv/bin/activate
 python2 main.py
 ```
 
-Then compile the client :
-
-```bash
-node_modules/webpack/bin/webpack.js --watch --config webpack.dev.config.js
-```
-
 ## MySQL database provisionning
 
 The repo contains an ansible script to create the MySQL database starting from a Ubuntu 17.04.
+
 The command to start the script is :
 ```
 ansible-playbook ansible/mysql-setup.yaml -i '<machine-ip>,' --extra-vars "mysql_toolbox_password=<password>"
+```
+
+## Build
+
+The repo supply a build.sh files in the tasks folder to generate a final folder with only the necessary dependencies.
+
+Usage :
+
+```bash
+./tasks/build.sh user_api_login user_api_password user_api_secret user_api_host db_api_login db_api_password db_api_host
 ```

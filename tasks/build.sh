@@ -15,7 +15,7 @@ rm -rf build && mkdir build
 echo "Done"
 
 echo "Compiling client ..."
-# cd client/ && ng build --prod && cd ..
+cd client/ && ng build --prod && cd ..
 cp -r dist build/dist
 echo "Done"
 
