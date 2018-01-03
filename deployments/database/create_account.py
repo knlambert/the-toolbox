@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(description='Create a user in command line')
 parser.add_argument('host', help='The MySQL host server')
 parser.add_argument('user', help='The user to connect the DB.')
 parser.add_argument('password', help='The password to connect the DB.')
-parser.add_argument('jwt_secret', help='The jwt_secret the database is using.')
+parser.add_argument('--jwt_secret', default=u"", help='The jwt_secret the database is using.')
 
 args = parser.parse_args()
 

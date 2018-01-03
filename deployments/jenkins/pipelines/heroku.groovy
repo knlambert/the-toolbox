@@ -41,6 +41,7 @@ pipeline {
                 sh 'cp -R server build/'
                 sh 'cp -R requirements build/'
                 sh 'cp main.py build/'
+                sh 'cp index.html build/'
                 sh 'cp wsgi.py build/'
                 sh 'ls -l build/'
                 withCredentials([file(credentialsId: 'toolbox-config-prod.py', variable: 'TOOLBOX_CONFIG')]) {
