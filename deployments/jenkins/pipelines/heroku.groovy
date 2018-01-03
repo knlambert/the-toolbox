@@ -41,7 +41,6 @@ pipeline {
                 sh 'cp -R server build/'
                 sh 'cp -R requirements build/'
                 sh 'cp main.py build/'
-                sh 'cp index.html build/'
                 sh 'cp wsgi.py build/'
                 sh 'ls -l build/'
                 withCredentials([file(credentialsId: 'toolbox-config-prod.py', variable: 'TOOLBOX_CONFIG')]) {
@@ -59,8 +58,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'heroku container:push web --app the-toolbox-dummy'
-                sh 'rm -rf build'
+                sh 'heroku container:push web --app the-toolbox-your-org'
             }
         }
     }
