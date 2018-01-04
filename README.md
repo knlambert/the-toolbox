@@ -87,7 +87,7 @@ ansible-playbook ansible/mysql-setup.yaml -i '<machine-ip>,' --extra-vars "mysql
 
 ## Build
 
-The repo supply a build.sh files in the tasks folder to generate a final folder with only the necessary dependencies.
+The repo supplies a build.sh files in the tasks folder to generate a final folder with only the necessary dependencies.
 
 Usage :
 

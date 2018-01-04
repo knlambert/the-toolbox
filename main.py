@@ -5,7 +5,6 @@ import fnmatch
 import logging
 from config import CONFIG
 from user_api.user_api import UserApi
-from user_api.flask_user_api import FlaskUserApi
 from flask import Flask, send_from_directory, send_file
 from pyrestdbapi.api import Api
 from server.api.task_api import TaskApi
@@ -33,7 +32,7 @@ APP = Flask(__name__)
 
 # Init & register User API
 USER_API = UserApi(**CONFIG[u"user-api"])
-FLASK_USER_API = FlaskUserApi(USER_API)
+FLASK_USER_API = USER_API.get_flask_adapter()
 USER_API_BLUEPRINT = FLASK_USER_API.construct_blueprint()
 
 # Init & register DB API
