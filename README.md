@@ -16,7 +16,7 @@ The repository uses npm & bash for automation.
 
 The folders & files :
 - client : Frontend code (Angular 2+).
-- database : Script & workbench schema for the database.
+- deployments : Deploy scripts examples, Docker images & workbench schema.
 - requirements : The requirements of the App (Python pip). Two files : dev and prod.
 - tasks : Automated bash tasks.
 - config.py : App configuration. Only a dummy example.
