@@ -1,6 +1,6 @@
-git+https://github.com/duckswitch/py-db-api.git@master
-git+https://github.com/duckswitch/py-modest-user-api.git@master
-git+https://github.com/duckswitch/py-sql-collection.git@master
+git+https://github.com/knlambert/py-db-api.git@master
+git+https://github.com/knlambert/py-modest-user-api.git@master
+git+https://github.com/knlambert/py-sql-collection.git@master
 Cerberus==1.1
 click==6.7
 ecdsa==0.13
