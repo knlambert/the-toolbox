@@ -1,11 +1,11 @@
 # coding: utf-8
 import logging
-from pyrestdbapi.api import Api
+from dbapi import DBApi
 
 
 LOGGER = logging.getLogger(__name__)
 
-class TaskApi(Api):
+class TaskDBApi(DBApi):
     """
     Reimplements the TaskApi to add some custom features.
     """
@@ -18,10 +18,10 @@ class TaskApi(Api):
             notification_io (AbstractNotificationIO): A service to notify persons.
             notification_config (dict): The configuration for mail messages.
         """
-        Api.__init__(
+        DBApi.__init__(
             self,
             db=db,
-            default_table_name=u"task"
+            table_name=u"task"
         )
         self._notification_io = notification_io
         self._notification_config = notification_config
@@ -40,7 +40,7 @@ class TaskApi(Api):
         """
         
         old_task = self.get(document_id, lookup, auto_lookup)
-        new_task = Api.update_id(self, document_id, update, lookup, auto_lookup)
+        new_task = DBApi.update_id(self, document_id, update, lookup, auto_lookup)
 
         if self._notification_config.get(u"ACTIVE", False) and old_task[u"completed"] != new_task[u"completed"]:
             notifications = list(self._task_status_change_notification.find(query={

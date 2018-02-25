@@ -1,8 +1,8 @@
 # coding: utf-8
-from pyrestdbapi.api import Api
+from dbapi import DBApi
 
 
-class CommentApi(Api):
+class CommentDBApi(DBApi):
     """
     Reimplements the CommentApi to add some custom features.
     """
@@ -15,10 +15,10 @@ class CommentApi(Api):
             notification_io (AbstractNotificationIO): A service to notify persons.
             notification_config (dict): The configuration for mail messages.
         """
-        Api.__init__(
+        DBApi.__init__(
             self,
             db=db,
-            default_table_name=u"comment"
+            table_name=u"comment"
         )
         self._notification_io = notification_io
         self._notification_config = notification_config
@@ -36,7 +36,7 @@ class CommentApi(Api):
         Returns:
             (dict): The result of the deletion (with number of items deleted).
         """
-        result = Api.create(self, document, lookup, auto_lookup)
+        result = DBApi.create(self, document, lookup, auto_lookup)
 
         if self._notification_config.get(u"ACTIVE", False):
             notifications = list(self._comment_notification.find(query={

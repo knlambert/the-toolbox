@@ -1,8 +1,8 @@
 # coding: utf-8
-from pyrestdbapi.api import Api
+from dbapi import DBApi
 
 
-class UserHasTaskApi(Api):
+class UserHasTaskDBApi(DBApi):
     """
     Reimplements the UserHasTaskApi to add some custom features.
     """
@@ -15,10 +15,10 @@ class UserHasTaskApi(Api):
             notification_io (AbstractNotificationIO): A service to notify persons.
             notification_config (dict): The configuration for mail messages.
         """
-        Api.__init__(
+        DBApi.__init__(
             self,
             db=db,
-            default_table_name=u"user_has_task"
+            table_name=u"user_has_task"
         )
         self._task_notification = db.task_notification
         self._notification_io = notification_io
@@ -35,7 +35,7 @@ class UserHasTaskApi(Api):
         Returns:
             (dict): The result of the deletion (with number of items deleted).
         """
-        result = Api.create(self, document, lookup, auto_lookup)
+        result = DBApi.create(self, document, lookup, auto_lookup)
         if self._notification_config.get(u"ACTIVE", False):
             user_email = document['user']['email']
             task_id = document[u"task"][u"id"]

@@ -12,9 +12,7 @@ CONFIG = {
         u"jwt_secret": u"DUMMY"
     },
     u"db-api": {
-        u"db_host": u"127.0.0.1",
-        u"db_user": u"root",
-        u"db_password": u"localroot1234",
+        u"unix_socket": u'mysql://root:localroot1234@127.0.0.1/',
         u"db_name": u"hours_count"
     }
 }

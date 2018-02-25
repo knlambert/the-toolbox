@@ -49,10 +49,10 @@ export class DBService {
   /**
    * Call the web service dedicated to export in a new tab.
    * @param source The name of the source we want details.
-   * @param filters A filter to get only what we want.
+   * @param filter A filter to get only what we want.
    */
-  public export(source: string, filters = {}) {
-    window.open(this.url + source + "/export?filters=" + JSON.stringify(filters) + "&auto_lookup=3");
+  public export(source: string, filter = {}) {
+    window.open(this.url + source + "/export?filter=" + JSON.stringify(filter) + "&auto_lookup=3");
   }
 
   /**
@@ -74,7 +74,7 @@ export class DBService {
     }
 
     var args = {
-      "filters": JSON.stringify(filters),
+      "filter": JSON.stringify(filters),
       "offset": first,
       "limit": nb,
       "auto_lookup": 3
