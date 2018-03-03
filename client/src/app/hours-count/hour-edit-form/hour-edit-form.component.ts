@@ -40,12 +40,7 @@ export class HourEditFormComponent implements OnInit {
     private userInformationsService: UserInformationsService,
     private dbService: DBService,
     private projectAssignementService: ProjectAssignementService
-  ) {
-
-
-
-
-  }
+  ) {}
 
   ngOnInit() {
 
@@ -79,7 +74,6 @@ export class HourEditFormComponent implements OnInit {
         if (project != null && typeof (project) === 'object') {
           this.form.controls['client'].setValue(project.client);
         }
-
 
         if (project != null && project.length > 1) {
           this.filterProjects(project).subscribe((result => {

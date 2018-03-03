@@ -47,7 +47,7 @@ DB_API_CONFIG = {
     u"clients": DBApi(DB, u"client"),
     u"hours": DBApi(DB, u"hour"),
     u"project_assignements": DBApi(DB, u"project_assignement"),
-    u"users": DBApi(DB, u"user"),
+    u"users": DBApi(DB, u"user_"),
     u"task-lists": DBApi(DB, u"task_list"),
     u"tasks": TaskDBApi(DB, MAIL_IO, NOTIFICATION_CONFIG),
     u"comments": CommentDBApi(DB, MAIL_IO, NOTIFICATION_CONFIG),
@@ -73,7 +73,7 @@ for service_name, db_api in list(DB_API_CONFIG.items()):
         return flask_user_api.api_error_handler(exception)
 
     @db_blueprint.before_request
-    @FLASK_USER_API.is_connected(login_url="/login")
+    @FLASK_USER_API.is_connected(login_url=u"/login")
     def is_connected():
         pass
 

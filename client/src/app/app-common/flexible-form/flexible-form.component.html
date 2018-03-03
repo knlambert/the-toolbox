@@ -7,7 +7,7 @@
       <div *ngIf="['text', 'number', 'timestamp'].indexOf(field.type) !== -1 
       && field.nested_description == null && field.editable !== false && field.extra != 'auto_increment'">
         
-        <mat-form-field *ngIf="field.type == 'text'">
+        <mat-form-field *ngIf="field.type == 'string'">
           <input 
             matInput class="form-control"
             [required]="field.required"
@@ -15,7 +15,7 @@
             [placeholder]="formatPlaceHolder(field.name)" 
             [formControl]="formGroup.controls[field.name]" >
         </mat-form-field>
-        <mat-form-field *ngIf="field.type == 'number'">
+        <mat-form-field *ngIf="field.type == 'float' || field.type =='integer'">
           <input 
             class="form-control"
             matInput
@@ -25,9 +25,8 @@
             [formControl]="formGroup.controls[field.name]" >
         </mat-form-field>
           
-        <mat-form-field *ngIf="field.type == 'timestamp'" >
+        <mat-form-field *ngIf="field.type == 'datetime' || field.type == 'date'" >
           <input matInput 
-            
             class="form-control"
             [required]="field.required"
             type="text"
@@ -37,7 +36,6 @@
         
       </div>
 
-      
       <div *ngIf="field.nested_description != null && field.editable !== false">
         <db-autocomplete [required]="field.required" [placeholder]="formatPlaceHolder(field.name)" [db]="field.nested_description.service"  labelField="name" [formControl]="formGroup.controls[field.name]" ></db-autocomplete>
       </div>

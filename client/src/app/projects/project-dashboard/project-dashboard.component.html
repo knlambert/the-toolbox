@@ -25,7 +25,7 @@
         
         <div id="div-project-details-container" fxLayout="column" fxLayoutGap="10px" fxFlexAlign="left center">
 
-            <div fxLayoutWrap fxLayout.lt-md="column" fxLayoutGap.lt-md="10px" fxLayout.gt-md="row" fxLayoutGap.gt-sm="1%"   fxFlexAlign="left center">
+            <div fxLayout.lt-md="column" fxLayoutGap.lt-md="10px" fxLayout.gt-md="row wrap" fxLayoutGap.gt-sm="1%"   fxFlexAlign="left center">
                 
                 <div fxFlex.md="48.5" fxFlex.gt-md="24" id="div-project-form-container">
                     <hc-project-form [value]="project" (projectEdit)="projectCreated($event.project)"></hc-project-form>
@@ -45,7 +45,7 @@
 
             </div>
 
-            <div fxLayoutWrap fxLayout="row"  fxFlexAlign="left center">
+            <div fxLayout="row wrap"  fxFlexAlign="left center">
                 <div fxFlex.lt-md="100" fxFlex.md="98" fxFlex.gt-md="99" id="div-project-load-container">
                     <hc-project-load [projectId]="project.id" [fromDate]="project.started_at"></hc-project-load>
                 </div>

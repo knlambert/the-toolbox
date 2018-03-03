@@ -102,18 +102,16 @@ export class DBService {
    * @param id The ID of the item we want.
    */
   get(source: string, id: any) {
-
-    let httpParams = this.jsonToParams({
-      "auto_lookup": 3
-    });
-
-    let url = this.url + source + "/" + id;
-    return this.http.get(url, {
-      params: httpParams
-    }).map((res) => {
-      return res;
-    }).catch(this.handleError);
-
+    return this.list(source, {
+      "id": id
+    }, {}, 0, 1).map((items) => {
+      if(items.length == 1){
+        return items[0];
+      }
+      else{
+        return null;
+      }
+    })
   }
 
   private extractItems(res: object) {
