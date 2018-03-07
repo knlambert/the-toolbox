@@ -141,7 +141,7 @@ export class FlexibleFormComponent {
       if (value[key] == null) {
         delete value[key];
       } else {
-        if (fieldConfig['type'] === 'timestamp') {
+        if (fieldConfig['type'] === 'datetime' || fieldConfig['type'] === 'date') {
           value[key] = parseInt('' + (new Date(value[key])).getTime() / 1000);
         }
       }

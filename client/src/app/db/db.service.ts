@@ -58,13 +58,13 @@ export class DBService {
   /**
    * List items from the service.
    * @param source The name of the source we want details.
-   * @param filters A filter to get only resources needed.
+   * @param filter A filter to get only resources needed.
    * @param orderBy Allows to order items in a specific way.
    * @param first Cursor to loop on data.
    * @param nb Max item count returned.
    */
-  list(source, filters?, orderBy?, first?: Number, nb?: Number, lookup?: Array<object>) {
-    var filters = filters || {};
+  list(source, filter?, orderBy?, first?: Number, nb?: Number, lookup?: Array<object>) {
+    var filter = filter || {};
     var orderBy = orderBy || {};
     var order = [];
     var order_by = [];
@@ -74,7 +74,7 @@ export class DBService {
     }
 
     var args = {
-      "filter": JSON.stringify(filters),
+      "filter": JSON.stringify(filter),
       "offset": first,
       "limit": nb,
       "auto_lookup": 3
@@ -91,7 +91,7 @@ export class DBService {
     }
 
     let httpParams = this.jsonToParams(args);
-    return this.http.get(this.url + source, {
+    return this.http.get(this.url + source + "/", {
       params: httpParams
     }).map(this.extractItems).catch(this.handleError);
   }
@@ -122,11 +122,11 @@ export class DBService {
     return res;
   };
 
-  delete(source, filters) {
-    let uri = this.url + source;
+  delete(source, filter) {
+    let uri = this.url + source + "/";
     let httpParams = this.jsonToParams({
       "auto_lookup": 3,
-      "filters": JSON.stringify(filters)
+      "filter": JSON.stringify(filter)
     });
 
     return this.http.delete(uri, {
@@ -136,11 +136,11 @@ export class DBService {
 
   };
 
-  save(source, item) {
+  save(source, item, auto_lookup: number = 3) {
     var itemToSave = JSON.parse(JSON.stringify(item));
-    let uri = this.url + source;
+    let uri = this.url + source + "/";
     let httpParams = this.jsonToParams({
-      auto_lookup: 1
+      auto_lookup: auto_lookup
     })
     return this.http.post(uri, itemToSave, {
       params: httpParams
@@ -148,13 +148,13 @@ export class DBService {
   };
 
 
-  update(source, filters, item): Observable<Object> {
+  update(source, filter, item): Observable<Object> {
     var itemToSave = JSON.parse(JSON.stringify(item));
-    let uri = this.url + source;
+    let uri = this.url + source + "/";
 
     let httpParams = this.jsonToParams({
       auto_lookup: 3,
-      filters: JSON.stringify(filters)
+      filter: JSON.stringify(filter)
     });
 
     return this.http.put((uri), {

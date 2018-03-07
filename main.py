@@ -47,7 +47,7 @@ DB_API_CONFIG = {
     u"clients": DBApi(DB, u"client"),
     u"hours": DBApi(DB, u"hour"),
     u"project_assignements": DBApi(DB, u"project_assignement"),
-    u"users": DBApi(DB, u"user_"),
+    u"_users": DBApi(DB, u"_user"),
     u"task-lists": DBApi(DB, u"task_list"),
     u"tasks": TaskDBApi(DB, MAIL_IO, NOTIFICATION_CONFIG),
     u"comments": CommentDBApi(DB, MAIL_IO, NOTIFICATION_CONFIG),

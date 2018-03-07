@@ -45,7 +45,9 @@ export class HourEditFormComponent implements OnInit {
   ngOnInit() {
 
     this.userInformationsService.onUpdate.subscribe((userInformations) => {
-      this.hour['affected_to'] = userInformations.appUser.id;
+      this.hour['affected_to'] = {
+        "id": userInformations.appUser.id 
+      };
       this.appUserId = userInformations.appUser.id;
       this.form = this.fb.group({
         'client': [null, Validators.compose([Validators.required, DBUtils.validDBAutocomplete()])],

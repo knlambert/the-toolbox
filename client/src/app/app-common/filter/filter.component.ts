@@ -17,7 +17,7 @@ export class FilterComponent {
   private visible: Boolean = false;
 
   private fieldOperators = {
-    'number': [
+    'float': [
       {
         'label': '=',
         'value': '$eq'
@@ -38,7 +38,7 @@ export class FilterComponent {
         'value': '$gte'
       }
     ],
-    'timestamp': [
+    'datetime': [
       {
         'label': '=',
         'value': '$eq'
@@ -59,7 +59,7 @@ export class FilterComponent {
         'value': '$gte'
       }
     ],
-    'text': [
+    'string': [
       {
         'label': 'contains',
         'value': '$regex'
@@ -96,7 +96,7 @@ export class FilterComponent {
    * @param value The value we want the label.
    */
   private getFilterOperatorLabel(value) {
-    const operators = this.fieldOperators['text'].concat(this.fieldOperators['number'].concat(this.fieldOperators['timestamp']));
+    const operators = this.fieldOperators['string'].concat(this.fieldOperators['float'].concat(this.fieldOperators['datetime']));
     for (let i = 0; i < operators.length; i++) {
       if (operators[i]['value'] === value) {
         return operators[i]['label'];
@@ -111,7 +111,7 @@ export class FilterComponent {
   private isFilterValid(filter: object) {
     let valid = !this.isFilterEmpty(filter);
 
-    if (filter['type'] === 'timestamp') {
+    if (filter['type'] === 'date'|| filter['type'] === 'datetime') {
       valid = valid && !isNaN(new Date(filter['value']).getTime());
     }
 
@@ -192,7 +192,15 @@ export class FilterComponent {
    * Get operators from type.
    * @param fieldType 
    */
-  private getOperators(fieldType) {
+  private getOperators(fieldType: string) {
+    // Convert types for operators.
+    if (fieldType === "date"){
+      fieldType = "datetime";
+    }
+    else if (fieldType === "integer"){
+      fieldType = "float"
+    }
+
     return this.fieldOperators[fieldType];
   }
 

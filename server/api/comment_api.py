@@ -23,7 +23,7 @@ class CommentDBApi(DBApi):
         self._notification_io = notification_io
         self._notification_config = notification_config
         self._comment_notification = db.comment_notification
-        self._user = db.user_
+        self._user = db._user
 
     def create(self, document, lookup=None, auto_lookup=None):
         """
