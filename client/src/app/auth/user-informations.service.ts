@@ -47,7 +47,7 @@ export class UserInformationsService {
 
   public refresh(authUser: AuthUser) {
     if (authUser != null) {
-      let listObs = this.dbService.list("users", {
+      let listObs = this.dbService.list("_users", {
         "email": authUser.email
       }, {}, 0, 2).subscribe((items) => {
         if (items.length == 1) {
@@ -76,7 +76,7 @@ export class UserInformationsService {
   }
 
   public updateParameters(value: object) {
-    return this.dbService.update("users", {
+    return this.dbService.update("_users", {
       "id": this.userInformations.appUser.id
     }, value).map((result) => {
       this.refresh(this.userInformations.authUser);
