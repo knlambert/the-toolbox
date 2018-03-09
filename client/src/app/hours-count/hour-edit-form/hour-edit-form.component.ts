@@ -4,7 +4,12 @@ import { DBService } from './../../db/db.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProjectAssignementService } from './../project-assignement.service';
 import * as DBUtils from './../../db/db.utils';
+import { Observable } from 'rxjs/Observable';
 
+class AutocompleteMinutesType {
+  label: string;
+  minutes: number;
+}
 
 @Component({
   selector: 'hour-edit-form',
@@ -17,12 +22,14 @@ export class HourEditFormComponent implements OnInit {
   @Input() uuid: string;
   @Input() hour: Object;
   @Input() status: string;
+
+  
   public projects: Object[];
   public clients: Object[];
-  public hours: string[] = [];
-  private shortCuts: object[] = [];
-  public filteredHours: any;
-  public filteredShortCuts: any;
+  private hours: Array<string> = [];
+  public filteredHours: Array<string>;
+  private shortCuts: Array<AutocompleteMinutesType> = [];
+  public filteredShortCuts: Array<AutocompleteMinutesType>;
 
   private timer: Date = null;
   public locked = false;
@@ -84,14 +91,6 @@ export class HourEditFormComponent implements OnInit {
         }
       });
 
-    this.filteredHours = this.form.controls['started_at'].valueChanges
-      .map(name => this.filterHours(name));
-    this.hours = this.generateHours();
-
-    this.filteredShortCuts = this.form.controls['minutes'].valueChanges
-      .map(name => this.filterShortCuts(name));
-
-    this.shortCuts = this.generateMinutesShortCut();
 
     if (this.hour != null) {
       const startedAtDate = new Date(this.hour['started_at'] * 1000);
@@ -101,6 +100,21 @@ export class HourEditFormComponent implements OnInit {
       this.form.controls['minutes'].setValue(this.hour['minutes']);
       this.form.controls['issue'].setValue(this.hour['issue']);
     };
+
+    this.form.controls['started_at'].valueChanges
+      .subscribe((name) => {
+        this.filteredHours = this.filterHours(name);
+      });
+    this.hours = this.generateHours();
+    this.filteredHours = this.hours;
+
+    this.form.controls['minutes'].valueChanges
+      .subscribe((name) => {
+        this.filteredShortCuts = this.filterShortCuts(name);
+      });
+    
+    this.shortCuts = this.generateMinutesShortCut();
+    this.filteredShortCuts =  this.shortCuts;
 
 
   }
@@ -158,7 +172,6 @@ export class HourEditFormComponent implements OnInit {
       hours.push(('0' + counter.getHours()).slice(-2) + ':' + ('0' + counter.getMinutes()).slice(-2));
       counter.setMinutes(counter.getMinutes() + 15);
     }
-
     return hours;
   }
 

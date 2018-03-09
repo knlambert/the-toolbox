@@ -43,8 +43,9 @@
     </div>
 </div>
 
-<div fxLayoutGap="1%"  fxLayout.gt-xs="row wrap" fxLayoutAlign="start start" >
+<div fxLayoutGap="1%"  fxLayout.lt-sm="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="start start" >
   <div  fxFlex.lt-sm="99%" [fxFlex.gt-xs]="sizePerDay"   *ngFor="let dayHours of dayHoursList | async ; let i = index; "  >
+  
     <hours-calendar-day 
     #calendardayComponent 
     [hidden]="!hideWeekend && isWeekend(dayHours.day)"

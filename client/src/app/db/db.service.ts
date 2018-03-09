@@ -172,10 +172,13 @@ export class DBService {
    */
   update_id(source, document_id, item): Observable<Object> {
     var itemToSave = JSON.parse(JSON.stringify(item));
-    let uri = this.url + source + "/" + document_id;
+    let uri = this.url + source + "/";
 
     let httpParams = this.jsonToParams({
-      auto_lookup: 3
+      auto_lookup: 3,
+      filter: JSON.stringify({
+        "id": document_id
+      })
     });
 
     return this.http.put((uri), {

@@ -110,7 +110,9 @@ export class TaskListComponent implements OnInit {
       'title': '',
       'completed': 0,
       'created_at': Math.floor((new Date()).getTime() / 1000),
-      'author': this.userInformations.appUser.id
+      'author': {
+        "id": this.userInformations.appUser.id
+      }
     };
 
     status = status || 'new';

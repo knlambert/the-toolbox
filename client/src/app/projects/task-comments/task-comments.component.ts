@@ -20,7 +20,7 @@ export class TaskCommentsComponent implements OnInit {
   private userFromCommentLookup = {
     'to': 'comment',
     'localField': 'author',
-    'from': 'user',
+    'from': '_user',
     'foreignField': 'id',
     'as': 'author'
   };
@@ -51,7 +51,9 @@ export class TaskCommentsComponent implements OnInit {
   private displayNewComment() {
     this.newComment = {
       'description': '',
-      'task': this.taskId
+      'task': {
+        "id": this.taskId
+      }
     };
   }
 

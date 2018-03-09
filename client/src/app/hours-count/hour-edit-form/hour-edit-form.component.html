@@ -33,11 +33,11 @@
 
   <div class="pure-u-1">
     <mat-form-field>
-      <input dividerColor="red" matInput [matAutocomplete]="autoHour" required class="form-control" type="text" placeholder="Started at (HH:MM)" [formControl]="form.controls['started_at']">
+      <input matInput required [matAutocomplete]="autoHour" class="form-control" type="text" placeholder="Started at (HH:MM)" [formControl]="form.controls['started_at']">
     </mat-form-field>
 
     <mat-autocomplete  #autoHour="matAutocomplete">
-      <mat-option *ngFor="let hour of filteredHours | async" [value]="hour">
+      <mat-option *ngFor="let hour of filteredHours" [value]="hour">
         {{ hour }}
       </mat-option>
     </mat-autocomplete>
@@ -49,8 +49,8 @@
       <input matInput required [matAutocomplete]="autoMinutes" class="form-control" type="number" placeholder="Spent (minutes)" [formControl]="form.controls['minutes']">
     </mat-form-field>
 
-    <mat-autocomplete  #autoMinutes="matAutocomplete">
-      <mat-option *ngFor="let shortcut of filteredShortCuts | async" [value]="shortcut.minutes">
+    <mat-autocomplete   #autoMinutes="matAutocomplete">
+      <mat-option *ngFor="let shortcut of filteredShortCuts" [value]="shortcut.minutes">
         {{ shortcut.label }}
       </mat-option>
     </mat-autocomplete>

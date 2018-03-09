@@ -50,7 +50,6 @@
 {
   list-style:none;
   font-weight:bold;
-  padding-top:10px;
 }
 .main-menu-slider > ul > li > a
 {
@@ -78,4 +77,19 @@
   right: 10px;
   top: 6px;
   font-weight: bold;
+}
+
+.icon-menu {
+  position: relative;
+  top: 6px;
+  color: white;
+  margin-right: 10px;
+}
+
+.menu-line {
+  padding-bottom: 7px;
+  margin: 0px;
+}
+.menu-line:hover {
+  background-color: red;
 }

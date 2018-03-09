@@ -31,14 +31,17 @@ export class AppComponent implements OnInit {
   public menuConfig = {
     'links': [
       {
+        'icon': 'access_time',
         'label': 'My hours',
         'url': 'hours/mine/now/'
       },
       {
+        'icon': 'work',
         'label': 'Projects',
         'url': 'projects/'
       },
       {
+        'icon': 'tune',
         'label': 'Backoffice',
         'url': 'backoffice/'
       }

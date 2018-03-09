@@ -41,9 +41,11 @@
 </div>
 
 <div class="main-menu-slider" [ngClass]="{'main-menu-slider-open' : isOpen}">
-  <ul *ngFor="let link of config.links;">
-    <li>
-      <a routerLink="{{link.url}}" routerLinkActive="active" (click)="route()">{{link.label}}</a>
+  <ul *ngFor="let link of config.links;" class="menu-line" >
+    <li >
+       
+      <a routerLink="{{link.url}}" routerLinkActive="active" (click)="route()" >
+         <mat-icon class="icon-menu">{{link.icon}}</mat-icon> {{link.label}}</a>
     </li>
   </ul>
 </div>
