@@ -12,6 +12,7 @@ import { SimpleFilterscomponent } from './simple-filters/simple-filters.componen
 import { DBModule } from './../db/db.module';
 import { MenuNotificationComponent } from './notification-menu/notification-menu.component';
 import { MaterialModule } from './../material/material.module';
+import { CollectionButtonsComponent } from './collection-buttons/collection-buttons.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { MaterialModule } from './../material/material.module';
     FilterComponent,
     CollectionComponent,
     SimpleFilterscomponent,
-    MenuNotificationComponent
+    MenuNotificationComponent,
+    CollectionButtonsComponent
   ],
   exports: [
     MainMenuComponent,
@@ -38,7 +40,8 @@ import { MaterialModule } from './../material/material.module';
     FilterComponent,
     CollectionComponent,
     FlexibleFormComponent,
-    SimpleFilterscomponent
+    SimpleFilterscomponent,
+    CollectionButtonsComponent
   ],
   entryComponents: [
     MenuNotificationComponent

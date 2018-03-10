@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { DBService } from './../../db/db.service';
 import { GoogleColorsService } from './../../app-common/google-colors.service';
 
 @Component({

@@ -13,3 +13,4 @@ import { QuillEditorComponent } from './quill-editor/quill-editor.component';
   providers: []
 })
 export class QuillModule { }
+

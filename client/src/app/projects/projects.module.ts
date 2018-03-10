@@ -16,7 +16,6 @@ import { ProjectFilesComponent } from './project-files/project-files.component';
 import { ProjectIndicatorsComponent } from './project-indicators/project-indicators.component';
 import { GoogleColorsService } from './../app-common/google-colors.service';
 import { PieChartModule, GaugeModule } from '@swimlane/ngx-charts';
-import { CollectionButtonsComponent } from './../app-common/collection-buttons/collection-buttons.component';
 import { TaskListItemComponent } from './task-list-item/task-list-item.component';
 import { MaterialModule } from './../material/material.module';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
@@ -73,7 +72,6 @@ import { EntityAffectationComponent } from './entity-affectation/entity-affectat
     ProjectFormComponent,
     ProjectMemberFormComponent,
     ProjectFileFormComponent,
-    CollectionButtonsComponent,
     TaskMenuComponent,
     TaskListComponent,
     TaskListItemComponent,

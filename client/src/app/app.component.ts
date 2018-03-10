@@ -44,6 +44,10 @@ export class AppComponent implements OnInit {
         'icon': 'tune',
         'label': 'Backoffice',
         'url': 'backoffice/'
+      },{
+        'icon': 'people',
+        'label': 'Users',
+        'url': 'users/'
       }
     ],
     'loginUrl': '/login',

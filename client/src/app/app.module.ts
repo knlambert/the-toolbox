@@ -42,6 +42,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
           path: 'projects',
           loadChildren: "./projects/projects.module#ProjectsModule"
         }, {
+          path: 'users',
+          loadChildren: "./users/users.module#UsersModule"
+        }, {
           path: '',
           redirectTo: '/hours/mine/now',
           pathMatch: 'full'
