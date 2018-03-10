@@ -29,12 +29,13 @@ export class ConnectionService {
   };
 
   public getUserInformations(): Observable<AuthUser> {
-    return this.http.get(this.url + "me").map((payload) => {
+    return this.http.get(this.url + "token").map((payload) => {
       return new AuthUser(
         payload['id'],
         payload['email'],
         payload['name'],
-        payload['exp']
+        payload['exp'],
+        payload["roles"]
       );
     });
   }

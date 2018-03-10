@@ -38,7 +38,8 @@ export class UserInformationsService {
           payload['id'],
           payload['email'],
           payload['name'],
-          payload['exp']
+          payload['exp'],
+          payload["roles"]
         )
         this.refresh(authUser);
       }

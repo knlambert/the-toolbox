@@ -32,9 +32,9 @@ export class BackofficeComponent implements OnInit {
     });
 
     this.referentials = [
+      { 'service': 'clients', 'label': 'Clients' },
       { 'service': 'projects', 'label': 'Projects' },
       { 'service': 'hours', 'label': 'Hours' },
-      { 'service': 'clients', 'label': 'Clients' },
       { 'service': '_users', 'label': 'Users' },
       { 'service': 'project_assignements', 'label': 'Project affectations' },
       { 'service': 'roles', 'label': 'Project roles' },

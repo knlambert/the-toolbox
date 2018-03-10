@@ -53,6 +53,7 @@ export class FlexibleFormComponent {
   }
 
   ngOnInit() {
+    
     this.initForm()
     this.isEditable = this._isEditable;
   }
@@ -92,14 +93,14 @@ export class FlexibleFormComponent {
     this._originalValue = JSON.parse(JSON.stringify(this.value));
     const formGroupConfig = {};
     let validators = [];
-    if (this.isCreated) {
-      for (let i = 0; i < this.description['fields'].length; i++) {
-        validators = [];
+  
+    for (let i = 0; i < this.description['fields'].length; i++) {
+      validators = [];
 
-        const field = this.description['fields'][i];
-        let value = this.value[field['name']] || null;
-
-        
+      const field = this.description['fields'][i];
+      let value = this.value[field['name']] || null;
+      
+      if (!field['autoincrement']  || this.isCreated) {
 
         if (field['type'] === 'date' || field['type'] === 'datetime') {
           if (value != null) {

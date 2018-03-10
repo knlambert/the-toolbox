@@ -14,6 +14,7 @@ from server.api.user_has_task_api import UserHasTaskDBApi
 from server.service.standard_mail_io import StandardMailIO
 from notification_config import NOTIFICATION_CONFIG
 
+
 formatter = logging.Formatter(u'%(message)s')
 logger = logging.getLogger()
 
@@ -29,13 +30,26 @@ logger.setLevel(logging.INFO)
 # create flask server
 APP = Flask(__name__)
 
+# Configs
+DB_API_CONF = CONFIG[u"db-api"]
+USER_API_CONFIG = CONFIG[u"user-api"]
+
 # Init & register User API
-USER_API = user_api.UserApi(**CONFIG[u"user-api"])
-FLASK_USER_API = USER_API.get_flask_adapter()
-USER_API_BLUEPRINT = FLASK_USER_API.construct_blueprint()
+# Create user api object
+USER_API =  user_api.create_user_api(
+    db_url=u"mysql://{}:{}@{}/{}".format(
+        USER_API_CONFIG.get(u"db_user"),
+        USER_API_CONFIG.get(u"db_passwd"),
+        USER_API_CONFIG.get(u"db_host"),
+        USER_API_CONFIG.get(u"db_name")
+    ),
+    jwt_secret=USER_API_CONFIG.get(u"jwt_secret"),
+    jwt_lifetime=USER_API_CONFIG.get(u"jwt_lifetime")
+)
+
+FLASK_USER_API = USER_API.get_flask_user_api()
 
 # Init & register DB API
-DB_API_CONF = CONFIG[u"db-api"]
 
 CLIENT = Client(DB_API_CONF.get(u"unix_socket"))
 DB = getattr(CLIENT, DB_API_CONF[u"db_name"])
@@ -70,7 +84,7 @@ for service_name, db_api in list(DB_API_CONFIG.items()):
 
     @db_blueprint.errorhandler(user_api.ApiException)
     def user_api_error_wrapper(exception):
-        return flask_user_api.api_error_handler(exception)
+        return FLASK_USER_API.api_error_handler(exception)
 
     @db_blueprint.before_request
     @FLASK_USER_API.is_connected(login_url=u"/login")
@@ -100,9 +114,9 @@ def send_index(e):
     """
     return send_file("dist/index.html")
 
+# Register the blueprint
+APP.register_blueprint(FLASK_USER_API.construct_user_api_blueprint(), url_prefix=u"/api/users")
+APP.register_blueprint(FLASK_USER_API.construct_role_api_blueprint(), url_prefix=u"/api/roles")
 
-
-# Finally register the User API blueprint
-APP.register_blueprint(USER_API_BLUEPRINT, url_prefix=u"/api/users")
 if __name__ == "__main__":
     APP.run(threaded=True, host=u"0.0.0.0", debug=True)
