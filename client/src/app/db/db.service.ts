@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 
 @Injectable()
@@ -208,7 +209,6 @@ export class DBService {
       // The response body may contain clues as to what went wrong,
       errMsg = "Backend returned code " + err.status + ", body was: " + JSON.stringify(err.error);
     }
-    console.error(errMsg);
     return Observable.throw(err.error);
   };
 }

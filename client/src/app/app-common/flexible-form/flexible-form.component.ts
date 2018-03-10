@@ -100,8 +100,7 @@ export class FlexibleFormComponent {
       const field = this.description['fields'][i];
       let value = this.value[field['name']] || null;
       
-      if (!field['autoincrement']  || this.isCreated) {
-
+      if (!field['autoincrement'] || this.isCreated) {
         if (field['type'] === 'date' || field['type'] === 'datetime') {
           if (value != null) {
             value = this.toDateTimeStr(value);

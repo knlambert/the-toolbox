@@ -4,8 +4,8 @@
   <form class="pure-g" [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
      
     <div class="pure-u-1" *ngFor="let field of description.fields; ">
-      <div *ngIf="['string', 'number', 'datetime', 'datetime'].indexOf(field.type) !== -1 
-      && field.nested_description == null && field.editable !== false && field.extra != 'auto_increment'">
+      <div *ngIf="['string', 'float', 'integer', 'datetime', 'datetime'].indexOf(field.type) !== -1 
+      && field.nested_description == null && field.editable !== false && !field.autoincrement">
         
         <mat-form-field *ngIf="field.type == 'string' && loaded== true">
           <input  matInput class="form-control"
@@ -14,7 +14,7 @@
             [placeholder]="formatPlaceHolder(field.name)" 
             [formControl]="formGroup.controls[field.name]" >
         </mat-form-field>
-        <!-- <mat-form-field *ngIf="field.type == 'float' || field.type =='integer'">
+        <mat-form-field *ngIf="field.type == 'float' || field.type =='integer'">
           <input 
             class="form-control"
             matInput
@@ -32,7 +32,6 @@
             [placeholder]="formatPlaceHolder(field.name) + ' (MM/DD/YYYY)'" 
             [formControl]="formGroup.controls[field.name]" >
           </mat-form-field>
-         -->
       </div>
 
       <div *ngIf="field.nested_description != null && field.editable !== false">
