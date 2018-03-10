@@ -111,6 +111,7 @@ export class FlexibleFormComponent {
         if (field['required']) {
           validators.push(Validators.required);
         }
+        
         formGroupConfig[field['name']] = [value, validators];
       }
     }

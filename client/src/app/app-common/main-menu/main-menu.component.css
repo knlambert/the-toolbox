@@ -87,9 +87,6 @@
 }
 
 .menu-line {
-  padding-bottom: 7px;
-  margin: 0px;
-}
-.menu-line:hover {
-  background-color: red;
+  padding: 2px;
+  margin-left: 20px;
 }
