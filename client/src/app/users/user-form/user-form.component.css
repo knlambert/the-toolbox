@@ -1,0 +1,16 @@
+
+input, mat-form-field {
+    width: 100%;
+}
+
+.user-details-form__slide-active {
+    height: 0px;
+    position: relative;
+    top: -30px;
+    margin-right: 0px;
+    margin-left: auto;
+}
+
+.user-details-form__btn-save {
+    float: right;
+}

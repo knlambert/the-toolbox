@@ -1,3 +1,36 @@
-<p>
-  user-form works!
-</p>
+<form fxLayout="column"
+[formGroup]="form" 
+(ngSubmit)="submitForm(form.value)" class="user-details-form"> 
+
+  <mat-slide-toggle labelPosition="before" class="user-details-form__slide-active" [formControl]="form.controls['active']">User active</mat-slide-toggle>
+
+
+  <mat-form-field>
+    <input required matInput placeholder="Email"  [formControl]="form.controls['email']">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input required matInput placeholder="Name"  [formControl]="form.controls['name']">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-select placeholder="Roles" [formControl]="form.controls['roles']" multiple>
+      <mat-option *ngFor="let role of availableRoles" [value]="role">{{role.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div>
+
+    <button type="button" id="user-details-form__btn-previous" mat-icon-button (click)="previous()" >
+        <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+
+    <button class="user-details-form__btn-save" mat-icon-button [disabled]="!form.valid || locked" >
+        <mat-icon>save</mat-icon>
+    </button>
+
+  </div>
+
+
+
+</form>

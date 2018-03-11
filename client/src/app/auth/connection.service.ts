@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { AuthUser } from "./auth-user.model";
+import { AuthUserToken } from "./auth-user-token.model";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
@@ -28,9 +28,9 @@ export class ConnectionService {
       ).catch(this.handleError);
   };
 
-  public getUserInformations(): Observable<AuthUser> {
+  public getUserInformations(): Observable<AuthUserToken> {
     return this.http.get(this.url + "token").map((payload) => {
-      return new AuthUser(
+      return new AuthUserToken(
         payload['id'],
         payload['email'],
         payload['name'],

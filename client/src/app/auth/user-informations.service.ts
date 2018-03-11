@@ -5,7 +5,7 @@ import { UserInformations } from './user-informations.model';
 import { Router } from '@angular/router';
 import { DBService } from './../db/db.service';
 import { AppUser } from './app-user.model';
-import { AuthUser } from './auth-user.model';
+import { AuthUserToken } from './auth-user-token.model';
 
 @Injectable()
 export class UserInformationsService {
@@ -18,7 +18,7 @@ export class UserInformationsService {
     private dbService: DBService,
     private router: Router
   ) {
-    this.connectionService.getUserInformations().subscribe((authUser: AuthUser) => {
+    this.connectionService.getUserInformations().subscribe((authUser: AuthUserToken) => {
       this.refresh(authUser);
     }, ((err) => {
       this.router.navigate(['login']);
@@ -34,7 +34,7 @@ export class UserInformationsService {
   public authentify(login: string, password: string) {
     return this.connectionService.authentify(login, password).map(
       (payload) => {
-        let authUser = new AuthUser(
+        let authUser = new AuthUserToken(
           payload['id'],
           payload['email'],
           payload['name'],
@@ -46,7 +46,7 @@ export class UserInformationsService {
     )
   }
 
-  public refresh(authUser: AuthUser) {
+  public refresh(authUser: AuthUserToken) {
     if (authUser != null) {
       let listObs = this.dbService.list("_users", {
         "email": authUser.email
