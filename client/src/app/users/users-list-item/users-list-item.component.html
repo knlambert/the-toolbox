@@ -1,8 +1,13 @@
-<div id="div-user-container" 
+<div class="user-item" 
     (click)="openUser()" 
     fxLayout="row wrap"
     fxFlexAlign="center center" 
     [ngStyle]="{'border-top': ('solid 4px ' + getUserColor(value['email']))}">
+    
+    <div class="user-item__state">
+        <mat-icon class="user-item__state--active" *ngIf="value['active']">check_circle</mat-icon>
+        <mat-icon class="user-item__state--disabled" *ngIf="!value['active']">remove_circle</mat-icon>
+    </div>
     
     <mat-form-field fxFlex="100" >
         <input [disabled]="true" matInput placeholder="Email" value="{{value['email']}}">
@@ -12,11 +17,6 @@
       <input [disabled]="true" matInput placeholder="Name" value="{{value['name']}}">
     </mat-form-field>
 
-    <div fxFlex="100" >
-      <mat-slide-toggle
-        [color]="color"
-        [checked]="value['active']" >Active</mat-slide-toggle>
-    </div>
-
    
+
 </div>

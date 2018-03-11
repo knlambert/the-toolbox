@@ -1,5 +1,24 @@
-#div-user-container {
+.user-item {
     padding:5%;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
+}
+
+.user-item__state {
+    position:relative;
+    top:-5px;
+    width:100%;
+    height:0px;
+}
+
+.user-item__state--active, .user-item__state--disabled {
+    float:right;
+}
+
+.user-item__state--active {
+    color: #4CAF50;
+}
+
+.user-item__state--disabled {
+    color: #F44336;
 }

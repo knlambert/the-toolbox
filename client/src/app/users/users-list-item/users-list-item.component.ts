@@ -26,4 +26,8 @@ export class UsersListItemComponent implements OnInit {
     return this.googleColorsService.generate(email, '600');
   }
 
+  public openUser() {
+    this.router.navigate(['/users/' + this.value['id']]);
+  }
+
 }

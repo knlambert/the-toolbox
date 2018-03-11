@@ -13,6 +13,8 @@ import { UsersMenuComponent } from './users-menu/users-menu.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { GoogleColorsService } from './../app-common/google-colors.service';
 import { UsersListItemComponent } from './users-list-item/users-list-item.component';
+import { UserFormComponent } from './user-form/user-form.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 @NgModule({
   imports: [
@@ -28,6 +30,9 @@ import { UsersListItemComponent } from './users-list-item/users-list-item.compon
         {
           path: '',
           component: UsersMenuComponent
+        },{
+          path: ':id',
+          component: UserDetailsComponent
         }
       ]
     )
@@ -36,7 +41,9 @@ import { UsersListItemComponent } from './users-list-item/users-list-item.compon
   declarations: [
     UsersMenuComponent,
     UsersListComponent,
-    UsersListItemComponent
+    UsersListItemComponent,
+    UserFormComponent,
+    UserDetailsComponent
   ],
   exports: [],
   providers: [

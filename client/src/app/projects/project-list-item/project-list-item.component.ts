@@ -15,6 +15,9 @@ export class ProjectListItemComponent {
   @Input()
   value: object;
 
+  /**
+   * Open the project when the use clic on it.
+   */
   public openProject() {
     this.router.navigate(['/projects/' + this.value['id'] + '/dashboard']);
   }
