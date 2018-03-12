@@ -33,6 +33,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
         },{
           path: ':id',
           component: UserDetailsComponent
+        },{
+          path: 'new',
+          component: UserDetailsComponent
         }
       ]
     )

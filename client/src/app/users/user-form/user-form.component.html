@@ -15,7 +15,7 @@
   
   <mat-form-field>
     <mat-select placeholder="Roles" [formControl]="form.controls['roles']" multiple>
-      <mat-option *ngFor="let role of availableRoles" [value]="role">{{role.name}}</mat-option>
+      <mat-option *ngFor="let role of availableRoles" [value]="role.id">{{role.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 

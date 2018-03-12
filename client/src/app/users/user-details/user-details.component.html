@@ -2,8 +2,11 @@
 
 
   <div fxLayout="row" fxLayoutGap="1.5%" fxLayoutAlign="center center">
-    <div class="user-informations" fxFlex.md="48.5" fxFlex.gt-md="24">
+    <div *ngIf="authUser" class="user-informations" fxFlex.md="48.5" fxFlex.gt-md="40">
       <h3>User informations</h3>
-      <hc-user-form></hc-user-form>
+      <hc-user-form [authUser]="authUser" 
+      (userCreate)="createUser($event.authUser)"
+      (userEdit)="editUser($event.authUser)"
+      (cancel)="previous()" ></hc-user-form>
     </div>
   </div>

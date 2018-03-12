@@ -1,7 +1,7 @@
 import { AuthUser } from '../../auth/auth-user.model';
 import { AuthRole } from '../../auth/auth-role.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'hc-user-form',
@@ -15,9 +15,12 @@ export class UserFormComponent implements OnInit {
    * Note that roles are handled in a different form.
    */
 
-  @Input() authUser: AuthUser;
+  @Input() authUser: AuthUser = null;
+  @Output() userCreate = new EventEmitter();
+  @Output() userEdit = new EventEmitter();
+  @Output() cancel = new EventEmitter();
+
   public form: FormGroup;
-  public isCreated: boolean = false;
   public availableRoles: Array<AuthRole> = [
     new AuthRole(1, "admin", "Admin")
   ];
@@ -27,26 +30,49 @@ export class UserFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (!this.isCreated) {
-      this.authUser = new AuthUser(
-        null,
-        "",
-        "",
-        true,
-        []
-      )
-    }
+    console.log(this.authUser.roles)
     this.form = this.fb.group({
       'id': [this.authUser.id],
       'email': [this.authUser.email, Validators.compose([Validators.email, Validators.required])],
       'name': [this.authUser.name, Validators.compose([Validators.required])],
       'active': [this.authUser.active, Validators.compose([Validators.required])],
-      'roles': [this.authUser.roles]
+      'roles': [this.authUser.roles.map((role: AuthRole) => {
+        return role.id;
+      })]
     });
   }
 
-  private submitForm(value: AuthUser){
-    console.log(value)
+  /**
+   * Submit the form by triggering an Output.
+   * @param authUser The submitted AuthUser. 
+   */
+  private submitForm(value: object){
+    let authUser = new AuthUser(
+      value['id'],
+      value['email'],
+      value['name'],
+      value['active'],
+      value['roles'].map((roleId) => {
+        return new AuthRole(roleId, "", "");
+      })
+    );
+    if(this.authUser.id == null){
+      this.userCreate.emit({
+        "authUser": authUser
+      });
+    }
+    else{
+      this.userEdit.emit({
+        "authUser": authUser
+      });
+    }
+  }
+
+  /**
+   * Go to the users menu.
+   */
+  public previous() {
+    this.cancel.emit();
   }
 
 }

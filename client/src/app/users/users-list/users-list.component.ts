@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from './../users.service';
 import { } from './../../auth/user-informations.service'
@@ -10,7 +11,10 @@ import { UsersListItemComponent } from "./../users-list-item/users-list-item.com
 })
 export class UsersListComponent implements OnInit {
 
-  constructor(private usersService: UsersService) { }
+  constructor(
+    private usersService: UsersService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.refreshUsers();
@@ -32,7 +36,7 @@ export class UsersListComponent implements OnInit {
     });
   }
   private newUser(){
-
+    this.router.navigate(['/users/new']);
   }
 
 }

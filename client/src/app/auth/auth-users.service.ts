@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { AuthRole } from "./auth-role.model";
+import { AuthUser } from './auth-user.model';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+
 
 @Injectable()
 export class AuthUsersService {
@@ -51,6 +54,41 @@ export class AuthUsersService {
     return this.http.get(this.url, {
       params: httpParams
     }).catch(this.handleError);
+  }
+
+  public get(id: number){
+    return this.http.get(this.url + id).catch(this.handleError);
+  }
+
+  /**
+   * Register a new user in the API.
+   * @param authUser The user to register.
+   * @param password The password for the user.
+   */
+  public register(authUser: AuthUser, password: string = null){
+    let authUserJSON = authUser.toJSON();
+
+    password = "test911"
+    if(password){
+      authUserJSON['password'] = "test911";
+    }
+    let rolesJSON = authUserJSON['roles']
+    delete authUserJSON["id"];
+    return this.http
+      .post(this.url, authUserJSON)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Update the user in the API.
+   * @param authUser The user to update.
+   * @param password The optionnal password to set if necessary.
+   */
+  public update(authUser: AuthUser, password: string = null){
+    let authUserJSON = authUser.toJSON();
+    return this.http
+      .put(this.url + authUser.id, authUserJSON)
+      .catch(this.handleError);
   }
 
   private handleError(err: any) {

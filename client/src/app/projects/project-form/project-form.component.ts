@@ -5,10 +5,10 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { DBService } from './../../db/db.service';
-import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserInformationsService } from './../../auth/user-informations.service';
 
