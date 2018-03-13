@@ -33,11 +33,34 @@ export class MainMenuComponent implements OnInit {
       if (this.userInformations == null) {
         this.router.navigate([this.config['loginUrl']]);
       } else {
+        this.filterMenuByRoles();
         if (window.location.pathname === this.config['loginUrl'] || window.location.pathname === '/') {
           this.router.navigate([this.config['defaultUrl']]);
         }
       }
     });
+  }
+
+  private filterMenuByRoles(){
+    let userRolesCodes = this.userInformations.authUser.roles.map((role) => {
+      return role.code;
+    });
+
+    this.config.links = this.config.links.filter((link) => {
+      if(link['roles'] != null){
+
+        if(userRolesCodes.length === 0){
+          return false;
+        }
+        
+        for(var i = 0; i < userRolesCodes.length; i++){
+          if(link['roles'].indexOf(userRolesCodes[i]) === -1){
+            return false;
+          }
+        }
+      }
+      return true;
+    })
   }
 
   private logout() {

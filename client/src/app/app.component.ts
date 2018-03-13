@@ -43,11 +43,13 @@ export class AppComponent implements OnInit {
       {
         'icon': 'tune',
         'label': 'Backoffice',
-        'url': 'backoffice/'
+        'url': 'backoffice/',
+        'roles': ['admin']
       },{
         'icon': 'people',
         'label': 'Users',
-        'url': 'users/'
+        'url': 'users/',
+        'roles': ['admin']
       }
     ],
     'loginUrl': '/login',
@@ -71,7 +73,5 @@ export class AppComponent implements OnInit {
       this.loading = false;
     }
   }
-  ngOnInit() {
-    console.log("LA?")
-  }
+  ngOnInit() {}
 }
