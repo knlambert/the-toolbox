@@ -231,7 +231,7 @@ export class FilterComponent {
   public getFilters() {
     const filters = JSON.parse(JSON.stringify(this.filters));
     for (let i = 0; i < filters.length; i++) {
-      if (filters[i]['type'] === 'timestamp') {
+      if (filters[i]['type'] === 'datetime') {
         filters[i]['value'] = parseInt('' + new Date(filters[i]['value']).getTime() / 1000);
       }
     }
