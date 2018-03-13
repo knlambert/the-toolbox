@@ -110,9 +110,7 @@ DB_API_CONFIG = {
 for service_name, db_api in list(DB_API_CONFIG.items()):
     db_blueprint = db_api.get_flask_adapter(FLASK_USER_API).construct_blueprint()
 
-    @db_blueprint.errorhandler(user_api.ApiException)
-    def user_api_error_wrapper(exception):
-        return FLASK_USER_API.api_error_handler(exception)
+    FLASK_USER_API.add_api_error_handler(db_blueprint)
 
     @db_blueprint.before_request
     @FLASK_USER_API.is_connected(login_url=u"/login")
@@ -125,12 +123,12 @@ for service_name, db_api in list(DB_API_CONFIG.items()):
     )
 
 # App routes.
-@APP.route('/<path:path>')
+@APP.route(u'/<path:path>')
 def send_client(path):
     """
     Handles client resources.
     """
-    return send_from_directory('dist/', path)
+    return send_from_directory(u'dist/', path)
 
 @APP.errorhandler(404)
 def send_index(e):
