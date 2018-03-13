@@ -24,12 +24,11 @@ export class UsersListComponent implements OnInit {
   public offset = 0;
   public callSize: number = 16;
   public hasNext: boolean = false;
-  private users: Array<object> = [];
+  public users: Array<object> = [];
   public isLoading: boolean = false;
-  
   public itemComponent = UsersListItemComponent;
 
-  private onFiltersUpdated(update: {search : string}){
+  public onFiltersUpdated(update: {search : string}){
     this.offset = 0;
     this.users = [];
     this.refreshUsers(update.search);
@@ -46,7 +45,7 @@ export class UsersListComponent implements OnInit {
     });
   }
   
-  private newUser(){
+  public newUser(){
     this.router.navigate(['/users/new']);
   }
 

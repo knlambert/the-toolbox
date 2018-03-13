@@ -48,7 +48,7 @@ export class UserFormComponent implements OnInit {
    * Submit the form by triggering an Output.
    * @param authUser The submitted AuthUser. 
    */
-  private submitForm(value: object){
+  public submitForm(value: object){
 
     let authUser = new AuthUser(
       value['id'],
