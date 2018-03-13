@@ -1,6 +1,6 @@
 git+https://github.com/knlambert/sqlcollection.git@develop
-git+https://github.com/knlambert/py-modest-user-api.git@develop
-git+https://github.com/knlambert/sql-collection-api.git@develop
+git+https://github.com/knlambert/user-api.git@develop
+git+https://github.com/knlambert/db-api.git@develop
 appdirs==1.4.3
 Cerberus==1.1
 cffi==1.9.1

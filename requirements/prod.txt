@@ -1,6 +1,6 @@
 git+https://github.com/knlambert/sqlcollection.git@master
-git+https://github.com/knlambert/py-modest-user-api.git@master
-git+https://github.com/knlambert/sql-collection-api.git@master
+git+https://github.com/knlambert/user-api.git@master
+git+https://github.com/knlambert/db-api.git@master
 Cerberus==1.1
 click==6.7
 ecdsa==0.13
