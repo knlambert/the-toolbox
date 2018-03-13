@@ -30,11 +30,13 @@ export class UserFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.authUser.roles)
+    var isNewUser = (this.authUser.id == null)
     this.form = this.fb.group({
       'id': [this.authUser.id],
-      'email': [this.authUser.email, Validators.compose([Validators.email, Validators.required])],
+      'email': [{"value": this.authUser.email, "disabled": !isNewUser}, Validators.compose([Validators.email, Validators.required])],
       'name': [this.authUser.name, Validators.compose([Validators.required])],
+      'resetPassword': [{"value": isNewUser, "disabled": isNewUser}],
+      'password': ["", Validators.compose([Validators.minLength(6)])],
       'active': [this.authUser.active, Validators.compose([Validators.required])],
       'roles': [this.authUser.roles.map((role: AuthRole) => {
         return role.id;
@@ -47,24 +49,28 @@ export class UserFormComponent implements OnInit {
    * @param authUser The submitted AuthUser. 
    */
   private submitForm(value: object){
+
     let authUser = new AuthUser(
       value['id'],
-      value['email'],
+      value['email'] || this.authUser.email,
       value['name'],
       value['active'],
       value['roles'].map((roleId) => {
         return new AuthRole(roleId, "", "");
       })
     );
+    let output = {
+      "authUser": authUser
+    };
+    if (value["resetPassword"] == null || value["resetPassword"] === true){
+      output["newPassword"] = value["password"];
+    }
+    
     if(this.authUser.id == null){
-      this.userCreate.emit({
-        "authUser": authUser
-      });
+      this.userCreate.emit(output);
     }
     else{
-      this.userEdit.emit({
-        "authUser": authUser
-      });
+      this.userEdit.emit(output);
     }
   }
 

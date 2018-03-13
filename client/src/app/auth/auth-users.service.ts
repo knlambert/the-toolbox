@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AuthRole } from "./auth-role.model";
 import { AuthUser } from './auth-user.model';
+import { NotificationService } from './../app-common/notification.service';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 
 
@@ -16,7 +17,10 @@ export class AuthUsersService {
 
   private url: string = 'api/users/';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private notificationService: NotificationService,
+    private http: HttpClient
+  ) { }
 
   /**
    * This method create a new HttpParams object with
@@ -38,9 +42,18 @@ export class AuthUsersService {
    * Allows to filter on email or name with a like operation.
    * @param email The email of the user to look for.
    * @param name The name of the user to look for.
+   * @param offset Used to read users in a paginated way.
+   * @param limit Maximum number of users fetched.
    */
-  list(email: string = null, name: string = null) {
-    var args = {};
+  list(
+    email: string = null, 
+    name: string = null, 
+    offset: number = 0, 
+    limit: number = 20): Observable<{hasNext: boolean, users: Array<AuthUser>}> {
+    var args = {
+      "offset": offset,
+      "limit": limit
+    };
 
     if(email != null){
       args['email'] = email;
@@ -53,11 +66,18 @@ export class AuthUsersService {
     let httpParams = this.jsonToParams(args);
     return this.http.get(this.url, {
       params: httpParams
-    }).catch(this.handleError);
+    })
+    .map((result) => {
+      return {
+        hasNext: result['has_next'],
+        users: result['users']
+      };
+    })
+    .catch(this.generateHandleError());
   }
 
   public get(id: number){
-    return this.http.get(this.url + id).catch(this.handleError);
+    return this.http.get(this.url + id).catch(this.generateHandleError());
   }
 
   /**
@@ -68,15 +88,19 @@ export class AuthUsersService {
   public register(authUser: AuthUser, password: string = null){
     let authUserJSON = authUser.toJSON();
 
-    password = "test911"
-    if(password){
-      authUserJSON['password'] = "test911";
+    if(password != null){
+      authUserJSON['password'] = password;
     }
+
     let rolesJSON = authUserJSON['roles']
     delete authUserJSON["id"];
     return this.http
       .post(this.url, authUserJSON)
-      .catch(this.handleError);
+      .map((result) => {
+        this.notificationService.info("New user created.");
+        return result;
+      })
+      .catch(this.generateHandleError());
   }
 
   /**
@@ -86,22 +110,32 @@ export class AuthUsersService {
    */
   public update(authUser: AuthUser, password: string = null){
     let authUserJSON = authUser.toJSON();
+
+    if(password != null){
+      authUserJSON['password'] = password;
+    }
+
     return this.http
       .put(this.url + authUser.id, authUserJSON)
-      .catch(this.handleError);
+      .map((result) => {
+        this.notificationService.info("User updated.");
+        return result;
+      })
+      .catch(this.generateHandleError());
   }
 
-  private handleError(err: any) {
-    let errMsg;
-    if (err.error instanceof Error) {
-      // A client-side or network error occurred. Handle it accordingly.
-      errMsg = 'An error occurred:' + err.error.message;
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      errMsg = "Backend returned code " + err.status + ", body was: " + JSON.stringify(err.error);
-    }
-    return Observable.throw(err.error);
+  private generateHandleError() {
+    let notificationService = this.notificationService;
+    return function(err: any){
+      let errorPayload = err.error;
+      if(errorPayload.error_code === "CONFLICT"){
+        notificationService.error("The user already exists.");
+      }
+      else{
+        notificationService.error("Can't create this user.");
+      }
+      return Observable.throw(errorPayload);
+    };
   };
  
 }

@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from './../users.service';
+import { AuthUsersService } from './../../auth/auth-users.service';
+
 import { } from './../../auth/user-informations.service'
 import { UsersListItemComponent } from "./../users-list-item/users-list-item.component";
 
@@ -12,7 +13,7 @@ import { UsersListItemComponent } from "./../users-list-item/users-list-item.com
 export class UsersListComponent implements OnInit {
 
   constructor(
-    private usersService: UsersService,
+    private authUsersService: AuthUsersService,
     private router: Router
   ) { }
 
@@ -20,23 +21,38 @@ export class UsersListComponent implements OnInit {
     this.refreshUsers();
   }
 
+  public offset = 0;
+  public callSize: number = 16;
+  public hasNext: boolean = false;
   private users: Array<object> = [];
-  private hasNext: boolean = false;
+  public isLoading: boolean = false;
   
   public itemComponent = UsersListItemComponent;
 
   private onFiltersUpdated(update: {search : string}){
+    this.offset = 0;
+    this.users = [];
     this.refreshUsers(update.search);
   }
   
   private refreshUsers(filterValue: string = null){
-    this.usersService.list(filterValue, filterValue).subscribe((result) => {
-      this.users = result.users;
+    this.isLoading = true;
+    this.authUsersService.list(
+      filterValue, filterValue, this.offset, this.callSize
+    ).subscribe((result) => {
+      this.users = this.users.concat(result.users);
       this.hasNext = result.hasNext;
+      this.isLoading = false;
     });
   }
+  
   private newUser(){
     this.router.navigate(['/users/new']);
+  }
+
+  public loadMore() {
+    this.offset += this.callSize;
+    this.refreshUsers();
   }
 
 }

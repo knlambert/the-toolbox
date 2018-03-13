@@ -5,8 +5,8 @@
     <div *ngIf="authUser" class="user-informations" fxFlex.md="48.5" fxFlex.gt-md="40">
       <h3>User informations</h3>
       <hc-user-form [authUser]="authUser" 
-      (userCreate)="createUser($event.authUser)"
-      (userEdit)="editUser($event.authUser)"
+      (userCreate)="createUser($event.authUser, $event.newPassword)"
+      (userEdit)="editUser($event.authUser, $event.newPassword)"
       (cancel)="previous()" ></hc-user-form>
     </div>
   </div>

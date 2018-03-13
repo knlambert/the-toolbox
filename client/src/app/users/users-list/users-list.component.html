@@ -8,9 +8,10 @@
 [hideRemoveButton]="true" 
 (onClickAdd)="newUser()"  ></common-collection-buttons>
 
-<div id="div-more-container" >
+<div class="more-items">
     <button [hidden]="!hasNext || isLoading" mat-icon-button (click)="loadMore()">
         <mat-icon >more_horiz</mat-icon>
     </button>
     <mat-spinner [hidden]="!isLoading" ></mat-spinner> 
 </div>
+

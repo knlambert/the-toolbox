@@ -3,6 +3,10 @@ input, mat-form-field {
     width: 100%;
 }
 
+.user-details-form__footer {
+    margin-top: 20px;
+}
+
 .user-details-form__slide-active {
     height: 0px;
     position: relative;
@@ -11,6 +15,6 @@ input, mat-form-field {
     margin-left: auto;
 }
 
-.user-details-form__btn-save {
+.user-details-form__footer__btn-save {
     float: right;
 }

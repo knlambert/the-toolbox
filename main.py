@@ -34,6 +34,39 @@ APP = Flask(__name__)
 DB_API_CONF = CONFIG[u"db-api"]
 USER_API_CONFIG = CONFIG[u"user-api"]
 
+
+
+# Init & register DB API
+
+CLIENT = Client(DB_API_CONF.get(u"unix_socket"))
+DB = getattr(CLIENT, DB_API_CONF[u"db_name"])
+
+MAIL_IO = StandardMailIO(NOTIFICATION_CONFIG) 
+
+def on_user_created(user):
+    """
+    Called when a user is created in the API.
+    """
+    DB._user.insert_one({
+        u"email": user.get(u"email"),
+        u"name": user.get(u"name"),
+        u"min_hours_per_week": 40,
+        u"default_role": 1
+    })
+
+def on_user_updated(user):
+    """
+    Called when a user is updated in the API.
+    """
+    DB._user.update_many({
+            "email": user.get(u"email")
+        }, {
+            u"$set": {
+                u"name": user.get(u"name")
+            }
+        }
+    )
+
 # Init & register User API
 # Create user api object
 USER_API =  user_api.create_user_api(
@@ -44,17 +77,12 @@ USER_API =  user_api.create_user_api(
         USER_API_CONFIG.get(u"db_name")
     ),
     jwt_secret=USER_API_CONFIG.get(u"jwt_secret"),
-    jwt_lifetime=USER_API_CONFIG.get(u"jwt_lifetime")
+    jwt_lifetime=USER_API_CONFIG.get(u"jwt_lifetime"),
+    user_created_callback=on_user_created,
+    user_updated_callback=on_user_updated
 )
 
 FLASK_USER_API = USER_API.get_flask_user_api()
-
-# Init & register DB API
-
-CLIENT = Client(DB_API_CONF.get(u"unix_socket"))
-DB = getattr(CLIENT, DB_API_CONF[u"db_name"])
-
-MAIL_IO = StandardMailIO(NOTIFICATION_CONFIG) 
 
 DB_API_CONFIG = {
     u"projects": DBApi(DB, u"project"),
@@ -96,10 +124,7 @@ for service_name, db_api in list(DB_API_CONFIG.items()):
         url_prefix=u'/api/db/{}'.format(service_name)
     )
 
-
-
 # App routes.
-
 @APP.route('/<path:path>')
 def send_client(path):
     """

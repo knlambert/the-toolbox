@@ -1,7 +1,8 @@
-import { AuthUser } from "./../../auth/auth-user.model";
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AuthUser } from "./../../auth/auth-user.model";
 import { AuthUsersService } from '../../auth/auth-users.service';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+
 @Component({
   selector: 'hc-user-details',
   templateUrl: './user-details.component.html',
@@ -10,9 +11,9 @@ import { AuthUsersService } from '../../auth/auth-users.service';
 export class UserDetailsComponent implements OnInit {
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authUserService: AuthUsersService,
-    private router: Router
+    private authUserService: AuthUsersService
   ) { }
 
   public authUser: AuthUser = null;
@@ -38,22 +39,22 @@ export class UserDetailsComponent implements OnInit {
 
   /**
    * Create a user in the user API ref.
-   * @param authUser 
+   * @param authUser The user to create.
+   * @param password The password to modify.
    */
-  public createUser(authUser: AuthUser){
-    this.authUserService.register(authUser).subscribe((createdUser: AuthUser) => {
-      console.log(createdUser);
+  public createUser(authUser: AuthUser, password: string){
+    this.authUserService.register(authUser, password).subscribe((createdUser: AuthUser) => {
       this.previous();
     });
   }
 
   /**
    * Update the user in the user API ref.
-   * @param authUser 
+   * @param authUser The user to update.
+   * @param password The password to modify.
    */
-  public editUser(authUser: AuthUser){
-    this.authUserService.update(authUser).subscribe((editedUser: AuthUser) => {
-      console.log(editedUser);
+  public editUser(authUser: AuthUser, password: string){
+    this.authUserService.update(authUser, password).subscribe((editedUser: AuthUser) => {
       this.previous();
     })
   }

@@ -71,5 +71,7 @@ export class AppComponent implements OnInit {
       this.loading = false;
     }
   }
-  ngOnInit() { }
+  ngOnInit() {
+    console.log("LA?")
+  }
 }

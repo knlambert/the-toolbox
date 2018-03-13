@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
+import { DBModule } from './../db/db.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { DBModule } from './../db/db.module';
-import { UsersService } from './users.service';
-import { AuthUsersService } from './../auth/auth-users.service';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { AppCommonModule } from './../app-common/app-common.module'
+import { MaterialModule } from './../material/material.module';
+import { AuthUsersService } from './../auth/auth-users.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PieChartModule, GaugeModule } from '@swimlane/ngx-charts';
-import { MaterialModule } from './../material/material.module';
+import { UserFormComponent } from './user-form/user-form.component';
+import { AppCommonModule } from './../app-common/app-common.module';
 import { UsersMenuComponent } from './users-menu/users-menu.component';
 import { UsersListComponent } from './users-list/users-list.component';
+import { NotificationService } from './../app-common/notification.service';
 import { GoogleColorsService } from './../app-common/google-colors.service';
-import { UsersListItemComponent } from './users-list-item/users-list-item.component';
-import { UserFormComponent } from './user-form/user-form.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { UsersListItemComponent } from './users-list-item/users-list-item.component';
 
 @NgModule({
   imports: [
@@ -50,9 +50,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
   ],
   exports: [],
   providers: [
-    UsersService,
     AuthUsersService,
-    GoogleColorsService
+    GoogleColorsService,
+    NotificationService
   ],
   entryComponents: [
     UsersListItemComponent

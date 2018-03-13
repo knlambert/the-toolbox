@@ -19,18 +19,24 @@
     </mat-select>
   </mat-form-field>
 
-  <div>
+  <mat-checkbox [formControl]="form.controls['resetPassword']"  >Reset password</mat-checkbox>
+  
+  <mat-form-field [hidden]="!form.controls['resetPassword'].value">
+    <input type="password" [required]="form.controls['resetPassword'].value" matInput placeholder="Password"  [formControl]="form.controls['password']">
+  </mat-form-field>
 
-    <button type="button" id="user-details-form__btn-previous" mat-icon-button (click)="previous()" >
+
+  <div class="user-details-form__footer" >
+    <button type="button" class="user-details-form__footer__btn-previous" mat-icon-button (click)="previous()" >
         <mat-icon>keyboard_backspace</mat-icon>
     </button>
 
-    <button class="user-details-form__btn-save" mat-icon-button [disabled]="!form.valid || locked" >
+    <button class="user-details-form__footer__btn-save" mat-icon-button [disabled]="!form.valid || locked" >
         <mat-icon>save</mat-icon>
     </button>
 
   </div>
-
+  <!-- {{form.value | json}} -->
 
 
 </form>
