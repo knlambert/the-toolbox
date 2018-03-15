@@ -40,7 +40,7 @@ class CommentDBApi(DBApi):
 
         if self._notification_config.get(u"ACTIVE", False):
             notifications = list(self._comment_notification.find(query={
-                u"TASK_ID": document[u"task"]
+                u"TASK_ID": document[u"task"].get(u"id")
             }))
             
             if len(notifications) > 0:
