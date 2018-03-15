@@ -52,7 +52,7 @@ export class ProjectMemberFormComponent implements OnInit {
 
   private updateUsers(name: string = null) {
     const filters = (name != null && name !== '' && typeof (name) !== 'object') ? { 'name': { '$regex': name } } : {};
-    return this.dbService.list('users', filters, { 'name': 1, 'id': -1 });
+    return this.dbService.list('_users', filters, { 'name': 1, 'id': -1 });
   }
 
   public getName(obj: any): string {
