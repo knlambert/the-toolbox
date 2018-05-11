@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from './../../db/db.service';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable ,  Subject } from 'rxjs';
  
 @Component({
   selector: 'hc-project-files',

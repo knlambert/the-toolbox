@@ -4,7 +4,7 @@ import { DBService } from './../../db/db.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProjectAssignementService } from './../project-assignement.service';
 import * as DBUtils from './../../db/db.utils';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 class AutocompleteMinutesType {
   label: string;

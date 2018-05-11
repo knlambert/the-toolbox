@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable, Output, EventEmitter, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { ConnectionService } from './connection.service';
@@ -26,13 +28,13 @@ export class UserInformationsService {
   }
 
   public clear() {
-    return this.connectionService.logout().map(() => {
+    return this.connectionService.logout().pipe(map(() => {
       this.onUpdate.next(null);
-    });
+    }));
   }
 
   public authentify(login: string, password: string) {
-    return this.connectionService.authentify(login, password).map(
+    return this.connectionService.authentify(login, password).pipe(map(
       (payload) => {
         let authUser = new AuthUserToken(
           payload['id'],
@@ -43,7 +45,7 @@ export class UserInformationsService {
         )
         this.refresh(authUser);
       }
-    )
+    ))
   }
 
   public refresh(authUser: AuthUserToken) {
@@ -79,9 +81,9 @@ export class UserInformationsService {
   public updateParameters(value: object) {
     return this.dbService.update("_users", {
       "id": this.userInformations.appUser.id
-    }, value).map((result) => {
+    }, value).pipe(map((result) => {
       this.refresh(this.userInformations.authUser);
       return result;
-    });
+    }));
   }
 }

@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, Subject, of } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators';
 import { DBService } from './../../db/db.service';
-import { UserInformationsService } from './../../auth/user-informations.service';
 import { UserInformations } from './../../auth/user-informations.model';
-
-import { Observable, Subject } from 'rxjs';
 import { TaskDetailsComponent } from './../task-details/task-details.component';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { UserInformationsService } from './../../auth/user-informations.service';
 
 @Component({
   selector: 'hc-task-list',
@@ -57,7 +57,7 @@ export class TaskListComponent implements OnInit {
       filters['completed'] = false;
     }
 
-    let selectedMembersAffectedTasks = Observable.of(null);
+    let selectedMembersAffectedTasks = of(null);
     if (this._selectedMembers.length > 0) {
       selectedMembersAffectedTasks = this.dbService.list('task-assignements', {
         'task.task_list.id': this.taskList['id'],
@@ -66,25 +66,28 @@ export class TaskListComponent implements OnInit {
             'user.id': user['id']
           };
         })
-      }).map((items) => {
+      }).pipe(map((items) => {
         return items.map((item) => {
           return { 'id': item['task']['id'] };
         });
-      });
+      }));
     }
 
 
-    selectedMembersAffectedTasks.flatMap((taskIdsFilters) => {
-      if (taskIdsFilters != null) {
-        if (taskIdsFilters.length === 0) {
-          taskIdsFilters = [{
-            'id': -1
-          }];
+    selectedMembersAffectedTasks.pipe(
+      flatMap((taskIdsFilters) => {
+        if (taskIdsFilters != null) {
+          if (taskIdsFilters.length === 0) {
+            taskIdsFilters = [{
+              'id': -1
+            }];
+          }
+          filters['$or'] = taskIdsFilters;
         }
-        filters['$or'] = taskIdsFilters;
-      }
-      return Observable.of(filters);
-    }).flatMap((newfilters) => this.dbService.list('tasks-sum-up', newfilters)).subscribe((items) => {
+        return of(filters);
+      }),
+      flatMap((newfilters) => this.dbService.list('tasks-sum-up', newfilters))
+    ).subscribe((items) => {
       this.tasksSumUp = [];
       items.forEach((value) => {
         this.insertItem(value, 'saved');
