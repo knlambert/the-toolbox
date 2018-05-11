@@ -4,7 +4,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-
+import { map } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common'
 import { DBService } from './../../db/db.service';
@@ -86,11 +86,11 @@ export class ProjectDashboardComponent implements OnInit {
   private refreshAvailableMembers() {
     this.dbService.list('project_assignements', {
       'project.id': this.project['id']
-    }, { 'user.name': 1, 'user.id': -1 }).map((items) => {
+    }, { 'user.name': 1, 'user.id': -1 }).pipe(map((items) => {
       return items.map((item) => {
         return item['user'];
       });
-    }).subscribe((users) => {
+    })).subscribe((users) => {
       this.projectMembers = users;
     });
   }

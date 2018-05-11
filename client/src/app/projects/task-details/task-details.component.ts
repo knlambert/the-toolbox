@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, Inject, Output, EventEmitter, ViewChild } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { DBService } from './../../db/db.service';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subject } from 'rxjs/Subject';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { EntityAffectationComponent } from '../entity-affectation/entity-affectation.component';
+import { Component, Input, OnInit, Inject, Output, EventEmitter, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'hc-task-details',
@@ -76,11 +75,11 @@ export class TaskDetailsComponent implements OnInit {
   private refreshAvailableMembers() {
     return this.dbService.list('project_assignements', {
       'project.id': this.task['task_list']['project']['id']
-    }, { 'user.name': 1, 'user.id': -1 }).map((items) => {
+    }, { 'user.name': 1, 'user.id': -1 }).pipe(map((items) => {
       return items.map((item) => {
         return item['user'];
       });
-    });
+    }));
   }
 
   private refreshAffectedUser() {

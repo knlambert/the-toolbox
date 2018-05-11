@@ -1,6 +1,5 @@
 
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject ,  Observable } from 'rxjs';
 import { DBService } from './../../db/db.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { UserInformations } from './../../auth/user-informations.model';

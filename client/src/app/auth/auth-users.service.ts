@@ -1,8 +1,11 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {catchError, map} from 'rxjs/operators';
+
+
+
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { AuthRole } from "./auth-role.model";
 import { AuthUser } from './auth-user.model';
 import { NotificationService } from './../app-common/notification.service';
@@ -66,18 +69,18 @@ export class AuthUsersService {
     let httpParams = this.jsonToParams(args);
     return this.http.get(this.url, {
       params: httpParams
-    })
-    .map((result) => {
+    }).pipe(
+    map((result) => {
       return {
         hasNext: result['has_next'],
         users: result['users']
       };
-    })
-    .catch(this.generateHandleError());
+    }),
+    catchError(this.generateHandleError()),);
   }
 
   public get(id: number){
-    return this.http.get(this.url + id).catch(this.generateHandleError());
+    return this.http.get(this.url + id).pipe(catchError(this.generateHandleError()));
   }
 
   /**
@@ -95,12 +98,12 @@ export class AuthUsersService {
     let rolesJSON = authUserJSON['roles']
     delete authUserJSON["id"];
     return this.http
-      .post(this.url, authUserJSON)
-      .map((result) => {
+      .post(this.url, authUserJSON).pipe(
+      map((result) => {
         this.notificationService.info("New user created.");
         return result;
-      })
-      .catch(this.generateHandleError());
+      }),
+      catchError(this.generateHandleError()),);
   }
 
   /**
@@ -116,12 +119,12 @@ export class AuthUsersService {
     }
 
     return this.http
-      .put(this.url + authUser.id, authUserJSON)
-      .map((result) => {
+      .put(this.url + authUser.id, authUserJSON).pipe(
+      map((result) => {
         this.notificationService.info("User updated.");
         return result;
-      })
-      .catch(this.generateHandleError());
+      }),
+      catchError(this.generateHandleError()),);
   }
 
   private generateHandleError() {
@@ -134,7 +137,7 @@ export class AuthUsersService {
       else{
         notificationService.error("Can't create this user.");
       }
-      return Observable.throw(errorPayload);
+      return observableThrowError(errorPayload);
     };
   };
  

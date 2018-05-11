@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { DBService } from './../../db/db.service';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable ,  Subject } from 'rxjs';
 import { UserInformationsService } from './../../auth/user-informations.service';
 import { UserInformations } from './../../auth/user-informations.model';
 import { GoogleColorsService } from './../../app-common/google-colors.service';

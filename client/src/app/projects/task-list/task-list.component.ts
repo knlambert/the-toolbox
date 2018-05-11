@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import 'rxjs/add/observable/of';
 import { Router } from '@angular/router';
-import { DBService } from './../../db/db.service';
-import { UserInformationsService } from './../../auth/user-informations.service';
-import { UserInformations } from './../../auth/user-informations.model';
-
 import { Observable, Subject } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators';
+import { DBService } from './../../db/db.service';
+import { UserInformations } from './../../auth/user-informations.model';
 import { TaskDetailsComponent } from './../task-details/task-details.component';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { UserInformationsService } from './../../auth/user-informations.service';
 
 @Component({
   selector: 'hc-task-list',
@@ -66,25 +67,28 @@ export class TaskListComponent implements OnInit {
             'user.id': user['id']
           };
         })
-      }).map((items) => {
+      }).pipe(map((items) => {
         return items.map((item) => {
           return { 'id': item['task']['id'] };
         });
-      });
+      }));
     }
 
 
-    selectedMembersAffectedTasks.flatMap((taskIdsFilters) => {
-      if (taskIdsFilters != null) {
-        if (taskIdsFilters.length === 0) {
-          taskIdsFilters = [{
-            'id': -1
-          }];
+    selectedMembersAffectedTasks.pipe(
+      flatMap((taskIdsFilters) => {
+        if (taskIdsFilters != null) {
+          if (taskIdsFilters.length === 0) {
+            taskIdsFilters = [{
+              'id': -1
+            }];
+          }
+          filters['$or'] = taskIdsFilters;
         }
-        filters['$or'] = taskIdsFilters;
-      }
-      return Observable.of(filters);
-    }).flatMap((newfilters) => this.dbService.list('tasks-sum-up', newfilters)).subscribe((items) => {
+        return Observable.of(filters);
+      }),
+      flatMap((newfilters) => this.dbService.list('tasks-sum-up', newfilters))
+    ).subscribe((items) => {
       this.tasksSumUp = [];
       items.forEach((value) => {
         this.insertItem(value, 'saved');
