@@ -1,6 +1,5 @@
-import 'rxjs/add/observable/of';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { map, flatMap } from 'rxjs/operators';
 import { DBService } from './../../db/db.service';
 import { UserInformations } from './../../auth/user-informations.model';
@@ -58,7 +57,7 @@ export class TaskListComponent implements OnInit {
       filters['completed'] = false;
     }
 
-    let selectedMembersAffectedTasks = Observable.of(null);
+    let selectedMembersAffectedTasks = of(null);
     if (this._selectedMembers.length > 0) {
       selectedMembersAffectedTasks = this.dbService.list('task-assignements', {
         'task.task_list.id': this.taskList['id'],
@@ -85,7 +84,7 @@ export class TaskListComponent implements OnInit {
           }
           filters['$or'] = taskIdsFilters;
         }
-        return Observable.of(filters);
+        return of(filters);
       }),
       flatMap((newfilters) => this.dbService.list('tasks-sum-up', newfilters))
     ).subscribe((items) => {

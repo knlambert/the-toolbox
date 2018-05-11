@@ -32,7 +32,6 @@
     "purecss": "^1.0.0",
     "quill": "^1.3.4",
     "rxjs": "^6.1.0",
-    "rxjs-compat": "^6.0.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

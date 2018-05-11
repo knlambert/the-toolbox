@@ -22,7 +22,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppCommonModule,
     AuthModule,
     BrowserAnimationsModule,
-    BrowserModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot(
       [
