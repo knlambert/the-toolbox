@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `hours_count`.`project_file` (
 CREATE TABLE IF NOT EXISTS `hours_count`.`task` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
-  `description` TEXT NULL,
+  `description` MEDIUMTEXT NULL,
   `completed` TINYINT(1) NOT NULL DEFAULT 0,
   `created_at` DATETIME NOT NULL DEFAULT NOW(),
   `task_list` INT NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `hours_count`.`user_has_task` (
 
 CREATE TABLE IF NOT EXISTS `hours_count`.`comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `description` TEXT NOT NULL,
+  `description` MEDIUMTEXT NOT NULL,
   `task` INT NOT NULL,
   `author` INT NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT NOW(),
