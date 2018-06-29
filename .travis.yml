@@ -1,8 +1,8 @@
-- language: node_js
-  node_js:
-  - "9"
-  script:
-  - ./bin/build.sh
+language: node_js
+node_js:
+- "9"
+script:
+- ./bin/build.sh
 deploy:
   provider: releases
   api_key:
