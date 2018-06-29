@@ -1,0 +1,16 @@
+matrix:
+  include:
+  - language: node_js
+    node_js:
+    - "9"
+    script:
+    - ./bin/build.sh
+deploy:
+  provider: releases
+  api_key:
+    secure: CpRWtxbrqifVazf0Vwmk7jmL1kUUemPilDcPZgVTR2zlc6GgPnatJlqXAvyBms9oaZJ+aYpS2Yd7mg5f6ba3Iz1lmhC/uhfGB0TL9wYKaNAsWS+tQNzDsLX39FViH4jipsF71flpDQmTeB0Qo7d0rvvDTenJteBw25XFmkLWhgFC5a0YQ03nPN8mxxBgTAEsch+BiKm7y5Id0a1wdjlLAolBuy5nUp7XOavz2jgY2DC24jR1Vn+eOk8Z8cSiPPkxe7rDfQbPBwIWb3Cp3F/DZTLlDs7wXIfKWHVf/RCULCVcCo4v270aSZj5WhUE3d1RCxQoH2qJWwMdu9lbPsWUDvCt/YqBgmB1ObB/7Ry5M6rx/oFuGlY++n1e8J+wN0Gvco2+WqhGbkjpqABBO4KldtzBep9J8qjTJNqkFnWY738Rl8IjSNydnZSWoKG/DwYNl4Q3rcCjhhXphrBNJ6MYf3fh0PIp/U9jrIov/inyd2AdzwBVxjtpkUaudIPTjn5/8RvlC9wC8tDEerk8+Er7HQoOUzXLiEW76XN4yRyAKHT8gQdb7f7DBgjVumPPno747T5jJdcHgTwCroa4LiRQi1TaB5DAIBsTbD8jKwAI+hcxgFjFK3wAge4JJw/0rRbqAeA40+uAp1uFU/Q636u/uUW7ujcZYCApTCCGUgMvFls=
+  file: build.tar.gz
+  on:
+    repo: knlambert/the-toolbox
+    branch: knlambert/travis
+    tags: true
