@@ -22,7 +22,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppCommonModule,
     AuthModule,
     BrowserAnimationsModule,
-    BrowserModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot(
       [
@@ -41,6 +40,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
         }, {
           path: 'projects',
           loadChildren: "./projects/projects.module#ProjectsModule"
+        }, {
+          path: 'users',
+          loadChildren: "./users/users.module#UsersModule"
         }, {
           path: '',
           redirectTo: '/hours/mine/now',

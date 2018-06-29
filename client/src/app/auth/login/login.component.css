@@ -20,18 +20,11 @@ button
 }
 
 
-#id_login, #id_password
-{
+mat-form-field .login-card__login, .login-card__password, .login-card__btn-signin, .login-card__btn-signin-google {
   width: 100%;
 }
 
-#id_button_sign_in
-{
-  float:right;
-}
-
-mat-form-field
-{
+mat-form-field {
 
   width:100%;
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DBService } from './../db/db.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ProjectAssignementService {
@@ -16,12 +17,12 @@ export class ProjectAssignementService {
    */
   listProjectAffectedTo(userId: number, filter = {}) {
     filter['user.id'] = userId;
-    return this.dbService.list("project_assignements", filter).map((items) => {
+    return this.dbService.list("project_assignements", filter).pipe(map((items) => {
       for (var i = 0; i < items.length; i++) {
         items[i] = items[i].project;
       }
       return items;
-    });
+    }));
   }
 
   /**

@@ -31,16 +31,25 @@ export class AppComponent implements OnInit {
   public menuConfig = {
     'links': [
       {
+        'icon': 'access_time',
         'label': 'My hours',
         'url': 'hours/mine/now/'
       },
       {
+        'icon': 'work',
         'label': 'Projects',
         'url': 'projects/'
       },
       {
+        'icon': 'tune',
         'label': 'Backoffice',
-        'url': 'backoffice/'
+        'url': 'backoffice/',
+        'roles': ['admin']
+      },{
+        'icon': 'people',
+        'label': 'Users',
+        'url': 'users/',
+        'roles': ['admin']
       }
     ],
     'loginUrl': '/login',
@@ -64,5 +73,5 @@ export class AppComponent implements OnInit {
       this.loading = false;
     }
   }
-  ngOnInit() { }
+  ngOnInit() {}
 }

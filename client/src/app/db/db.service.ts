@@ -1,8 +1,12 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+
+
+
 
 
 @Injectable()
@@ -24,11 +28,11 @@ export class DBService {
 
     return this.http.get(
       uri //, { headers: {} }
-    ).map(
+    ).pipe(map(
       this.standardExtract
-      ).catch(
+      ),catchError(
       this.handleError
-      );
+      ),);
   };
 
   /**
@@ -49,22 +53,22 @@ export class DBService {
   /**
    * Call the web service dedicated to export in a new tab.
    * @param source The name of the source we want details.
-   * @param filters A filter to get only what we want.
+   * @param filter A filter to get only what we want.
    */
-  public export(source: string, filters = {}) {
-    window.open(this.url + source + "/export?filters=" + JSON.stringify(filters) + "&auto_lookup=3");
+  public export(source: string, filter = {}) {
+    window.open(this.url + source + "/export?filter=" + JSON.stringify(filter) + "&auto_lookup=3");
   }
 
   /**
    * List items from the service.
    * @param source The name of the source we want details.
-   * @param filters A filter to get only resources needed.
+   * @param filter A filter to get only resources needed.
    * @param orderBy Allows to order items in a specific way.
    * @param first Cursor to loop on data.
    * @param nb Max item count returned.
    */
-  list(source, filters?, orderBy?, first?: Number, nb?: Number, lookup?: Array<object>) {
-    var filters = filters || {};
+  list(source, filter?, orderBy?, first?: Number, nb?: Number, lookup?: Array<object>) {
+    var filter = filter || {};
     var orderBy = orderBy || {};
     var order = [];
     var order_by = [];
@@ -74,7 +78,7 @@ export class DBService {
     }
 
     var args = {
-      "filters": JSON.stringify(filters),
+      "filter": JSON.stringify(filter),
       "offset": first,
       "limit": nb,
       "auto_lookup": 3
@@ -91,9 +95,9 @@ export class DBService {
     }
 
     let httpParams = this.jsonToParams(args);
-    return this.http.get(this.url + source, {
+    return this.http.get(this.url + source + "/", {
       params: httpParams
-    }).map(this.extractItems).catch(this.handleError);
+    }).pipe(map(this.extractItems),catchError(this.handleError),);
   }
 
   /**
@@ -102,18 +106,16 @@ export class DBService {
    * @param id The ID of the item we want.
    */
   get(source: string, id: any) {
-
-    let httpParams = this.jsonToParams({
-      "auto_lookup": 3
-    });
-
-    let url = this.url + source + "/" + id;
-    return this.http.get(url, {
-      params: httpParams
-    }).map((res) => {
-      return res;
-    }).catch(this.handleError);
-
+    return this.list(source, {
+      "id": id
+    }, {}, 0, 1).pipe(map((items) => {
+      if(items.length == 1){
+        return items[0];
+      }
+      else{
+        return null;
+      }
+    }))
   }
 
   private extractItems(res: object) {
@@ -124,46 +126,46 @@ export class DBService {
     return res;
   };
 
-  delete(source, filters) {
-    let uri = this.url + source;
+  delete(source, filter) {
+    let uri = this.url + source + "/";
     let httpParams = this.jsonToParams({
       "auto_lookup": 3,
-      "filters": JSON.stringify(filters)
+      "filter": JSON.stringify(filter)
     });
 
     return this.http.delete(uri, {
       params: httpParams
-    }).map(this.standardExtract).catch(this.handleError);
+    }).pipe(map(this.standardExtract),catchError(this.handleError),);
 
 
   };
 
-  save(source, item) {
+  save(source, item, auto_lookup: number = 3) {
     var itemToSave = JSON.parse(JSON.stringify(item));
-    let uri = this.url + source;
+    let uri = this.url + source + "/";
     let httpParams = this.jsonToParams({
-      auto_lookup: 1
+      auto_lookup: auto_lookup
     })
     return this.http.post(uri, itemToSave, {
       params: httpParams
-    }).map(this.standardExtract).catch(this.handleError);
+    }).pipe(map(this.standardExtract),catchError(this.handleError),);
   };
 
 
-  update(source, filters, item): Observable<Object> {
+  update(source, filter, item): Observable<Object> {
     var itemToSave = JSON.parse(JSON.stringify(item));
-    let uri = this.url + source;
+    let uri = this.url + source + "/";
 
     let httpParams = this.jsonToParams({
       auto_lookup: 3,
-      filters: JSON.stringify(filters)
+      filter: JSON.stringify(filter)
     });
 
     return this.http.put((uri), {
       "$set": itemToSave
     }, {
         params: httpParams
-      }).map(this.standardExtract).catch(this.handleError);
+      }).pipe(map(this.standardExtract),catchError(this.handleError),);
   };
 
   /**
@@ -174,17 +176,20 @@ export class DBService {
    */
   update_id(source, document_id, item): Observable<Object> {
     var itemToSave = JSON.parse(JSON.stringify(item));
-    let uri = this.url + source + "/" + document_id;
+    let uri = this.url + source + "/";
 
     let httpParams = this.jsonToParams({
-      auto_lookup: 3
+      auto_lookup: 3,
+      filter: JSON.stringify({
+        "id": document_id
+      })
     });
 
     return this.http.put((uri), {
       "$set": itemToSave
     }, {
         params: httpParams
-      }).map(this.standardExtract).catch(this.handleError);
+      }).pipe(map(this.standardExtract),catchError(this.handleError),);
   }
 
   private newHandleError(err: HttpErrorResponse) {
@@ -207,7 +212,6 @@ export class DBService {
       // The response body may contain clues as to what went wrong,
       errMsg = "Backend returned code " + err.status + ", body was: " + JSON.stringify(err.error);
     }
-    console.error(errMsg);
-    return Observable.throw(err.error);
+    return observableThrowError(err.error);
   };
 }

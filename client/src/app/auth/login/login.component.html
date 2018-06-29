@@ -1,22 +1,22 @@
 
 <div [hidden]="loading" id="login-card">
   <mat-card>
-    <form class="pure-g">
+    <form fxLayout="column">
 
-      <div class="pure-u-1">
+      <div >
         <mat-form-field>
-          <input placeholder="Login" matInput id="id_login" required [(ngModel)]="login" type="text" name="login" />
+          <input placeholder="Login" matInput class="login-card__login" required [(ngModel)]="login" type="text" name="login" />
         </mat-form-field>
       </div>
 
-      <div class="pure-u-1">
+      <div >
         <mat-form-field>
-         <input placeholder="Password" matInput id="id_password" required [(ngModel)]="password" type="password" name="password" />
+         <input placeholder="Password" matInput class="login-card__password" required [(ngModel)]="password" type="password" name="password" />
         </mat-form-field>
       </div>
 
-      <div class="pure-u-1">
-        <button id="id_button_sign_in" mat-button type="submit" (click)="connect()">Sign in</button>
+      <div >
+        <button class="login-card__btn-signin" mat-raised-button type="submit" (click)="connect()">Sign in</button>
       </div>
 
     </form>

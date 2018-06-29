@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from './../../db/db.service';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable ,  Subject } from 'rxjs';
 
 @Component({
   selector: 'hc-task-comments',
@@ -20,7 +19,7 @@ export class TaskCommentsComponent implements OnInit {
   private userFromCommentLookup = {
     'to': 'comment',
     'localField': 'author',
-    'from': 'user',
+    'from': '_user',
     'foreignField': 'id',
     'as': 'author'
   };
@@ -51,7 +50,9 @@ export class TaskCommentsComponent implements OnInit {
   private displayNewComment() {
     this.newComment = {
       'description': '',
-      'task': this.taskId
+      'task': {
+        "id": this.taskId
+      }
     };
   }
 

@@ -1,0 +1,42 @@
+<form fxLayout="column"
+[formGroup]="form" 
+(ngSubmit)="submitForm(form.value)" class="user-details-form"> 
+
+  <mat-slide-toggle labelPosition="before" class="user-details-form__slide-active" [formControl]="form.controls['active']">User active</mat-slide-toggle>
+
+
+  <mat-form-field>
+    <input required matInput placeholder="Email"  [formControl]="form.controls['email']">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input required matInput placeholder="Name"  [formControl]="form.controls['name']">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-select placeholder="Roles" [formControl]="form.controls['roles']" multiple>
+      <mat-option *ngFor="let role of availableRoles" [value]="role.id">{{role.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox [formControl]="form.controls['resetPassword']"  >Reset password</mat-checkbox>
+  
+  <mat-form-field [hidden]="!form.controls['resetPassword'].value">
+    <input type="password" [required]="form.controls['resetPassword'].value" matInput placeholder="Password"  [formControl]="form.controls['password']">
+  </mat-form-field>
+
+
+  <div class="user-details-form__footer" >
+    <button type="button" class="user-details-form__footer__btn-previous" mat-icon-button (click)="previous()" >
+        <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+
+    <button class="user-details-form__footer__btn-save" mat-icon-button [disabled]="!form.valid" >
+        <mat-icon>save</mat-icon>
+    </button>
+
+  </div>
+  <!-- {{form.value | json}} -->
+
+
+</form>

@@ -1,8 +1,7 @@
 <div fxLayout="column" fxLayoutGap="1%" fxLayoutAlign="center left" >
   <div [ngClass]="{'div-current-day': isCurrentDay()}" id="div-day" class="div-item-card">{{getDayString()}}</div>
 
-  <div 
-  *ngFor="let item of _items; let i = index">
+  <div *ngFor="let item of _items; let i = index">
 
     <div class="gap-icon-container" *ngIf="displayTopHour(item.uuid) && i !== 0">
       <mat-icon class="gap-icon">more_vert</mat-icon>

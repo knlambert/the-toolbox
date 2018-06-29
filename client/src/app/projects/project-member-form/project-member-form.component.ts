@@ -5,7 +5,8 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { DBService } from './../../db/db.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -29,9 +30,9 @@ export class ProjectMemberFormComponent implements OnInit {
   @Input() projectId: number;
   public form: FormGroup;
   public locked = false;
-  public roles = this.dbService.list('roles').map((roles) => {
+  public roles = this.dbService.list('roles').pipe(map((roles) => {
     return roles;
-  });
+  }));
   public users: Array<object> = [];
 
   @Output() memberCreate = new EventEmitter();
@@ -52,7 +53,7 @@ export class ProjectMemberFormComponent implements OnInit {
 
   private updateUsers(name: string = null) {
     const filters = (name != null && name !== '' && typeof (name) !== 'object') ? { 'name': { '$regex': name } } : {};
-    return this.dbService.list('users', filters, { 'name': 1, 'id': -1 });
+    return this.dbService.list('_users', filters, { 'name': 1, 'id': -1 });
   }
 
   public getName(obj: any): string {

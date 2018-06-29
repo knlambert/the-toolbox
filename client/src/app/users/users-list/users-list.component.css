@@ -1,0 +1,12 @@
+common-simple-filters {
+    margin-top:20px;
+}
+
+.more-items {
+    width: 100px;
+    margin-top:20px;
+    margin-bottom:20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}

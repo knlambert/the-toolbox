@@ -1,6 +1,5 @@
 
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject ,  Observable } from 'rxjs';
 import { DBService } from './../../db/db.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { UserInformations } from './../../auth/user-informations.model';
@@ -91,8 +90,8 @@ export class HoursCalendarComponent implements OnInit {
         let currentTimestamp = this.currentDate.getTime() / 1000;
         this.dbService.list('hours', {
           'started_at': {
-            '$gte': currentTimestamp,
-            '$lt': currentTimestamp + (this.daysPerPage * 24 * 3600)
+            '$gte': Math.floor(currentTimestamp),
+            '$lt':  Math.floor(currentTimestamp + (this.daysPerPage * 24 * 3600))
           },
           'affected_to.id': this.userInformations.appUser.id
         }, {

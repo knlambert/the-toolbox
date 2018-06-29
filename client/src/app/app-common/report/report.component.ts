@@ -249,10 +249,11 @@ export class ReportComponent implements OnInit {
     const cell = this.getItem(item, field['name']);
     if (field['type'] === 'number') {
       return parseFloat(cell);
-    } else if (field['type'] === 'timestamp') {
+    } else if (field['type'] === 'datetime' || field['type'] === "date" ) {
       const date = new Date(parseInt(cell, 0) * 1000);
+      console.log(date)
       if (date) {
-        const day = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+        const day = date.getFullYear() + "-" + (date.getMonth() + 1) + '-' + date.getDate();
         const hour = ('0' + date.getHours()).slice(-2) + ':' +
           ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
         return day + ' ' + hour;

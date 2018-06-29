@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, QueryList } from '@angular/core';
 import { ProjecLoadLineComponent } from './../project-load-line/project-load-line.component';
 import { DBService } from './../../db/db.service';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'hc-project-load',
   templateUrl: 'project-load.component.html',
@@ -108,11 +109,11 @@ export class ProjecLoadComponent implements OnInit {
   private loadUserList() {
     return this.dbService.list('project_assignements', {
       'project.id': this.projectId
-    }).map((items) => {
+    }).pipe(map((items) => {
       return items.map((item) => {
         return item['user'];
       });
-    });
+    }));
   }
 
   /**

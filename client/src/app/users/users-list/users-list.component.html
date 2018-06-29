@@ -1,0 +1,17 @@
+
+
+
+<common-simple-filters [filters]="['search']" (filterUpdated)="onFiltersUpdated($event.filterValues)"></common-simple-filters>
+<common-collection [itemComponent]="itemComponent" [items]="users"></common-collection>
+
+<common-collection-buttons 
+[hideRemoveButton]="true" 
+(onClickAdd)="newUser()"  ></common-collection-buttons>
+
+<div class="more-items">
+    <button [hidden]="!hasNext || isLoading" mat-icon-button (click)="loadMore()">
+        <mat-icon >more_horiz</mat-icon>
+    </button>
+    <mat-spinner [hidden]="!isLoading" ></mat-spinner> 
+</div>
+

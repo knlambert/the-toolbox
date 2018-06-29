@@ -1,10 +1,13 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {map, catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { AuthUser } from "./auth-user.model";
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
+import { AuthUserToken } from "./auth-user-token.model";
+
+
+
 
 @Injectable()
 export class ConnectionService {
@@ -22,21 +25,22 @@ export class ConnectionService {
         "email": login,
         "password": password
       }
-    ).map((body: object) => {
+    ).pipe(map((body: object) => {
       return body;
     }
-      ).catch(this.handleError);
+      ),catchError(this.handleError),);
   };
 
-  public getUserInformations(): Observable<AuthUser> {
-    return this.http.get(this.url + "me").map((payload) => {
-      return new AuthUser(
+  public getUserInformations(): Observable<AuthUserToken> {
+    return this.http.get(this.url + "token").pipe(map((payload) => {
+      return new AuthUserToken(
         payload['id'],
         payload['email'],
         payload['name'],
-        payload['exp']
+        payload['exp'],
+        payload["roles"]
       );
-    });
+    }));
   }
 
   private handleError(error: any) {
@@ -44,7 +48,7 @@ export class ConnectionService {
     // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    return Observable.throw(errMsg);
+    return observableThrowError(errMsg);
   };
 
   public modifyPassword(email: String, newPassword: String) {
@@ -53,14 +57,14 @@ export class ConnectionService {
         "email": email,
         "password": newPassword
       }
-    ).map((res: Response) => { }).catch(this.handleError);
+    ).pipe(map((res: Response) => { }),catchError(this.handleError),);
 
   }
 
   public logout() {
-    return this.http.get(this.url + "logout").map((result) => {
+    return this.http.get(this.url + "logout").pipe(map((result) => {
       return result;
-    });
+    }));
   }
 
 

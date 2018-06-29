@@ -53,6 +53,7 @@ export class FlexibleFormComponent {
   }
 
   ngOnInit() {
+    
     this.initForm()
     this.isEditable = this._isEditable;
   }
@@ -92,15 +93,15 @@ export class FlexibleFormComponent {
     this._originalValue = JSON.parse(JSON.stringify(this.value));
     const formGroupConfig = {};
     let validators = [];
+  
     for (let i = 0; i < this.description['fields'].length; i++) {
       validators = [];
 
       const field = this.description['fields'][i];
       let value = this.value[field['name']] || null;
-
-      if (field['extra'] !== 'auto_increment' || this.isCreated) {
-
-        if (field['type'] === 'timestamp') {
+      
+      if (!field['autoincrement'] || this.isCreated) {
+        if (field['type'] === 'date' || field['type'] === 'datetime') {
           if (value != null) {
             value = this.toDateTimeStr(value);
           }
@@ -110,6 +111,7 @@ export class FlexibleFormComponent {
         if (field['required']) {
           validators.push(Validators.required);
         }
+        
         formGroupConfig[field['name']] = [value, validators];
       }
     }
@@ -141,7 +143,7 @@ export class FlexibleFormComponent {
       if (value[key] == null) {
         delete value[key];
       } else {
-        if (fieldConfig['type'] === 'timestamp') {
+        if (fieldConfig['type'] === 'datetime' || fieldConfig['type'] === 'date') {
           value[key] = parseInt('' + (new Date(value[key])).getTime() / 1000);
         }
       }

@@ -5,10 +5,11 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { DBService } from './../../db/db.service';
-import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserInformationsService } from './../../auth/user-informations.service';
 
@@ -94,11 +95,11 @@ export class ProjectFormComponent implements OnInit {
         delete project['id'];
 
         /* Get user informations */
-        this.userInformationsService.onUpdate.first().subscribe((userInformations) => {
+        this.userInformationsService.onUpdate.pipe(first()).subscribe((userInformations) => {
           /* Save the project */
           this.dbService.save('projects', project).subscribe((result) => {
 
-            project['id'] = result.inserted_id;
+            project['id'] = result['inserted_id'];
 
             this.projectCreate.emit({
               'project': project

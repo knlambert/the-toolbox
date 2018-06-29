@@ -1,7 +1,7 @@
 
 
 
-<div *ngIf="userInformations" fxLayoutGap="0%"  fxLayout.gt-xs="row"  fxLayoutWrap fxLayoutAlign="start start">
+<div *ngIf="userInformations" fxLayoutGap="0%"  fxLayout.gt-xs="row wrap"  fxLayoutAlign="start start">
   
   <div fxFlex="33%">
     <button mat-icon-button id="button-previous" (click)="previous()">
@@ -43,8 +43,10 @@
     </div>
 </div>
 
-<div fxLayoutGap="1%"  fxLayout.gt-xs="row"  fxLayoutWrap fxLayoutAlign="start start" >
-  <div  fxFlex.lt-sm="99%" [fxFlex.gt-xs]="sizePerDay"   *ngFor="let dayHours of dayHoursList | async ; let i = index; "  >
+
+
+<div fxLayoutGap="1%"  fxLayout.lt-sm="column"  fxLayout.gt-xs="row wrap" fxLayoutAlign="start start" >
+  <div [ngStyle.lt-sm]="{'width': '100%'}"  [fxFlex.gt-xs]="sizePerDay"   *ngFor="let dayHours of dayHoursList | async ; let i = index; "  >
     <hours-calendar-day 
     #calendardayComponent 
     [hidden]="!hideWeekend && isWeekend(dayHours.day)"
