@@ -1,10 +1,8 @@
-matrix:
-  include:
-  - language: node_js
-    node_js:
-    - "9"
-    script:
-    - ./bin/build.sh
+- language: node_js
+  node_js:
+  - "9"
+  script:
+  - ./bin/build.sh
 deploy:
   provider: releases
   api_key:
@@ -12,5 +10,5 @@ deploy:
   file: build.tar.gz
   on:
     repo: knlambert/the-toolbox
-    branch: knlambert/travis
+    branch: develop
     tags: true
