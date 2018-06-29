@@ -1,6 +1,6 @@
-git+https://github.com/knlambert/sqlcollection.git@master
-git+https://github.com/knlambert/user-api.git@master
-git+https://github.com/knlambert/db-api.git@master
+sqlcollection==0.1.4
+git+https://github.com/knlambert/user-api.git@develop
+git+https://github.com/knlambert/db-api.git@develop
 Cerberus==1.1
 click==6.7
 ecdsa==0.13

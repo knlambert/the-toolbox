@@ -1,4 +1,4 @@
-git+https://github.com/knlambert/sqlcollection.git@develop
+sqlcollection==0.1.4
 git+https://github.com/knlambert/user-api.git@develop
 git+https://github.com/knlambert/db-api.git@develop
 appdirs==1.4.3
