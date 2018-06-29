@@ -70,12 +70,7 @@ def on_user_updated(user):
 # Init & register User API
 # Create user api object
 USER_API =  user_api.create_user_api(
-    db_url=u"mysql://{}:{}@{}/{}?charset=utf8".format(
-        USER_API_CONFIG.get(u"db_user"),
-        USER_API_CONFIG.get(u"db_passwd"),
-        USER_API_CONFIG.get(u"db_host"),
-        USER_API_CONFIG.get(u"db_name")
-    ),
+    db_url=USER_API_CONFIG.get(u"db_url"),
     jwt_secret=USER_API_CONFIG.get(u"jwt_secret"),
     jwt_lifetime=USER_API_CONFIG.get(u"jwt_lifetime"),
     user_created_callback=on_user_created,
