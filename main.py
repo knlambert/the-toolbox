@@ -38,7 +38,7 @@ USER_API_CONFIG = CONFIG[u"user-api"]
 
 # Init & register DB API
 
-CLIENT = Client(DB_API_CONF.get(u"unix_socket"))
+CLIENT = Client(DB_API_CONF.get(u"unix_socket"), encoding="utf8")
 DB = getattr(CLIENT, DB_API_CONF[u"db_name"])
 
 MAIL_IO = StandardMailIO(NOTIFICATION_CONFIG) 
@@ -70,7 +70,7 @@ def on_user_updated(user):
 # Init & register User API
 # Create user api object
 USER_API =  user_api.create_user_api(
-    db_url=u"mysql://{}:{}@{}/{}".format(
+    db_url=u"mysql://{}:{}@{}/{}?charset=utf8".format(
         USER_API_CONFIG.get(u"db_user"),
         USER_API_CONFIG.get(u"db_passwd"),
         USER_API_CONFIG.get(u"db_host"),
