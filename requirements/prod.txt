@@ -1,6 +1,6 @@
 sqlcollection==0.1.4
-git+https://github.com/knlambert/user-api.git@develop
-git+https://github.com/knlambert/db-api.git@develop
+user-api==0.4.1
+db-api==0.1.0
 Cerberus==1.2
 click==6.7
 Flask==1.0.2
