@@ -1,13 +1,6 @@
-sqlcollection==0.1.4
-user-api==0.4.1
-db-api==0.1.0
+sqlcollection>=0.2.0,<0.3
+user-api>=0.6.0,<0.7
+db-api>=0.2.0,<0.3
 Cerberus==1.2
-click==6.7
 Flask==1.0.2
-itsdangerous==0.24
-Jinja2==2.10
-MarkupSafe==1.0
-MySQL-python==1.2.5
-pycrypto==2.6.1
-PyJWT==1.6.4
-Werkzeug==0.14.1
+psycopg2==2.7.5
