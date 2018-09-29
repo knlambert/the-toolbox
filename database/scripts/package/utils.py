@@ -12,7 +12,3 @@ def init_logger():
 
     LOGGER.addHandler(ST_HAND)
     return LOGGER
-
-
-def install_schema(db_name, from_version="0.0.0"):
-    pass
